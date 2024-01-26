@@ -20,3 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/*eye icon under action column in ncr table*/
+.view-btn {
+    color: blue;
+    font-size: 30px;
+    border: none;
+    background: transparent;
+}
