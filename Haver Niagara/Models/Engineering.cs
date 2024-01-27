@@ -12,8 +12,9 @@
         public string EngSignature { get; set; }
         public DateTime EngSignatureDate { get; set; }
         public EngineeringDecision EngDecision { get; set; }
+
+        //Again adding the ID so the framework figures out which needs what
+        public int NCRId { get; set; }
         public NCR NCR { get; set; }
-
-
     }
 }
