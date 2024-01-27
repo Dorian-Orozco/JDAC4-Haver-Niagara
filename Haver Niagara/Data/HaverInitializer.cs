@@ -10,14 +10,14 @@ namespace Haver_Niagara.Data
             HaverNiagaraDbContext context = applicationBuilder.ApplicationServices.CreateScope()
                 .ServiceProvider.GetRequiredService<HaverNiagaraDbContext>();
 
-         
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-                //context.Database.Migrate();
 
-                if (!context.CARs.Any())
-                {
-                    var cars = new List<CAR>
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            //context.Database.Migrate();
+
+            if (!context.CARs.Any())
+            {
+                var cars = new List<CAR>
                     {
                         new CAR {ID = 1, CARNumber = 12345},
                         new CAR {ID = 2, CARNumber = 98765},
@@ -30,12 +30,12 @@ namespace Haver_Niagara.Data
                         new CAR {ID = 9, CARNumber = 32491},
                         new CAR {ID = 10, CARNumber = 31904}
                     };
-                    context.CARs.AddRange(cars);
-                    context.SaveChanges();
-                }
-                if (!context.Defects.Any())
-                {
-                    var defects = new List<Defect>
+                context.CARs.AddRange(cars);
+                context.SaveChanges();
+            }
+            if (!context.Defects.Any())
+            {
+                var defects = new List<Defect>
                     {
                         new Defect {ID = 1, Name = "Design Error (Drawing)", Description = "Incorrect design drawing"},
                         new Defect {ID = 2, Name = "Holes not tapped", Description = "Holes not tapped"},
@@ -64,15 +64,15 @@ namespace Haver_Niagara.Data
                         new Defect {ID = 25, Name = "Finishing error (M.W. STC)", Description = "Error with the finishing"},
                         new Defect {ID = 26, Name = "Incorrect component (FMP package)", Description = "Wrong component"},
                     };
-                    context.Defects.AddRange(defects);
-                    context.SaveChanges();
-                }
+                context.Defects.AddRange(defects);
+                context.SaveChanges();
+            }
             if (!context.Products.Any())
             {
                 context.Products.AddRange(
                 new Product
                 {
-                    ID = 208475893,
+                    ID = 1,
                     Name = "Wheels",
                     ProductNumber = 208475893,
                     QuantityRecieved = 20,
@@ -81,7 +81,7 @@ namespace Haver_Niagara.Data
                 },
                 new Product
                 {
-                    ID = 206547333,
+                    ID = 2,
                     Name = "Wires",
                     ProductNumber = 206547333,
                     QuantityRecieved = 10,
@@ -90,30 +90,84 @@ namespace Haver_Niagara.Data
                 },
                 new Product
                 {
-                    ID = 207843292,
+                    ID = 3,
                     Name = "Steel Panels",
-                    ProductNumber = 67889,
+                    ProductNumber = 207843292,
                     QuantityRecieved = 8,
                     QuantityDefect = 2,
                     Description = "Steel panels for repairs",
                 },
                 new Product
                 {
-                    ID = 205231782,
+                    ID = 4,
                     Name = "Bolts",
-                    ProductNumber = 98765,
+                    ProductNumber = 205231782,
                     QuantityRecieved = 100,
                     QuantityDefect = 100,
                     Description = "Bolts for repairs",
                 },
                 new Product
                 {
-                    ID = 209031293,
+                    ID = 5,
                     Name = "Nuts",
-                    ProductNumber = 10001,
+                    ProductNumber = 209031293,
                     QuantityRecieved = 200,
                     QuantityDefect = 100,
                     Description = "Nuts for repairs",
+                },
+                new Product
+                {
+                    ID = 6,
+                    Name = "Screws",
+                    ProductNumber = 209031296,
+                    QuantityRecieved = 200,
+                    QuantityDefect = 10,
+                    Description = "Screws for repairs.",
+                },
+                new Product
+                {
+                    ID = 7,
+                    Name = "Rivets",
+                    ProductNumber = 209031299,
+                    QuantityRecieved = 100,
+                    QuantityDefect = 40,
+                    Description = "Rivets for repairs",
+                },
+                new Product
+                {
+                    ID = 8,
+                    Name = "Washers",
+                    ProductNumber = 244110399,
+                    QuantityRecieved = 50,
+                    QuantityDefect = 1,
+                    Description = "Washers for repairs",
+                },
+                new Product
+                      {
+                    ID = 9,
+                    Name = "Anchors",
+                    ProductNumber = 204231293,
+                    QuantityRecieved = 10,
+                    QuantityDefect = 1,
+                    Description = "Anchors for repairs",
+                },
+                new Product
+                {
+                    ID = 10,
+                    Name = "Nails",
+                    ProductNumber = 212031293,
+                    QuantityRecieved = 200,
+                    QuantityDefect = 54,
+                    Description = "Nails for repairs",
+                },
+                new Product
+                {
+                    ID = 11,
+                    Name = "Clips",
+                    ProductNumber = 219031293,
+                    QuantityRecieved = 200,
+                    QuantityDefect = 29,
+                    Description = "Clips for repairs",
                 });
                 context.SaveChanges();
             }
@@ -164,7 +218,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Tom Warner",
                     QualDate = DateTime.Parse("2024-01-11"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 1),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
                 },
                 new NCR
@@ -177,7 +231,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = true,
                     QualSignature = "Frank Curry",
                     QualDate = DateTime.Parse("2024-01-12"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 2),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
                 },
                 new NCR
@@ -190,7 +244,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Neil Horton",
                     QualDate = DateTime.Parse("2024-01-13"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 3),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
                 },
                 new NCR
@@ -203,7 +257,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Neil Horton",
                     QualDate = DateTime.Parse("2024-01-15"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 4),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
                 },
                 new NCR
@@ -216,7 +270,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Frank Curry",
                     QualDate = DateTime.Parse("2024-01-13"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 209031293),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 5),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
                 },
                 new NCR
@@ -229,7 +283,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Tom Warner",
                     QualDate = DateTime.Parse("2024-01-19"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 6),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
                 },
                 new NCR
@@ -242,7 +296,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = true,
                     QualSignature = "Frank Curry",
                     QualDate = DateTime.Parse("2024-01-16"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 7),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
                 },
                 new NCR
@@ -255,7 +309,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Tom Warner",
                     QualDate = DateTime.Parse("2024-01-15"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 8),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
                 },
                 new NCR
@@ -268,7 +322,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Tom Warner",
                     QualDate = DateTime.Parse("2024-01-17"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 9),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
                 },
                 new NCR
@@ -281,7 +335,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Neil Horton",
                     QualDate = DateTime.Parse("2024-01-20"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 10),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
                 },
                 new NCR
@@ -294,7 +348,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Frank Curry",
                     QualDate = DateTime.Parse("2024-01-11"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 11),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
                 });
                 context.SaveChanges();
@@ -314,7 +368,7 @@ namespace Haver_Niagara.Data
             //            EngSignature = "John Smith",
             //            EngSignatureDate = DateTime.Parse("2024-01-20"),
             //            EngDecision = 0,
-                    
+
             //        },
             //        new Engineering
             //        {
@@ -328,7 +382,7 @@ namespace Haver_Niagara.Data
             //            EngSignature = "James Brady",
             //            EngSignatureDate = DateTime.Parse("2024-01-22"),
             //            EngDecision = (EngineeringDecision)1,
-                       
+
             //        },
             //        new Engineering
             //        {
@@ -342,7 +396,7 @@ namespace Haver_Niagara.Data
             //            EngSignature = "Linda Johnson",
             //            EngSignatureDate = DateTime.Parse("2024-01-24"),
             //            EngDecision = (EngineeringDecision)2,
-               
+
             //        },
             //        new Engineering
             //        {
@@ -356,73 +410,73 @@ namespace Haver_Niagara.Data
             //            EngSignature = "Luke Miller",
             //            EngSignatureDate = DateTime.Parse("2024-01-26"),
             //            EngDecision = (EngineeringDecision)3,
-          
+
             //        });
             //        context.SaveChanges();
             //    }
-                if (!context.FollowUp.Any())
+            if (!context.FollowUp.Any())
+            {
+                context.FollowUp.AddRange(
+                new FollowUp
                 {
-                    context.FollowUp.AddRange(
-                    new FollowUp
-                    {
-                        ID = 1,
-                        FollowUpDate = DateTime.Parse("2024-01-29"),
-                        FollowUpType = "Repair"
-                    },
-                    new FollowUp
-                    {
-                        ID = 2,
-                        FollowUpDate = DateTime.Parse("2024-01-30"),
-                        FollowUpType = "Inspection"
-                    },
-                    new FollowUp
-                    {
-                        ID = 3,
-                        FollowUpDate = DateTime.Parse("2024-01-31"),
-                        FollowUpType = "Test"
-                    });
-                    context.SaveChanges();
-                }
-                if (!context.Suppliers.Any())
+                    ID = 1,
+                    FollowUpDate = DateTime.Parse("2024-01-29"),
+                    FollowUpType = "Repair"
+                },
+                new FollowUp
                 {
-                    context.Suppliers.AddRange(
-                    new Supplier
-                    {
-                        ID = 700013,
-                        Name = "HINGSTON METAL FABRICATORS",
-                    },
-                    new Supplier
-                    {
-                        ID = 880006,
-                        Name = "W S TYLER - PARTICLE & FINE",
-                    },
-                    new Supplier
-                    {
-                        ID = 700193,
-                        Name = "VALLEY RUBBER, LLC",
-                    },
-                    new Supplier
-                    {
-                        ID = 700397,
-                        Name = "RIGHT MACHINE INDUSTRIAL",
-                    },
-                    new Supplier
-                    {
-                        ID = 798028,
-                        Name = "KAVON MACHINE INC",
-                    },
-                    new Supplier
-                    {
-                        ID = 700505,
-                        Name = "NIAGARA PRECISION LTD",
-                    },
-                    new Supplier
-                    {
-                        ID = 790411,
-                        Name = "BICKLE MAIN INDUSTRIAL SUPPLY INC.",
-                    });
-                    context.SaveChanges();
-                }        
+                    ID = 2,
+                    FollowUpDate = DateTime.Parse("2024-01-30"),
+                    FollowUpType = "Inspection"
+                },
+                new FollowUp
+                {
+                    ID = 3,
+                    FollowUpDate = DateTime.Parse("2024-01-31"),
+                    FollowUpType = "Test"
+                });
+                context.SaveChanges();
+            }
+            if (!context.Suppliers.Any())
+            {
+                context.Suppliers.AddRange(
+                new Supplier
+                {
+                    ID = 700013,
+                    Name = "HINGSTON METAL FABRICATORS",
+                },
+                new Supplier
+                {
+                    ID = 880006,
+                    Name = "W S TYLER - PARTICLE & FINE",
+                },
+                new Supplier
+                {
+                    ID = 700193,
+                    Name = "VALLEY RUBBER, LLC",
+                },
+                new Supplier
+                {
+                    ID = 700397,
+                    Name = "RIGHT MACHINE INDUSTRIAL",
+                },
+                new Supplier
+                {
+                    ID = 798028,
+                    Name = "KAVON MACHINE INC",
+                },
+                new Supplier
+                {
+                    ID = 700505,
+                    Name = "NIAGARA PRECISION LTD",
+                },
+                new Supplier
+                {
+                    ID = 790411,
+                    Name = "BICKLE MAIN INDUSTRIAL SUPPLY INC.",
+                });
+                context.SaveChanges();
+            }
         }
     }
 }
