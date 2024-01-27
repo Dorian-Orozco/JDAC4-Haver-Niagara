@@ -2,6 +2,7 @@
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection.PortableExecutable;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -20,7 +21,7 @@ namespace Haver_Niagara.Data
                 context.Database.EnsureCreated();
                 context.Database.Migrate();
 
-                if (!context.CAR.Any())
+                if (!context.CARs.Any())
                 {
                     var cars = new List<CAR>
                     {
@@ -35,10 +36,10 @@ namespace Haver_Niagara.Data
                         new CAR {ID = 9, CARNumber = 32491},
                         new CAR {ID = 10, CARNumber = 31904}
                     };
-                    context.CAR.AddRange(cars);
+                    context.CARs.AddRange(cars);
                     context.SaveChanges();
                 }
-                if (!context.Defect.Any())
+                if (!context.Defects.Any())
                 {
                     var defects = new List<Defect>
                     {
@@ -69,14 +70,14 @@ namespace Haver_Niagara.Data
                         new Defect {ID = 25, Name = "Finishing error (M.W. STC)", Description = "Error with the finishing"},
                         new Defect {ID = 26, Name = "Incorrect component (FMP package)", Description = "Wrong component"},
                     };
-                    context.Defect.AddRange(defects);
+                    context.Defects.AddRange(defects);
                     context.SaveChanges();
                 }
                 if (!context.Engineering.Any())
                 {
                     context.Engineering.AddRange(
                     new Engineering
-                    { 
+                    {
                         ID = 1,
                         CustomerNotify = false,
                         DrawUpdate = false,
@@ -152,11 +153,11 @@ namespace Haver_Niagara.Data
                     });
                     context.SaveChanges();
                 }
-                if (!context.Product.Any())
+                if (!context.Products.Any())
                 {
-                    context.Product.AddRange(
+                    context.Products.AddRange(
                     new Product
-                    { 
+                    {
                         ID = 208475893,
                         Name = "Wheels",
                         QuantityRecieved = 20,
@@ -196,9 +197,9 @@ namespace Haver_Niagara.Data
                         Description = "Nuts for repairs",
                     });
                 }
-                if (!context.Purchasing.Any())
+                if (!context.Purchasings.Any())
                 {
-                    context.Purchasing.AddRange(
+                    context.Purchasings.AddRange(
                     new Purchasing
                     {
                         ID = 1,
@@ -228,9 +229,9 @@ namespace Haver_Niagara.Data
                         PurchasingDec = (PurchasingDecision)3
                     });
                 }
-                if (!context.Supplier.Any()) 
+                if (!context.Suppliers.Any())
                 {
-                    context.Supplier.AddRange(
+                    context.Suppliers.AddRange(
                     new Supplier
                     {
                         ID = 700013,
@@ -268,9 +269,9 @@ namespace Haver_Niagara.Data
                     });
                     context.SaveChanges();
                 }
-                if (!context.NCR.Any()) 
+                if (!context.NCRs.Any())
                 {
-                    context.NCR.AddRange(
+                    context.NCRs.AddRange(
                     new NCR
                     {
                         ID = 1,
@@ -281,9 +282,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Tom Warner",
                         QualDate = DateTime.Parse("2024-01-11"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 1).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 208475893).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 1).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 1),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
                     },
                     new NCR
                     {
@@ -295,9 +296,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = true,
                         QualSignature = "Frank Curry",
                         QualDate = DateTime.Parse("2024-01-12"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 2).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 206547333).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 2).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 2),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
                     },
                     new NCR
                     {
@@ -309,9 +310,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Neil Horton",
                         QualDate = DateTime.Parse("2024-01-13"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 3).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 207843292).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 3).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 3),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
                     },
                     new NCR
                     {
@@ -323,9 +324,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Neil Horton",
                         QualDate = DateTime.Parse("2024-01-15"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 4).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 205231782).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 4).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 4),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
                     },
                     new NCR
                     {
@@ -337,9 +338,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Frank Curry",
                         QualDate = DateTime.Parse("2024-01-13"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 2).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 209031293).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 3).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 2),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 209031293),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
                     },
                     new NCR
                     {
@@ -351,9 +352,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Tom Warner",
                         QualDate = DateTime.Parse("2024-01-19"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 1).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 207843292).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 4).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 1),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
                     },
                     new NCR
                     {
@@ -365,9 +366,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = true,
                         QualSignature = "Frank Curry",
                         QualDate = DateTime.Parse("2024-01-16"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 3).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 206547333).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 2).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 3),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
                     },
                     new NCR
                     {
@@ -379,9 +380,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Tom Warner",
                         QualDate = DateTime.Parse("2024-01-15"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 2).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 205231782).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 1).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 2),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
                     },
                     new NCR
                     {
@@ -393,9 +394,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Tom Warner",
                         QualDate = DateTime.Parse("2024-01-17"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 1).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 206547333).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 4).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 1),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
                     },
                     new NCR
                     {
@@ -407,9 +408,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Neil Horton",
                         QualDate = DateTime.Parse("2024-01-20"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 3).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 207843292).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 4).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 3),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
                     },
                     new NCR
                     {
@@ -421,9 +422,9 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Frank Curry",
                         QualDate = DateTime.Parse("2024-01-11"),
-                        Engineering = context.Engineering.FirstorOrDefault(e => e.ID == 1).Engineering,
-                        Product = context.Product.FirstOrDefault(p => p.ID == 208475893).Product,
-                        Purchasing = context.Purchasing.FirstOrDefault(p => p.ID == 2).Purchasing,
+                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 1),
+                        Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
+                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
                     });
                 }
             }
