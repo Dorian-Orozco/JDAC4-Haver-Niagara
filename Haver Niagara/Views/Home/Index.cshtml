@@ -2,7 +2,36 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+</div>*@
+
+<h1 class="mt-4 mb-4"> Non-conformance Log</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Date Created</th>
+            <th>PO Number</th>
+            <th>Supplier</th>
+            <th>Problem</th>
+            <th>Stage</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>2024-01-25</td>
+            <td>4500745301</td>
+            <td>700505 NIAGARA PRECISION LTD</td>
+            <td>Poor quality surface finish</td>
+            <td>Quality Inspection</td>
+            <td><button type="button" class="btn btn-primary">Active</button></td>
+            <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td>
+        </tr>
+    </tbody>
+</table>
