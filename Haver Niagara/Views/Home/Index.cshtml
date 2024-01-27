@@ -24,7 +24,17 @@
         </tr>
     </thead>
     <tbody>
+        @foreach (var item in Model)
+        {
         <tr>
+            <td>@item.NCR_Number</td>
+            <td>@item.InspectDate</td>
+            <td>PO Number from where in DB?</td>
+            <td>stage? </td>
+            <td><button type="button" class="btn btn-primary">Active</button></td>
+            <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td>
+
+@*          
             <td>1</td>
             <td>2024-01-25</td>
             <td>4500745301</td>
@@ -32,7 +42,8 @@
             <td>Poor quality surface finish</td>
             <td>Quality Inspection</td>
             <td><button type="button" class="btn btn-primary">Active</button></td>
-            <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td>
+            <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td> *@
         </tr>
+        }
     </tbody>
 </table>

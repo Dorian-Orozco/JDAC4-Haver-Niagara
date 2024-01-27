@@ -1,11 +1,6 @@
 ﻿using Haver_Niagara.Models;
-using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace Haver_Niagara.Data
 {
     public static class HaverInitializer
@@ -15,8 +10,7 @@ namespace Haver_Niagara.Data
             HaverNiagaraDbContext context = applicationBuilder.ApplicationServices.CreateScope()
                 .ServiceProvider.GetRequiredService<HaverNiagaraDbContext>();
 
-            try
-            {
+         
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 context.Database.Migrate();
@@ -427,11 +421,7 @@ namespace Haver_Niagara.Data
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
                     });
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.GetBaseException().Message);
-            }
+            
         }
     }
 }
