@@ -11,7 +11,7 @@
         public DateTime RevisionDate { get; set; }
         public string EngSignature { get; set; }
         public DateTime EngSignatureDate { get; set; }
-        public EngineeringDecision EngDecison { get; set; }
+        public EngineeringDecision EngDecision { get; set; }
         public NCR NCR { get; set; }
 
 

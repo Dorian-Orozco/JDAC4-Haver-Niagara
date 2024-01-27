@@ -2,7 +2,7 @@
 {
     public class FollowUp
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public DateTime FollowUpDate { get; set; }
         public string FollowUpType {  get; set; }
 

@@ -3,8 +3,8 @@
     public class NCR
     {
         public int ID { get; set; }
-        public string NCR_Number {  get; set; }
-        public int SalesOrder {  get; set; }
+        public int NCR_Number {  get; set; }
+        public string SalesOrder {  get; set; }
         public string InspectName { get; set; }
         public DateTime InspectDate { get; set; }
         public bool NCRClosed { get; set; }
