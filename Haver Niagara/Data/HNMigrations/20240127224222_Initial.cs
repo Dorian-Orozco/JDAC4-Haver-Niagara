@@ -96,12 +96,14 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "Products",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false),
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
+                    ProductNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityRecieved = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityDefect = table.Column<int>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    SupplierID = table.Column<int>(type: "INTEGER", nullable: true)
+                    SupplierID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,7 +112,8 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_Products_Suppliers_SupplierID",
                         column: x => x.SupplierID,
                         principalTable: "Suppliers",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,8 +169,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     QualSignature = table.Column<string>(type: "TEXT", nullable: false),
                     QualDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ProductID = table.Column<int>(type: "INTEGER", nullable: false),
-                    PurchasingID = table.Column<int>(type: "INTEGER", nullable: false),
-                    NewNCRId = table.Column<int>(type: "INTEGER", nullable: false)
+                    PurchasingID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

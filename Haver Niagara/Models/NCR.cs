@@ -16,8 +16,8 @@
         public Product Product { get; set; }
         public Purchasing Purchasing { get; set; }
 
-        //Adding NewNCR ID to let framework determine whos dependant in 1:1
-        public int NewNCRId { get; set; } //
+
+        //1:1 relationship with ncr
         public NewNCR? NewNCR { get; set; }
 
         //Reference to DEPENDANT entity (engineering) 

@@ -22,7 +22,14 @@ namespace Haver_Niagara.Controllers
         public IActionResult Index()
         {
             //Adding functionality to return the list of seed data 
-            var ncrs = _context.NCRs.ToList();
+            var ncrs = _context.NCRs
+                .Include(p=>p.Product)
+                    .ThenInclude(s=>s.Supplier)
+                .Include(p=>p.Product)
+                    .ThenInclude(d=>d.DefectLists)
+                    .ThenInclude(d=>d.Defects)
+                    
+                .ToList();
             
             //
 

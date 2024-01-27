@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240127204816_Initial")]
+    [Migration("20240127224222_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -205,9 +205,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int>("NCR_Number")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NewNCRId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("ProductID")
                         .HasColumnType("INTEGER");
 
@@ -258,6 +255,7 @@ namespace Haver_Niagara.Data.HNMigrations
             modelBuilder.Entity("Haver_Niagara.Models.Product", b =>
                 {
                     b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
@@ -268,13 +266,16 @@ namespace Haver_Niagara.Data.HNMigrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ProductNumber")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("QuantityDefect")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("QuantityRecieved")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("SupplierID")
+                    b.Property<int>("SupplierID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
@@ -458,9 +459,13 @@ namespace Haver_Niagara.Data.HNMigrations
 
             modelBuilder.Entity("Haver_Niagara.Models.Product", b =>
                 {
-                    b.HasOne("Haver_Niagara.Models.Supplier", null)
+                    b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
                         .WithMany("Products")
-                        .HasForeignKey("SupplierID");
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Purchasing", b =>

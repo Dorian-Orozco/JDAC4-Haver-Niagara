@@ -29,20 +29,20 @@
         <tr>
             <td>@item.NCR_Number</td>
             <td>@item.InspectDate</td>
-            <td>PO Number from where in DB?</td>
-            <td>stage? </td>
+            <td>@item.NCR_Number</td>
+            <td>@item.Product.Supplier.Name</td>
+                <td>
+                    @foreach (var defectList in item.Product.DefectLists)
+                    {
+                        @foreach (var defect in defectList.Defects)
+                        {
+                            @defect.Name
+                        }
+                    }
+                </td>
+                <td>@(item.NCRClosed ? "Closed" : "Open")</td>
             <td><button type="button" class="btn btn-primary">Active</button></td>
             <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td>
-
-@*          
-            <td>1</td>
-            <td>2024-01-25</td>
-            <td>4500745301</td>
-            <td>700505 NIAGARA PRECISION LTD</td>
-            <td>Poor quality surface finish</td>
-            <td>Quality Inspection</td>
-            <td><button type="button" class="btn btn-primary">Active</button></td>
-            <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td> *@
         </tr>
         }
     </tbody>

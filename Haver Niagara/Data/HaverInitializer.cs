@@ -74,6 +74,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 208475893,
                     Name = "Wheels",
+                    ProductNumber = 12345,
                     QuantityRecieved = 20,
                     QuantityDefect = 20,
                     Description = "Replacement wheels",
@@ -82,6 +83,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 206547333,
                     Name = "Wires",
+                    ProductNumber = 54321,
                     QuantityRecieved = 10,
                     QuantityDefect = 10,
                     Description = "Replacement wires",
@@ -90,6 +92,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 207843292,
                     Name = "Steel Panels",
+                    ProductNumber = 67889,
                     QuantityRecieved = 8,
                     QuantityDefect = 2,
                     Description = "Steel panels for repairs",
@@ -98,6 +101,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 205231782,
                     Name = "Bolts",
+                    ProductNumber = 98765,
                     QuantityRecieved = 100,
                     QuantityDefect = 100,
                     Description = "Bolts for repairs",
@@ -106,6 +110,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 209031293,
                     Name = "Nuts",
+                    ProductNumber = 10001,
                     QuantityRecieved = 200,
                     QuantityDefect = 100,
                     Description = "Nuts for repairs",
@@ -293,67 +298,67 @@ namespace Haver_Niagara.Data
                 });
                 context.SaveChanges();
             }
-            if (!context.Engineering.Any())
-                {
-                    context.Engineering.AddRange(
-                    new Engineering
-                    {
-                        ID = 1,
-                        CustomerNotify = false,
-                        DrawUpdate = false,
-                        Disposition = "N/A",
-                        RevisionOriginal = 12345,
-                        RevisionUpdated = 12346,
-                        RevisionDate = DateTime.Parse("2024-01-20"),
-                        EngSignature = "John Smith",
-                        EngSignatureDate = DateTime.Parse("2024-01-20"),
-                        EngDecision = 0,
-                        NCRId = 1,
-                    },
-                    new Engineering
-                    {
-                        ID = 2,
-                        CustomerNotify = true,
-                        DrawUpdate = true,
-                        Disposition = "N/A",
-                        RevisionOriginal = 32434,
-                        RevisionUpdated = 52123,
-                        RevisionDate = DateTime.Parse("2024-01-22"),
-                        EngSignature = "James Brady",
-                        EngSignatureDate = DateTime.Parse("2024-01-22"),
-                        EngDecision = (EngineeringDecision)1,
-                        NCRId = 2
-                    },
-                    new Engineering
-                    {
-                        ID = 3,
-                        CustomerNotify = false,
-                        DrawUpdate = true,
-                        Disposition = "N/A",
-                        RevisionOriginal = 87645,
-                        RevisionUpdated = 54632,
-                        RevisionDate = DateTime.Parse("2024-01-24"),
-                        EngSignature = "Linda Johnson",
-                        EngSignatureDate = DateTime.Parse("2024-01-24"),
-                        EngDecision = (EngineeringDecision)2,
-                        NCRId = 3
-                    },
-                    new Engineering
-                    {
-                        ID = 4,
-                        CustomerNotify = true,
-                        DrawUpdate = false,
-                        Disposition = "N/A",
-                        RevisionOriginal = 09854,
-                        RevisionUpdated = 23465,
-                        RevisionDate = DateTime.Parse("2024-01-26"),
-                        EngSignature = "Luke Miller",
-                        EngSignatureDate = DateTime.Parse("2024-01-26"),
-                        EngDecision = (EngineeringDecision)3,
-                        NCRId = 4
-                    });
-                    context.SaveChanges();
-                }
+            //if (!context.Engineering.Any())
+            //    {
+            //        context.Engineering.AddRange(
+            //        new Engineering
+            //        {
+            //            ID = 1,
+            //            CustomerNotify = false,
+            //            DrawUpdate = false,
+            //            Disposition = "N/A",
+            //            RevisionOriginal = 12345,
+            //            RevisionUpdated = 12346,
+            //            RevisionDate = DateTime.Parse("2024-01-20"),
+            //            EngSignature = "John Smith",
+            //            EngSignatureDate = DateTime.Parse("2024-01-20"),
+            //            EngDecision = 0,
+                    
+            //        },
+            //        new Engineering
+            //        {
+            //            ID = 2,
+            //            CustomerNotify = true,
+            //            DrawUpdate = true,
+            //            Disposition = "N/A",
+            //            RevisionOriginal = 32434,
+            //            RevisionUpdated = 52123,
+            //            RevisionDate = DateTime.Parse("2024-01-22"),
+            //            EngSignature = "James Brady",
+            //            EngSignatureDate = DateTime.Parse("2024-01-22"),
+            //            EngDecision = (EngineeringDecision)1,
+                       
+            //        },
+            //        new Engineering
+            //        {
+            //            ID = 3,
+            //            CustomerNotify = false,
+            //            DrawUpdate = true,
+            //            Disposition = "N/A",
+            //            RevisionOriginal = 87645,
+            //            RevisionUpdated = 54632,
+            //            RevisionDate = DateTime.Parse("2024-01-24"),
+            //            EngSignature = "Linda Johnson",
+            //            EngSignatureDate = DateTime.Parse("2024-01-24"),
+            //            EngDecision = (EngineeringDecision)2,
+               
+            //        },
+            //        new Engineering
+            //        {
+            //            ID = 4,
+            //            CustomerNotify = true,
+            //            DrawUpdate = false,
+            //            Disposition = "N/A",
+            //            RevisionOriginal = 09854,
+            //            RevisionUpdated = 23465,
+            //            RevisionDate = DateTime.Parse("2024-01-26"),
+            //            EngSignature = "Luke Miller",
+            //            EngSignatureDate = DateTime.Parse("2024-01-26"),
+            //            EngDecision = (EngineeringDecision)3,
+          
+            //        });
+            //        context.SaveChanges();
+            //    }
                 if (!context.FollowUp.Any())
                 {
                     context.FollowUp.AddRange(
