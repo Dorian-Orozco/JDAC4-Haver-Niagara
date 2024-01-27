@@ -13,8 +13,9 @@
         public DateTime EngSignatureDate { get; set; }
         public EngineeringDecision EngDecision { get; set; }
 
-        //Again adding the ID so the framework figures out which needs what
+        //Foreign Key from NCR
         public int NCRId { get; set; }
+        //Reference to parent (NCR)
         public NCR NCR { get; set; }
     }
 }

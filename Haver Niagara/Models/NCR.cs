@@ -20,8 +20,7 @@
         public int NewNCRId { get; set; } //
         public NewNCR? NewNCR { get; set; }
 
-        //Adding EngineeringID as potential foreign key (itll determine which side is dependant for 1:1)
-        public int EngineerId { get; set; } //
+        //Reference to DEPENDANT entity (engineering) 
         public Engineering Engineering { get; set; }
 
     }
