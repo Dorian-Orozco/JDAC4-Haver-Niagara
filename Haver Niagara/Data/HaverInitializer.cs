@@ -74,7 +74,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 208475893,
                     Name = "Wheels",
-                    ProductNumber = 12345,
+                    ProductNumber = 208475893,
                     QuantityRecieved = 20,
                     QuantityDefect = 20,
                     Description = "Replacement wheels",
@@ -83,7 +83,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 206547333,
                     Name = "Wires",
-                    ProductNumber = 54321,
+                    ProductNumber = 206547333,
                     QuantityRecieved = 10,
                     QuantityDefect = 10,
                     Description = "Replacement wires",
@@ -119,6 +119,7 @@ namespace Haver_Niagara.Data
             }
             if (!context.Purchasings.Any())
             {
+                //REPRESENTS A FORM NOT A PERSON! THERE HAS TO BE ONE To ONE WITH NCR. 10 NCRS = 10 PURCHASING 
                 context.Purchasings.AddRange(
                 new Purchasing
                 {

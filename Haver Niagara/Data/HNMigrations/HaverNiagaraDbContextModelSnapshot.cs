@@ -221,8 +221,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ProductID")
-                        .IsUnique();
+                    b.HasIndex("ProductID");
 
                     b.HasIndex("PurchasingID");
 
@@ -427,8 +426,8 @@ namespace Haver_Niagara.Data.HNMigrations
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
                 {
                     b.HasOne("Haver_Niagara.Models.Product", "Product")
-                        .WithOne("NCR")
-                        .HasForeignKey("Haver_Niagara.Models.NCR", "ProductID")
+                        .WithMany("NCRs")
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -505,8 +504,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.Navigation("Medias");
 
-                    b.Navigation("NCR")
-                        .IsRequired();
+                    b.Navigation("NCRs");
 
                     b.Navigation("ProductDocumentMedias");
                 });

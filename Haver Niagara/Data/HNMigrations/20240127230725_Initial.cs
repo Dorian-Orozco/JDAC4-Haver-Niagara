@@ -324,8 +324,7 @@ namespace Haver_Niagara.Data.HNMigrations
             migrationBuilder.CreateIndex(
                 name: "IX_NCRs_ProductID",
                 table: "NCRs",
-                column: "ProductID",
-                unique: true);
+                column: "ProductID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NCRs_PurchasingID",

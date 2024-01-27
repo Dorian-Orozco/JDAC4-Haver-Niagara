@@ -14,12 +14,12 @@ namespace Haver_Niagara.Models
         public int QuantityDefect {  get; set; }
         public string Description { get; set; }
 
+        //navigation property for supplier 
+        public Supplier Supplier { get; set; }
 
-        //for one to one relationship  with NCR
-        public NCR NCR { get; set; }
+        //One to many with NCR
+        public ICollection<NCR> NCRs { get; set; } = new HashSet<NCR>();
 
-                //navigation property for supplier 
-        public Supplier Supplier { get; set; }  
         public ICollection<DefectList> DefectLists { get; set; } = new HashSet<DefectList>();
         public ICollection<Media> Medias { get; set; } = new HashSet<Media>(); //might not need since we have productdocumentmedias below. 
 

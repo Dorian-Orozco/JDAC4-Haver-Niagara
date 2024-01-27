@@ -11,9 +11,11 @@
         public string QualSignature {  get; set; }
         public DateTime QualDate { get; set; }
 
-        //1:1 relationship
+
+        //1 to many relationship with product
         public int ProductID { get; set; }
         public Product Product { get; set; }
+
         public Purchasing Purchasing { get; set; }
 
 
