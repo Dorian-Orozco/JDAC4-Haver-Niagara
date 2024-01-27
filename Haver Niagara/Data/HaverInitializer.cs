@@ -201,7 +201,56 @@ namespace Haver_Niagara.Data
                     ID = 4,
                     PurchaseSignature = "James Jones",
                     SignatureDate = DateTime.Parse("2024-01-20"),
+                    PurchasingDec = (PurchasingDecision)4
+                },
+                new Purchasing
+                {
+                    ID = 5,
+                    PurchaseSignature = "Little Man",
+                    SignatureDate = DateTime.Parse("2024-01-1"),
+                    PurchasingDec = (PurchasingDecision)1
+                },
+                new Purchasing
+                {
+                    ID = 6,
+                    PurchaseSignature = "Kane Smith",
+                    SignatureDate = DateTime.Parse("2024-01-4"),
+                    PurchasingDec = (PurchasingDecision)2
+                },
+                new Purchasing
+                {
+                    ID = 7,
+                    PurchaseSignature = "Urner Goo",
+                    SignatureDate = DateTime.Parse("2024-01-5"),
+                    PurchasingDec = (PurchasingDecision)2
+                },
+                new Purchasing
+                {
+                    ID = 8,
+                    PurchaseSignature = "Day Mehn",
+                    SignatureDate = DateTime.Parse("2024-01-7"),
                     PurchasingDec = (PurchasingDecision)3
+                },
+                new Purchasing
+                {
+                    ID = 9,
+                    PurchaseSignature = "Matt Turner",
+                    SignatureDate = DateTime.Parse("2024-01-24"),
+                    PurchasingDec = (PurchasingDecision)2
+                },
+                new Purchasing
+                {
+                    ID = 10,
+                    PurchaseSignature = "James Jones",
+                    SignatureDate = DateTime.Parse("2024-01-20"),
+                    PurchasingDec = (PurchasingDecision)3
+                },
+                new Purchasing
+                {
+                    ID = 11,
+                    PurchaseSignature = "Land Sonar",
+                    SignatureDate = DateTime.Parse("2024-01-24"),
+                    PurchasingDec = (PurchasingDecision)1
                 });
                 context.SaveChanges();
             }
@@ -275,7 +324,7 @@ namespace Haver_Niagara.Data
                     QualSignature = "Frank Curry",
                     QualDate = DateTime.Parse("2024-01-13"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 5),
-                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 5),
                     Engineering = context.Engineering.FirstOrDefault(p => p.ID == 5)
                 },
                 new NCR
@@ -289,7 +338,7 @@ namespace Haver_Niagara.Data
                     QualSignature = "Tom Warner",
                     QualDate = DateTime.Parse("2024-01-19"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 6),
-                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 6),
                     Engineering = context.Engineering.FirstOrDefault(p => p.ID == 6)
                 },
                 new NCR
@@ -303,7 +352,7 @@ namespace Haver_Niagara.Data
                     QualSignature = "Frank Curry",
                     QualDate = DateTime.Parse("2024-01-16"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 7),
-                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 7),
                     Engineering = context.Engineering.FirstOrDefault(p => p.ID == 7)
                 },
                 new NCR
@@ -317,7 +366,7 @@ namespace Haver_Niagara.Data
                     QualSignature = "Tom Warner",
                     QualDate = DateTime.Parse("2024-01-15"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 8),
-                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 8),
                     Engineering = context.Engineering.FirstOrDefault(p => p.ID == 8)
                 },
                 new NCR
@@ -331,7 +380,7 @@ namespace Haver_Niagara.Data
                     QualSignature = "Tom Warner",
                     QualDate = DateTime.Parse("2024-01-17"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 9),
-                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 9),
                     Engineering = context.Engineering.FirstOrDefault(p => p.ID == 9)
                 },
                 new NCR
@@ -345,7 +394,7 @@ namespace Haver_Niagara.Data
                     QualSignature = "Neil Horton",
                     QualDate = DateTime.Parse("2024-01-20"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 10),
-                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 10),
                     Engineering = context.Engineering.FirstOrDefault(p => p.ID == 10)
                 },
                 new NCR
@@ -359,7 +408,7 @@ namespace Haver_Niagara.Data
                     QualSignature = "Frank Curry",
                     QualDate = DateTime.Parse("2024-01-11"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 11),
-                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 11),
                     Engineering = context.Engineering.FirstOrDefault(p => p.ID == 11)
                 });
                 context.SaveChanges();
