@@ -1,11 +1,6 @@
 ﻿using Haver_Niagara.Models;
-using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace Haver_Niagara.Data
 {
     public static class HaverInitializer
@@ -15,11 +10,10 @@ namespace Haver_Niagara.Data
             HaverNiagaraDbContext context = applicationBuilder.ApplicationServices.CreateScope()
                 .ServiceProvider.GetRequiredService<HaverNiagaraDbContext>();
 
-            try
-            {
+         
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
-                context.Database.Migrate();
+                //context.Database.Migrate();
 
                 if (!context.CARs.Any())
                 {
@@ -73,63 +67,299 @@ namespace Haver_Niagara.Data
                     context.Defects.AddRange(defects);
                     context.SaveChanges();
                 }
-                if (!context.Engineering.Any())
+            if (!context.Products.Any())
+            {
+                context.Products.AddRange(
+                new Product
                 {
-                    context.Engineering.AddRange(
-                    new Engineering
-                    {
-                        ID = 1,
-                        CustomerNotify = false,
-                        DrawUpdate = false,
-                        Disposition = "N/A",
-                        RevisionOriginal = 12345,
-                        RevisionUpdated = 12346,
-                        RevisionDate = DateTime.Parse("2024-01-20"),
-                        EngSignature = "John Smith",
-                        EngSignatureDate = DateTime.Parse("2024-01-20"),
-                        EngDecision = 0
-                    },
-                    new Engineering
-                    {
-                        ID = 2,
-                        CustomerNotify = true,
-                        DrawUpdate = true,
-                        Disposition = "N/A",
-                        RevisionOriginal = 32434,
-                        RevisionUpdated = 52123,
-                        RevisionDate = DateTime.Parse("2024-01-22"),
-                        EngSignature = "James Brady",
-                        EngSignatureDate = DateTime.Parse("2024-01-22"),
-                        EngDecision = (EngineeringDecision)1
-                    },
-                    new Engineering
-                    {
-                        ID = 3,
-                        CustomerNotify = false,
-                        DrawUpdate = true,
-                        Disposition = "N/A",
-                        RevisionOriginal = 87645,
-                        RevisionUpdated = 54632,
-                        RevisionDate = DateTime.Parse("2024-01-24"),
-                        EngSignature = "Linda Johnson",
-                        EngSignatureDate = DateTime.Parse("2024-01-24"),
-                        EngDecision = (EngineeringDecision)2
-                    },
-                    new Engineering
-                    {
-                        ID = 4,
-                        CustomerNotify = true,
-                        DrawUpdate = false,
-                        Disposition = "N/A",
-                        RevisionOriginal = 09854,
-                        RevisionUpdated = 23465,
-                        RevisionDate = DateTime.Parse("2024-01-26"),
-                        EngSignature = "Luke Miller",
-                        EngSignatureDate = DateTime.Parse("2024-01-26"),
-                        EngDecision = (EngineeringDecision)3
-                    });
-                    context.SaveChanges();
-                }
+                    ID = 208475893,
+                    Name = "Wheels",
+                    ProductNumber = 208475893,
+                    QuantityRecieved = 20,
+                    QuantityDefect = 20,
+                    Description = "Replacement wheels",
+                },
+                new Product
+                {
+                    ID = 206547333,
+                    Name = "Wires",
+                    ProductNumber = 206547333,
+                    QuantityRecieved = 10,
+                    QuantityDefect = 10,
+                    Description = "Replacement wires",
+                },
+                new Product
+                {
+                    ID = 207843292,
+                    Name = "Steel Panels",
+                    ProductNumber = 67889,
+                    QuantityRecieved = 8,
+                    QuantityDefect = 2,
+                    Description = "Steel panels for repairs",
+                },
+                new Product
+                {
+                    ID = 205231782,
+                    Name = "Bolts",
+                    ProductNumber = 98765,
+                    QuantityRecieved = 100,
+                    QuantityDefect = 100,
+                    Description = "Bolts for repairs",
+                },
+                new Product
+                {
+                    ID = 209031293,
+                    Name = "Nuts",
+                    ProductNumber = 10001,
+                    QuantityRecieved = 200,
+                    QuantityDefect = 100,
+                    Description = "Nuts for repairs",
+                });
+                context.SaveChanges();
+            }
+            if (!context.Purchasings.Any())
+            {
+                //REPRESENTS A FORM NOT A PERSON! THERE HAS TO BE ONE To ONE WITH NCR. 10 NCRS = 10 PURCHASING 
+                context.Purchasings.AddRange(
+                new Purchasing
+                {
+                    ID = 1,
+                    PurchaseSignature = "James Jones",
+                    SignatureDate = DateTime.Parse("2024-01-20"),
+                    PurchasingDec = 0
+                },
+                new Purchasing
+                {
+                    ID = 2,
+                    PurchaseSignature = "Jane Little",
+                    SignatureDate = DateTime.Parse("2024-01-22"),
+                    PurchasingDec = (PurchasingDecision)1
+                },
+                new Purchasing
+                {
+                    ID = 3,
+                    PurchaseSignature = "Matt Turner",
+                    SignatureDate = DateTime.Parse("2024-01-24"),
+                    PurchasingDec = (PurchasingDecision)2
+                },
+                new Purchasing
+                {
+                    ID = 4,
+                    PurchaseSignature = "James Jones",
+                    SignatureDate = DateTime.Parse("2024-01-20"),
+                    PurchasingDec = (PurchasingDecision)3
+                });
+                context.SaveChanges();
+            }
+            if (!context.NCRs.Any())
+            {
+                context.NCRs.AddRange(
+                new NCR
+                {
+                    ID = 1,
+                    NCR_Number = 1,
+                    SalesOrder = "Stock",
+                    InspectName = "Kevin Butler",
+                    InspectDate = DateTime.Parse("2024-01-10"),
+                    NCRClosed = false,
+                    QualSignature = "Tom Warner",
+                    QualDate = DateTime.Parse("2024-01-11"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
+                },
+                new NCR
+                {
+                    ID = 2,
+                    NCR_Number = 2,
+                    SalesOrder = "Stock",
+                    InspectName = "Paul Miller",
+                    InspectDate = DateTime.Parse("2024-01-11"),
+                    NCRClosed = true,
+                    QualSignature = "Frank Curry",
+                    QualDate = DateTime.Parse("2024-01-12"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
+                },
+                new NCR
+                {
+                    ID = 3,
+                    NCR_Number = 3,
+                    SalesOrder = "Stock",
+                    InspectName = "Larry Thomson",
+                    InspectDate = DateTime.Parse("2024-01-12"),
+                    NCRClosed = false,
+                    QualSignature = "Neil Horton",
+                    QualDate = DateTime.Parse("2024-01-13"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
+                },
+                new NCR
+                {
+                    ID = 4,
+                    NCR_Number = 4,
+                    SalesOrder = "Stock",
+                    InspectName = "Kevin Butler",
+                    InspectDate = DateTime.Parse("2024-01-15"),
+                    NCRClosed = false,
+                    QualSignature = "Neil Horton",
+                    QualDate = DateTime.Parse("2024-01-15"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                },
+                new NCR
+                {
+                    ID = 5,
+                    NCR_Number = 5,
+                    SalesOrder = "Stock",
+                    InspectName = "Larry Thomson",
+                    InspectDate = DateTime.Parse("2024-01-11"),
+                    NCRClosed = false,
+                    QualSignature = "Frank Curry",
+                    QualDate = DateTime.Parse("2024-01-13"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 209031293),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
+                },
+                new NCR
+                {
+                    ID = 6,
+                    NCR_Number = 6,
+                    SalesOrder = "Stock",
+                    InspectName = "Paul Miller",
+                    InspectDate = DateTime.Parse("2024-01-18"),
+                    NCRClosed = false,
+                    QualSignature = "Tom Warner",
+                    QualDate = DateTime.Parse("2024-01-19"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                },
+                new NCR
+                {
+                    ID = 7,
+                    NCR_Number = 7,
+                    SalesOrder = "Stock",
+                    InspectName = "Kevin Butler",
+                    InspectDate = DateTime.Parse("2024-01-16"),
+                    NCRClosed = true,
+                    QualSignature = "Frank Curry",
+                    QualDate = DateTime.Parse("2024-01-16"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
+                },
+                new NCR
+                {
+                    ID = 8,
+                    NCR_Number = 8,
+                    SalesOrder = "Stock",
+                    InspectName = "Kevin Butler",
+                    InspectDate = DateTime.Parse("2024-01-13"),
+                    NCRClosed = false,
+                    QualSignature = "Tom Warner",
+                    QualDate = DateTime.Parse("2024-01-15"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
+                },
+                new NCR
+                {
+                    ID = 9,
+                    NCR_Number = 9,
+                    SalesOrder = "Stock",
+                    InspectName = "Larry Thomson",
+                    InspectDate = DateTime.Parse("2024-01-14"),
+                    NCRClosed = false,
+                    QualSignature = "Tom Warner",
+                    QualDate = DateTime.Parse("2024-01-17"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                },
+                new NCR
+                {
+                    ID = 10,
+                    NCR_Number = 10,
+                    SalesOrder = "Stock",
+                    InspectName = "Kevin Butler",
+                    InspectDate = DateTime.Parse("2024-01-20"),
+                    NCRClosed = false,
+                    QualSignature = "Neil Horton",
+                    QualDate = DateTime.Parse("2024-01-20"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                },
+                new NCR
+                {
+                    ID = 11,
+                    NCR_Number = 11,
+                    SalesOrder = "Stock",
+                    InspectName = "Paul Miller",
+                    InspectDate = DateTime.Parse("2024-01-09"),
+                    NCRClosed = false,
+                    QualSignature = "Frank Curry",
+                    QualDate = DateTime.Parse("2024-01-11"),
+                    Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
+                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
+                });
+                context.SaveChanges();
+            }
+            //if (!context.Engineering.Any())
+            //    {
+            //        context.Engineering.AddRange(
+            //        new Engineering
+            //        {
+            //            ID = 1,
+            //            CustomerNotify = false,
+            //            DrawUpdate = false,
+            //            Disposition = "N/A",
+            //            RevisionOriginal = 12345,
+            //            RevisionUpdated = 12346,
+            //            RevisionDate = DateTime.Parse("2024-01-20"),
+            //            EngSignature = "John Smith",
+            //            EngSignatureDate = DateTime.Parse("2024-01-20"),
+            //            EngDecision = 0,
+                    
+            //        },
+            //        new Engineering
+            //        {
+            //            ID = 2,
+            //            CustomerNotify = true,
+            //            DrawUpdate = true,
+            //            Disposition = "N/A",
+            //            RevisionOriginal = 32434,
+            //            RevisionUpdated = 52123,
+            //            RevisionDate = DateTime.Parse("2024-01-22"),
+            //            EngSignature = "James Brady",
+            //            EngSignatureDate = DateTime.Parse("2024-01-22"),
+            //            EngDecision = (EngineeringDecision)1,
+                       
+            //        },
+            //        new Engineering
+            //        {
+            //            ID = 3,
+            //            CustomerNotify = false,
+            //            DrawUpdate = true,
+            //            Disposition = "N/A",
+            //            RevisionOriginal = 87645,
+            //            RevisionUpdated = 54632,
+            //            RevisionDate = DateTime.Parse("2024-01-24"),
+            //            EngSignature = "Linda Johnson",
+            //            EngSignatureDate = DateTime.Parse("2024-01-24"),
+            //            EngDecision = (EngineeringDecision)2,
+               
+            //        },
+            //        new Engineering
+            //        {
+            //            ID = 4,
+            //            CustomerNotify = true,
+            //            DrawUpdate = false,
+            //            Disposition = "N/A",
+            //            RevisionOriginal = 09854,
+            //            RevisionUpdated = 23465,
+            //            RevisionDate = DateTime.Parse("2024-01-26"),
+            //            EngSignature = "Luke Miller",
+            //            EngSignatureDate = DateTime.Parse("2024-01-26"),
+            //            EngDecision = (EngineeringDecision)3,
+          
+            //        });
+            //        context.SaveChanges();
+            //    }
                 if (!context.FollowUp.Any())
                 {
                     context.FollowUp.AddRange(
@@ -152,82 +382,6 @@ namespace Haver_Niagara.Data
                         FollowUpType = "Test"
                     });
                     context.SaveChanges();
-                }
-                if (!context.Products.Any())
-                {
-                    context.Products.AddRange(
-                    new Product
-                    {
-                        ID = 208475893,
-                        Name = "Wheels",
-                        QuantityRecieved = 20,
-                        QuantityDefect = 20,
-                        Description = "Replacement wheels",
-                    },
-                    new Product
-                    {
-                        ID = 206547333,
-                        Name = "Wires",
-                        QuantityRecieved = 10,
-                        QuantityDefect = 10,
-                        Description = "Replacement wires",
-                    },
-                    new Product
-                    {
-                        ID = 207843292,
-                        Name = "Steel Panels",
-                        QuantityRecieved = 8,
-                        QuantityDefect = 2,
-                        Description = "Steel panels for repairs",
-                    },
-                    new Product
-                    {
-                        ID = 205231782,
-                        Name = "Bolts",
-                        QuantityRecieved = 100,
-                        QuantityDefect = 100,
-                        Description = "Bolts for repairs",
-                    },
-                    new Product
-                    {
-                        ID = 209031293,
-                        Name = "Nuts",
-                        QuantityRecieved = 200,
-                        QuantityDefect = 100,
-                        Description = "Nuts for repairs",
-                    });
-                }
-                if (!context.Purchasings.Any())
-                {
-                    context.Purchasings.AddRange(
-                    new Purchasing
-                    {
-                        ID = 1,
-                        PurchaseSignature = "James Jones",
-                        SignatureDate = DateTime.Parse("2024-01-20"),
-                        PurchasingDec = 0
-                    },
-                    new Purchasing
-                    {
-                        ID = 2,
-                        PurchaseSignature = "Jane Little",
-                        SignatureDate = DateTime.Parse("2024-01-22"),
-                        PurchasingDec = (PurchasingDecision)1
-                    },
-                    new Purchasing
-                    {
-                        ID = 3,
-                        PurchaseSignature = "Matt Turner",
-                        SignatureDate = DateTime.Parse("2024-01-24"),
-                        PurchasingDec = (PurchasingDecision)2
-                    },
-                    new Purchasing
-                    {
-                        ID = 4,
-                        PurchaseSignature = "James Jones",
-                        SignatureDate = DateTime.Parse("2024-01-20"),
-                        PurchasingDec = (PurchasingDecision)3
-                    });
                 }
                 if (!context.Suppliers.Any())
                 {
@@ -268,170 +422,7 @@ namespace Haver_Niagara.Data
                         Name = "BICKLE MAIN INDUSTRIAL SUPPLY INC.",
                     });
                     context.SaveChanges();
-                }
-                if (!context.NCRs.Any())
-                {
-                    context.NCRs.AddRange(
-                    new NCR
-                    {
-                        ID = 1,
-                        NCR_Number = 1,
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-10"),
-                        NCRClosed = false,
-                        QualSignature = "Tom Warner",
-                        QualDate = DateTime.Parse("2024-01-11"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 1),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
-                    },
-                    new NCR
-                    {
-                        ID = 2,
-                        NCR_Number = 2,
-                        SalesOrder = "Stock",
-                        InspectName = "Paul Miller",
-                        InspectDate = DateTime.Parse("2024-01-11"),
-                        NCRClosed = true,
-                        QualSignature = "Frank Curry",
-                        QualDate = DateTime.Parse("2024-01-12"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 2),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
-                    },
-                    new NCR
-                    {
-                        ID = 3,
-                        NCR_Number = 3,
-                        SalesOrder = "Stock",
-                        InspectName = "Larry Thomson",
-                        InspectDate = DateTime.Parse("2024-01-12"),
-                        NCRClosed = false,
-                        QualSignature = "Neil Horton",
-                        QualDate = DateTime.Parse("2024-01-13"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 3),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
-                    },
-                    new NCR
-                    {
-                        ID = 4,
-                        NCR_Number = 4,
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-15"),
-                        NCRClosed = false,
-                        QualSignature = "Neil Horton",
-                        QualDate = DateTime.Parse("2024-01-15"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 4),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
-                    },
-                    new NCR
-                    {
-                        ID = 5,
-                        NCR_Number = 5,
-                        SalesOrder = "Stock",
-                        InspectName = "Larry Thomson",
-                        InspectDate = DateTime.Parse("2024-01-11"),
-                        NCRClosed = false,
-                        QualSignature = "Frank Curry",
-                        QualDate = DateTime.Parse("2024-01-13"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 2),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 209031293),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
-                    },
-                    new NCR
-                    {
-                        ID = 6,
-                        NCR_Number = 6,
-                        SalesOrder = "Stock",
-                        InspectName = "Paul Miller",
-                        InspectDate = DateTime.Parse("2024-01-18"),
-                        NCRClosed = false,
-                        QualSignature = "Tom Warner",
-                        QualDate = DateTime.Parse("2024-01-19"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 1),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
-                    },
-                    new NCR
-                    {
-                        ID = 7,
-                        NCR_Number = 7,
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-16"),
-                        NCRClosed = true,
-                        QualSignature = "Frank Curry",
-                        QualDate = DateTime.Parse("2024-01-16"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 3),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
-                    },
-                    new NCR
-                    {
-                        ID = 8,
-                        NCR_Number = 8,
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-13"),
-                        NCRClosed = false,
-                        QualSignature = "Tom Warner",
-                        QualDate = DateTime.Parse("2024-01-15"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 2),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
-                    },
-                    new NCR
-                    {
-                        ID = 9,
-                        NCR_Number = 9,
-                        SalesOrder = "Stock",
-                        InspectName = "Larry Thomson",
-                        InspectDate = DateTime.Parse("2024-01-14"),
-                        NCRClosed = false,
-                        QualSignature = "Tom Warner",
-                        QualDate = DateTime.Parse("2024-01-17"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 1),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
-                    },
-                    new NCR
-                    {
-                        ID = 10,
-                        NCR_Number = 10,
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-20"),
-                        NCRClosed = false,
-                        QualSignature = "Neil Horton",
-                        QualDate = DateTime.Parse("2024-01-20"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 3),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
-                    },
-                    new NCR
-                    {
-                        ID = 11,
-                        NCR_Number = 11,
-                        SalesOrder = "Stock",
-                        InspectName = "Paul Miller",
-                        InspectDate = DateTime.Parse("2024-01-09"),
-                        NCRClosed = false,
-                        QualSignature = "Frank Curry",
-                        QualDate = DateTime.Parse("2024-01-11"),
-                        Engineering = context.Engineering.FirstOrDefault(e => e.ID == 1),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.GetBaseException().Message);
-            }
+                }        
         }
     }
 }
