@@ -9,9 +9,9 @@ namespace Haver_Niagara.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _context; //allows for db access
+        private readonly HaverNiagaraDbContext _context; //allows for db access
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, HaverNiagaraDbContext context)
         {
             _logger = logger;
             _context = context;

@@ -12,8 +12,8 @@ namespace Haver_Niagara.Data
     {
         public static void Seed(IApplicationBuilder applicationBuilder)
         {
-            ApplicationDbContext context = applicationBuilder.ApplicationServices.CreateScope()
-                .ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            HaverNiagaraDbContext context = applicationBuilder.ApplicationServices.CreateScope()
+                .ServiceProvider.GetRequiredService<HaverNiagaraDbContext>();
 
             try
             {
