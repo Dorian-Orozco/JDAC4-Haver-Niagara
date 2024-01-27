@@ -1,5 +1,7 @@
-﻿using Haver_Niagara.Models;
+﻿using Haver_Niagara.Data;
+using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Haver_Niagara.Controllers
@@ -7,15 +9,24 @@ namespace Haver_Niagara.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context; //allows for db access
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
+
+
 
         public IActionResult Index()
         {
-            return View();
+            //Adding functionality to return the list of seed data 
+            var ncrs = _context.NCRs.ToList();
+            
+            //
+
+            return View(ncrs);
         }
 
         public IActionResult Privacy()

@@ -14,8 +14,11 @@ namespace Haver_Niagara.Data
         public DbSet<NCR> NCRs { get; set; }
         public DbSet<NewNCR> NewNCRs { get; set; }
         public DbSet<Product> Products { get; set; }
-
+        public DbSet<Purchasing> Purchasings { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        //Added IMAGE DB Sets to store em. 
+        public DbSet<ProductDocumentMedia> ProductDocumentMedias { get; set; }  
+        public DbSet<UploadedFile> UploadedFiles { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -38,6 +41,7 @@ namespace Haver_Niagara.Data
                 .HasOne(a => a.NewNCR)
                 .WithOne(b => b.NCR)
                 .HasForeignKey<NewNCR>(n => n.NCRId);
+
         }
     }
 }

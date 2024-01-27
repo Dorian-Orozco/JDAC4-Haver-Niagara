@@ -4,7 +4,6 @@ using Haver_Niagara.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,15 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240127015724_Initial")]
-    partial class Initial
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("ProductVersion", "7.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -147,6 +144,20 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.ToTable("Engineering");
                 });
 
+            modelBuilder.Entity("Haver_Niagara.Models.FileContent", b =>
+                {
+                    b.Property<int>("FileContentID")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("FileContentID");
+
+                    b.ToTable("FileContent");
+                });
+
             modelBuilder.Entity("Haver_Niagara.Models.FollowUp", b =>
                 {
                     b.Property<int>("ID")
@@ -235,7 +246,8 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ProductID");
+                    b.HasIndex("ProductID")
+                        .IsUnique();
 
                     b.HasIndex("PurchasingID");
 
@@ -267,10 +279,7 @@ namespace Haver_Niagara.Data.HNMigrations
             modelBuilder.Entity("Haver_Niagara.Models.Product", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -326,7 +335,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasIndex("followUpID");
 
-                    b.ToTable("Purchasing");
+                    b.ToTable("Purchasings");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>
@@ -344,6 +353,37 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.UploadedFile", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("MimeType")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("UploadedFiles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("UploadedFile");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -548,6 +588,18 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Haver_Niagara.Models.ProductDocumentMedia", b =>
+                {
+                    b.HasBaseType("Haver_Niagara.Models.UploadedFile");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasDiscriminator().HasValue("ProductDocumentMedia");
+                });
+
             modelBuilder.Entity("DefectDefectList", b =>
                 {
                     b.HasOne("Haver_Niagara.Models.DefectList", null)
@@ -581,6 +633,17 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("NCR");
                 });
 
+            modelBuilder.Entity("Haver_Niagara.Models.FileContent", b =>
+                {
+                    b.HasOne("Haver_Niagara.Models.UploadedFile", "UploadedFile")
+                        .WithOne("FileContent")
+                        .HasForeignKey("Haver_Niagara.Models.FileContent", "FileContentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UploadedFile");
+                });
+
             modelBuilder.Entity("Haver_Niagara.Models.Media", b =>
                 {
                     b.HasOne("Haver_Niagara.Models.Product", "Product")
@@ -595,8 +658,8 @@ namespace Haver_Niagara.Data.HNMigrations
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
                 {
                     b.HasOne("Haver_Niagara.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
+                        .WithOne("NCR")
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -695,6 +758,17 @@ namespace Haver_Niagara.Data.HNMigrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Haver_Niagara.Models.ProductDocumentMedia", b =>
+                {
+                    b.HasOne("Haver_Niagara.Models.Product", "Product")
+                        .WithMany("ProductDocumentMedias")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
                 {
                     b.Navigation("Engineering")
@@ -708,11 +782,22 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("DefectLists");
 
                     b.Navigation("Medias");
+
+                    b.Navigation("NCR")
+                        .IsRequired();
+
+                    b.Navigation("ProductDocumentMedias");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.UploadedFile", b =>
+                {
+                    b.Navigation("FileContent")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

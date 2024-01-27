@@ -10,6 +10,9 @@
         public bool NCRClosed { get; set; }
         public string QualSignature {  get; set; }
         public DateTime QualDate { get; set; }
+
+        //1:1 relationship
+        public int ProductID { get; set; }
         public Product Product { get; set; }
         public Purchasing Purchasing { get; set; }
 
@@ -20,14 +23,6 @@
         //Adding EngineeringID as potential foreign key (itll determine which side is dependant for 1:1)
         public int EngineerId { get; set; } //
         public Engineering Engineering { get; set; }
-
-
-
-
-
-
-
-
 
     }
 }
