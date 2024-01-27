@@ -166,6 +166,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-11"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 1)
                 },
                 new NCR
                 {
@@ -179,6 +180,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-12"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 2)
                 },
                 new NCR
                 {
@@ -192,6 +194,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-13"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 3)
                 },
                 new NCR
                 {
@@ -205,6 +208,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-15"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 4)
                 },
                 new NCR
                 {
@@ -218,6 +222,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-13"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 209031293),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 5)
                 },
                 new NCR
                 {
@@ -231,6 +236,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-19"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 6)
                 },
                 new NCR
                 {
@@ -244,6 +250,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-16"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 7)
                 },
                 new NCR
                 {
@@ -257,6 +264,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-15"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 205231782),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 8)
                 },
                 new NCR
                 {
@@ -270,6 +278,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-17"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 206547333),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 9)
                 },
                 new NCR
                 {
@@ -283,6 +292,7 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-20"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 207843292),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 10)
                 },
                 new NCR
                 {
@@ -296,71 +306,170 @@ namespace Haver_Niagara.Data
                     QualDate = DateTime.Parse("2024-01-11"),
                     Product = context.Products.FirstOrDefault(p => p.ID == 208475893),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2),
+                    Engineering = context.Engineering.FirstOrDefault(p => p.ID == 11)
                 });
                 context.SaveChanges();
             }
-            //if (!context.Engineering.Any())
-            //    {
-            //        context.Engineering.AddRange(
-            //        new Engineering
-            //        {
-            //            ID = 1,
-            //            CustomerNotify = false,
-            //            DrawUpdate = false,
-            //            Disposition = "N/A",
-            //            RevisionOriginal = 12345,
-            //            RevisionUpdated = 12346,
-            //            RevisionDate = DateTime.Parse("2024-01-20"),
-            //            EngSignature = "John Smith",
-            //            EngSignatureDate = DateTime.Parse("2024-01-20"),
-            //            EngDecision = 0,
-                    
-            //        },
-            //        new Engineering
-            //        {
-            //            ID = 2,
-            //            CustomerNotify = true,
-            //            DrawUpdate = true,
-            //            Disposition = "N/A",
-            //            RevisionOriginal = 32434,
-            //            RevisionUpdated = 52123,
-            //            RevisionDate = DateTime.Parse("2024-01-22"),
-            //            EngSignature = "James Brady",
-            //            EngSignatureDate = DateTime.Parse("2024-01-22"),
-            //            EngDecision = (EngineeringDecision)1,
-                       
-            //        },
-            //        new Engineering
-            //        {
-            //            ID = 3,
-            //            CustomerNotify = false,
-            //            DrawUpdate = true,
-            //            Disposition = "N/A",
-            //            RevisionOriginal = 87645,
-            //            RevisionUpdated = 54632,
-            //            RevisionDate = DateTime.Parse("2024-01-24"),
-            //            EngSignature = "Linda Johnson",
-            //            EngSignatureDate = DateTime.Parse("2024-01-24"),
-            //            EngDecision = (EngineeringDecision)2,
-               
-            //        },
-            //        new Engineering
-            //        {
-            //            ID = 4,
-            //            CustomerNotify = true,
-            //            DrawUpdate = false,
-            //            Disposition = "N/A",
-            //            RevisionOriginal = 09854,
-            //            RevisionUpdated = 23465,
-            //            RevisionDate = DateTime.Parse("2024-01-26"),
-            //            EngSignature = "Luke Miller",
-            //            EngSignatureDate = DateTime.Parse("2024-01-26"),
-            //            EngDecision = (EngineeringDecision)3,
-          
-            //        });
-            //        context.SaveChanges();
-            //    }
-                if (!context.FollowUp.Any())
+            if (!context.Engineering.Any())
+            {
+                context.Engineering.AddRange(
+                new Engineering
+                {
+                    ID = 1,
+                    CustomerNotify = false,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 12345,
+                    RevisionUpdated = 12346,
+                    RevisionDate = DateTime.Parse("2024-01-20"),
+                    EngSignature = "John Smith",
+                    EngSignatureDate = DateTime.Parse("2024-01-20"),
+                    EngDecision = 0,
+
+                },
+                new Engineering
+                {
+                    ID = 2,
+                    CustomerNotify = true,
+                    DrawUpdate = true,
+                    Disposition = "N/A",
+                    RevisionOriginal = 32434,
+                    RevisionUpdated = 52123,
+                    RevisionDate = DateTime.Parse("2024-01-22"),
+                    EngSignature = "James Brady",
+                    EngSignatureDate = DateTime.Parse("2024-01-22"),
+                    EngDecision = (EngineeringDecision)1,
+
+                },
+                new Engineering
+                {
+                    ID = 3,
+                    CustomerNotify = false,
+                    DrawUpdate = true,
+                    Disposition = "N/A",
+                    RevisionOriginal = 87645,
+                    RevisionUpdated = 54632,
+                    RevisionDate = DateTime.Parse("2024-01-24"),
+                    EngSignature = "Linda Johnson",
+                    EngSignatureDate = DateTime.Parse("2024-01-24"),
+                    EngDecision = (EngineeringDecision)2,
+
+                },
+                new Engineering
+                {
+                    ID = 4,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    EngSignature = "Luke Miller",
+                    EngSignatureDate = DateTime.Parse("2024-01-26"),
+                    EngDecision = (EngineeringDecision)3,
+
+                },
+                new Engineering
+                {
+                    ID = 5,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    EngSignature = "Luke Miller",
+                    EngSignatureDate = DateTime.Parse("2024-01-26"),
+                    EngDecision = (EngineeringDecision)3,
+
+                },
+                new Engineering
+                {
+                    ID = 6,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    EngSignature = "Luke Miller",
+                    EngSignatureDate = DateTime.Parse("2024-01-26"),
+                    EngDecision = (EngineeringDecision)3,
+
+                },
+                new Engineering
+                {
+                    ID = 7,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    EngSignature = "Luke Miller",
+                    EngSignatureDate = DateTime.Parse("2024-01-26"),
+                    EngDecision = (EngineeringDecision)3,
+
+                },
+                new Engineering
+                {
+                    ID = 8,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    EngSignature = "Luke Miller",
+                    EngSignatureDate = DateTime.Parse("2024-01-26"),
+                    EngDecision = (EngineeringDecision)3,
+
+                },
+                new Engineering
+                {
+                    ID = 9,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    EngSignature = "Luke Miller",
+                    EngSignatureDate = DateTime.Parse("2024-01-26"),
+                    EngDecision = (EngineeringDecision)3,
+
+                },
+                new Engineering
+                {
+                    ID = 10,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    EngSignature = "Luke Miller",
+                    EngSignatureDate = DateTime.Parse("2024-01-26"),
+                    EngDecision = (EngineeringDecision)3,
+
+                },
+                new Engineering
+                {
+                    ID = 11,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    Disposition = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    EngSignature = "Luke Miller",
+                    EngSignatureDate = DateTime.Parse("2024-01-26"),
+                    EngDecision = (EngineeringDecision)3,
+
+                });
+                context.SaveChanges();
+            }
+            if (!context.FollowUp.Any())
                 {
                     context.FollowUp.AddRange(
                     new FollowUp
