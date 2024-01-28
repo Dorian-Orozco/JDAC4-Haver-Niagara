@@ -32,16 +32,16 @@ namespace Haver_Niagara.Data
             //Fluent API for relationships (cascade, 1:M, M:M, etc etc)
 
             //establishes bidirectional one to one with NCR and Engineering
-            //modelBuilder.Entity<NCR>()
-            //    .HasOne(a => a.Engineering)
-            //    .WithOne(b => b.NCR)
-            //    .HasForeignKey<Engineering>(c => c.NCRId);
+            modelBuilder.Entity<NCR>()
+                .HasOne(a => a.Engineering)
+                .WithOne(b => b.NCR)
+                .HasForeignKey<Engineering>(c => c.NCRId);
 
             ////bidirectional 1 to 1 with NCR and newNCR
-            //modelBuilder.Entity<NCR>()
-            //    .HasOne(a => a.NewNCR)
-            //    .WithOne(b => b.NCR)
-            //    .HasForeignKey<NewNCR>(n => n.NCRId);
+            modelBuilder.Entity<NCR>()
+                .HasOne(a => a.NewNCR)
+                .WithOne(b => b.NCR)
+                .HasForeignKey<NewNCR>(n => n.NCRId);
 
         }
     }
