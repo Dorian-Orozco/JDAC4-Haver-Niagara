@@ -29,17 +29,14 @@
         <tr>
             <td>@item.NCR_Number</td>
             <td>@item.InspectDate</td>
-            <td>@item.NCR_Number</td>
+            <td>@item.Product.ProductNumber</td>
             <td>@item.Product.Supplier.Name</td>
-                <td>
+                   <td>
                     @foreach (var defectList in item.Product.DefectLists)
                     {
-                        @foreach (var defect in defectList.Defects)
-                        {
-                            @defect.Name
-                        }
+                        @defectList.Defect.Name;
                     }
-                </td>
+                </td> 
                 <td>@(item.NCRClosed ? "Closed" : "Open")</td>
             <td><button type="button" class="btn btn-primary">Active</button></td>
             <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td>

@@ -27,8 +27,7 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(s=>s.Supplier)
                 .Include(p=>p.Product)
                     .ThenInclude(d=>d.DefectLists)
-                    .ThenInclude(d=>d.Defects)
-                    
+                    .ThenInclude(d=>d.Defect)
                 .ToList();
             
             //
