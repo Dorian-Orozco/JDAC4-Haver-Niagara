@@ -10,15 +10,16 @@
 
 <h1 class="mt-4 mb-4"> Non-conformance Log</h1>
 
+@* Microsoft tutorial in home controller, currently works once then breaks, trying to fix. *@
 <table class="table">
     <thead>
         <tr>
             <th>No.</th>
             <th>Date Created</th>
-            <th>PO Number</th>
-            <th>Supplier</th>
+            <th>@Html.ActionLink("Product Number", "Index", new { sortOrder = ViewBag.POSortParam })</th>
+            <th>@Html.ActionLink("Supplier", "Index", new { sortOrder = ViewBag.SupplierSortParam })</th>
             <th>Problem</th>
-            <th>Stage</th>
+            <th>@Html.ActionLink("Stage", "Index", new { sortOrder = ViewBag.StageSortParam })</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -28,7 +29,7 @@
         {
         <tr>
             <td>@item.NCR_Number</td>
-            <td>@item.InspectDate</td>
+            <td>@item.InspectDate.ToString("MMM dd, yyyy")</td>
             <td>@item.Product.ProductNumber</td>
             <td>@item.Product.Supplier.Name</td>
                    <td>

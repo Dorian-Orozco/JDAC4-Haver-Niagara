@@ -1,6 +1,7 @@
 ﻿using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -19,8 +20,20 @@ namespace Haver_Niagara.Controllers
 
 
 
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
+            //Sorting Functionality , Tutorial Also included adding search box might be handy later. 
+            //https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
+
+            //Better view bag sortOrder assignment (tutorial didnt work) https://stackoverflow.com/questions/38082611/asp-net-mvc-sort-not-work?rq=3
+
+            //Product Number Sort
+            ViewBag.POSortParam = sortOrder == "ProductNum_Asc" ? "ProductNum_Desc" : "ProductNum_Asc";
+            //Supplier Name
+            ViewBag.SupplierSortParam = sortOrder == "Supplier_Asc" ? "Supplier_Desc" : "Supplier_Asc";
+            //Order by open or closed 
+            ViewBag.StageSortParam = sortOrder == "Stage_Asc" ? "Stage_Desc" : "Stage_Asc";
+
             //Adding functionality to return the list of seed data 
             var ncrs = _context.NCRs
                 .Include(p=>p.Product)
@@ -29,10 +42,36 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(d=>d.DefectLists)
                     .ThenInclude(d=>d.Defect)
                 .ToList();
-            
-            //
 
-            return View(ncrs);
+            //Determines the sorting order
+            switch (sortOrder)       
+            {
+                //Product Number
+                case "ProductNum_Desc":
+                    ncrs = ncrs.OrderByDescending(b => b.Product.ProductNumber).ToList();
+                    break;
+                case "ProductNum_Asc":
+                    ncrs = ncrs.OrderBy(b=>b.Product.ProductNumber).ToList();
+                    break;
+
+                //Supplier Name
+                case "Supplier_Desc":
+                    ncrs = ncrs.OrderByDescending(s => s.Product.Supplier.Name).ToList();
+                    break;
+                case "Supplier_Asc":
+                    ncrs = ncrs.OrderBy(n=>n.Product.Supplier.Name).ToList();
+                    break;
+
+                //NCR stage open or closed (bool)
+                case "Stage_Desc":
+                    ncrs = ncrs.OrderByDescending(b => b.NCRClosed).ToList();
+                    break;
+                case "Stage_Asc":
+                    ncrs = ncrs.OrderBy(b=>b.NCRClosed).ToList();
+                    break;
+            }
+
+            return View(ncrs.ToList());
         }
 
         public IActionResult Privacy()
