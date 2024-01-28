@@ -19,8 +19,8 @@
             <th>@Html.ActionLink("Product Number", "Index", new { sortOrder = ViewBag.POSortParam })</th>
             <th>@Html.ActionLink("Supplier", "Index", new { sortOrder = ViewBag.SupplierSortParam })</th>
             <th>Problem</th>
-            <th>@Html.ActionLink("Stage", "Index", new { sortOrder = ViewBag.StageSortParam })</th>
-            <th>Status</th>
+            <th>@Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StageSortParam })</th>
+          @*  <th>Status</th>*@
             <th>Action</th>
         </tr>
     </thead>
@@ -39,7 +39,7 @@
                     }
                 </td> 
                 <td>@(item.NCRClosed ? "Closed" : "Open")</td>
-            <td><button type="button" class="btn btn-primary">Active</button></td>
+         @*   <td><button type="button" class="btn btn-primary">Active</button></td>*@
             <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td>
         </tr>
         }
