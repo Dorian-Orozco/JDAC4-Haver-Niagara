@@ -16,6 +16,9 @@ namespace Haver_Niagara.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Purchasing> Purchasings { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+
+        //Defect Lists junfction table
+        public DbSet<DefectList> DefectLists { get; set; }
         //Added IMAGE DB Sets to store em. 
         public DbSet<ProductDocumentMedia> ProductDocumentMedias { get; set; }
         public DbSet<UploadedFile> UploadedFiles { get; set; }
@@ -40,8 +43,13 @@ namespace Haver_Niagara.Data
             ////bidirectional 1 to 1 with NCR and newNCR
             //modelBuilder.Entity<NCR>()
             //    .HasOne(a => a.NewNCR)
-            //    .WithOne(b => b.NCR)
-            //    .HasForeignKey<NewNCR>(n => n.NCRId);
+            //   .WithOne(b => b.NCR)
+
+            modelBuilder.Entity<Engineering>()
+                .HasOne(a => a.NCR)
+                .WithOne(a => a.Engineering)
+                .HasForeignKey<Engineering>(e => e.NCRId)
+                .IsRequired();
 
         }
     }

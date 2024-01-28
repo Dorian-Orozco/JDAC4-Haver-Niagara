@@ -8,5 +8,6 @@ namespace Haver_Niagara.Models
         public string Name { get; set; }    
         public string Description { get; set; }
         public ICollection<DefectList> DefectLists { get; set; } = new HashSet<DefectList>();
+
     }
 }

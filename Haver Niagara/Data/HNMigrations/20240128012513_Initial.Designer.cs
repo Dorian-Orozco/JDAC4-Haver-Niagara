@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240127230725_Initial")]
+    [Migration("20240128012513_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -19,21 +19,6 @@ namespace Haver_Niagara.Data.HNMigrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.15");
-
-            modelBuilder.Entity("DefectDefectList", b =>
-                {
-                    b.Property<int>("DefectListsDefectListID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DefectsID")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("DefectListsDefectListID", "DefectsID");
-
-                    b.HasIndex("DefectsID");
-
-                    b.ToTable("DefectDefectList");
-                });
 
             modelBuilder.Entity("Haver_Niagara.Models.CAR", b =>
                 {
@@ -74,18 +59,19 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("DefectID")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProductID")
+                    b.Property<int>("ProductID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("DefectListID");
 
+                    b.HasIndex("DefectID");
+
                     b.HasIndex("ProductID");
 
-                    b.ToTable("DefectList");
+                    b.ToTable("DefectLists");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>
@@ -114,7 +100,8 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<DateTime>("EngSignatureDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("NCRId")
+                    b.Property<int?>("NCRId")
+                        .IsRequired()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("RevisionDate")
@@ -371,26 +358,23 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasDiscriminator().HasValue("ProductDocumentMedia");
                 });
 
-            modelBuilder.Entity("DefectDefectList", b =>
-                {
-                    b.HasOne("Haver_Niagara.Models.DefectList", null)
-                        .WithMany()
-                        .HasForeignKey("DefectListsDefectListID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Haver_Niagara.Models.Defect", null)
-                        .WithMany()
-                        .HasForeignKey("DefectsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Haver_Niagara.Models.DefectList", b =>
                 {
-                    b.HasOne("Haver_Niagara.Models.Product", null)
+                    b.HasOne("Haver_Niagara.Models.Defect", "Defect")
                         .WithMany("DefectLists")
-                        .HasForeignKey("ProductID");
+                        .HasForeignKey("DefectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Haver_Niagara.Models.Product", "Product")
+                        .WithMany("DefectLists")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Defect");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>
@@ -491,6 +475,11 @@ namespace Haver_Niagara.Data.HNMigrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Defect", b =>
+                {
+                    b.Navigation("DefectLists");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>

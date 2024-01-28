@@ -117,22 +117,29 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DefectList",
+                name: "DefectLists",
                 columns: table => new
                 {
                     DefectListID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ProductID = table.Column<int>(type: "INTEGER", nullable: true)
+                    DefectID = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DefectList", x => x.DefectListID);
+                    table.PrimaryKey("PK_DefectLists", x => x.DefectListID);
                     table.ForeignKey(
-                        name: "FK_DefectList_Products_ProductID",
+                        name: "FK_DefectLists_Defects_DefectID",
+                        column: x => x.DefectID,
+                        principalTable: "Defects",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DefectLists_Products_ProductID",
                         column: x => x.ProductID,
                         principalTable: "Products",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,30 +218,6 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DefectDefectList",
-                columns: table => new
-                {
-                    DefectListsDefectListID = table.Column<int>(type: "INTEGER", nullable: false),
-                    DefectsID = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DefectDefectList", x => new { x.DefectListsDefectListID, x.DefectsID });
-                    table.ForeignKey(
-                        name: "FK_DefectDefectList_DefectList_DefectListsDefectListID",
-                        column: x => x.DefectListsDefectListID,
-                        principalTable: "DefectList",
-                        principalColumn: "DefectListID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DefectDefectList_Defects_DefectsID",
-                        column: x => x.DefectsID,
-                        principalTable: "Defects",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Engineering",
                 columns: table => new
                 {
@@ -301,13 +284,13 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DefectDefectList_DefectsID",
-                table: "DefectDefectList",
-                column: "DefectsID");
+                name: "IX_DefectLists_DefectID",
+                table: "DefectLists",
+                column: "DefectID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DefectList_ProductID",
-                table: "DefectList",
+                name: "IX_DefectLists_ProductID",
+                table: "DefectLists",
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
@@ -362,7 +345,7 @@ namespace Haver_Niagara.Data.HNMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DefectDefectList");
+                name: "DefectLists");
 
             migrationBuilder.DropTable(
                 name: "Engineering");
@@ -375,9 +358,6 @@ namespace Haver_Niagara.Data.HNMigrations
 
             migrationBuilder.DropTable(
                 name: "NewNCRs");
-
-            migrationBuilder.DropTable(
-                name: "DefectList");
 
             migrationBuilder.DropTable(
                 name: "Defects");
