@@ -23,7 +23,7 @@ body {
 
 /*eye icon under action column in ncr table*/
 .view-btn {
-    color: blue;
+    color: gray;
     font-size: 30px;
     border: none;
     background: transparent;
