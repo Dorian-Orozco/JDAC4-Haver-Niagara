@@ -21,7 +21,7 @@ namespace Haver_Niagara.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InspectDate { get; set; }
 
-        [Display(Name = "Close NCR")]
+        [Display(Name = "Close NCR?")]
         public bool NCRClosed { get; set; }
 
         [Display(Name = "Quality Representative")]
