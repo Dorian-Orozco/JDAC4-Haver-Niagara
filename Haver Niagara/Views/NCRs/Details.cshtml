@@ -9,17 +9,20 @@
 <div>
     <h4>NCR</h4>
     <hr />
-@*     @{
-        if(Model.Product.Medias?.Content.Count > 0)
+    @{
+        if(Model.Product.Medias?.Count > 0)
         {
-            @:<div>
-            string imageBase64 = Convert.ToBase64String(Model.Product.Medias);
-            string imageSrc = string.Format("data: " + Model.Product.Medias.MimeType + ";base64,{0}", imagebase64);
-            <img src="@imageSrc" alt="Image of NCR Product ID @Model.ProductID" title="NCR Image" />
-            @:<div><hr/>
+            //Realization: For each because theres multiple pictures not JUST one.
+            foreach (var media in Model.Product.Medias)
+            {
+                @:<div>
+                    string imageBase64 = Convert.ToBase64String(media.Content);
+                             string imageSrc = string.Format("data: " + media.MimeType + ";base64,{0}", imageBase64);
+                                <img src="@imageSrc" alt="Image of NCR Product ID @Model.ProductID" title="NCR Image" />
+                @:</div><hr/>
+            }
         }
-
-    } *@
+    }
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NCR_Number)

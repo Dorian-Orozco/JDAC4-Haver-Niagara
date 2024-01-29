@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
+using Haver_Niagara.Utilities;
+using SkiaSharp;
 
 namespace Haver_Niagara.Controllers
 {
@@ -35,9 +37,10 @@ namespace Haver_Niagara.Controllers
             }
 
             var nCR = await _context.NCRs
-                .Include(n => n.Product)           
-                .ThenInclude(a=>a.Medias)
-                
+                .Include(n => n.Product)
+                .ThenInclude(a => a.Medias)
+
+
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
             {
@@ -80,7 +83,10 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
-            var nCR = await _context.NCRs.FindAsync(id);
+            var nCR = await _context.NCRs
+                .Include(n => n.Product)
+                .ThenInclude(a => a.Medias)
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
             {
                 return NotFound();
@@ -133,7 +139,7 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
-            
+
             var nCR = await _context.NCRs
                 .Include(n => n.Product)
                 .FirstOrDefaultAsync(m => m.ID == id);
@@ -159,11 +165,36 @@ namespace Haver_Niagara.Controllers
             {
                 _context.NCRs.Remove(nCR);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        //image code
+        //private async Task AddPicture(NCR ncr, IFormFile thePictures)
+        //{
+        //    //get the picture and save it with patient (1 size)
+        //    if (thePictures != null)
+        //    {
+        //        string mimeType = thePictures.ContentType;
+        //        long fileLength = thePictures.Length;
+        //        if (!(mimeType == "" || fileLength == 0))//looks like theres a file :3
+        //        {
+        //            if (mimeType.Contains("image"))
+        //            {
+        //                using var memoryStream = new MemoryStream();
+        //                await thePictures.CopyToAsync(memoryStream);
+        //                var pictureArray = memoryStream.ToArray(); //gives the byte[]
+
+        //                ncr.Product.Medias = new Media
+        //                {
+        //                    Content = ResizeImage.Images(pictureArray, 500, 600),
+        //                    MimeType = "image/webp"
+        //                };
+        //            }
+        //        }
+        //    }
+        //}
         private bool NCRExists(int id)
         {
           return (_context.NCRs?.Any(e => e.ID == id)).GetValueOrDefault();
