@@ -6,12 +6,21 @@ namespace Haver_Niagara.Models
     public class Product
     {
         [Key]
-        public int ID { get; set; } 
+        public int ID { get; set; }
+
+        [Display(Name = "Product Name")]
         public string Name { get; set; }
 
+        [Display(Name = "Prod. Number")]
         public int ProductNumber { get; set; }
+
+        [Display(Name = "Quantity Recieved")]
         public int QuantityRecieved {  get; set; }
+
+        [Display(Name = "Quantity Defective")]
         public int QuantityDefect {  get; set; }
+
+        [Display(Name = "Description of Defect")]
         public string Description { get; set; }
 
         //navigation property for supplier 
