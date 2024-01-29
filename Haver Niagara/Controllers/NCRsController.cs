@@ -36,8 +36,8 @@ namespace Haver_Niagara.Controllers
 
             var nCR = await _context.NCRs
                 .Include(n => n.Product)           
-                    .ThenInclude(m => m.Medias)     
-
+                .ThenInclude(a=>a.Medias)
+                
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
             {
