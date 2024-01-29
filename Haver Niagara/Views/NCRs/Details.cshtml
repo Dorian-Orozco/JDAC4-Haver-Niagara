@@ -24,6 +24,8 @@
         }
     }
     <dl class="row">
+
+        @* NCR Number *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NCR_Number)
         </dt>
@@ -31,6 +33,15 @@
             @Html.DisplayFor(model => model.NCR_Number)
         </dd>
 
+        @* Supplier Name 
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.Supplier.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.Supplier.Name)
+        </dd> *@
+
+        @* Product *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Product)
         </dt>
@@ -38,6 +49,7 @@
             @Html.DisplayFor(model => model.Product.ID)
         </dd>
 
+        @* Sales Order *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SalesOrder)
         </dt>
@@ -61,7 +73,7 @@
             @Html.DisplayFor(model => model.Product.QuantityDefect)
         </dd>
 
-        @* Description *@              
+        @* Description of Item *@              
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Description)
         </dt>
@@ -69,30 +81,39 @@
             @Html.DisplayFor(model => model.Product.Description)
         </dd>
 
+        @* Inspector Name *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.InspectName)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.InspectName)
         </dd>
+
+        @* Inspected Date *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.InspectDate)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.InspectDate)
         </dd>
+
+        @* NCR Closed Checkbox *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NCRClosed)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NCRClosed)
         </dd>
+
+        @* Quanlity Rep *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.QualSignature)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QualSignature)
         </dd>
+
+        @* Quanlity Date *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.QualDate)
         </dt>

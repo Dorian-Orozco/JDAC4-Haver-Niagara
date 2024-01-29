@@ -20,7 +20,7 @@ namespace Haver_Niagara.Models
         [Display(Name = "Quantity Defective")]
         public int QuantityDefect {  get; set; }
 
-        [Display(Name = "Description of Defect")]
+        [Display(Name = "Description of Item")]
         public string Description { get; set; }
 
         //navigation property for supplier 
