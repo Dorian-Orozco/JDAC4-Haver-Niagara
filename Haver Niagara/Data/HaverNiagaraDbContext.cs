@@ -19,8 +19,8 @@ namespace Haver_Niagara.Data
 
         //Defect Lists junfction table
         public DbSet<DefectList> DefectLists { get; set; }
-        //Added IMAGE DB Sets to store em. 
-        public DbSet<ProductDocumentMedia> ProductDocumentMedias { get; set; }
+
+        //public DbSet<ProductDocumentMedia> ProductDocumentMedias { get; set; }
         public DbSet<UploadedFile> UploadedFiles { get; set; }
 
         public HaverNiagaraDbContext(DbContextOptions<HaverNiagaraDbContext> options)
@@ -51,6 +51,8 @@ namespace Haver_Niagara.Data
                 .HasForeignKey<Engineering>(e => e.NCRId)
                 .IsRequired();
 
+
+            
         }
     }
 }

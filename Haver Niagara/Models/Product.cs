@@ -23,7 +23,8 @@ namespace Haver_Niagara.Models
         public ICollection<DefectList> DefectLists { get; set; } = new HashSet<DefectList>();
         public ICollection<Media> Medias { get; set; } = new HashSet<Media>(); //might not need since we have productdocumentmedias below. 
 
-        [Display(Name="Product Images")]
-        public ICollection<ProductDocumentMedia> ProductDocumentMedias { get; set; } = new HashSet<ProductDocumentMedia>();
+        //[Display(Name="Product Images")]
+        //public ICollection<ProductDocumentMedia> ProductDocumentMedias { get; set; } = new HashSet<ProductDocumentMedia>();
+
     }
 }

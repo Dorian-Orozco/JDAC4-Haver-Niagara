@@ -35,7 +35,9 @@ namespace Haver_Niagara.Controllers
             }
 
             var nCR = await _context.NCRs
-                .Include(n => n.Product)
+                .Include(n => n.Product)           
+                    .ThenInclude(m => m.Medias)     
+
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
             {
@@ -131,6 +133,7 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
+            
             var nCR = await _context.NCRs
                 .Include(n => n.Product)
                 .FirstOrDefaultAsync(m => m.ID == id);

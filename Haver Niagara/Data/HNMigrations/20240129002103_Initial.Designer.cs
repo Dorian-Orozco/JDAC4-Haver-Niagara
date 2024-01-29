@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240128215801_Initial")]
+    [Migration("20240129002103_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -155,18 +155,27 @@ namespace Haver_Niagara.Data.HNMigrations
 
             modelBuilder.Entity("Haver_Niagara.Models.Media", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("MimeType")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("ProductID")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("ProductID");
 
@@ -323,10 +332,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -340,22 +345,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.ToTable("UploadedFiles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("UploadedFile");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("Haver_Niagara.Models.ProductDocumentMedia", b =>
-                {
-                    b.HasBaseType("Haver_Niagara.Models.UploadedFile");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("INTEGER");
-
-                    b.HasIndex("ProductID");
-
-                    b.HasDiscriminator().HasValue("ProductDocumentMedia");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.DefectList", b =>
@@ -466,17 +455,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("followUp");
                 });
 
-            modelBuilder.Entity("Haver_Niagara.Models.ProductDocumentMedia", b =>
-                {
-                    b.HasOne("Haver_Niagara.Models.Product", "Product")
-                        .WithMany("ProductDocumentMedias")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Haver_Niagara.Models.Defect", b =>
                 {
                     b.Navigation("DefectLists");
@@ -497,8 +475,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("Medias");
 
                     b.Navigation("NCRs");
-
-                    b.Navigation("ProductDocumentMedias");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>

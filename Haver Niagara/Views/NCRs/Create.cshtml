@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NCR_Number" class="control-label"></label>
@@ -50,6 +50,17 @@
             <div class="form-group">
                 <label asp-for="ProductID" class="control-label"></label>
                 <select asp-for="ProductID" class ="form-control" asp-items="ViewBag.ProductID"></select>
+            </div>
+            @* Image File Code Below *@
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label custom-file-label">Image File:</label>
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" name="thePictures" id="thePictures" />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

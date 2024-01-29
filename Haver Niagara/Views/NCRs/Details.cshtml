@@ -9,6 +9,17 @@
 <div>
     <h4>NCR</h4>
     <hr />
+@*     @{
+        if(Model.Medias?.Count > 0)
+        {
+            @:<div>
+            string imageBase64 = Convert.ToBase64String(Model.Product.Media.Content);
+            string imageSrc = string.Format("data: " + Model.Product.Medias.MimeType + ";base64,{0}", imagebase64);
+            <img src="@imageSrc" alt="Image of NCR Product ID @Model.ProductID" title="NCR Image" />
+            @:<div><hr/>
+        }
+
+    } *@
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NCR_Number)
