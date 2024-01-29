@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Haver_Niagara.Models.Engineering>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerNotify)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrawUpdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disposition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RevisionOriginal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RevisionUpdated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RevisionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EngSignature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EngSignatureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EngDecision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NCR)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerNotify)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrawUpdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disposition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RevisionOriginal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RevisionUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RevisionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngSignature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngSignatureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngDecision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NCR.ID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -40,7 +40,10 @@
                 </td> 
                 <td>@(item.NCRClosed ? "Closed" : "Open")</td>
          @*   <td><button type="button" class="btn btn-primary">Active</button></td>*@
-            <td><button type="button" class="view-btn" title="View NCR report"><ion-icon name="eye"></ion-icon></button></td>
+            <td>
+                <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                    <ion-icon name="eye"></ion-icon></a>
+            </td>
         </tr>
         }
     </tbody>

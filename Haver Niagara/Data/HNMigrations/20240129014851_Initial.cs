@@ -66,6 +66,20 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UploadedFiles",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FileName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadedFiles", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Purchasings",
                 columns: table => new
                 {
@@ -117,6 +131,24 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FileContent",
+                columns: table => new
+                {
+                    FileContentID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileContent", x => x.FileContentID);
+                    table.ForeignKey(
+                        name: "FK_FileContent_UploadedFiles_FileContentID",
+                        column: x => x.FileContentID,
+                        principalTable: "UploadedFiles",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DefectLists",
                 columns: table => new
                 {
@@ -146,14 +178,16 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "Media",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
+                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     ProductID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Media", x => x.Id);
+                    table.PrimaryKey("PK_Media", x => x.ID);
                     table.ForeignKey(
                         name: "FK_Media_Products_ProductID",
                         column: x => x.ProductID,
@@ -191,28 +225,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_NCRs_Purchasings_PurchasingID",
                         column: x => x.PurchasingID,
                         principalTable: "Purchasings",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UploadedFiles",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FileName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
-                    ProductID = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UploadedFiles", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UploadedFiles_Products_ProductID",
-                        column: x => x.ProductID,
-                        principalTable: "Products",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -261,24 +273,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_NewNCRs_NCRs_NCRId",
                         column: x => x.NCRId,
                         principalTable: "NCRs",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FileContent",
-                columns: table => new
-                {
-                    FileContentID = table.Column<int>(type: "INTEGER", nullable: false),
-                    Content = table.Column<byte[]>(type: "BLOB", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FileContent", x => x.FileContentID);
-                    table.ForeignKey(
-                        name: "FK_FileContent_UploadedFiles_FileContentID",
-                        column: x => x.FileContentID,
-                        principalTable: "UploadedFiles",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -334,11 +328,6 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "IX_Purchasings_followUpID",
                 table: "Purchasings",
                 column: "followUpID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UploadedFiles_ProductID",
-                table: "UploadedFiles",
-                column: "ProductID");
         }
 
         /// <inheritdoc />

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Haver_Niagara.Models.NCR>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NCR_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalesOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InspectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InspectDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NCRClosed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QualSignature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QualDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NCR_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InspectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InspectDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NCRClosed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QualSignature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QualDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ID)
+            </td>
+            @* If wanted a thumbnail it could be added here? *@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
