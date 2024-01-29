@@ -30,12 +30,45 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NCR_Number)
         </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.ID)
+        </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SalesOrder)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SalesOrder)
         </dd>
+
+        @* Quantity Recieved *@        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.QuantityRecieved)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.QuantityRecieved)
+        </dd>
+
+        @* Quantity Defect *@        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.QuantityDefect)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.QuantityDefect)
+        </dd>
+
+        @* Description *@              
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.Description)
+        </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.InspectName)
         </dt>
@@ -65,12 +98,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QualDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.ID)
         </dd>
     </dl>
 </div>

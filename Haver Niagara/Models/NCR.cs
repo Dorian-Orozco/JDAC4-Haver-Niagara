@@ -6,7 +6,7 @@ namespace Haver_Niagara.Models
     {
         public int ID { get; set; }
 
-        [Display(Name = "NCR Number")]
+        [Display(Name = "NCR No.")]
         [Required(ErrorMessage = "You cannot leave the NCR number blank.")] 
         public int NCR_Number {  get; set; }
 
@@ -16,15 +16,18 @@ namespace Haver_Niagara.Models
         [Display(Name = "Inspector Name")]
         public string InspectName { get; set; }
 
+        [Display(Name = "Inspected Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InspectDate { get; set; }
+
+        [Display(Name = "Close NCR")]
         public bool NCRClosed { get; set; }
 
         [Display(Name = "Quality Representative")]
         public string QualSignature {  get; set; }
 
-        [Display(Name = "Date")]
+        [Display(Name = "Quality Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime QualDate { get; set; }
@@ -32,6 +35,8 @@ namespace Haver_Niagara.Models
 
         //1 to many relationship with product
         public int ProductID { get; set; }
+
+        [Display(Name = "PO or Prod. Number")]
         public Product Product { get; set; }
 
         public Purchasing Purchasing { get; set; }
