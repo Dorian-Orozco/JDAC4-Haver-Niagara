@@ -4,11 +4,30 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<style>
+    .details-container {
+        border: 1px solid Black;
+        padding: 15px;
+        border-radius: 5px;
+    }
 
-<div>
-    <h4>NCR</h4>
+    h2 {
+        font-size: 16px;
+    }
+
+    hr {
+        margin-top: 5px;
+    }
+</style>
+
+<h1>NCR Details</h1>
+
+<div class="details-container">
+
+    <h2>Here are the details of this Non-conformance Report:</h2>
+
     <hr />
+
     @{
         if(Model.Product.Medias?.Count > 0)
         {
