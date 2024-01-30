@@ -20,7 +20,7 @@ namespace Haver_Niagara.Controllers
 
 
 
-        public IActionResult Index(string sortOrder)
+        public IActionResult Index(string sortOrder, string searchString)
         {
             //Sorting Functionality , Tutorial Also included adding search box might be handy later. 
             //https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
@@ -33,15 +33,34 @@ namespace Haver_Niagara.Controllers
             ViewBag.SupplierSortParam = sortOrder == "Supplier_Asc" ? "Supplier_Desc" : "Supplier_Asc";
             //Order by open or closed 
             ViewBag.StageSortParam = sortOrder == "Stage_Asc" ? "Stage_Desc" : "Stage_Asc";
+            //Order by date
+            ViewBag.DateSortParam = sortOrder == "Date_Asc" ? "Date_Desc" : "Date_Asc";
+
 
             //Adding functionality to return the list of seed data 
             var ncrs = _context.NCRs
-                .Include(p=>p.Product)
-                    .ThenInclude(s=>s.Supplier)
-                .Include(p=>p.Product)
-                    .ThenInclude(d=>d.DefectLists)
-                    .ThenInclude(d=>d.Defect)
+                .Include(p => p.Product)
+                    .ThenInclude(s => s.Supplier)
+                .Include(p => p.Product)
+                    .ThenInclude(d => d.DefectLists)
+                    .ThenInclude(d => d.Defect)
                 .ToList();
+
+            //Search Box
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //You can add more columns to search, as long as the table relationship is established if it not an NCR
+                //Furthermore might consider adding a clear button? 
+                searchString = searchString.ToLower();
+
+                ncrs = ncrs.Where(x =>
+                 x.InspectDate.ToString().ToLower().Contains(searchString) ||
+                 x.Product.ProductNumber.ToString().ToLower().Contains(searchString) ||
+                 x.NCR_Number.ToString().ToLower().Contains(searchString) ||
+                 x.Product.Supplier.Name.ToLower().Contains(searchString)
+                 ).ToList();
+            }
+            
 
             //Determines the sorting order
             switch (sortOrder)       
@@ -68,6 +87,12 @@ namespace Haver_Niagara.Controllers
                     break;
                 case "Stage_Asc":
                     ncrs = ncrs.OrderBy(b=>b.NCRClosed).ToList();
+                    break;
+                case "Date_Asc":
+                    ncrs = ncrs.OrderByDescending(b=>b.InspectDate).ToList();
+                    break;
+                case "Date_Desc":
+                    ncrs = ncrs.OrderBy(b => b.InspectDate).ToList();
                     break;
             }
 
