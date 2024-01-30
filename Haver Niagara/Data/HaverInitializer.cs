@@ -482,7 +482,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "John Smith",
                     EngSignatureDate = DateTime.Parse("2024-01-20"),
                     EngDecision = 0,
-                    NCRId = 1,
+                    NCRId = 1
 
                 },
                 new Engineering
@@ -497,7 +497,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "James Brady",
                     EngSignatureDate = DateTime.Parse("2024-01-22"),
                     EngDecision = (EngineeringDecision)1,
-                    NCRId = 2,
+                    NCRId = 2
 
                 },
                 new Engineering
@@ -512,7 +512,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Linda Johnson",
                     EngSignatureDate = DateTime.Parse("2024-01-24"),
                     EngDecision = (EngineeringDecision)2,
-                    NCRId = 3,
+                    NCRId = 3
 
                 },
                 new Engineering
@@ -527,7 +527,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Luke Miller",
                     EngSignatureDate = DateTime.Parse("2024-01-26"),
                     EngDecision = (EngineeringDecision)3,
-                    NCRId = 4,
+                    NCRId = 4
 
                 },
                 new Engineering
@@ -542,8 +542,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Luke Miller",
                     EngSignatureDate = DateTime.Parse("2024-01-26"),
                     EngDecision = (EngineeringDecision)3,
-                    NCRId = 5,
-
+                    NCRId = 5
                 },
                 new Engineering
                 {
@@ -557,7 +556,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Luke Miller",
                     EngSignatureDate = DateTime.Parse("2024-01-26"),
                     EngDecision = (EngineeringDecision)3,
-                    NCRId = 6,
+                    NCRId = 6
                 },
                 new Engineering
                 {
@@ -571,7 +570,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Luke Miller",
                     EngSignatureDate = DateTime.Parse("2024-01-26"),
                     EngDecision = (EngineeringDecision)3,
-                    NCRId = 7,
+                    NCRId = 7
                 },
                 new Engineering
                 {
@@ -585,7 +584,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Luke Miller",
                     EngSignatureDate = DateTime.Parse("2024-01-26"),
                     EngDecision = (EngineeringDecision)3,
-                    NCRId = 8,
+                    NCRId = 8
                 },
                 new Engineering
                 {
@@ -599,7 +598,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Luke Miller",
                     EngSignatureDate = DateTime.Parse("2024-01-26"),
                     EngDecision = (EngineeringDecision)3,
-                    NCRId = 9,
+                    NCRId = 9
                 },
                 new Engineering
                 {
@@ -613,7 +612,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Luke Miller",
                     EngSignatureDate = DateTime.Parse("2024-01-26"),
                     EngDecision = (EngineeringDecision)3,
-                    NCRId = 10,
+                    NCRId = 10
                 },
                 new Engineering
                 {
@@ -627,7 +626,7 @@ namespace Haver_Niagara.Data
                     EngSignature = "Luke Miller",
                     EngSignatureDate = DateTime.Parse("2024-01-26"),
                     EngDecision = (EngineeringDecision)3,
-                    NCRId = 11,
+                    NCRId = 11
 
                 });
                 context.SaveChanges();
