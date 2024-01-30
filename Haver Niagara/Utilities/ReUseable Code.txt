@@ -1,0 +1,16 @@
+﻿        Made this file for any code that we ended up deserting and or might need to reference/ implement later.
+
+--------------------------------------------------------------------------------------
+                Display a list of problems in the table (table data)               
+<td>
+    @foreach (var defectList in item.Product.DefectLists)
+    {
+        @defectList.Defect.Name;
+    }
+</td>   
+
+                Only works if you use .Include() in the controller where you are retrieving the data
+.Include(p=>p.Product)
+.ThenInclude(d=>d.DefectLists)
+.ThenInclude(d=>d.Defect)
+--------------------------------------------------------------------------------------
