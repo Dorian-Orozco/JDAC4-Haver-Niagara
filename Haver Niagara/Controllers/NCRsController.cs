@@ -55,7 +55,7 @@ namespace Haver_Niagara.Controllers
         // GET: NCRs/Create
         public IActionResult Create()
         {
-            ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID");
+            ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID");
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID");
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID");
             return View();
@@ -79,7 +79,7 @@ namespace Haver_Niagara.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID", nCR.EngineeringID);
+            ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);
@@ -98,7 +98,7 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID", nCR.EngineeringID);
+            ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);
@@ -138,7 +138,7 @@ namespace Haver_Niagara.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID", nCR.EngineeringID);
+            ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);

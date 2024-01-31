@@ -10,7 +10,7 @@ namespace Haver_Niagara.Models
         [Display(Name = "Product Name")]
         public string Name { get; set; }
 
-        [Display(Name = "Prod. Number")]
+        [Display(Name = "Product Number")]
         public int ProductNumber { get; set; }
 
         [Display(Name = "Quantity Recieved")]

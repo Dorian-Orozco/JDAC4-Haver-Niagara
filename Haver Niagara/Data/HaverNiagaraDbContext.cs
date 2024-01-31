@@ -8,9 +8,9 @@ namespace Haver_Niagara.Data
     {
         public DbSet<CAR> CARs { get; set; }
         public DbSet<Defect> Defects { get; set; }
-        public DbSet<Engineering> Engineering { get; set; }
-        public DbSet<FollowUp> FollowUp { get; set; }
-        public DbSet<Media> Media { get; set; }
+        public DbSet<Engineering> Engineerings { get; set; }
+        public DbSet<FollowUp> FollowUps { get; set; }
+        public DbSet<Media> Medias { get; set; }
         public DbSet<NCR> NCRs { get; set; }
         public DbSet<NewNCR> NewNCRs { get; set; }
         public DbSet<Product> Products { get; set; }
