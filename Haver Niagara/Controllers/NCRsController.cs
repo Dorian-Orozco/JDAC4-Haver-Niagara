@@ -22,7 +22,11 @@ namespace Haver_Niagara.Controllers
         // GET: NCRs
         public async Task<IActionResult> Index()
         {
-            var haverNiagaraDbContext = _context.NCRs.Include(n => n.Engineering).Include(n => n.Product).Include(n => n.Purchasing);
+            var haverNiagaraDbContext = _context.NCRs
+                .Include(n => n.Engineering)
+                .Include(n => n.Product)
+                    .ThenInclude(n=>n.Medias)
+                .Include(n => n.Purchasing);
             return View(await haverNiagaraDbContext.ToListAsync());
         }
 
@@ -37,6 +41,7 @@ namespace Haver_Niagara.Controllers
             var nCR = await _context.NCRs
                 .Include(n => n.Engineering)
                 .Include(n => n.Product)
+                    .ThenInclude(n=>n.Medias)
                 .Include(n => n.Purchasing)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
@@ -61,12 +66,17 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID,PurchasingID,EngineeringID")] NCR nCR)
+        public async Task<IActionResult> Create([Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID,PurchasingID,EngineeringID")] NCR nCR, List<IFormFile> files)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(nCR);
                 await _context.SaveChangesAsync();
+
+                if(files != null && files.Count > 0)
+                {
+                    await OnPostUploadAsync(files, nCR.ID);
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID", nCR.EngineeringID);
@@ -99,7 +109,7 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID,PurchasingID,EngineeringID")] NCR nCR)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID,PurchasingID,EngineeringID")] NCR nCR, List<IFormFile> files)
         {
             if (id != nCR.ID)
             {
@@ -111,7 +121,9 @@ namespace Haver_Niagara.Controllers
                 try
                 {
                     _context.Update(nCR);
+                    await OnPostUploadAsync(files, nCR.ID);
                     await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -143,6 +155,7 @@ namespace Haver_Niagara.Controllers
             var nCR = await _context.NCRs
                 .Include(n => n.Engineering)
                 .Include(n => n.Product)
+                    .ThenInclude(n => n.Medias)
                 .Include(n => n.Purchasing)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
@@ -171,6 +184,55 @@ namespace Haver_Niagara.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files, int ncrID) //Accepting multiple Iformfiles, and an NCR ID to relate data
+        {
+            var ncr = await _context.NCRs  
+                .Include(n=>n.Product)
+                    .ThenInclude(n=>n.Medias)
+                .FirstOrDefaultAsync(n=>n.ID == ncrID);
+
+            if (ncr == null)
+            {
+                return NotFound();
+            }
+
+            long size = files.Sum(f => f.Length);
+
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    var filePath = Path.GetTempFileName();
+
+                    using (var stream = new MemoryStream())
+                    {
+                        await formFile.CopyToAsync(stream);
+
+
+                        var media = new Media
+                        { 
+                            Content = stream.ToArray(),
+                            MimeType = formFile.ContentType,
+                            Description = formFile.FileName
+                        };
+
+                        ncr.Product.Medias.Add(media);
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
+
+            // Process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+            return Ok(new { count = files.Count, size });
+        }
+
+
 
         private bool NCRExists(int id)
         {
