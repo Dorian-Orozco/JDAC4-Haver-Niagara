@@ -36,6 +36,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Product)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purchasing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Engineering)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -66,7 +72,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Product.ID)
             </td>
-            @* If wanted a thumbnail it could be added here? *@
+            <td>
+                @Html.DisplayFor(modelItem => item.Purchasing.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Engineering.ID)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |

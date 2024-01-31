@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
-using Haver_Niagara.Utilities;
-using SkiaSharp;
 
 namespace Haver_Niagara.Controllers
 {
@@ -24,7 +22,7 @@ namespace Haver_Niagara.Controllers
         // GET: NCRs
         public async Task<IActionResult> Index()
         {
-            var haverNiagaraDbContext = _context.NCRs.Include(n => n.Product);
+            var haverNiagaraDbContext = _context.NCRs.Include(n => n.Engineering).Include(n => n.Product).Include(n => n.Purchasing);
             return View(await haverNiagaraDbContext.ToListAsync());
         }
 
@@ -37,14 +35,9 @@ namespace Haver_Niagara.Controllers
             }
 
             var nCR = await _context.NCRs
-                .Include(n => n.Product)
-                .ThenInclude(a => a.Medias)
-                .Include(n => n.Purchasing)
                 .Include(n => n.Engineering)
-
-
-
-
+                .Include(n => n.Product)
+                .Include(n => n.Purchasing)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
             {
@@ -57,7 +50,9 @@ namespace Haver_Niagara.Controllers
         // GET: NCRs/Create
         public IActionResult Create()
         {
+            ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID");
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID");
+            ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID");
             return View();
         }
 
@@ -66,7 +61,7 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID")] NCR nCR)
+        public async Task<IActionResult> Create([Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID,PurchasingID,EngineeringID")] NCR nCR)
         {
             if (ModelState.IsValid)
             {
@@ -74,8 +69,9 @@ namespace Haver_Niagara.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID", nCR.EngineeringID);
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
-
+            ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);
         }
 
@@ -87,15 +83,14 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
-            var nCR = await _context.NCRs
-                .Include(n => n.Product)
-                .ThenInclude(a => a.Medias)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var nCR = await _context.NCRs.FindAsync(id);
             if (nCR == null)
             {
                 return NotFound();
             }
+            ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID", nCR.EngineeringID);
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
+            ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);
         }
 
@@ -104,7 +99,7 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID")] NCR nCR)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID,PurchasingID,EngineeringID")] NCR nCR)
         {
             if (id != nCR.ID)
             {
@@ -131,7 +126,9 @@ namespace Haver_Niagara.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EngineeringID"] = new SelectList(_context.Engineering, "ID", "ID", nCR.EngineeringID);
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
+            ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);
         }
 
@@ -143,9 +140,10 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
-
             var nCR = await _context.NCRs
+                .Include(n => n.Engineering)
                 .Include(n => n.Product)
+                .Include(n => n.Purchasing)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
             {
@@ -169,39 +167,14 @@ namespace Haver_Niagara.Controllers
             {
                 _context.NCRs.Remove(nCR);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        //image code
-        //private async Task AddPicture(NCR ncr, IFormFile thePictures)
-        //{
-        //    //get the picture and save it with patient (1 size)
-        //    if (thePictures != null)
-        //    {
-        //        string mimeType = thePictures.ContentType;
-        //        long fileLength = thePictures.Length;
-        //        if (!(mimeType == "" || fileLength == 0))//looks like theres a file :3
-        //        {
-        //            if (mimeType.Contains("image"))
-        //            {
-        //                using var memoryStream = new MemoryStream();
-        //                await thePictures.CopyToAsync(memoryStream);
-        //                var pictureArray = memoryStream.ToArray(); //gives the byte[]
-
-        //                ncr.Product.Medias = new Media
-        //                {
-        //                    Content = ResizeImage.Images(pictureArray, 500, 600),
-        //                    MimeType = "image/webp"
-        //                };
-        //            }
-        //        }
-        //    }
-        //}
         private bool NCRExists(int id)
         {
-          return (_context.NCRs?.Any(e => e.ID == id)).GetValueOrDefault();
+          return _context.NCRs.Any(e => e.ID == id);
         }
     }
 }

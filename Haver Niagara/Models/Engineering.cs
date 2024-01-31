@@ -12,10 +12,6 @@
         public string EngSignature { get; set; }
         public DateTime EngSignatureDate { get; set; }
         public EngineeringDecision EngDecision { get; set; }
-
-        ////"Foreign Key" from NCR ??
-        public int? NCRId { get; set; }
-        //Reference to parent (NCR)
         public NCR NCR { get; set; }
     }
 }

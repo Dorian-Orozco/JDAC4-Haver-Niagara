@@ -30,12 +30,33 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Defects", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Engineering",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerNotify = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DrawUpdate = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Disposition = table.Column<string>(type: "TEXT", nullable: true),
+                    RevisionOriginal = table.Column<int>(type: "INTEGER", nullable: false),
+                    RevisionUpdated = table.Column<int>(type: "INTEGER", nullable: false),
+                    RevisionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    EngSignature = table.Column<string>(type: "TEXT", nullable: true),
+                    EngSignatureDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    EngDecision = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Engineering", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,7 +66,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     FollowUpDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    FollowUpType = table.Column<string>(type: "TEXT", nullable: false)
+                    FollowUpType = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,7 +79,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,8 +92,8 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FileName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
+                    FileName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,7 +106,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    PurchaseSignature = table.Column<string>(type: "TEXT", nullable: false),
+                    PurchaseSignature = table.Column<string>(type: "TEXT", nullable: true),
                     SignatureDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     PurchasingDec = table.Column<int>(type: "INTEGER", nullable: false),
                     followUpID = table.Column<int>(type: "INTEGER", nullable: true),
@@ -112,12 +133,12 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
                     ProductNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityRecieved = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityDefect = table.Column<int>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    SupplierID = table.Column<int>(type: "INTEGER", nullable: false)
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    SupplierID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -126,8 +147,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_Products_Suppliers_SupplierID",
                         column: x => x.SupplierID,
                         principalTable: "Suppliers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -135,7 +155,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 columns: table => new
                 {
                     FileContentID = table.Column<int>(type: "INTEGER", nullable: false),
-                    Content = table.Column<byte[]>(type: "BLOB", nullable: false)
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -180,9 +200,9 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Content = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     ProductID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -203,18 +223,25 @@ namespace Haver_Niagara.Data.HNMigrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     NCR_Number = table.Column<int>(type: "INTEGER", nullable: false),
-                    SalesOrder = table.Column<string>(type: "TEXT", nullable: false),
-                    InspectName = table.Column<string>(type: "TEXT", nullable: false),
+                    SalesOrder = table.Column<string>(type: "TEXT", nullable: true),
+                    InspectName = table.Column<string>(type: "TEXT", nullable: true),
                     InspectDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     NCRClosed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    QualSignature = table.Column<string>(type: "TEXT", nullable: false),
+                    QualSignature = table.Column<string>(type: "TEXT", nullable: true),
                     QualDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ProductID = table.Column<int>(type: "INTEGER", nullable: false),
-                    PurchasingID = table.Column<int>(type: "INTEGER", nullable: false)
+                    PurchasingID = table.Column<int>(type: "INTEGER", nullable: false),
+                    EngineeringID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NCRs", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_NCRs_Engineering_EngineeringID",
+                        column: x => x.EngineeringID,
+                        principalTable: "Engineering",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_NCRs_Products_ProductID",
                         column: x => x.ProductID,
@@ -225,34 +252,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_NCRs_Purchasings_PurchasingID",
                         column: x => x.PurchasingID,
                         principalTable: "Purchasings",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Engineering",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CustomerNotify = table.Column<bool>(type: "INTEGER", nullable: false),
-                    DrawUpdate = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Disposition = table.Column<string>(type: "TEXT", nullable: false),
-                    RevisionOriginal = table.Column<int>(type: "INTEGER", nullable: false),
-                    RevisionUpdated = table.Column<int>(type: "INTEGER", nullable: false),
-                    RevisionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EngSignature = table.Column<string>(type: "TEXT", nullable: false),
-                    EngSignatureDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EngDecision = table.Column<int>(type: "INTEGER", nullable: false),
-                    NCRId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Engineering", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Engineering_NCRs_NCRId",
-                        column: x => x.NCRId,
-                        principalTable: "NCRs",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -288,25 +287,27 @@ namespace Haver_Niagara.Data.HNMigrations
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Engineering_NCRId",
-                table: "Engineering",
-                column: "NCRId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Media_ProductID",
                 table: "Media",
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_NCRs_EngineeringID",
+                table: "NCRs",
+                column: "EngineeringID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_NCRs_ProductID",
                 table: "NCRs",
-                column: "ProductID");
+                column: "ProductID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_NCRs_PurchasingID",
                 table: "NCRs",
-                column: "PurchasingID");
+                column: "PurchasingID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_NewNCRs_NCRId",
@@ -337,9 +338,6 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "DefectLists");
 
             migrationBuilder.DropTable(
-                name: "Engineering");
-
-            migrationBuilder.DropTable(
                 name: "FileContent");
 
             migrationBuilder.DropTable(
@@ -356,6 +354,9 @@ namespace Haver_Niagara.Data.HNMigrations
 
             migrationBuilder.DropTable(
                 name: "NCRs");
+
+            migrationBuilder.DropTable(
+                name: "Engineering");
 
             migrationBuilder.DropTable(
                 name: "Products");

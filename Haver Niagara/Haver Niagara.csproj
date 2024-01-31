@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-Haver_Niagara-e599a2c9-1b09-43ab-8f0b-ca4617da4897</UserSecretsId>
     <RootNamespace>Haver_Niagara</RootNamespace>

@@ -45,11 +45,11 @@ namespace Haver_Niagara.Data
             //    .HasOne(a => a.NewNCR)
             //   .WithOne(b => b.NCR)
 
-            modelBuilder.Entity<Engineering>()
-                .HasOne(a => a.NCR)
-                .WithOne(a => a.Engineering)
-                .HasForeignKey<Engineering>(e => e.NCRId)
-                .IsRequired();
+            //modelBuilder.Entity<Engineering>()
+            //    .HasOne(a => a.NCR)
+            //    .WithOne(a => a.Engineering)
+            //    .HasForeignKey<Engineering>(e => e.NCRId)
+            //    .IsRequired();
 
 
             
