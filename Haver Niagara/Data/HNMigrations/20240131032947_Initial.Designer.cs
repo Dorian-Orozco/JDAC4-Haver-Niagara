@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240129014851_Initial")]
+    [Migration("20240131032947_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -41,11 +41,9 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
@@ -84,7 +82,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Disposition")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("DrawUpdate")
@@ -94,15 +91,10 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("EngSignature")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EngSignatureDate")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("NCRId")
-                        .IsRequired()
-                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("RevisionDate")
                         .HasColumnType("TEXT");
@@ -115,9 +107,6 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("NCRId")
-                        .IsUnique();
-
                     b.ToTable("Engineering");
                 });
 
@@ -127,7 +116,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("Content")
-                        .IsRequired()
                         .HasColumnType("BLOB");
 
                     b.HasKey("FileContentID");
@@ -145,7 +133,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FollowUpType")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
@@ -160,15 +147,12 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("Content")
-                        .IsRequired()
                         .HasColumnType("BLOB");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MimeType")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
@@ -188,11 +172,13 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("EngineeringID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("InspectDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("InspectName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("NCRClosed")
@@ -211,18 +197,21 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("QualSignature")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SalesOrder")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ProductID");
+                    b.HasIndex("EngineeringID")
+                        .IsUnique();
 
-                    b.HasIndex("PurchasingID");
+                    b.HasIndex("ProductID")
+                        .IsUnique();
+
+                    b.HasIndex("PurchasingID")
+                        .IsUnique();
 
                     b.ToTable("NCRs");
                 });
@@ -254,11 +243,9 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProductNumber")
@@ -270,7 +257,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int>("QuantityRecieved")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SupplierID")
+                    b.Property<int?>("SupplierID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
@@ -290,7 +277,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PurchaseSignature")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("PurchasingDec")
@@ -318,7 +304,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
@@ -333,12 +318,10 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MimeType")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
@@ -366,17 +349,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>
-                {
-                    b.HasOne("Haver_Niagara.Models.NCR", "NCR")
-                        .WithOne("Engineering")
-                        .HasForeignKey("Haver_Niagara.Models.Engineering", "NCRId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("NCR");
-                });
-
             modelBuilder.Entity("Haver_Niagara.Models.FileContent", b =>
                 {
                     b.HasOne("Haver_Niagara.Models.UploadedFile", "UploadedFile")
@@ -401,17 +373,25 @@ namespace Haver_Niagara.Data.HNMigrations
 
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
                 {
+                    b.HasOne("Haver_Niagara.Models.Engineering", "Engineering")
+                        .WithOne("NCR")
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "EngineeringID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Haver_Niagara.Models.Product", "Product")
-                        .WithMany("NCRs")
-                        .HasForeignKey("ProductID")
+                        .WithOne("NCR")
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Haver_Niagara.Models.Purchasing", "Purchasing")
-                        .WithMany()
-                        .HasForeignKey("PurchasingID")
+                        .WithOne("NCR")
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "PurchasingID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Engineering");
 
                     b.Navigation("Product");
 
@@ -433,9 +413,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
                         .WithMany("Products")
-                        .HasForeignKey("SupplierID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SupplierID");
 
                     b.Navigation("Supplier");
                 });
@@ -460,11 +438,13 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("DefectLists");
                 });
 
+            modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>
+                {
+                    b.Navigation("NCR");
+                });
+
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
                 {
-                    b.Navigation("Engineering")
-                        .IsRequired();
-
                     b.Navigation("NewNCR");
                 });
 
@@ -474,7 +454,12 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.Navigation("Medias");
 
-                    b.Navigation("NCRs");
+                    b.Navigation("NCR");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Purchasing", b =>
+                {
+                    b.Navigation("NCR");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>
@@ -484,8 +469,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
             modelBuilder.Entity("Haver_Niagara.Models.UploadedFile", b =>
                 {
-                    b.Navigation("FileContent")
-                        .IsRequired();
+                    b.Navigation("FileContent");
                 });
 #pragma warning restore 612, 618
         }

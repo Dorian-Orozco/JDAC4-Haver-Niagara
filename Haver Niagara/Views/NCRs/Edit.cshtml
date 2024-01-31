@@ -8,26 +8,9 @@
 
 <h4>NCR</h4>
 <hr />
-@{
-    // if theres no pictures set value of false to avoid null reference error
-    var hasPictures = Model.Product?.Medias?.Any() ?? false;
-    //If any images exist, display them
-        if(hasPictures)
-        {
-            //Realization: For each because theres multiple pictures not JUST one.
-            foreach (var media in Model.Product.Medias)
-            {
-                @:<div>
-                    string imageBase64 = Convert.ToBase64String(media.Content);
-                             string imageSrc = string.Format("data: " + media.MimeType + ";base64,{0}", imageBase64);
-                                <img src="@imageSrc" alt="Image of NCR Product ID @Model.ProductID" title="NCR Image" />
-                @:</div><hr/>
-            }
-        }
-}
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
@@ -70,28 +53,15 @@
                 <select asp-for="ProductID" class="form-control" asp-items="ViewBag.ProductID"></select>
                 <span asp-validation-for="ProductID" class="text-danger"></span>
             </div>
-            @* Check box options for images. If pictures, loop through and for each display checkbox to remove ?*@
-            @* Unsure of how to proceed. How will user know which checkbox is which image?  *@
-            @if (hasPictures)
-            {
-                foreach (var media in Model.Product.Medias)
-                {
-                    <div class="row">
-                        <div class="form-check m-3">                @* Value = gets if of each media *@
-                            <input class="form-check-input" type="checkbox" name="removeImages" value="@media.ID" />
-                            <label class="form-check-label" for="removeImages">
-                                <strong>Check to Remove Images</strong>
-                            </label>
-                        </div>
-                    </div>
-                }
-            }
-            @* Images to upload  *@
             <div class="form-group">
-                <label class="control-label custom-file-label">Images To Upload:</label>
-                <div class="input-group mb-3">
-                    <input type="file" class="form-control" name="thePictures" id="thePictures"/>
-                </div>
+                <label asp-for="PurchasingID" class="control-label"></label>
+                <select asp-for="PurchasingID" class="form-control" asp-items="ViewBag.PurchasingID"></select>
+                <span asp-validation-for="PurchasingID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EngineeringID" class="control-label"></label>
+                <select asp-for="EngineeringID" class="form-control" asp-items="ViewBag.EngineeringID"></select>
+                <span asp-validation-for="EngineeringID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -101,7 +71,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-controller="Home">Back to Dashboard</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
