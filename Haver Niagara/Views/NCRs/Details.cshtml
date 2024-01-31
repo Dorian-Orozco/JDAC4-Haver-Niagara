@@ -4,144 +4,75 @@
     ViewData["Title"] = "Details";
 }
 
-<style>
-    .details-container {
-        border: 1px solid Black;
-        padding: 15px;
-        border-radius: 5px;
-    }
+<h1>Details</h1>
 
-    h2 {
-        font-size: 16px;
-    }
-
-    hr {
-        margin-top: 5px;
-    }
-</style>
-
-<h1>NCR Details</h1>
-
-<div class="details-container">
-
-    <h2>Here are the details of this Non-conformance Report:</h2>
-
+<div>
+    <h4>NCR</h4>
     <hr />
-
-    @{
-        if(Model.Product.Medias?.Count > 0)
-        {
-            //Realization: For each because theres multiple pictures not JUST one.
-            foreach (var media in Model.Product.Medias)
-            {
-                @:<div>
-                    string imageBase64 = Convert.ToBase64String(media.Content);
-                             string imageSrc = string.Format("data: " + media.MimeType + ";base64,{0}", imageBase64);
-                                <img src="@imageSrc" alt="Image of NCR Product ID @Model.ProductID" title="NCR Image" />
-                @:</div><hr/>
-            }
-        }
-    }
     <dl class="row">
-
-        @* NCR Number *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NCR_Number)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NCR_Number)
         </dd>
-
-        @* Supplier Name 
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Supplier.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.Supplier.Name)
-        </dd> *@
-
-        @* Product *@
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.ProductNumber)
-        </dd>
-
-        @* Sales Order *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SalesOrder)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SalesOrder)
         </dd>
-
-        @* Quantity Recieved *@        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.QuantityRecieved)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.QuantityRecieved)
-        </dd>
-
-        @* Quantity Defect *@        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.QuantityDefect)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.QuantityDefect)
-        </dd>
-
-        @* Description of Item *@              
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.Description)
-        </dd>
-
-        @* Inspector Name *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.InspectName)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.InspectName)
         </dd>
-
-        @* Inspected Date *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.InspectDate)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.InspectDate)
         </dd>
-
-        @* NCR Closed Checkbox *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NCRClosed)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NCRClosed)
         </dd>
-
-        @* Quanlity Rep *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.QualSignature)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QualSignature)
         </dd>
-
-        @* Quanlity Date *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.QualDate)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QualDate)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Purchasing)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Purchasing.ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Engineering)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Engineering.ID)
+        </dd>
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index"asp-controller="Home">Back to Dashboard</a>
+    <a asp-action="Index">Back to List</a>
 </div>

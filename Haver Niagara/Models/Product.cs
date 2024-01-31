@@ -5,7 +5,6 @@ namespace Haver_Niagara.Models
 {
     public class Product
     {
-        [Key]
         public int ID { get; set; }
 
         [Display(Name = "Product Name")]
@@ -27,13 +26,11 @@ namespace Haver_Niagara.Models
         public Supplier Supplier { get; set; }
 
         //One to many with NCR
-        public ICollection<NCR> NCRs { get; set; } = new HashSet<NCR>();
+        public NCR NCR { get; set; }
+        //public ICollection<NCR> NCRs { get; set; } = new HashSet<NCR>();
 
         public ICollection<DefectList> DefectLists { get; set; } = new HashSet<DefectList>();
-        public ICollection<Media> Medias { get; set; } = new HashSet<Media>(); //might not need since we have productdocumentmedias below. 
-
-        //[Display(Name="Product Images")]
-        //public ICollection<ProductDocumentMedia> ProductDocumentMedias { get; set; } = new HashSet<ProductDocumentMedia>();
+        public ICollection<Media> Medias { get; set; } = new HashSet<Media>(); 
 
     }
 }

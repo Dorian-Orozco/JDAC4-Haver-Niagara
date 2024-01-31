@@ -9,5 +9,8 @@
         public FollowUp? followUp { get; set; }
         public CAR? CAR { get; set; }
 
+        public NCR NCR { get; set; }
+
+
     }
 }
