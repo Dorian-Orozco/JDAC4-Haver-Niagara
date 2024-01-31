@@ -9,7 +9,7 @@ namespace Haver_Niagara.Models
 
         [Display(Name = "NCR No.")]
         [Required(ErrorMessage = "You cannot leave the NCR number blank.")] 
-        public int NCR_Number {  get; set; }
+        public string NCR_Number {  get; set; }
 
         [Display(Name = "Sales Order")]
         public string SalesOrder {  get; set; }
@@ -22,10 +22,10 @@ namespace Haver_Niagara.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InspectDate { get; set; }
 
-        [Display(Name = "Close NCR?")]
+        [Display(Name = "NCR Closed")]
         public bool NCRClosed { get; set; }
 
-        [Display(Name = "Quality Representative")]
+        [Display(Name = "Quality Name")]
         public string QualSignature {  get; set; }
 
         [Display(Name = "Quality Date")]

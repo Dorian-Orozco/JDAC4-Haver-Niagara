@@ -8,53 +8,16 @@
 
 
 
-<h1 class="mt-4 mb-4"> Non-conformance Log</h1>
+<h1 class="mt-4 mb-4"> Non-Conformance Portal</h1>
 
-@* Microsoft tutorial in home controller, currently works once then breaks, trying to fix. *@
 
 @using (Html.BeginForm())
 {
     <p>
-        Filter By Search: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
+        <a asp-controller="NCRs" asp-action="Create">Create New</a>
+    </p>
+    <p>
+        <a asp-action="List">View NCR List</a>
     </p>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            @*Look into finding a better way for NCR Number*@
-            <th>NCR Number</th>
-            <th>@Html.ActionLink("Date Created", "Index", new { sortOrder = ViewBag.DateSortParam })</th>
-            <th>@Html.ActionLink("Product Number", "Index", new { sortOrder = ViewBag.POSortParam })</th>
-            <th>@Html.ActionLink("Supplier", "Index", new { sortOrder = ViewBag.SupplierSortParam })</th>
-            <th>Product Number</th>
-            <th>@Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StageSortParam })</th>
-          @*  <th>Status</th>*@
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            //Not too functional, but it uses the NCR_Number which is the NCR primary key and applies
-            //Problems : after a year all ncrs would change to 2025 regardless of date created. 
-            var year = DateTime.Now.Year;
-            var NCRFormat = item.NCR_Number.ToString("D3");
-            <tr>
-                <td>
-                    @($"{year}-{NCRFormat}")
-                </td>
-            <td>@item.InspectDate.ToString("MMM dd, yyyy")</td>
-            <td>@item.Product.ProductNumber</td>
-            <td>@item.Product.Supplier.Name</td>
-            <td>@item.Product.ProductNumber</td>
-                <td>@(item.NCRClosed ? "Closed" : "Open")</td>
-            <td>
-                <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
-                    <ion-icon name="eye"></ion-icon></a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
