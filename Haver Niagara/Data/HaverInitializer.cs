@@ -1,6 +1,8 @@
 ﻿using Haver_Niagara.Models;
 using Microsoft.EntityFrameworkCore;
+using SkiaSharp;
 using System.Diagnostics;
+using System.Text;
 namespace Haver_Niagara.Data
 {
     public static class HaverInitializer
@@ -222,6 +224,54 @@ namespace Haver_Niagara.Data
                     Description = "Clips for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7)
                 });
+                context.SaveChanges();
+            }
+            if (!context.Media.Any())
+            {
+                //replace with serious pictures, i was tired.  takes pictures turns into binary, then when pulled from
+                //the database / model it returns them to original form. 
+                // So.. I just need to figure out how to update the NCR create statement in controller to include
+                // a variable (content []) that contains the data and stores it where the id's match...hm.
+                byte[] demoPicture1 = File.ReadAllBytes("TemporaryImages/cat1.jpg");
+                byte[] demoPicture2 = File.ReadAllBytes("TemporaryImages/cat2.jpg");
+                byte[] demoPicture3 = File.ReadAllBytes("TemporaryImages/cat3.jpg");
+                byte[] demoPicture4 = File.ReadAllBytes("TemporaryImages/cat4.jpg");
+                         
+
+
+                context.Media.AddRange(
+                    new Media
+                    {
+                        ID = 1,
+                        Content = demoPicture1,
+                        Description = "Cat Working!",
+                        MimeType = "image/jpg",
+                        Product = context.Products.FirstOrDefault(p=>p.ID == 1)
+                    },
+                    new Media
+                    {
+                        ID = 2,
+                        Content = demoPicture2,
+                        Description = "More Working!",
+                        MimeType = "image/jpeg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 2)
+                    },
+                    new Media
+                    {
+                        ID = 3,
+                        Content = demoPicture3,
+                        Description = "Cat.",
+                        MimeType = "image/jpeg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 3)
+                    },
+                    new Media
+                    {
+                        ID = 4,
+                        Content = demoPicture4,
+                        Description = "Test",
+                        MimeType = "image/jpeg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 4)
+                    });
                 context.SaveChanges();
             }
             if (!context.Purchasings.Any())
