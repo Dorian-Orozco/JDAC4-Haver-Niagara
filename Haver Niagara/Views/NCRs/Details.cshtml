@@ -66,11 +66,17 @@
         </dd>
         <dt class="col-sm-3 mb-2">
             Problem Found
-            @* @Html.DisplayNameFor(model => model.Product.DefectLists) *@
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Product.DefectLists)
+            @if (Model.Product != null && Model.Product.DefectLists != null)
+            {
+                @foreach (var defectL in Model.Product.DefectLists)
+                {
+                    @defectL.Defect.Description;
+                }
+            }
         </dd>
+
         <dt class="col-sm-3">
             @* Hard-coded value *@
             Images

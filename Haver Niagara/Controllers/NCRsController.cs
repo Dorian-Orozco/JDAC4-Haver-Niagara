@@ -42,7 +42,11 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Engineering)
                 .Include(n => n.Product)
                     .ThenInclude(n=>n.Medias)
+                .Include(n=>n.Product)
+                    .ThenInclude(n=>n.DefectLists)
+                    .ThenInclude(d => d.Defect)
                 .Include(n => n.Purchasing)
+                    
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
             {
