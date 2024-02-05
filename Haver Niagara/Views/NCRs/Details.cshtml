@@ -76,7 +76,8 @@
             Images
         </dt>
         <dd class="col-sm-9">
-            @if (Model.Product.Medias.Any())
+
+            @if (Model.Product != null && Model.Product.Medias != null && Model.Product.Medias.Any())
             {
                 foreach (var image in Model.Product.Medias)
                 {
