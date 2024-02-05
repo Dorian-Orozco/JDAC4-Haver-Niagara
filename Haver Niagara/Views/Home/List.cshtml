@@ -26,11 +26,11 @@
     <thead>
         <tr>
             <th>NCR Number</th>
-            <th>@Html.ActionLink("Date Created", "Index", new { sortOrder = ViewBag.DateSortParam })</th>
-            <th>@Html.ActionLink("Product Number", "Index", new { sortOrder = ViewBag.POSortParam })</th>
-            <th>@Html.ActionLink("Supplier", "Index", new { sortOrder = ViewBag.SupplierSortParam })</th>
+            <th>@Html.ActionLink("Date Created", "List", new { sortOrder = ViewBag.DateSortParam })</th>
+            <th>@Html.ActionLink("Product Number", "List", new { sortOrder = ViewBag.POSortParam })</th>
+            <th>@Html.ActionLink("Supplier", "List", new { sortOrder = ViewBag.SupplierSortParam })</th>
             <th>Product Number</th>
-            <th>@Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StageSortParam })</th>
+            <th>@Html.ActionLink("Status", "List", new { sortOrder = ViewBag.StageSortParam })</th>
             @*  <th>Status</th>*@
             <th>Action</th>
         </tr>
