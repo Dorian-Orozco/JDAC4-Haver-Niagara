@@ -13,11 +13,10 @@
 
 @using (Html.BeginForm())
 {
-    <p>
-        <a asp-controller="NCRs" asp-action="Create">Create New</a>
-    </p>
-    <p>
-        <a asp-action="List">View NCR List</a>
-    </p>
+    <div class="display-flex">
+        <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary">Create New</a>
+        <a asp-action="List" class="btn btn-primary">View NCR List</a>
+    </div>
+
 }
 
