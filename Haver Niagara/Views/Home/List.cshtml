@@ -6,15 +6,16 @@
 
 
 
-
-<h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
+<div class="d-flex justify-content-between">
+    <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
+    <p>
+      <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary">Create NCR Report</a>
+    </p>
+</div>
 
 
 @using (Html.BeginForm())
 {
-    <p>
-        <a asp-controller="NCRs" asp-action="Create">Create New</a>
-    </p>
     <p>
         Filter By Search: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />

@@ -7,19 +7,19 @@
 <h1>Details</h1>
 
 <div>
-    <dl class="border border-primary rounded p-3 d-flex">
+    <dl class="border border-primary rounded p-3 d-flex justify-content-center fs-4">
         <dt>
             @Html.DisplayNameFor(model => model.NCR_Number)
         </dt>
-        <dd class="ms-3">
+        <dd class="ms-2">
             @Html.DisplayFor(model => model.NCR_Number)
         </dd>
     </dl>
-    <hr />
+    @* <hr /> *@
     <dl class="row">
 
         @* Quality Inspector Section *@
-        <div class="mb-3 border rounded text-center">Quality Inspector</div>
+        <div class="mb-3 border border-secondary rounded fs-5">Quality Inspector</div>
       
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Product.Supplier)
@@ -64,7 +64,7 @@
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Product.Description)
         </dd>
-        <dt class="col-sm-3">
+        <dt class="col-sm-3 mb-2">
             Problem Found
             @* @Html.DisplayNameFor(model => model.Product.DefectLists) *@
         </dt>
@@ -102,7 +102,7 @@
         </dd>
 
         @* Engineering Section *@
-        <div class="mb-3 mt-2 border rounded text-center">Engineering</div>
+        <div class="mb-3 mt-2 border border-secondary rounded fs-5">Engineering</div>
 
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Engineering.EngDecision)
@@ -144,7 +144,7 @@
         </dd>
 
         @* Operations Section *@
-        <div class="mb-3 mt-2 border rounded text-center">Operations</div>
+        <div class="mb-3 mt-2 border border-secondary rounded fs-5">Operations</div>
 
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Purchasing.PurchasingDec)
@@ -152,17 +152,19 @@
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Purchasing.PurchasingDec)
         </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Purchasing.followUp)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Purchasing.followUp)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Purchasing.CAR)
+        <dt class="col-sm-3 mb-2">
+            Was a CAR raised?
+            @* @Html.DisplayNameFor(model => model.Purchasing.CAR) *@
         </dt>
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Purchasing.CAR)
+        </dd>
+        <dt class="col-sm-3 mb-2">
+            Follow-up Required?
+            @* @Html.DisplayNameFor(model => model.Purchasing.followUp) *@
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Purchasing.followUp)
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Purchasing.PurchaseSignature)
@@ -178,7 +180,7 @@
         </dd>
     
         @* Quality Inspector Section *@
-        <div class="mb-3 mt-2 border rounded text-center">Quality Inspector</div>
+        <div class="mb-3 mt-2 border border-secondary rounded fs-5">Quality Inspector</div>
 
         <dt class = "col-sm-3">
             Re-inspected Acceptable?
