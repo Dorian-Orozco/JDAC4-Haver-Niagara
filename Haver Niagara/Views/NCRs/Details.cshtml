@@ -7,181 +7,75 @@
 <h1>Details</h1>
 
 <div>
-    <h4>NCR</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <dl class="border border-primary rounded p-3 d-flex justify-content-center fs-4">
+        <dt>
             @Html.DisplayNameFor(model => model.NCR_Number)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="ms-2">
             @Html.DisplayFor(model => model.NCR_Number)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SalesOrder)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SalesOrder)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InspectName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InspectName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InspectDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InspectDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NCRClosed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NCRClosed)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QualSignature)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.QualSignature)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QualDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.QualDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.ProductNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.ProductNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.QuantityRecieved)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.QuantityRecieved)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.QuantityDefect)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.QuantityDefect)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Description)
-        </dd>
-        <dt class="col-sm-2">
+    </dl>
+    @* <hr /> *@
+    <dl class="row">
+
+        @* Quality Inspector Section *@
+        <div class="mb-3 border border-secondary rounded fs-5">Quality Inspector</div>
+      
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Product.Supplier)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Supplier)
+        <dd class="col-sm-9">
+            @* Hard-coded value *@
+            Lawrence Sintered Metals
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.DefectLists)
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Product.ProductNumber)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Product.ProductNumber)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.SalesOrder)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.SalesOrder)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Product.QuantityRecieved)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Product.QuantityRecieved)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Product.QuantityDefect)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Product.QuantityDefect)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Product.Description)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Product.Description)
+        </dd>
+        <dt class="col-sm-3 mb-2">
+            Problem Found
+            @* @Html.DisplayNameFor(model => model.Product.DefectLists) *@
+        </dt>
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Product.DefectLists)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Purchasing.PurchaseSignature)
+        <dt class="col-sm-3">
+            @* Hard-coded value *@
+            Images
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Purchasing.PurchaseSignature)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Purchasing.SignatureDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Purchasing.SignatureDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Purchasing.PurchasingDec)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Purchasing.PurchasingDec)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Purchasing.followUp)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Purchasing.followUp)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Purchasing.CAR)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Purchasing.CAR)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.CustomerNotify)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.CustomerNotify)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.DrawUpdate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.DrawUpdate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.Disposition)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.Disposition)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.RevisionOriginal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.RevisionOriginal)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.RevisionUpdated)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.RevisionUpdated)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.RevisionDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.RevisionDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.EngSignature)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.EngSignature)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.EngSignatureDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.EngSignatureDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Engineering.EngDecision)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Engineering.EngDecision)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Medias)
-        </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @if (Model.Product.Medias.Any())
             {
                 foreach (var image in Model.Product.Medias)
@@ -194,10 +88,149 @@
                 <text>No Images</text>
             }
         </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.QualSignature)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.QualSignature)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.QualDate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.QualDate)
+        </dd>
+
+        @* Engineering Section *@
+        <div class="mb-3 mt-2 border border-secondary rounded fs-5">Engineering</div>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Engineering.EngDecision)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Engineering.EngDecision)
+        </dd>
+        <dt class="col-sm-3">
+            @* Hard-coded value *@
+            Customer Notified?
+        </dt>
+        <dd class="col-sm-9">
+            No
+            @* @Html.DisplayFor(model => model.Engineering.CustomerNotify) *@
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Engineering.Disposition)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Engineering.Disposition)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Engineering.DrawUpdate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Engineering.DrawUpdate)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Engineering.EngSignature)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Engineering.EngSignature)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Engineering.EngSignatureDate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Engineering.EngSignatureDate)
+        </dd>
+
+        @* Operations Section *@
+        <div class="mb-3 mt-2 border border-secondary rounded fs-5">Operations</div>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Purchasing.PurchasingDec)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Purchasing.PurchasingDec)
+        </dd>
+        <dt class="col-sm-3 mb-2">
+            Was a CAR raised?
+            @* @Html.DisplayNameFor(model => model.Purchasing.CAR) *@
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Purchasing.CAR)
+        </dd>
+        <dt class="col-sm-3 mb-2">
+            Follow-up Required?
+            @* @Html.DisplayNameFor(model => model.Purchasing.followUp) *@
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Purchasing.followUp)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Purchasing.PurchaseSignature)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Purchasing.PurchaseSignature)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Purchasing.SignatureDate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Purchasing.SignatureDate)
+        </dd>
+    
+        @* Quality Inspector Section *@
+        <div class="mb-3 mt-2 border border-secondary rounded fs-5">Quality Inspector</div>
+
+        <dt class = "col-sm-3">
+            Re-inspected Acceptable?
+            @* @Html.DisplayNameFor(model => model.NCRClosed) *@
+        </dt>
+        <dd class = "col-sm-9">
+            Yes
+            @* @Html.DisplayFor(model => model.NCRClosed) *@
+        </dd>
+
+
+
+        @* why do we have 3 quality inspect name and dates? *@
+
+        @*    <dt class = "col-sm-3">
+        @Html.DisplayNameFor(model => model.InspectName)
+        </dt>
+        <dd class = "col-sm-9">
+        @Html.DisplayFor(model => model.InspectName)
+        </dd>
+        <dt class = "col-sm-3">
+        @Html.DisplayNameFor(model => model.InspectDate)
+        </dt>
+        <dd class = "col-sm-9">
+        @Html.DisplayFor(model => model.InspectDate)
+        </dd> *@
+
+
+    @*     <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Engineering.RevisionOriginal)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Engineering.RevisionOriginal)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Engineering.RevisionUpdated)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Engineering.RevisionUpdated)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Engineering.RevisionDate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Engineering.RevisionDate)
+        </dd> *@
 
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Home" asp-action="List">Back to List</a>
 </div>

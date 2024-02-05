@@ -7,17 +7,18 @@
 
 
 
-
-<h1 class="mt-4 mb-4"> Non-Conformance Portal</h1>
+<div class="text-center">
+    <h1 class="mt-4 mb-4">Welcome</h1>
+    <h4>What would you like to do?</h4>
+</div>
 
 
 @using (Html.BeginForm())
 {
-    <p>
-        <a asp-controller="NCRs" asp-action="Create">Create New</a>
-    </p>
-    <p>
-        <a asp-action="List">View NCR List</a>
-    </p>
+    <div class="d-flex justify-content-center mt-3">
+        <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary me-3">Create New NCR Report</a>
+        <a asp-action="List" class="btn btn-primary">View Existing NCR Reports</a>
+    </div>
+
 }
 
