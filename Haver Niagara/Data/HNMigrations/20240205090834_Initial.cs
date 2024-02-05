@@ -39,7 +39,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Engineering",
+                name: "Engineerings",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -56,11 +56,11 @@ namespace Haver_Niagara.Data.HNMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Engineering", x => x.ID);
+                    table.PrimaryKey("PK_Engineerings", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FollowUp",
+                name: "FollowUps",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -70,7 +70,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FollowUp", x => x.ID);
+                    table.PrimaryKey("PK_FollowUps", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,9 +121,9 @@ namespace Haver_Niagara.Data.HNMigrations
                         principalTable: "CARs",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_Purchasings_FollowUp_followUpID",
+                        name: "FK_Purchasings_FollowUps_followUpID",
                         column: x => x.followUpID,
-                        principalTable: "FollowUp",
+                        principalTable: "FollowUps",
                         principalColumn: "ID");
                 });
 
@@ -195,7 +195,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Media",
+                name: "Medias",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -207,9 +207,9 @@ namespace Haver_Niagara.Data.HNMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Media", x => x.ID);
+                    table.PrimaryKey("PK_Medias", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Media_Products_ProductID",
+                        name: "FK_Medias_Products_ProductID",
                         column: x => x.ProductID,
                         principalTable: "Products",
                         principalColumn: "ID",
@@ -222,38 +222,35 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    NCR_Number = table.Column<int>(type: "INTEGER", nullable: false),
+                    NCR_Number = table.Column<string>(type: "TEXT", nullable: false),
                     SalesOrder = table.Column<string>(type: "TEXT", nullable: true),
                     InspectName = table.Column<string>(type: "TEXT", nullable: true),
                     InspectDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     NCRClosed = table.Column<bool>(type: "INTEGER", nullable: false),
                     QualSignature = table.Column<string>(type: "TEXT", nullable: true),
                     QualDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ProductID = table.Column<int>(type: "INTEGER", nullable: false),
-                    PurchasingID = table.Column<int>(type: "INTEGER", nullable: false),
-                    EngineeringID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProductID = table.Column<int>(type: "INTEGER", nullable: true),
+                    PurchasingID = table.Column<int>(type: "INTEGER", nullable: true),
+                    EngineeringID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NCRs", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_NCRs_Engineering_EngineeringID",
+                        name: "FK_NCRs_Engineerings_EngineeringID",
                         column: x => x.EngineeringID,
-                        principalTable: "Engineering",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Engineerings",
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_NCRs_Products_ProductID",
                         column: x => x.ProductID,
                         principalTable: "Products",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_NCRs_Purchasings_PurchasingID",
                         column: x => x.PurchasingID,
                         principalTable: "Purchasings",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -287,8 +284,8 @@ namespace Haver_Niagara.Data.HNMigrations
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Media_ProductID",
-                table: "Media",
+                name: "IX_Medias_ProductID",
+                table: "Medias",
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
@@ -341,7 +338,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "FileContent");
 
             migrationBuilder.DropTable(
-                name: "Media");
+                name: "Medias");
 
             migrationBuilder.DropTable(
                 name: "NewNCRs");
@@ -356,7 +353,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "NCRs");
 
             migrationBuilder.DropTable(
-                name: "Engineering");
+                name: "Engineerings");
 
             migrationBuilder.DropTable(
                 name: "Products");
@@ -371,7 +368,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "CARs");
 
             migrationBuilder.DropTable(
-                name: "FollowUp");
+                name: "FollowUps");
         }
     }
 }

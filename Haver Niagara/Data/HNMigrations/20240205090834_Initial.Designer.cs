@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240131054218_Initial")]
+    [Migration("20240205090834_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -107,7 +107,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Engineering");
+                    b.ToTable("Engineerings");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.FileContent", b =>
@@ -137,7 +137,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("FollowUp");
+                    b.ToTable("FollowUps");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Media", b =>
@@ -163,7 +163,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("Media");
+                    b.ToTable("Medias");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
@@ -172,7 +172,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("EngineeringID")
+                    b.Property<int?>("EngineeringID")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("InspectDate")
@@ -184,13 +184,14 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<bool>("NCRClosed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NCR_Number")
+                    b.Property<string>("NCR_Number")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ProductID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PurchasingID")
+                    b.Property<int?>("PurchasingID")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("QualDate")
@@ -375,21 +376,15 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Engineering", "Engineering")
                         .WithOne("NCR")
-                        .HasForeignKey("Haver_Niagara.Models.NCR", "EngineeringID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "EngineeringID");
 
                     b.HasOne("Haver_Niagara.Models.Product", "Product")
                         .WithOne("NCR")
-                        .HasForeignKey("Haver_Niagara.Models.NCR", "ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "ProductID");
 
                     b.HasOne("Haver_Niagara.Models.Purchasing", "Purchasing")
                         .WithOne("NCR")
-                        .HasForeignKey("Haver_Niagara.Models.NCR", "PurchasingID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "PurchasingID");
 
                     b.Navigation("Engineering");
 

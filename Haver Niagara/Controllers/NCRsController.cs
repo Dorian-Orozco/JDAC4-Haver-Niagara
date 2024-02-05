@@ -55,6 +55,21 @@ namespace Haver_Niagara.Controllers
         // GET: NCRs/Create
         public IActionResult Create()
         {
+            //Creating Employee Names
+            var employeeNameOptions = new List<string>
+            {
+                "John Snow",
+                "Sandy Road",
+                "Bob Frank",
+                "Jimmy Garden",
+                "Pony Smith",
+                "Asgard Fiy",
+                "Alex Baxter",
+                "Sam Queen"
+            };
+            ViewBag.EmployeeNameOptions = employeeNameOptions;
+
+
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID");
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID");
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID");
@@ -77,7 +92,8 @@ namespace Haver_Niagara.Controllers
                 {
                     await OnPostUploadAsync(files, nCR.ID);
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("List", "Home");
+                //return RedirectToAction(nameof(Index));   //change to not view list
             }
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
@@ -92,6 +108,20 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
+
+            //Creating Employee Names
+            var employeeNameOptions = new List<string>
+            {
+                "John Snow",
+                "Sandy Road",
+                "Bob Frank",
+                "Jimmy Garden",
+                "Pony Smith",
+                "Asgard Fiy",
+                "Alex Baxter",
+                "Sam Queen"
+            };
+            ViewBag.EmployeeNameOptions = employeeNameOptions;
 
             var nCR = await _context.NCRs.FindAsync(id);
             if (nCR == null)
@@ -136,7 +166,8 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("List", "Home");
+                //return RedirectToAction(nameof(Index));   //change to not view list
             }
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
@@ -182,7 +213,8 @@ namespace Haver_Niagara.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("List", "Home");
+            //return RedirectToAction(nameof(Index));   //change to not view list
         }
 
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
@@ -231,6 +263,8 @@ namespace Haver_Niagara.Controllers
 
             return Ok(new { count = files.Count, size });
         }
+
+        
 
 
 
