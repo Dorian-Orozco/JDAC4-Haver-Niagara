@@ -21,6 +21,10 @@ body {
   margin-bottom: 60px;
 }
 
+a{
+    text-decoration: none;
+}
+
 /*eye icon under action column in ncr table*/
 .view-btn {
     color: gray;
