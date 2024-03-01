@@ -5,6 +5,8 @@ namespace Haver_Niagara.Models
 {
     public class NCR
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Display(Name = "NCR No.")]
@@ -36,19 +38,22 @@ namespace Haver_Niagara.Models
 
         // PRODUCT //
         [ForeignKey("Product")]
-        public int ProductID { get; set; }
+        public int? ProductID { get; set; }
 
         [Display(Name = "PO or Prod. Number")]
         public Product Product { get; set; }
 
+
+        //had to make nullable because create was not working, we have a problem with these foreign keys and i dont know what went wrong.
+        //
         // PURCHASING //
         [ForeignKey("Purchasing")]
-        public int PurchasingID { get; set; }   
+        public int? PurchasingID { get; set; }   
         public Purchasing Purchasing { get; set; }
 
         // ENGINEERING //
         [ForeignKey("Engineering")]
-        public int EngineeringID { get; set; }
+        public int? EngineeringID { get; set; }
         public Engineering Engineering { get; set; }
 
 
