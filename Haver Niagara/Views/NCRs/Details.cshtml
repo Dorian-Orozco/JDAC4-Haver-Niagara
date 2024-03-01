@@ -4,25 +4,22 @@
     ViewData["Title"] = "Report";
 }
 
-<h1>Details</h1>
+@* h1 *@
+<div class="pt-2 pb-2 ps-1 fs-5">
+    <dl class="d-flex justify-content-start">
+        <dt>
+            @Html.DisplayNameFor(model => model.NCR_Number)
+        </dt>
+        <dd class="ms-2">
+            @Html.DisplayFor(model => model.NCR_Number)
+        </dd>
+    </dl>
+</div>
+
 <form class="border p-4">
     <div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="pt-2 pb-2 ps-1 fs-5">
-                    <dl class="d-flex justify-content-start">
-                        <dt>
-                            @Html.DisplayNameFor(model => model.NCR_Number)
-                        </dt>
-                        <dd class="ms-2">
-                            @Html.DisplayFor(model => model.NCR_Number)
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
         @* Quality Inspector Section *@
-        <div class="row border m-1 p-2 ps-3 fs-6">1/ Quality Representative</div>
+        <div class="row border m-1 p-2 ps-3 fs-6 section-header">1/ Quality Representative</div>
         @* row 1 *@
         <div class="row m-1">
             <div class="col-sm-4 border pt-3 ps-3">
@@ -32,9 +29,9 @@
                     </dt>
                     <dd class="mt-1 ms-2">
                         <input type="radio" id="supplier" name="id_process_applicable" value="Supplier or Rec-Insp">
-                        <label for="supplier">Supplier or Rec-Insp</label><br>
+                        <label for="supplier"> Supplier or Rec-Insp</label><br>
                         <input type="radio" id="wip" name="id_process_applicable" value="WIP (Production Order)">
-                        <label for="wip">WIP (Production Order)</label><br>
+                        <label for="wip"> WIP (Production Order)</label><br>
                     </dd>
                 </dl>
             </div>
@@ -54,6 +51,16 @@
                 <div class="row">
                     <dl class="d-flex m-0">
                         <dt class="col-sm-5 ">
+                            @Html.DisplayNameFor(model => model.NCR_Number)
+                        </dt>
+                        <dd class="col-sm-7 ms-2">
+                            @Html.DisplayFor(model => model.NCR_Number)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm-5 ">
                             PO or Prod No.
                             @* @Html.DisplayNameFor(model => model.Product.ProductNumber) *@
                         </dt>
@@ -63,7 +70,7 @@
                     </dl>
                 </div>
                 <div class="row">
-                    <dl class="d-flex ">
+                    <dl class="d-flex mb-1">
                         <dt class="col-sm-5 ">
                             @Html.DisplayNameFor(model => model.SalesOrder)
 
@@ -223,7 +230,7 @@
         </div>
 
         @* Engineering Section *@
-        <div class="row border m-1 p-2 ps-3 fs-6">2/ Engineering</div>
+        <div class="row border m-1 p-2 ps-3 fs-6 section-header">2/ Engineering</div>
 
         @* row 7 *@
         <div class="row m-1 border">
@@ -300,18 +307,262 @@
         </div>
         @* row 10 *@
         <div class="row m-1 border">
-            <div class="col-sm-12 pt-3 ps-3 d-flex justify-content-start">
+            <div class="col-sm-6 pt-3 ps-3">
+                <div class="d-flex justify-content-start">
+                    <dl>
+                        <dt>
+                            Does the drawing require updating?
+                            @* @Html.DisplayNameFor(model => model.Product.Description) *@
+                        </dt>
+                        <dd class="mt-2 mb-0">
+                            <div class="d-flex">
+                                <span class="ms-5 me-5">
+                                    <input type="radio" id="marked" name="item_marked" value="yes">
+                                    <label for="marked">Yes</label><br>
+                                    @* @Html.DisplayFor(model => model.Engineering.CustomerNotify) *@
+                                </span>
+                                <span>
+                                    <input type="radio" id="notMarked" name="item_marked" value="no">
+                                    <label for="notMarked">No</label><br>
+                                </span>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row ms-1 mb-0 d-flex">
+                    <span class="col-sm">
+                        <dl>
+                            <dt class="fw-normal">
+                                Original Rev. Number:
+                                @* @Html.DisplayNameFor(model => model.Engineering.RevisionOriginal) *@
+                            </dt>
+
+                        </dl>
+                    </span>
+                    <span class="col-sm">
+                        <dl>
+                            <dd>
+                                @Html.DisplayFor(model => model.Engineering.RevisionOriginal)
+                            </dd>
+                        </dl>
+                    </span>
+                </div>
+                <div class="row ms-1 mb-0">
+                    <span class="col-sm">
+                        <dl>
+                            <dt class="fw-normal">
+                                Updated Rev. Number:
+                                @* @Html.DisplayNameFor(model => model.Engineering.RevisionUpdated) *@
+                            </dt>
+
+                        </dl>
+                    </span>
+                    <span class="col-sm">
+                        <dl>
+                            <dd>
+                                @Html.DisplayFor(model => model.Engineering.RevisionUpdated)
+                            </dd>
+                        </dl>
+                    </span>
+                </div>
+                <div class="row ms-1 mb-0">
+                    <div class="col-sm">
+                        <dl>
+                            <dt class="fw-normal">
+                                Revision Date:
+                                @* @Html.DisplayNameFor(model => model.Engineering.RevisionDate) *@
+                            </dt>
+
+                        </dl>
+                    </div>
+                    <div class="col-sm">
+                        <dl>
+                            <dd>
+                                @Html.DisplayFor(model => model.Engineering.RevisionDate)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Engineering's Name
+                            @* @Html.DisplayNameFor(model => model.Engineering.EngSignature) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.Engineering.EngSignature)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.Engineering.EngSignatureDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.Engineering.EngSignatureDate)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        @* Purchasing Section *@
+        <div class="row border m-1 p-2 ps-3 fs-6 section-header">3/ Purchasing</div>
+
+        @* row 11 *@
+        <div class="row m-1 border">
+            <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
                 <dl>
                     <dt>
-                        Does the drawing require updating? 
-                        @* @Html.DisplayNameFor(model => model.Product.Description) *@
+                        Purchasing's Preliminary Decision
+                        @* @Html.DisplayNameFor(model => model.Purchasing.PurchasingDec) *@
                     </dt>
                     <dd class="mt-2">
-                        <div class="d-flex">
-                            <span class="ms-5 me-5">
+                        <div class="ms-2">
+                            <span>
+                                <input type="radio" id="asIs" name="disposition" value="Use As Is">
+                                <label for="asIs"> Return to Supplier for either "rework" or "replacement"</label><br>
+                                @* @Html.DisplayFor(model => model.Purchasing.PurchasingDec) *@
+                            </span>
+                            <span>
+                                <input type="radio" id="repair" name="disposition" value="Repair">
+                                <label for="repair"> Rework "In-House"</label><br>
+                            </span>
+                            <span>
+                                <input type="radio" id="rework" name="disposition" value="Rework">
+                                <label for="rework"> Scrap in House</label><br>
+                            </span>
+                            <span>
+                                <input type="radio" id="scrap" name="disposition" value="Scrap">
+                                <label for="scrap"> Defer for HBC Engineering Review</label><br>
+                            </span>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="m-0">
+                        <dt class="col-sm">
+                            Notes
+                        </dt>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl>
+                        <dd class="col-sm">
+                            Replacement required
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        @* row 12 *@
+        <div class="row m-1 border">
+            <div class="col-sm-3 pt-3 ">
+                <div class="d-flex justify-content-center">
+                    <dl>
+                        <dt>
+                            Was a CAR raised? <span class="fw-light">(If "Yes" indicate CAR #)</span>
+                            @* @Html.DisplayNameFor(model => model.Purchasing.CAR) *@
+                        </dt>
+                        <dd class="mt-2 mb-0">
+                            <div class="d-flex">
+                                <span class="ms-2 me-5">
+                                    <input type="radio" id="marked" name="item_marked" value="yes">
+                                    <label for="marked">Yes</label><br>
+                                    @* @Html.DisplayFor(model => model.Purchasing.CAR) *@
+                                </span>
+                                <span>
+                                    <input type="radio" id="notMarked" name="item_marked" value="no">
+                                    <label for="notMarked">No</label><br>
+                                </span>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row ms-1 mb-0">
+                    <p>
+                        CAR Number:
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-3 pt-3 border ">
+                <div class="d-flex justify-content-center">
+                    <dl>
+                        <dt>
+                            Follow-up Required? <span class="fw-light">(If "Yes" indicate type & expected date)</span>
+                            @* @Html.DisplayNameFor(model => model.Purchasing.followUp) *@
+                        </dt>
+                        <dd class="mt-2 mb-0">
+                            <div class="d-flex">
+                                <span class="ms-2 me-5">
+                                    <input type="radio" id="marked" name="item_marked" value="yes">
+                                    <label for="marked">Yes</label><br>
+                                    @* @Html.DisplayFor(model => model.Purchasing.followUp) *@
+                                </span>
+                                <span>
+                                    <input type="radio" id="notMarked" name="item_marked" value="no">
+                                    <label for="notMarked">No</label><br>
+                                </span>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row ms-1 mb-2">
+                    Type:
+                </div>
+                <div class="row ms-1 mb-2">
+                    Expected Date:
+                </div>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Operations Manager
+                            @* @Html.DisplayNameFor(model => model.Purchasing.PurchaseSignature) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.Purchasing.PurchaseSignature)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.Purchasing.SignatureDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.Purchasing.SignatureDate)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        @* Quality Inspector Section *@
+        <div class="row border m-1 p-2 ps-3 fs-6 section-header">4/ Quality Representative</div>
+        @* row 13 *@
+        <div class="row m-1 border">
+            <div class="col-sm-3 pt-3 ps-3 d-flex justify-content-start">
+                <dl>
+                    <dt>
+                        Re-Inspected Acceptable?
+                        @* @Html.DisplayNameFor(model => model.NCRClosed) *@
+                    </dt>
+                    <dd class="mt-2">
+                        <div class="d-flex justify-content-center">
+                            <span class="me-5">
                                 <input type="radio" id="marked" name="item_marked" value="yes">
                                 <label for="marked">Yes</label><br>
-                                @* @Html.DisplayFor(model => model.Engineering.CustomerNotify) *@
+                                @* @Html.DisplayFor(model => model.NCRClosed) *@
                             </span>
                             <span>
                                 <input type="radio" id="notMarked" name="item_marked" value="no">
@@ -321,143 +572,99 @@
                     </dd>
                 </dl>
             </div>
+            <div class="col-sm-3 pt-2">
+                <small class="fw-light">
+                    If "No" then record new NCR number
+                </small>
+                <div class="row">
+                    <dl>
+                        <dt class="mt-2 col-sm fw-normal">
+                            New NCR Number:
+                        </dt>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Inspector's Name
+                            @* @Html.DisplayNameFor(model => model.InspectName) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.InspectName)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.InspectDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.InspectDate)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
         </div>
 
-
-        <dl>
-
-            @* <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Engineering.EngDecision)
-            </dt>
-            <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Engineering.EngDecision)
-            </dd> *@
-
-            @* <dt class="col-sm-3">
-            Customer Notified?
-            </dt>
-            <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Engineering.CustomerNotify)
-            </dd> *@
-
-           @*  <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Engineering.Disposition)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Engineering.Disposition)
-            </dd> *@
-
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Engineering.DrawUpdate)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Engineering.DrawUpdate)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Engineering.EngSignature)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Engineering.EngSignature)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Engineering.EngSignatureDate)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Engineering.EngSignatureDate)
-            </dd>
-
-            @* Operations Section *@
-            <div class="mb-3 mt-2 border border-secondary rounded fs-5">Operations</div>
-
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Purchasing.PurchasingDec)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Purchasing.PurchasingDec)
-            </dd>
-            <dt class="col-sm-3 mb-2">
-                Was a CAR raised?
-                @* @Html.DisplayNameFor(model => model.Purchasing.CAR) *@
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Purchasing.CAR)
-            </dd>
-            <dt class="col-sm-3 mb-2">
-                Follow-up Required?
-                @* @Html.DisplayNameFor(model => model.Purchasing.followUp) *@
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Purchasing.followUp)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Purchasing.PurchaseSignature)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Purchasing.PurchaseSignature)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Purchasing.SignatureDate)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Purchasing.SignatureDate)
-            </dd>
-
-            @* Quality Inspector Section *@
-            <div class="mb-3 mt-2 border border-secondary rounded fs-5">Quality Inspector</div>
-
-            <dt class="col-sm-3">
-                Re-inspected Acceptable?
-                @* @Html.DisplayNameFor(model => model.NCRClosed) *@
-            </dt>
-            <dd class="col-sm-9">
-                Yes
-                @* @Html.DisplayFor(model => model.NCRClosed) *@
-            </dd>
-        </dl>
+        @* row 14 *@
+        <div class="row m-1 border">
+            <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
+                <dl>
+                    <dt>
+                        NCR Closed
+                    </dt>
+                    <dd class="mt-2">
+                        <div class="d-flex justify-content-center">
+                            <span class="me-5">
+                                <input type="radio" id="marked" name="item_marked" value="yes">
+                                <label for="marked">Yes</label><br>
+                                @* @Html.DisplayFor(model => model.NCRClosed) *@
+                            </span>
+                            <span>
+                                <input type="radio" id="notMarked" name="item_marked" value="no">
+                                <label for="notMarked">No</label><br>
+                            </span>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Quality Department
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.InspectName)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.InspectDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.InspectDate)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </form>
 
-
-
-
-@* why do we have 3 quality inspect name and dates? *@
-
-@*    <dt class = "col-sm-3">
-        @Html.DisplayNameFor(model => model.InspectName)
-        </dt>
-        <dd class = "col-sm-9">
-        @Html.DisplayFor(model => model.InspectName)
-        </dd>
-        <dt class = "col-sm-3">
-        @Html.DisplayNameFor(model => model.InspectDate)
-        </dt>
-        <dd class = "col-sm-9">
-        @Html.DisplayFor(model => model.InspectDate)
-        </dd> *@
-
-
-@*     <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Engineering.RevisionOriginal)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Engineering.RevisionOriginal)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Engineering.RevisionUpdated)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Engineering.RevisionUpdated)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Engineering.RevisionDate)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Engineering.RevisionDate)
-        </dd> *@
-
-
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-controller="Home" asp-action="List">Back to List</a>
+<div class="d-flex justify-content-between">
+    <div class="mt-2">
+        <a asp-controller="Home" asp-action="List" class="btn btn-primary">Back to NCR Log</a>
+    </div>
+    <div class="mt-2">
+        <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit</a>
+    </div>
 </div>

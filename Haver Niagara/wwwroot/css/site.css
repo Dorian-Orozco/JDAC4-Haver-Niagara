@@ -32,3 +32,9 @@ a{
     border: none;
     background: transparent;
 }
+
+/*headers for NCR details view*/ 
+.section-header {
+    background-color: #0C2340;
+    color: white;
+}
