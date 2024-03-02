@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240205090834_Initial")]
+    [Migration("20240302042013_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -150,6 +150,9 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("BLOB");
 
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Links")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MimeType")

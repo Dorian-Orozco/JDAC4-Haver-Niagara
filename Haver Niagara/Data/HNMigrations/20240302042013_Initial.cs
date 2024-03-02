@@ -203,6 +203,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     Content = table.Column<byte[]>(type: "BLOB", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    Links = table.Column<string>(type: "TEXT", nullable: true),
                     ProductID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

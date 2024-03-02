@@ -149,6 +149,9 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Links")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("MimeType")
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
