@@ -38,3 +38,21 @@ a{
     background-color: #0C2340;
     color: white;
 }
+
+/*status buttons form NCR Log*/
+.status-btn {
+    border: 1px solid transparent;
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    margin: 10px;
+    cursor: default;
+}
+
+.active{
+    background-color: green;
+}
+
+.closed {
+    background-color: red;
+}
