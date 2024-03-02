@@ -18,6 +18,9 @@ namespace Haver_Niagara.Models
         [Display(Name = "Revision Date")]
         public DateTime RevisionDate { get; set; }
         [Display(Name = "Engineering Name")]
+
+       
+
         public string EngSignature { get; set; }
         [Display(Name = "Engineering Date")]
         public DateTime EngSignatureDate { get; set; }
