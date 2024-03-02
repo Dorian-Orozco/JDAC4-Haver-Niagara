@@ -228,50 +228,103 @@ namespace Haver_Niagara.Data
             }
             if (!context.Medias.Any())
             {
-                //replace with serious pictures, i was tired.  takes pictures turns into binary, then when pulled from
+                //takes pictures turns into binary, then when pulled from
                 //the database / model it returns them to original form. 
-                // So.. I just need to figure out how to update the NCR create statement in controller to include
-                // a variable (content []) that contains the data and stores it where the id's match...hm.
-                byte[] demoPicture1 = File.ReadAllBytes("TemporaryImages/cat1.jpg");
-                byte[] demoPicture2 = File.ReadAllBytes("TemporaryImages/cat2.jpg");
+
+                //Cat pictures, remove later :(
+                //byte[] demoPicture1 = File.ReadAllBytes("TemporaryImages/cat1.jpg");
+                //byte[] demoPicture2 = File.ReadAllBytes("TemporaryImages/cat2.jpg");
                 byte[] demoPicture3 = File.ReadAllBytes("TemporaryImages/cat3.jpg");
                 byte[] demoPicture4 = File.ReadAllBytes("TemporaryImages/cat4.jpg");
-                         
 
+                //Random Pictures of Defects
+                byte[] badPaint1 = File.ReadAllBytes("TemporaryImages/badpaint.jpg");
+                byte[] badPaint2 = File.ReadAllBytes("TemporaryImages/badpaint2.jpg");
+                byte[] badWeld = File.ReadAllBytes("TemporaryImages/badWeld.jpg");
+                byte[] bluePrint1 = File.ReadAllBytes("TemporaryImages/blueprint1.jpg");
+                byte[] bluePrint2 = File.ReadAllBytes("TemporaryImages/blueprint2.jpg");
+                byte[] faultybolt = File.ReadAllBytes("TemporaryImages/faultybolt.jpg");
+                byte[] faultyrope = File.ReadAllBytes("TemporaryImages/faultyrope.jpg");
+                byte[] faultyPrint = File.ReadAllBytes("TemporaryImages/tube.jpg");
+                byte[] tube = File.ReadAllBytes("TemporaryImages/faultyPrint.jpg");
+
+                //To have an NCR with multiple pictures assigned, simply create a new media
+                //And Under Product, set it to the same ID, (see the first 2)..
 
                 context.Medias.AddRange(
                     new Media
                     {
                         ID = 1,
-                        Content = demoPicture1,
-                        Description = "Cat Working!",
+                        Content = bluePrint1,
+                        Description = "Faulty Blue Print 1",
                         MimeType = "image/jpg",
                         Product = context.Products.FirstOrDefault(p=>p.ID == 1)
                     },
                     new Media
                     {
                         ID = 2,
-                        Content = demoPicture2,
-                        Description = "More Working!",
-                        MimeType = "image/jpeg",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 2)
+                        Content = bluePrint2,
+                        Description = "Faulty Blue Print 2",
+                        MimeType = "image/jpg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 1)
                     },
                     new Media
                     {
                         ID = 3,
-                        Content = demoPicture3,
-                        Description = "Cat.",
-                        MimeType = "image/jpeg",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 3)
+                        Content = badPaint1,
+                        Description = "Bad Paint Finish 1",
+                        MimeType = "image/jpg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 2)
                     },
                     new Media
                     {
                         ID = 4,
-                        Content = demoPicture4,
-                        Description = "Test",
-                        MimeType = "image/jpeg",
+                        Content = badPaint2,
+                        Description = "Bad Paint Finish 2",
+                        MimeType = "image/jpg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 2)
+                    },
+                    new Media
+                    {
+                        ID = 5,
+                        Content = badWeld,
+                        Description = "Poorly done weld",
+                        MimeType = "image/jpg",
+                        Product = context.Products.FirstOrDefault(p=>p.ID == 3)
+                    },
+                    new Media
+                    {
+                        ID = 6,
+                        Content = faultybolt,
+                        Description = "faulty bolt",
+                        MimeType = "image/jpg",
                         Product = context.Products.FirstOrDefault(p => p.ID == 4)
-                    });
+                    },
+                    new Media
+                    {
+                        ID = 7,
+                        Content = faultyrope,
+                        Description = "faulty rope",
+                        MimeType = "image/jpg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 5)
+                    },
+                    new Media
+                    {
+                        ID = 8,
+                        Content = faultyPrint,
+                        Description = "faulty print",
+                        MimeType = "image/jpg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 6)
+                    },
+                    new Media
+                    {
+                        ID = 9,
+                        Content = tube,
+                        Description = "Poor tube finish",
+                        MimeType = "image/jpg",
+                        Product = context.Products.FirstOrDefault(p => p.ID == 7)
+                    }
+                    );
                 context.SaveChanges();
             }
             if (!context.Purchasings.Any())
@@ -366,7 +419,7 @@ namespace Haver_Niagara.Data
                     ID = 1,
                     CustomerNotify = false,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    Disposition = "Engineering suggested a change in the assembly process to improve efficiency",
                     RevisionOriginal = 12345,
                     RevisionUpdated = 12346,
                     RevisionDate = DateTime.Parse("2024-01-20"),
@@ -379,7 +432,7 @@ namespace Haver_Niagara.Data
                     ID = 2,
                     CustomerNotify = true,
                     DrawUpdate = true,
-                    Disposition = "N/A",
+                    Disposition = "Engineering instructed the fabrication team to use a higher-grade alloy for improved durability",
                     RevisionOriginal = 32434,
                     RevisionUpdated = 52123,
                     RevisionDate = DateTime.Parse("2024-01-22"),
@@ -392,7 +445,7 @@ namespace Haver_Niagara.Data
                     ID = 3,
                     CustomerNotify = false,
                     DrawUpdate = true,
-                    Disposition = "N/A",
+                    Disposition = "Engineering revised the technical specifications to accommodate new performance requirements",
                     RevisionOriginal = 87645,
                     RevisionUpdated = 54632,
                     RevisionDate = DateTime.Parse("2024-01-24"),
@@ -405,7 +458,7 @@ namespace Haver_Niagara.Data
                     ID = 4,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    Disposition = "Engineering provided clarification on the tolerance requirements for precision machining",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
@@ -418,7 +471,7 @@ namespace Haver_Niagara.Data
                     ID = 5,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    Disposition = "Engineering recommended a redesign of the structural support to enhance stability",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
@@ -431,7 +484,7 @@ namespace Haver_Niagara.Data
                     ID = 6,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    Disposition = "Engineering advised increasing the thickness of the material to meet safety standards.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
@@ -444,7 +497,7 @@ namespace Haver_Niagara.Data
                     ID = 7,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    Disposition = "Engineering proposed integrating a new feature to enhance product functionality.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
@@ -470,7 +523,7 @@ namespace Haver_Niagara.Data
                     ID = 9,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    Disposition = "Engineering identified a potential flaw in the design and suggested a modification",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
@@ -483,7 +536,7 @@ namespace Haver_Niagara.Data
                     ID = 10,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    Disposition = "Engineering conducted a feasibility study for implementing a cost-saving measure",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
@@ -496,7 +549,7 @@ namespace Haver_Niagara.Data
                     ID = 11,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    Disposition = "Engineering insisted on creating a new way to solve this problem.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
@@ -645,7 +698,7 @@ namespace Haver_Niagara.Data
                         InspectDate = DateTime.Parse("2024-01-20"),
                         NCRClosed = false,
                         QualSignature = "Neil Horton",
-                        QualDate = DateTime.Parse("2024-01-20"),
+                        QualDate = DateTime.Parse("2024-01-16"),
                         Product = context.Products.FirstOrDefault(p => p.ID == 10),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 10)

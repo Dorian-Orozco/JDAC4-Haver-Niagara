@@ -41,13 +41,15 @@ namespace Haver_Niagara.Controllers
             var nCR = await _context.NCRs
                 .Include(n => n.Engineering)
                 .Include(n => n.Product)
+                    .ThenInclude(n=>n.Supplier)
+                .Include(n=>n.Product)
                     .ThenInclude(n=>n.Medias)
                 .Include(n=>n.Product)
                     .ThenInclude(n=>n.DefectLists)
                     .ThenInclude(d => d.Defect)
                 .Include(n => n.Purchasing)
-                    
                 .FirstOrDefaultAsync(m => m.ID == id);
+
             if (nCR == null)
             {
                 return NotFound();
