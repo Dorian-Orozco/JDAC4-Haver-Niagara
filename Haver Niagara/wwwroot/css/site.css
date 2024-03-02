@@ -56,12 +56,3 @@ a{
 .closed {
     background-color: red;
 }
-
-.stage {
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 5px;
-    margin-top: 5px;
-    margin-bottom: -5px;
-    text-align: center;
-}

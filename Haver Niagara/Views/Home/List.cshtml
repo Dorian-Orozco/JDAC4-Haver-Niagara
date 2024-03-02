@@ -30,7 +30,7 @@
             <th class="text-center">@Html.ActionLink("Date Created", "List", new { sortOrder = ViewBag.DateSortParam })</th>
             <th class="text-center">@Html.ActionLink("Product Number", "List", new { sortOrder = ViewBag.POSortParam })</th>
             <th >@Html.ActionLink("Supplier", "List", new { sortOrder = ViewBag.SupplierSortParam })</th>
-             <th>Stage</th>
+            @*  <th>Status</th>*@
             <th class="text-center">Action</th>
             @* <th>Edit</th> *@
         </tr>
@@ -53,7 +53,6 @@
                 <td class="text-center">@item.InspectDate.ToString("MMM dd, yyyy")</td>
                 <td class ="text-center">@(item.Product?.ProductNumber.ToString() ?? "N/A")</td>
                 <td >@(item.Product?.Supplier.Name.ToString() ?? "N/A")</td>
-                <td><p class="stage">1/ Quality Inspection</p></td>
                 <td class="text-center">
                     <div>
                     <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
