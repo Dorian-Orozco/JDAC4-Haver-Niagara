@@ -111,10 +111,10 @@ namespace Haver_Niagara.Data
                 context.SaveChanges();
             }
 
-            if (!context.Products.Any())
+            if (!context.Parts.Any())
             {
-                context.Products.AddRange(
-                new Product
+                context.Parts.AddRange(
+                new Part
                 {
                     ID = 1,
                     Name = "Wheels",
@@ -124,7 +124,7 @@ namespace Haver_Niagara.Data
                     Description = "Replacement wheels",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 1)
                 },
-                new Product
+                new Part
                 {
                     ID = 2,
                     Name = "Wires",
@@ -134,7 +134,7 @@ namespace Haver_Niagara.Data
                     Description = "Replacement wires",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2)
                 },
-                new Product
+                new Part
                 {
                     ID = 3,
                     Name = "Steel Panels",
@@ -144,7 +144,7 @@ namespace Haver_Niagara.Data
                     Description = "Steel panels for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2)
                 },
-                new Product
+                new Part
                 {
                     ID = 4,
                     Name = "Bolts",
@@ -154,7 +154,7 @@ namespace Haver_Niagara.Data
                     Description = "Bolts for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 3)
                 },
-                new Product
+                new Part
                 {
                     ID = 5,
                     Name = "Nuts",
@@ -164,7 +164,7 @@ namespace Haver_Niagara.Data
                     Description = "Nuts for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4)
                 },
-                new Product
+                new Part
                 {
                     ID = 6,
                     Name = "Screws",
@@ -174,7 +174,7 @@ namespace Haver_Niagara.Data
                     Description = "Screws for repairs.",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4)
                 },
-                new Product
+                new Part
                 {
                     ID = 7,
                     Name = "Rivets",
@@ -184,7 +184,7 @@ namespace Haver_Niagara.Data
                     Description = "Rivets for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5)
                 },
-                new Product
+                new Part
                 {
                     ID = 8,
                     Name = "Washers",
@@ -194,7 +194,7 @@ namespace Haver_Niagara.Data
                     Description = "Washers for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5)
                 },
-                new Product
+                new Part
                       {
                     ID = 9,
                     Name = "Anchors",
@@ -204,7 +204,7 @@ namespace Haver_Niagara.Data
                     Description = "Anchors for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6)
                 },
-                new Product
+                new Part
                 {
                     ID = 10,
                     Name = "Nails",
@@ -214,7 +214,7 @@ namespace Haver_Niagara.Data
                     Description = "Nails for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7)
                 },
-                new Product
+                new Part
                 {
                     ID = 11,
                     Name = "Clips",
@@ -249,7 +249,7 @@ namespace Haver_Niagara.Data
                 byte[] tube = File.ReadAllBytes("TemporaryImages/faultyPrint.jpg");
 
                 //To have an NCR with multiple pictures assigned, simply create a new media
-                //And Under Product, set it to the same ID, (see the first 2)..
+                //And Under Part, set it to the same ID, (see the first 2)..
 
                 context.Medias.AddRange(
                     new Media
@@ -259,7 +259,7 @@ namespace Haver_Niagara.Data
                         Description = "Faulty Blue Print 1",
                         MimeType = "image/jpg",
                         Links = "https://example.com/1bluePrint_video",
-                        Product = context.Products.FirstOrDefault(p=>p.ID == 1)
+                        Part = context.Parts.FirstOrDefault(p=>p.ID == 1)
                     },
                     new Media
                     {
@@ -268,7 +268,7 @@ namespace Haver_Niagara.Data
                         Description = "Faulty Blue Print 2",
                         MimeType = "image/jpg",
                         Links = "https://example.com/2bluePrint_video2",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 1)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 1)
                     },
                     new Media
                     {
@@ -277,7 +277,7 @@ namespace Haver_Niagara.Data
                         Description = "Bad Paint Finish 1",
                         MimeType = "image/jpg",
                         Links = "https://example.com/3badPaint_gif",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 2)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 2)
                     },
                     new Media
                     {
@@ -285,7 +285,7 @@ namespace Haver_Niagara.Data
                         Content = badPaint2,
                         Description = "Bad Paint Finish 2",
                         MimeType = "image/jpg",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 2)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 2)
                     },
                     new Media
                     {
@@ -293,7 +293,7 @@ namespace Haver_Niagara.Data
                         Content = badWeld,
                         Description = "Poorly done weld",
                         MimeType = "image/jpg",
-                        Product = context.Products.FirstOrDefault(p=>p.ID == 3)
+                        Part = context.Parts.FirstOrDefault(p=>p.ID == 3)
                     },
                     new Media
                     {
@@ -301,7 +301,7 @@ namespace Haver_Niagara.Data
                         Content = faultybolt,
                         Description = "faulty bolt",
                         MimeType = "image/jpg",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 4)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 4)
                     },
                     new Media
                     {
@@ -310,7 +310,7 @@ namespace Haver_Niagara.Data
                         Description = "faulty rope",
                         MimeType = "image/jpg",
                         Links = "https://example.com/7faultyRope_video",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 5)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 5)
                     },
                     new Media
                     {
@@ -319,7 +319,7 @@ namespace Haver_Niagara.Data
                         Description = "faulty print",
                         MimeType = "image/jpg",
                         Links = "https://example.com/8faultPrint_video",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 6)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 6)
                     },
                     new Media
                     {
@@ -328,7 +328,7 @@ namespace Haver_Niagara.Data
                         Description = "Poor tube finish",
                         MimeType = "image/jpg",
                         Links = "https://example.com/9poorTubeFinish_video",
-                        Product = context.Products.FirstOrDefault(p => p.ID == 7)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 7)
                     }
                     );
                 context.SaveChanges();
@@ -579,7 +579,7 @@ namespace Haver_Niagara.Data
                     NCRClosed = false,
                     QualSignature = "Tom Warner",
                     QualDate = DateTime.Parse("2024-01-11"),
-                    Product = context.Products.FirstOrDefault(p => p.ID == 1),
+                    Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                     Engineering = context.Engineerings.FirstOrDefault(p=>p.ID == 1),
                     Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1)
                 },
@@ -593,7 +593,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = true,
                         QualSignature = "Frank Curry",
                         QualDate = DateTime.Parse("2024-01-12"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 2),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 2),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2)
                     },
@@ -607,7 +607,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Neil Horton",
                         QualDate = DateTime.Parse("2024-01-13"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 3),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 3),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 3),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3)
                     },
@@ -621,7 +621,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Neil Horton",
                         QualDate = DateTime.Parse("2024-01-15"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 4),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 4),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4)
                     },
@@ -635,7 +635,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Frank Curry",
                         QualDate = DateTime.Parse("2024-01-13"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 5),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 5),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 5),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 5)
                     },
@@ -649,7 +649,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Tom Warner",
                         QualDate = DateTime.Parse("2024-01-19"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 6),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 6),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 6)
                     },
@@ -663,7 +663,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = true,
                         QualSignature = "Frank Curry",
                         QualDate = DateTime.Parse("2024-01-16"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 7),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 7),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 7),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 7)
                     },
@@ -677,7 +677,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Tom Warner",
                         QualDate = DateTime.Parse("2024-01-15"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 8),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 8),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 8)
                     },
@@ -691,7 +691,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Tom Warner",
                         QualDate = DateTime.Parse("2024-01-17"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 9),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 9),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 9),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 9)
                     },
@@ -705,7 +705,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Neil Horton",
                         QualDate = DateTime.Parse("2024-01-16"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 10),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 10),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 10)
                     },
@@ -719,7 +719,7 @@ namespace Haver_Niagara.Data
                         NCRClosed = false,
                         QualSignature = "Frank Curry",
                         QualDate = DateTime.Parse("2024-01-11"),
-                        Product = context.Products.FirstOrDefault(p => p.ID == 11),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 11),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 11),
                         Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 11)
                     });
@@ -753,17 +753,17 @@ namespace Haver_Niagara.Data
             {
                 var defectLists = new List<DefectList>
                 {
-                    new DefectList { DefectID = 1, ProductID = 1},
-                    new DefectList { DefectID = 2, ProductID = 2},
-                    new DefectList { DefectID = 3, ProductID = 3},
-                    new DefectList { DefectID = 4, ProductID = 4},
-                    new DefectList { DefectID = 5, ProductID = 5},
-                    new DefectList { DefectID = 6, ProductID = 6},
-                    new DefectList { DefectID = 7, ProductID = 7},
-                    new DefectList { DefectID = 8, ProductID = 8},
-                    new DefectList { DefectID = 9, ProductID = 9},
-                    new DefectList { DefectID = 10, ProductID = 10},
-                    new DefectList { DefectID = 11, ProductID = 11},
+                    new DefectList { DefectID = 1, PartID = 1},
+                    new DefectList { DefectID = 2, PartID = 2},
+                    new DefectList { DefectID = 3, PartID = 3},
+                    new DefectList { DefectID = 4, PartID = 4},
+                    new DefectList { DefectID = 5, PartID = 5},
+                    new DefectList { DefectID = 6, PartID = 6},
+                    new DefectList { DefectID = 7, PartID = 7},
+                    new DefectList { DefectID = 8, PartID = 8},
+                    new DefectList { DefectID = 9, PartID = 9},
+                    new DefectList { DefectID = 10, PartID = 10},
+                    new DefectList { DefectID = 11, PartID = 11},
                 };
                 context.DefectLists.AddRange(defectLists);
                 context.SaveChanges();

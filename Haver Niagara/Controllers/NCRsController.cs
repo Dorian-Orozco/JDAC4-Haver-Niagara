@@ -24,7 +24,7 @@ namespace Haver_Niagara.Controllers
         {
             var haverNiagaraDbContext = _context.NCRs
                 .Include(n => n.Engineering)
-                .Include(n => n.Product)
+                .Include(n => n.Part)
                     .ThenInclude(n=>n.Medias)
                 .Include(n => n.Purchasing);
             return View(await haverNiagaraDbContext.ToListAsync());
@@ -40,11 +40,11 @@ namespace Haver_Niagara.Controllers
 
             var nCR = await _context.NCRs
                 .Include(n => n.Engineering)
-                .Include(n => n.Product)
+                .Include(n => n.Part)
                     .ThenInclude(n=>n.Supplier)
-                .Include(n=>n.Product)
+                .Include(n=>n.Part)
                     .ThenInclude(n=>n.Medias)
-                .Include(n=>n.Product)
+                .Include(n=>n.Part)
                     .ThenInclude(n=>n.DefectLists)
                     .ThenInclude(d => d.Defect)
                 .Include(n => n.Purchasing)
@@ -77,7 +77,7 @@ namespace Haver_Niagara.Controllers
 
 
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID");
-            ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID");
+            ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID");
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID");
             return View();
         }
@@ -87,7 +87,7 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID,PurchasingID,EngineeringID")] NCR nCR, List<IFormFile> files)
+        public async Task<IActionResult> Create([Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,PartID,PurchasingID,EngineeringID")] NCR nCR, List<IFormFile> files)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace Haver_Niagara.Controllers
                 //return RedirectToAction(nameof(Index));   //change to not view list
             }
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
-            ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
+            ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);
         }
@@ -135,7 +135,7 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
-            ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
+            ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);
         }
@@ -145,7 +145,7 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,ProductID,PurchasingID,EngineeringID")] NCR nCR, List<IFormFile> files)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,SalesOrder,InspectName,InspectDate,NCRClosed,QualSignature,QualDate,PartID,PurchasingID,EngineeringID")] NCR nCR, List<IFormFile> files)
         {
             if (id != nCR.ID)
             {
@@ -176,7 +176,7 @@ namespace Haver_Niagara.Controllers
                 //return RedirectToAction(nameof(Index));   //change to not view list
             }
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
-            ViewData["ProductID"] = new SelectList(_context.Products, "ID", "ID", nCR.ProductID);
+            ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
             ViewData["PurchasingID"] = new SelectList(_context.Purchasings, "ID", "ID", nCR.PurchasingID);
             return View(nCR);
         }
@@ -191,7 +191,7 @@ namespace Haver_Niagara.Controllers
 
             var nCR = await _context.NCRs
                 .Include(n => n.Engineering)
-                .Include(n => n.Product)
+                .Include(n => n.Part)
                     .ThenInclude(n => n.Medias)
                 .Include(n => n.Purchasing)
                 .FirstOrDefaultAsync(m => m.ID == id);
@@ -229,7 +229,7 @@ namespace Haver_Niagara.Controllers
         public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files, int ncrID) //Accepting multiple Iformfiles, and an NCR ID to relate data
         {
             var ncr = await _context.NCRs  
-                .Include(n=>n.Product)
+                .Include(n=>n.Part)
                     .ThenInclude(n=>n.Medias)
                 .FirstOrDefaultAsync(n=>n.ID == ncrID);
 
@@ -258,7 +258,7 @@ namespace Haver_Niagara.Controllers
                             Description = formFile.FileName
                         };
 
-                        ncr.Product.Medias.Add(media);
+                        ncr.Part.Medias.Add(media);
                     }
                 }
             }

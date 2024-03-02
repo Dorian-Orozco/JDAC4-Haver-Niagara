@@ -27,7 +27,7 @@ namespace Haver_Niagara.Controllers
 
             //Better view bag sortOrder assignment (tutorial didnt work) https://stackoverflow.com/questions/38082611/asp-net-mvc-sort-not-work?rq=3
 
-            //Product Number Sort
+            //Part Number Sort
             ViewBag.POSortParam = sortOrder == "ProductNum_Asc" ? "ProductNum_Desc" : "ProductNum_Asc";
             //Supplier Name
             ViewBag.SupplierSortParam = sortOrder == "Supplier_Asc" ? "Supplier_Desc" : "Supplier_Asc";
@@ -39,9 +39,9 @@ namespace Haver_Niagara.Controllers
 
             //Adding functionality to return the list of seed data 
             var ncrs = _context.NCRs
-                .Include(p => p.Product)
+                .Include(p => p.Part)
                     .ThenInclude(s => s.Supplier)
-                .Include(p => p.Product)
+                .Include(p => p.Part)
                     .ThenInclude(d => d.DefectLists)
                     .ThenInclude(d => d.Defect)
                 .ToList();
@@ -55,9 +55,9 @@ namespace Haver_Niagara.Controllers
 
                 ncrs = ncrs.Where(x =>
                  x.InspectDate.ToString().ToLower().Contains(searchString) ||
-                 x.Product.ProductNumber.ToString().ToLower().Contains(searchString) ||
+                 x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
                  x.NCR_Number.ToString().ToLower().Contains(searchString) ||
-                 x.Product.Supplier.Name.ToLower().Contains(searchString)
+                 x.Part.Supplier.Name.ToLower().Contains(searchString)
                  ).ToList();
             }
             
@@ -65,20 +65,20 @@ namespace Haver_Niagara.Controllers
             //Determines the sorting order
             switch (sortOrder)       
             {
-                //Product Number
+                //Part Number
                 case "ProductNum_Desc":
-                    ncrs = ncrs.OrderByDescending(b => b.Product.ProductNumber).ToList();
+                    ncrs = ncrs.OrderByDescending(b => b.Part.ProductNumber).ToList();
                     break;
                 case "ProductNum_Asc":
-                    ncrs = ncrs.OrderBy(b=>b.Product.ProductNumber).ToList();
+                    ncrs = ncrs.OrderBy(b=>b.Part.ProductNumber).ToList();
                     break;
 
                 //Supplier Name
                 case "Supplier_Desc":
-                    ncrs = ncrs.OrderByDescending(s => s.Product.Supplier.Name).ToList();
+                    ncrs = ncrs.OrderByDescending(s => s.Part.Supplier.Name).ToList();
                     break;
                 case "Supplier_Asc":
-                    ncrs = ncrs.OrderBy(n=>n.Product.Supplier.Name).ToList();
+                    ncrs = ncrs.OrderBy(n=>n.Part.Supplier.Name).ToList();
                     break;
 
                 //NCR stage open or closed (bool)

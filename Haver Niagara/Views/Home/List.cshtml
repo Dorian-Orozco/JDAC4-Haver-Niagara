@@ -28,7 +28,7 @@
             <th class="text-center">@Html.ActionLink("Status", "List", new { sortOrder = ViewBag.StageSortParam })</th>
             <th class="text-center">NCR Number</th>
             <th class="text-center">@Html.ActionLink("Date Created", "List", new { sortOrder = ViewBag.DateSortParam })</th>
-            <th class="text-center">@Html.ActionLink("Product Number", "List", new { sortOrder = ViewBag.POSortParam })</th>
+            <th class="text-center">@Html.ActionLink("Part Number", "List", new { sortOrder = ViewBag.POSortParam })</th>
             <th >@Html.ActionLink("Supplier", "List", new { sortOrder = ViewBag.SupplierSortParam })</th>
              <th>Stage</th>
             <th class="text-center">Action</th>
@@ -51,8 +51,8 @@
                 </td>
                 <td class="text-center">@item.NCR_Number</td>
                 <td class="text-center">@item.InspectDate.ToString("MMM dd, yyyy")</td>
-                <td class ="text-center">@(item.Product?.ProductNumber.ToString() ?? "N/A")</td>
-                <td >@(item.Product?.Supplier.Name.ToString() ?? "N/A")</td>
+                <td class ="text-center">@(item.Part?.ProductNumber.ToString() ?? "N/A")</td>
+                <td >@(item.Part?.Supplier.Name.ToString() ?? "N/A")</td>
                 <td><p class="stage">1/ Quality Inspection</p></td>
                 <td class="text-center">
                     <div>

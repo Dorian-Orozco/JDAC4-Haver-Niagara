@@ -11,53 +11,40 @@ namespace Haver_Niagara.Models
 
         [Display(Name = "NCR No.")]
         [Required(ErrorMessage = "You cannot leave the NCR number blank.")] 
-        public string NCR_Number {  get; set; }
+        public string NCR_Number { get; set; }
 
-        [Display(Name = "Sales Order")]
-        public string SalesOrder {  get; set; }
-
-        [Display(Name = "Inspector Name")]
-        public string InspectName { get; set; }
-
-        [Display(Name = "Inspected Date")]
+        [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime InspectDate { get; set; }
-
-        [Display(Name = "NCR Closed")]
-        public bool NCRClosed { get; set; }
-
-        [Display(Name = "Quality Name")]
-        public string QualSignature {  get; set; }
-
-        [Display(Name = "Quality Date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime QualDate { get; set; }
+        public DateTime NCR_Date{ get; set; }
 
 
-        // PRODUCT //
-        [ForeignKey("Product")]
-        public int? ProductID { get; set; }
+        [Display(Name ="Status")]
+        [StringLength(10)]
+        public string NCR_Status { get; set; }
 
-        [Display(Name = "PO or Prod. Number")]
-        public Product Product { get; set; }
+        //NCR Enumeration To Determine the Stage
+        [Display(Name = "Stage")]
+        public NCRStage NCR_Stage { get; set; }
+
+        // PART ENTITY //
+        [ForeignKey("Part")]
+        public int? PartID { get; set; }
+        public Part Part{ get; set; }
 
 
-        //had to make nullable because create was not working, we have a problem with these foreign keys and i dont know what went wrong.
-        //
         // PURCHASING //
         [ForeignKey("Purchasing")]
         public int? PurchasingID { get; set; }   
         public Purchasing Purchasing { get; set; }
 
-        // ENGINEERING //
+        // ENGINEERING // 
         [ForeignKey("Engineering")]
         public int? EngineeringID { get; set; }
         public Engineering Engineering { get; set; }
 
 
-        // NEW NCR //
+        // NEW NCR // Relationship must be one to one
         public NewNCR? NewNCR { get; set; }
     }
 }

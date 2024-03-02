@@ -13,7 +13,7 @@ namespace Haver_Niagara.Data
         public DbSet<Media> Medias { get; set; }
         public DbSet<NCR> NCRs { get; set; }
         public DbSet<NewNCR> NewNCRs { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Part> Parts { get; set; }
         public DbSet<Purchasing> Purchasings { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
 

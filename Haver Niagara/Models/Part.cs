@@ -3,14 +3,26 @@
 
 namespace Haver_Niagara.Models
 {
-    public class Product
+    public class Part
     {
         public int ID { get; set; }
 
-        [Display(Name = "Product Name")]
+        [Display(Name = "Part Name")]
         public string Name { get; set; }
 
-        [Display(Name = "Product Number")]
+        [Display(Name = "Part Number")]
+        public int PartNumber { get; set; }
+
+        [Display(Name="SAP")]
+        public int SAPNumber { get; set; }
+
+        [Display(Name="PO")]
+        public int PurchaseNumber { get; set; }
+
+        [Display(Name="Sales #")]
+        public int SalesOrder { get; set; }
+
+        [Display(Name="Prod #")]
         public int ProductNumber { get; set; }
 
         [Display(Name = "Quantity Recieved")]
