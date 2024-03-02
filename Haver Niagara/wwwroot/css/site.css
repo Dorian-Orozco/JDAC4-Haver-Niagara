@@ -21,10 +21,20 @@ body {
   margin-bottom: 60px;
 }
 
+a{
+    text-decoration: none;
+}
+
 /*eye icon under action column in ncr table*/
 .view-btn {
     color: gray;
     font-size: 30px;
     border: none;
     background: transparent;
+}
+
+/*headers for NCR details view*/ 
+.section-header {
+    background-color: #0C2340;
+    color: white;
 }
