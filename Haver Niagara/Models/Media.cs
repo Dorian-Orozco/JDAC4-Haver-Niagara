@@ -14,6 +14,7 @@ namespace Haver_Niagara.Models
         [StringLength(255)]
         public string MimeType { get; set; }
 
+        public string Links { get; set; }
         //foreign key, 
         public int ProductID { get; set; }
         public Product Product { get; set; }

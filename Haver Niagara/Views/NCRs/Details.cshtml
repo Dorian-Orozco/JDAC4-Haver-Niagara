@@ -234,9 +234,28 @@
                     <dt class="ps-3">
                         Links
                     </dt>
-                    <dd class="mt-1 ps-3">
-                        <a href="https://haverniagara.com/">https://haverniagara.com/</a>
-                    </dd>
+                    @if(Model.Product.Medias != null && Model.Product.Medias.Any())
+                    {
+                        @foreach (var media in Model.Product.Medias)
+                        {
+                            if(media.Links != null)
+                            {
+                                <dd class="mt-1 ps-3">
+                                    <a href="@media.Links">@media.Links</a>
+                                </dd>
+                            }
+                            else
+                            {
+                                <dd class="mt-1 ps-3">
+                                   No Links Associated
+                                </dd>
+                            }
+                        }
+                    }
+                    else
+                    {
+                            <text>No Links Created</text>
+                    }
                 </dl>
             </div>
         </div>

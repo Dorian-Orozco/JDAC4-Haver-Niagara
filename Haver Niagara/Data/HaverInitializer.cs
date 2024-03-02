@@ -258,6 +258,7 @@ namespace Haver_Niagara.Data
                         Content = bluePrint1,
                         Description = "Faulty Blue Print 1",
                         MimeType = "image/jpg",
+                        Links = "https://example.com/1bluePrint_video",
                         Product = context.Products.FirstOrDefault(p=>p.ID == 1)
                     },
                     new Media
@@ -266,6 +267,7 @@ namespace Haver_Niagara.Data
                         Content = bluePrint2,
                         Description = "Faulty Blue Print 2",
                         MimeType = "image/jpg",
+                        Links = "https://example.com/2bluePrint_video2",
                         Product = context.Products.FirstOrDefault(p => p.ID == 1)
                     },
                     new Media
@@ -274,6 +276,7 @@ namespace Haver_Niagara.Data
                         Content = badPaint1,
                         Description = "Bad Paint Finish 1",
                         MimeType = "image/jpg",
+                        Links = "https://example.com/3badPaint_gif",
                         Product = context.Products.FirstOrDefault(p => p.ID == 2)
                     },
                     new Media
@@ -306,6 +309,7 @@ namespace Haver_Niagara.Data
                         Content = faultyrope,
                         Description = "faulty rope",
                         MimeType = "image/jpg",
+                        Links = "https://example.com/7faultyRope_video",
                         Product = context.Products.FirstOrDefault(p => p.ID == 5)
                     },
                     new Media
@@ -314,6 +318,7 @@ namespace Haver_Niagara.Data
                         Content = faultyPrint,
                         Description = "faulty print",
                         MimeType = "image/jpg",
+                        Links = "https://example.com/8faultPrint_video",
                         Product = context.Products.FirstOrDefault(p => p.ID == 6)
                     },
                     new Media
@@ -322,6 +327,7 @@ namespace Haver_Niagara.Data
                         Content = tube,
                         Description = "Poor tube finish",
                         MimeType = "image/jpg",
+                        Links = "https://example.com/9poorTubeFinish_video",
                         Product = context.Products.FirstOrDefault(p => p.ID == 7)
                     }
                     );
