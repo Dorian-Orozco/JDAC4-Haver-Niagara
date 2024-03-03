@@ -1,6 +1,7 @@
 ﻿using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -47,6 +48,30 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(d => d.Defect)
                 .ToList();
 
+            // Create a list to store all NCRs with suppliers
+            var originalNCRs = _context.NCRs
+                .Include(p => p.Part)
+                .ThenInclude(s => s.Supplier)
+                .ToList();
+
+            // Create a separate list for dropdown options
+            var suppliersForDropdown = originalNCRs.Select(x => x.Part.Supplier.Name).Distinct().ToList();
+
+            // Update the ViewBag.SupplierList with the dropdown options
+            ViewBag.SupplierList = new SelectList(suppliersForDropdown, "Select Supplier");
+
+            // Filter by Supplier
+            if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
+            {
+                // Apply the supplier filter to the main list
+                ncrs = originalNCRs.Where(x => x.Part.Supplier.Name == selectedSupplier).ToList();
+            }
+
+            // Get all unique suppliers for the dropdown list
+            var allSuppliers = originalNCRs.Select(x => x.Part.Supplier.Name).Distinct().ToList();
+
+            ViewBag.SupplierList = new SelectList(allSuppliers, selectedSupplier);
+
             //Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -60,12 +85,6 @@ namespace Haver_Niagara.Controllers
                  x.NCR_Number.ToString().ToLower().Contains(searchString) ||
                  x.Part.Supplier.Name.ToLower().Contains(searchString)
                  ).ToList();
-            }
-
-            // Filter by Supplier
-            if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
-            {
-                ncrs = ncrs.Where(x => x.Part.Supplier.Name == selectedSupplier).ToList();
             }
 
             // Filter by Date

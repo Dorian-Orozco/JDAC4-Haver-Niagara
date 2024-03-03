@@ -19,8 +19,7 @@
     <p>
         Filter By NCR or Part #: @Html.TextBox("SearchString")
         Filter By Supplier:
-        @Html.DropDownList("SelectedSupplier", 
-            new SelectList(Model.Select(s => s.Part?.Supplier.Name).Distinct()), "Select Supplier")
+        @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier")
         Filter By Status:
         @Html.DropDownList("SelectedStatus", new List<SelectListItem>
             {
