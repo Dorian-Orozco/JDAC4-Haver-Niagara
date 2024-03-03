@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Haver_Niagara.Controllers
 {
@@ -20,7 +21,7 @@ namespace Haver_Niagara.Controllers
 
 
 
-        public IActionResult List(string sortOrder, string searchString)
+        public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus)
         {
             //Sorting Functionality , Tutorial Also included adding search box might be handy later. 
             //https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
@@ -59,8 +60,29 @@ namespace Haver_Niagara.Controllers
                  x.NCR_Number.ToString().ToLower().Contains(searchString) ||
                  x.Part.Supplier.Name.ToLower().Contains(searchString)
                  ).ToList();
-            }          
-            
+            }
+
+            // Filter by Supplier
+            if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
+            {
+                ncrs = ncrs.Where(x => x.Part.Supplier.Name == selectedSupplier).ToList();
+            }
+
+            // Filter by Date
+            if (!String.IsNullOrEmpty(selectedDate))
+            {
+                DateTime parsedDate;
+                if (DateTime.TryParseExact(selectedDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                {
+                    ncrs = ncrs.Where(x => x.NCR_Date.Date == parsedDate.Date).ToList();
+                }
+            }
+
+            // Filter by Status
+            if (selectedStatus.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value).ToList();
+            }
 
             //Determines the sorting order
             switch (sortOrder)       

@@ -18,19 +18,19 @@
 {
     <p>
         Filter By NCR or Part #: @Html.TextBox("SearchString")
+        Filter By Supplier:
+        @Html.DropDownList("SelectedSupplier", 
+            new SelectList(Model.Select(s => s.Part?.Supplier.Name).Distinct()), "Select Supplier")
+        Filter By Status:
+        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
+            {
+            new SelectListItem { Text = "Open", Value = "true" },
+            new SelectListItem { Text = "Closed", Value = "false" },
+            new SelectListItem { Text = "All", Value = "", Selected = true }
+            })
+        <label for="SelectedDate">Filter By Date:</label>
+        <input type="date" id="SelectedDate" name="SelectedDate">
         <input type="submit" value="Search" />
-
-        <label for="suppliers">Filter By Supplier:</label>
-        <select name="suppliers" id="suppliers">
-            <option value="">Select a Supplier</option>
-            <option value="BICKLE MAIN INDUSTRIAL SUPPLY INC.">BICKLE MAIN INDUSTRIAL SUPPLY INC.</option>
-            <option value="HINGSTON METAL FABRICATORS">HINGSTON METAL FABRICATORS</option>
-            <option value="KAVON MACHINE INC">KAVON MACHINE INC</option>
-            <option value="NIAGARA PRECISION LTD">NIAGARA PRECISION LTD</option>
-            <option value="RIGHT MACHINE INDUSTRIAL">RIGHT MACHINE INDUSTRIAL</option>
-            <option value="VALLEY RUBBER, LLC">VALLEY RUBBER, LLC</option>
-            <option value="W S TYLER - PARTICLE & FINE">W S TYLER - PARTICLE & FINE</option>
-        </select>
     </p>    
 }
 

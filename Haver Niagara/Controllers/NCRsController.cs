@@ -28,6 +28,8 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Operation)
                 .Include(n=>n.QualityInspection) //////////////remove if breaks
                 .Include(n => n.Part)
+                    .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part)
                     .ThenInclude(n => n.Medias);
             return View(await haverNiagaraDbContext.ToListAsync());
         }
