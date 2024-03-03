@@ -2,7 +2,7 @@
 
 namespace Haver_Niagara.Models
 {
-    public enum EngineeringDecision
+    public enum EngineeringDisposition
     {
         [Display(Name ="Rework")]
         Rework,

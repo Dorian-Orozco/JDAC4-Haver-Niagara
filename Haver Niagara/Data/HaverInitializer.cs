@@ -21,16 +21,16 @@ namespace Haver_Niagara.Data
             {
                 var cars = new List<CAR>
                     {
-                        new CAR {ID = 1, CARNumber = 12345},
-                        new CAR {ID = 2, CARNumber = 98765},
-                        new CAR {ID = 3, CARNumber = 56748},
-                        new CAR {ID = 4, CARNumber = 84379},
-                        new CAR {ID = 5, CARNumber = 93842},
-                        new CAR {ID = 6, CARNumber = 42981},
-                        new CAR {ID = 7, CARNumber = 29013},
-                        new CAR {ID = 8, CARNumber = 90842},
-                        new CAR {ID = 9, CARNumber = 32491},
-                        new CAR {ID = 10, CARNumber = 31904}
+                        new CAR {ID = 1, Date = DateTime.Parse("2024-01-22"), CARNumber = 12345 },
+                        new CAR {ID = 2, Date = DateTime.Parse("2024-01-22"), CARNumber = 98765 },
+                        new CAR {ID = 3, Date = DateTime.Parse("2024-01-22"), CARNumber = 56748 },
+                        new CAR {ID = 4, Date = DateTime.Parse("2024-01-22"), CARNumber = 84379 },
+                        new CAR {ID = 5, Date = DateTime.Parse("2024-01-22"), CARNumber = 93842 },
+                        new CAR {ID = 6, Date = DateTime.Parse("2024-01-22"), CARNumber = 42981 },
+                        new CAR {ID = 7, Date = DateTime.Parse("2024-01-22"), CARNumber = 29013 },
+                        new CAR {ID = 8, Date = DateTime.Parse("2024-01-22"), CARNumber = 90842},
+                        new CAR {ID = 9, Date = DateTime.Parse("2024-01-22"), CARNumber = 32491},
+                        new CAR {ID = 10, Date = DateTime.Parse("2024-01-22"), CARNumber = 31904}
                     };
                 context.CARs.AddRange(cars);
                 context.SaveChanges();
@@ -333,86 +333,119 @@ namespace Haver_Niagara.Data
                     );
                 context.SaveChanges();
             }
-            if (!context.Purchasings.Any())
+            if (!context.Operations.Any())
             {
                 //REPRESENTS A FORM NOT A PERSON! THERE HAS TO BE ONE To ONE WITH NCR. 10 NCRS = 10 PURCHASING 
-                context.Purchasings.AddRange(
-                new Purchasing
+                context.Operations.AddRange(
+                new Operation
                 {
                     ID = 1,
-                    PurchaseSignature = "James Jones",
-                    SignatureDate = DateTime.Parse("2024-01-20"),
-                    PurchasingDec = 0
+                    Name = "James Jones",
+                    OperationDate = DateTime.Parse("2024-01-20"),
+                    OperationDecision = (OperationDecision)1,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = true,
+                    OperationFollowUp = true,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 2,
-                    PurchaseSignature = "Jane Little",
-                    SignatureDate = DateTime.Parse("2024-01-22"),
-                    PurchasingDec = (PurchasingDecision)1
+                    Name = "Jane Little",
+                    OperationDate = DateTime.Parse("2024-01-22"),
+                    OperationDecision = (OperationDecision)1,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = true,
+                    OperationFollowUp = false,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 3,
-                    PurchaseSignature = "Matt Turner",
-                    SignatureDate = DateTime.Parse("2024-01-24"),
-                    PurchasingDec = (PurchasingDecision)2
+                    Name = "Matt Turner",
+                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = false,
+                    OperationFollowUp = true,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 4,
-                    PurchaseSignature = "Matt Turner",
-                    SignatureDate = DateTime.Parse("2024-01-24"),
-                    PurchasingDec = (PurchasingDecision)2
+                    Name = "Sandy Roof",
+                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = true,
+                    OperationFollowUp = false,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 5,
-                    PurchaseSignature = "Matt Turner",
-                    SignatureDate = DateTime.Parse("2024-01-24"),
-                    PurchasingDec = (PurchasingDecision)2
+                    Name = "Alex Baxter",
+                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = false,
+                    OperationFollowUp = true,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 6,
-                    PurchaseSignature = "Matt Turner",
-                    SignatureDate = DateTime.Parse("2024-01-24"),
-                    PurchasingDec = (PurchasingDecision)2
+                    Name = "Sam Smith",
+                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = true,
+                    OperationFollowUp = false,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 7,
-                    PurchaseSignature = "Matt Turner",
-                    SignatureDate = DateTime.Parse("2024-01-24"),
-                    PurchasingDec = (PurchasingDecision)2
+                    Name = "Alex Baxter",
+                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = true,
+                    OperationFollowUp = false,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 8,
-                    PurchaseSignature = "Matt Turner",
-                    SignatureDate = DateTime.Parse("2024-01-24"),
-                    PurchasingDec = (PurchasingDecision)2
+                    Name = "Jame Scot",
+                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = false,
+                    OperationFollowUp = false,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 9,
-                    PurchaseSignature = "Matt Turner",
-                    SignatureDate = DateTime.Parse("2024-01-24"),
-                    PurchasingDec = (PurchasingDecision)2
+                    Name = "Matt Turner",
+                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = true,
+                    OperationFollowUp = true,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 10,
-                    PurchaseSignature = "Matt Turner",
-                    SignatureDate = DateTime.Parse("2024-01-24"),
-                    PurchasingDec = (PurchasingDecision)2
+                    Name = "Matt Turner",
+                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = true,
+                    OperationFollowUp = false,
                 },
-                new Purchasing
+                new Operation
                 {
                     ID = 11,
-                    PurchaseSignature = "James Jones",
-                    SignatureDate = DateTime.Parse("2024-01-20"),
-                    PurchasingDec = (PurchasingDecision)4
+                    Name = "James Jones",
+                    OperationDate = DateTime.Parse("2024-01-20"),
+                    OperationDecision = (OperationDecision)4,
+                    OperationNotes = "Fill Out With Real Data",
+                    OperationCar = false,
+                    OperationFollowUp = false,
                 });
                 
                 context.SaveChanges();
@@ -425,143 +458,143 @@ namespace Haver_Niagara.Data
                     ID = 1,
                     CustomerNotify = false,
                     DrawUpdate = false,
-                    Disposition = "Engineering suggested a change in the assembly process to improve efficiency",
+                    DispositionNotes = "Engineering suggested a change in the assembly process to improve efficiency",
                     RevisionOriginal = 12345,
                     RevisionUpdated = 12346,
                     RevisionDate = DateTime.Parse("2024-01-20"),
-                    EngSignature = "John Smith",
-                    EngSignatureDate = DateTime.Parse("2024-01-20"),
-                    EngDecision = 0
+                    Name = "John Smith",
+                    Date = DateTime.Parse("2024-01-20"),
+                    EngineeringDisposition = 0
                 },
                 new Engineering
                 {
                     ID = 2,
                     CustomerNotify = true,
                     DrawUpdate = true,
-                    Disposition = "Engineering instructed the fabrication team to use a higher-grade alloy for improved durability",
+                    DispositionNotes = "Engineering instructed the fabrication team to use a higher-grade alloy for improved durability",
                     RevisionOriginal = 32434,
                     RevisionUpdated = 52123,
                     RevisionDate = DateTime.Parse("2024-01-22"),
-                    EngSignature = "James Brady",
-                    EngSignatureDate = DateTime.Parse("2024-01-22"),
-                    EngDecision = (EngineeringDecision)1,
+                    Name = "James Brady",
+                    Date = DateTime.Parse("2024-01-22"),
+                    EngineeringDisposition = (EngineeringDisposition)1,
                 },
                 new Engineering
                 {
                     ID = 3,
                     CustomerNotify = false,
                     DrawUpdate = true,
-                    Disposition = "Engineering revised the technical specifications to accommodate new performance requirements",
+                    DispositionNotes = "Engineering revised the technical specifications to accommodate new performance requirements",
                     RevisionOriginal = 87645,
                     RevisionUpdated = 54632,
                     RevisionDate = DateTime.Parse("2024-01-24"),
-                    EngSignature = "Linda Johnson",
-                    EngSignatureDate = DateTime.Parse("2024-01-24"),
-                    EngDecision = (EngineeringDecision)2,
+                    Name = "Linda Johnson",
+                    Date = DateTime.Parse("2024-01-24"),
+                    EngineeringDisposition = (EngineeringDisposition)2,
                 },
                 new Engineering
                 {
                     ID = 4,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "Engineering provided clarification on the tolerance requirements for precision machining",
+                    DispositionNotes = "Engineering provided clarification on the tolerance requirements for precision machining",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
-                    EngSignature = "Luke Miller",
-                    EngSignatureDate = DateTime.Parse("2024-01-26"),
-                    EngDecision = (EngineeringDecision)3,
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-01-26"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
                 {
                     ID = 5,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "Engineering recommended a redesign of the structural support to enhance stability",
+                    DispositionNotes = "Engineering recommended a redesign of the structural support to enhance stability",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
-                    EngSignature = "Luke Miller",
-                    EngSignatureDate = DateTime.Parse("2024-01-26"),
-                    EngDecision = (EngineeringDecision)3,
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-01-26"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
                 {
                     ID = 6,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "Engineering advised increasing the thickness of the material to meet safety standards.",
+                    DispositionNotes = "Engineering advised increasing the thickness of the material to meet safety standards.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
-                    EngSignature = "Luke Miller",
-                    EngSignatureDate = DateTime.Parse("2024-01-26"),
-                    EngDecision = (EngineeringDecision)3,
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-01-26"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
                 {
                     ID = 7,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "Engineering proposed integrating a new feature to enhance product functionality.",
+                    DispositionNotes = "Engineering proposed integrating a new feature to enhance product functionality.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
-                    EngSignature = "Luke Miller",
-                    EngSignatureDate = DateTime.Parse("2024-01-26"),
-                    EngDecision = (EngineeringDecision)3,
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-01-26"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
                 {
                     ID = 8,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "N/A",
+                    DispositionNotes = "N/A",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
-                    EngSignature = "Luke Miller",
-                    EngSignatureDate = DateTime.Parse("2024-01-26"),
-                    EngDecision = (EngineeringDecision)3,
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-01-26"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
                 {
                     ID = 9,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "Engineering identified a potential flaw in the design and suggested a modification",
+                    DispositionNotes = "Engineering identified a potential flaw in the design and suggested a modification",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
-                    EngSignature = "Luke Miller",
-                    EngSignatureDate = DateTime.Parse("2024-01-26"),
-                    EngDecision = (EngineeringDecision)3,
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-01-26"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
                 {
                     ID = 10,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "Engineering conducted a feasibility study for implementing a cost-saving measure",
+                    DispositionNotes = "Engineering conducted a feasibility study for implementing a cost-saving measure",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
-                    EngSignature = "Luke Miller",
-                    EngSignatureDate = DateTime.Parse("2024-01-26"),
-                    EngDecision = (EngineeringDecision)3,
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-01-26"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
                 {
                     ID = 11,
                     CustomerNotify = true,
                     DrawUpdate = false,
-                    Disposition = "Engineering insisted on creating a new way to solve this problem.",
+                    DispositionNotes = "Engineering insisted on creating a new way to solve this problem.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
                     RevisionDate = DateTime.Parse("2024-01-26"),
-                    EngSignature = "Luke Miller",
-                    EngSignatureDate = DateTime.Parse("2024-01-26"),
-                    EngDecision = (EngineeringDecision)3,
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-01-26"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
 
                 });
                 context.SaveChanges();
@@ -573,155 +606,122 @@ namespace Haver_Niagara.Data
                 {
                     ID = 1,
                     NCR_Number = "2024-001",
-                    SalesOrder = "Stock",
-                    InspectName = "Kevin Butler",
-                    InspectDate = DateTime.Parse("2024-01-10"),
-                    NCRClosed = false,
-                    QualSignature = "Tom Warner",
-                    QualDate = DateTime.Parse("2024-01-11"),
+                    NCR_Date = DateTime.Parse("2024-01-11"),
+                    NCR_Status = true,
+                    NCR_Stage = (NCRStage)1,       //NCR Stage can be changed to match the data 
                     Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                     Engineering = context.Engineerings.FirstOrDefault(p=>p.ID == 1),
-                    Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 1)
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 1)
                 },
                     new NCR
                     {
                         ID = 2,
                         NCR_Number = "2024-002",
-                        SalesOrder = "Stock",
-                        InspectName = "Paul Miller",
-                        InspectDate = DateTime.Parse("2024-01-11"),
-                        NCRClosed = true,
-                        QualSignature = "Frank Curry",
-                        QualDate = DateTime.Parse("2024-01-12"),
+                        NCR_Date = DateTime.Parse("2024-01-12"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)1,   
                         Part = context.Parts.FirstOrDefault(p => p.ID == 2),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 2)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 2)
                     },
                     new NCR
                     {
                         ID = 3,
                         NCR_Number = "2024-003",
-                        SalesOrder = "Stock",
-                        InspectName = "Larry Thomson",
-                        InspectDate = DateTime.Parse("2024-01-12"),
-                        NCRClosed = false,
-                        QualSignature = "Neil Horton",
-                        QualDate = DateTime.Parse("2024-01-13"),
+                        NCR_Date = DateTime.Parse("2024-01-15"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2,      
                         Part = context.Parts.FirstOrDefault(p => p.ID == 3),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 3),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 3)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 3)
                     },
                     new NCR
                     {
                         ID = 4,
                         NCR_Number = "2024-004",
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-15"),
-                        NCRClosed = false,
-                        QualSignature = "Neil Horton",
-                        QualDate = DateTime.Parse("2024-01-15"),
+                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)1,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 4),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 4)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 4)
                     },
                     new NCR
                     {
                         ID = 5,
                         NCR_Number = "2024-005",
-                        SalesOrder = "Stock",
-                        InspectName = "Larry Thomson",
-                        InspectDate = DateTime.Parse("2024-01-11"),
-                        NCRClosed = false,
-                        QualSignature = "Frank Curry",
-                        QualDate = DateTime.Parse("2024-01-13"),
+                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 5),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 5),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 5)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 5)
                     },
                     new NCR
                     {
                         ID = 6,
                         NCR_Number = "2024-006",
-                        SalesOrder = "Stock",
-                        InspectName = "Paul Miller",
-                        InspectDate = DateTime.Parse("2024-01-18"),
-                        NCRClosed = false,
-                        QualSignature = "Tom Warner",
-                        QualDate = DateTime.Parse("2024-01-19"),
+                        NCR_Date = DateTime.Parse("2024-01-20"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)3,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 6),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 6)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 6)
                     },
                     new NCR
                     {
                         ID = 7,
                         NCR_Number =  "2024-007",
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-16"),
-                        NCRClosed = true,
-                        QualSignature = "Frank Curry",
-                        QualDate = DateTime.Parse("2024-01-16"),
+                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 7),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 7),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 7)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 7)
                     },
                     new NCR
                     {
                         ID = 8,
                         NCR_Number = "2024-008",
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-13"),
-                        NCRClosed = false,
-                        QualSignature = "Tom Warner",
-                        QualDate = DateTime.Parse("2024-01-15"),
+                        NCR_Date = DateTime.Parse("2024-01-25"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 8),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 8)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 8)
                     },
                     new NCR
                     {
                         ID = 9,
                         NCR_Number = "2024-009",
-                        SalesOrder = "Stock",
-                        InspectName = "Larry Thomson",
-                        InspectDate = DateTime.Parse("2024-01-14"),
-                        NCRClosed = false,
-                        QualSignature = "Tom Warner",
-                        QualDate = DateTime.Parse("2024-01-17"),
+                        NCR_Date = DateTime.Parse("2024-01-24"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 9),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 9),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 9)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 9)
                     },
                     new NCR
                     {
                         ID = 10,
                         NCR_Number = "2024-010",
-                        SalesOrder = "Stock",
-                        InspectName = "Kevin Butler",
-                        InspectDate = DateTime.Parse("2024-01-20"),
-                        NCRClosed = false,
-                        QualSignature = "Neil Horton",
-                        QualDate = DateTime.Parse("2024-01-16"),
+                        NCR_Date = DateTime.Parse("2024-01-25"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)2,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 10),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 10)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 10)
                     },
                     new NCR
                     {
                         ID = 11,
                         NCR_Number = "2024-011",
-                        SalesOrder = "Stock",
-                        InspectName = "Paul Miller",
-                        InspectDate = DateTime.Parse("2024-01-09"),
-                        NCRClosed = false,
-                        QualSignature = "Frank Curry",
-                        QualDate = DateTime.Parse("2024-01-11"),
+                        NCR_Date = DateTime.Parse("2024-01-26"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 11),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 11),
-                        Purchasing = context.Purchasings.FirstOrDefault(p => p.ID == 11)
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 11)
                     });
       
                 context.SaveChanges();

@@ -1,6 +1,6 @@
 ﻿namespace Haver_Niagara.Models
 {
-    public enum NCRStatus
+    public enum NCRStage
     {
         QualityRepresentative,
         Engineering,

@@ -14,7 +14,7 @@ namespace Haver_Niagara.Data
         public DbSet<NCR> NCRs { get; set; }
         public DbSet<NewNCR> NewNCRs { get; set; }
         public DbSet<Part> Parts { get; set; }
-        public DbSet<Purchasing> Purchasings { get; set; }
+        public DbSet<Operation> Operations { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
 
         //Defect Lists junfction table
@@ -51,6 +51,10 @@ namespace Haver_Niagara.Data
             //    .HasForeignKey<Engineering>(e => e.NCRId)
             //    .IsRequired();
 
+            modelBuilder.Entity<NewNCR>()
+                .HasOne(n => n.QualityInspection)
+                .WithOne(n => n.NewNCR)
+                .HasForeignKey<QualityInspection>(q => q.NewNCRID);
 
             
         }

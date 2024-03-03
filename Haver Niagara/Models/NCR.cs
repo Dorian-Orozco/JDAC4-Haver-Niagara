@@ -20,8 +20,7 @@ namespace Haver_Niagara.Models
 
 
         [Display(Name ="Status")]
-        [StringLength(10)]
-        public string NCR_Status { get; set; }
+        public bool NCR_Status { get; set; }
 
         //NCR Enumeration To Determine the Stage
         [Display(Name = "Stage")]
@@ -34,9 +33,9 @@ namespace Haver_Niagara.Models
 
 
         // PURCHASING //
-        [ForeignKey("Purchasing")]
-        public int? PurchasingID { get; set; }   
-        public Purchasing Purchasing { get; set; }
+        [ForeignKey("Operation")]
+        public int? OperationID { get; set; }   
+        public Operation Operation { get; set; }
 
         // ENGINEERING // 
         [ForeignKey("Engineering")]
@@ -46,5 +45,8 @@ namespace Haver_Niagara.Models
 
         // NEW NCR // Relationship must be one to one
         public NewNCR? NewNCR { get; set; }
+    
+        ////NCR can have many Employees? 
+        //public ICollection<Employee> Employees { get; set; }
     }
 }

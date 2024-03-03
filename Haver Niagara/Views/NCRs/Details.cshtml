@@ -80,11 +80,11 @@
                 <div class="row">
                     <dl class="d-flex mb-1">
                         <dt class="col-sm-5 ">
-                            @Html.DisplayNameFor(model => model.SalesOrder)
+                            @Html.DisplayNameFor(model => model.Part.SalesOrder)
 
                         </dt>
                         <dd class="col-sm-7 ms-2">
-                            @Html.DisplayFor(model => model.SalesOrder)
+                            @Html.DisplayFor(model => model.Part.SalesOrder)
 
                         </dd>
                     </dl>
@@ -188,7 +188,7 @@
                             @* @Html.DisplayNameFor(model => model.QualSignature) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.QualSignature)
+                            @Html.DisplayFor(model => model.NewNCR.QualityInspection.Name) @* Where do we get quality reps name without going through new ncr? *@
                         </dd>
                     </dl>
                 </div>
@@ -199,7 +199,7 @@
                             @* @Html.DisplayNameFor(model => model.QualDate) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.QualDate)
+                            @Html.DisplayFor(model => model.NCR_Date)           @* FIX THIS PART TOO *@
                         </dd>
                     </dl>
                 </div>
@@ -278,12 +278,12 @@
                 @*          Loops through and gets each enumeration value, then for each display the value and create
                             radio / label for. Then model check to see if it matches the decision in iteration
                             and if it does, then use checked property, else nothing *@
-                            @foreach(EngineeringDecision decision in Enum.GetValues(typeof(EngineeringDecision)))
+                            @foreach(EngineeringDisposition disposition in Enum.GetValues(typeof(EngineeringDisposition)))
                             {
                                 <span class="ms-5 me-5">
-                                    <input type="radio" id="@decision" name="disposition" disabled value="@decision"
-                                        @(Model.Engineering?.EngDecision == decision ? "checked" : "")/>
-                                    <label for="@decision">@decision</label><br/>
+                                    <input type="radio" id="@disposition" name="disposition" disabled value="@disposition"
+                                    @(Model.Engineering?.EngineeringDisposition == disposition ? "checked" : "") /> 
+                                    <label for="@disposition">@disposition</label><br />
 
                                 </span>
                             }
@@ -325,7 +325,7 @@
                     </dt>
                     <dd class="mt-1">
                         <div class="d-flex">
-                            @Html.DisplayFor(model=>model.Engineering.Disposition)
+                            @Html.DisplayFor(model=>model.Engineering.DispositionNotes)
                         </div>
                     </dd>
                 </dl>
@@ -419,7 +419,7 @@
                             @* @Html.DisplayNameFor(model => model.Engineering.EngSignature) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.Engineering.EngSignature)
+                            @Html.DisplayFor(model => Model.Engineering.Name)
                         </dd>
                     </dl>
                 </div>
@@ -431,7 +431,7 @@
                         </dt>
                         <dd class="col-sm ms-2">
                             @{
-                                var engineeringSignatureDate = Model.Engineering.EngSignatureDate;
+                                var engineeringSignatureDate = Model.Engineering.Date;
                             }
                             @engineeringSignatureDate.ToString("yyyy-MM-dd")
                         </dd>
@@ -559,7 +559,7 @@
                             @* @Html.DisplayNameFor(model => model.Purchasing.PurchaseSignature) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.Purchasing.PurchaseSignature)
+                            @Html.DisplayFor(model => model.Operation.Name)
                         </dd>
                     </dl>
                 </div>
@@ -571,7 +571,7 @@
                         </dt>
                         <dd class="col-sm ms-2">
                             @{
-                                var PurchasingSignatureDate = Model.Purchasing.SignatureDate;
+                                var PurchasingSignatureDate = Model.Operation.OperationDate;
                             }
                             @PurchasingSignatureDate.ToString("yyyy-MM-dd")
                         </dd>
@@ -625,9 +625,9 @@
                             @* @Html.DisplayNameFor(model => model.InspectName) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.InspectName)
+                            @Html.DisplayFor(model => model.NCR_Date) @* Have to go through new ncr to get a name *@
                         </dd>
-                    </dl>
+                    </dl>                                          @*  FIX THIS PART AND FIGURE OUT HOW TO GET QUALITYT REP NAME *@
                 </div>
                 <div class="row">
                     <dl class="d-flex">
@@ -636,7 +636,7 @@
                             @* @Html.DisplayNameFor(model => model.InspectDate) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.InspectDate)
+                            @Html.DisplayFor(model => model.NCR_Date) 
                         </dd>
                     </dl>
                 </div>
@@ -672,7 +672,7 @@
                             Quality Department
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.InspectName)
+                            @Html.DisplayFor(model => model.NCR_Date)        @* FIX THIS PART AS WELL! *@
                         </dd>
                     </dl>
                 </div>
@@ -683,7 +683,7 @@
                             @* @Html.DisplayNameFor(model => model.InspectDate) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.InspectDate)
+                            @Html.DisplayFor(model => model.NCR_Date)    @* FIX THIS PART AS WELL! *@
                         </dd>
                     </dl>
                 </div>

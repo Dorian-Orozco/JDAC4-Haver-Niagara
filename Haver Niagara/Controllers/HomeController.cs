@@ -54,7 +54,7 @@ namespace Haver_Niagara.Controllers
                 searchString = searchString.ToLower();
 
                 ncrs = ncrs.Where(x =>
-                 x.InspectDate.ToString().ToLower().Contains(searchString) ||
+                 x.NCR_Date.ToString().ToLower().Contains(searchString) ||
                  x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
                  x.NCR_Number.ToString().ToLower().Contains(searchString) ||
                  x.Part.Supplier.Name.ToLower().Contains(searchString)
@@ -81,18 +81,18 @@ namespace Haver_Niagara.Controllers
                     ncrs = ncrs.OrderBy(n=>n.Part.Supplier.Name).ToList();
                     break;
 
-                //NCR stage open or closed (bool)
-                case "Stage_Desc":
-                    ncrs = ncrs.OrderByDescending(b => b.NCRClosed).ToList();
+                //Since we do not have a BOOLEAN value in NCR, this must be changed, currently using Status (open/closed atm)
+                case "Stage_Desc":              
+                    ncrs = ncrs.OrderByDescending(b => b.NCR_Status).ToList();
                     break;
                 case "Stage_Asc":
-                    ncrs = ncrs.OrderBy(b=>b.NCRClosed).ToList();
+                    ncrs = ncrs.OrderBy(b=>b.NCR_Status).ToList();
                     break;
                 case "Date_Asc":
-                    ncrs = ncrs.OrderByDescending(b=>b.InspectDate).ToList();
+                    ncrs = ncrs.OrderByDescending(b=>b.NCR_Date).ToList();
                     break;
                 case "Date_Desc":
-                    ncrs = ncrs.OrderBy(b => b.InspectDate).ToList();
+                    ncrs = ncrs.OrderBy(b => b.NCR_Date).ToList();
                     break;
             }
 
