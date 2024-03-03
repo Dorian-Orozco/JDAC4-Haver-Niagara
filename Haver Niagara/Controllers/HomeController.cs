@@ -59,7 +59,7 @@ namespace Haver_Niagara.Controllers
                  x.NCR_Number.ToString().ToLower().Contains(searchString) ||
                  x.Part.Supplier.Name.ToLower().Contains(searchString)
                  ).ToList();
-            }
+            }          
             
 
             //Determines the sorting order
