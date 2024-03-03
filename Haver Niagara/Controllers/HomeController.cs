@@ -81,7 +81,7 @@ namespace Haver_Niagara.Controllers
                     ncrs = ncrs.OrderBy(n=>n.Part.Supplier.Name).ToList();
                     break;
 
-                //Since we do not have a BOOLEAN value in NCR, this must be changed, currently using Status (open/closed atm)
+                //Since we do not have a BOOLEAN value in NCR, this must be changed, currently using Status (open/closed atm) 
                 case "Stage_Desc":              
                     ncrs = ncrs.OrderByDescending(b => b.NCR_Status).ToList();
                     break;
