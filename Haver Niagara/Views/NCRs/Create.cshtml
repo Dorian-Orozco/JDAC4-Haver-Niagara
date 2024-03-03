@@ -81,6 +81,41 @@
                 <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
             </div>
 
+            @* Quality Inspection Stuff.. Name, Date, Item Marked? *@
+            <div class="form-group">
+                <label asp-for="QualityInspection.Name" class="control-label"></label>
+                <input asp-for="QualityInspection.Name" class="form-control" />
+                <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QualityInspection.Date" class="control-label"></label>
+                <input asp-for="QualityInspection.Date" type="date" class="form-control" />
+                <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QualityInspection.ItemMarked" class="control-label"></label><br />
+                <div class="form-check form-check-inline">
+                    <input asp-for="QualityInspection.ItemMarked" class="form-check-input" type="radio" value="true" id="itemMarkedYes" />
+                    <label class="form-check-label" for="itemMarkedYes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="QualityInspection.ItemMarked" class="form-check-input" type="radio" value="false" id="itemMarkedNo" />
+                    <label class="form-check-label" for="itemMarkedNo">No</label>
+                </div>
+                <span asp-validation-for="QualityInspection.ItemMarked" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Quality Identify</label><br />
+                @foreach (var qualityIdentify in Enum.GetValues(typeof(QualityIdentify)))
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" asp-for="QualityInspection.QualityIdentify" class="form-check-input" value="@qualityIdentify" id="@($"qualityIdentify{qualityIdentify}")" />
+                        <label class="form-check-label" for="@($"qualityIdentify{qualityIdentify}")">@qualityIdentify</label>
+                    </div>
+                }
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

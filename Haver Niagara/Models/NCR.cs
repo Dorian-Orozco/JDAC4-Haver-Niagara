@@ -55,6 +55,9 @@ namespace Haver_Niagara.Models
         public int? EngineeringID { get; set; }
         public Engineering Engineering { get; set; }
 
+        [ForeignKey("QualityInspection")]
+        public int? QualityInspectionID { get; set; }
+        public QualityInspection QualityInspection { get; set; }
 
         // NEW NCR // Relationship must be one to one
         public NewNCR? NewNCR { get; set; }

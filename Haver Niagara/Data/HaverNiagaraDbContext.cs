@@ -20,8 +20,9 @@ namespace Haver_Niagara.Data
         //Defect Lists junfction table
         public DbSet<DefectList> DefectLists { get; set; }
 
-        //public DbSet<ProductDocumentMedia> ProductDocumentMedias { get; set; }
         public DbSet<UploadedFile> UploadedFiles { get; set; }
+
+        public DbSet<QualityInspection> QualityInspections { get; set; }
 
         public HaverNiagaraDbContext(DbContextOptions<HaverNiagaraDbContext> options)
             : base(options)
@@ -67,6 +68,10 @@ namespace Haver_Niagara.Data
                 .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Engineering>()
+                .Property(n => n.ID)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<QualityInspection>()
                 .Property(n => n.ID)
                 .ValueGeneratedOnAdd();
 
