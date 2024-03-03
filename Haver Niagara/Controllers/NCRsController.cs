@@ -25,7 +25,7 @@ namespace Haver_Niagara.Controllers
             var haverNiagaraDbContext = _context.NCRs
                 .Include(n => n.Engineering)
                 .Include(n => n.Product)
-                    .ThenInclude(n=>n.Medias)
+                .ThenInclude(n=>n.Medias)
                 .Include(n => n.Purchasing);
             return View(await haverNiagaraDbContext.ToListAsync());
         }

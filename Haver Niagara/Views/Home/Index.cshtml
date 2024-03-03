@@ -48,9 +48,10 @@
     }
 
     .filter-container {
+        flex-basis: 28%;
+        margin-right: 1rem;
         display: flex;
         flex-direction: column;
-        margin-right: 1rem;
     }
 
     .search-button {
@@ -62,6 +63,7 @@
         background-color: #4FC0FF;
         width: 138px;
         height: 45px;
+        font-weight: 700;
     }
 
     .card {
@@ -86,6 +88,46 @@
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0,p,0,0.1);
         padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+    }
+
+    .button {
+        margin-left: 1rem;
+        color: white;
+        background-color: #0d6efd;
+        width: 138px;
+        height: 45px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 700;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #4FC0FF;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
     }
 </style>
 
@@ -100,23 +142,23 @@
 
     <div class="dashboard-row">
         <div class="filter-container">
-            <label for="dateFilter">Week Dates:</label>
-            <input type="week" id="dateFilter">
+            <label for="dateFilter">Select a Month:</label>
+            <input type="month" id="dateFilter">
         </div>
 
         <div class="filter-container">
             <label for="status">Status:</label>
             <select id="status">
-                <option value="all">All</option>
+                <option value="all">Any Status</option>
                 <option value="option1">Open</option>
                 <option value="option2">Closed</option>
             </select>
         </div>
 
         <div class="filter-container">
-            <label for="awaitDept">Awaiting Department:</label>
-            <select id="awaitDept">
-                <option value="all">All</option>
+            <label for="awaitStage">Stage:</label>
+            <select id="awaitStage">
+                <option value="all">Any Stage:</option>
                 <option value="option1">Quality</option>
                 <option value="option2">Engineering</option>
                 <option value="option3">Purchasing</option>
@@ -145,8 +187,8 @@
 
         <div class="card">
             <div class="card-content">
-                <h2>NCR's Awaiting Decision</h2>
-                <h3>2</h3>
+                <h2>NCR's in Quality Stage</h2>
+                <h3>5</h3>
                 <p>Currently</p>
             </div>
         </div>
@@ -155,23 +197,82 @@
     <div class="dashboard-row">
         <div class="wide-card">
             <h2>Preview of Open NCR's</h2>
+
             <table>
                 <thead>
                     <tr>
-                        <th>Col 1</th>
-                        <th>Col 2</th>
-                        <th>Col 3</th>
+                        <th>Status</th>
+                        <th>NCR Number</th>
+                        <th>Date Created</th>
+                        <th>Product Number</th>
+                        <th>Supplier</th>
+                        <th>Stage</th>
                     </tr>
                 </thead>
 
-                <tbody>
+@*                 Table Contents
+ *@                <tbody>
                     <tr>
-                        <td>Row 1, Col 1</td>
-                        <td>Row 1, Col 2</td>
-                        <td>Row 1, Col 3</td>
+                        <td>
+                            <button class="status-btn active" title="Active"></button>
+                        </td>
+                        <td>2024-011</td>
+                        <td>01/09/24</td>
+                        <td>219031293</td>
+                        <td>Bickle Main Industrial Supply Inc.</td>
+                        <td>Quality</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="status-btn active" title="Active"></button>
+                        </td>
+                        <td>2024-001</td>
+                        <td>01/10/24</td>
+                        <td>208475893</td>
+                        <td>Hingston Metal Fabricators</td>
+                        <td>Quality</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="status-btn active" title="Active"></button>
+                        </td>
+                        <td>2024-005</td>
+                        <td>01/11/24</td>
+                        <td>209031293</td>
+                        <td>Right Machine Industrial</td>
+                        <td>Quality</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="status-btn active" title="Active"></button>
+                        </td>
+                        <td>2024-003</td>
+                        <td>01/12/24</td>
+                        <td>207843292</td>
+                        <td>W S Tyler - Particle & Fine</td>
+                        <td>Quality</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button class="status-btn active" title="Active"></button>
+                        </td>
+                        <td>2024-008</td>
+                        <td>01/13/24</td>
+                        <td>244110399</td>
+                        <td>Kavon Machine Inc.</td>
+                        <td>Quality</td>
                     </tr>
                 </tbody>
             </table>
+
+            <div class="button-container">
+                <button class="button">View All</button>
+                <a asp-controller="NCRs" asp-action="Create" class="button">Create New</a>
+            </div>
         </div>
     </div>
 </div>
