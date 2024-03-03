@@ -140,6 +140,11 @@ namespace Haver_Niagara.Controllers
             return View(ncrs.ToList());
         }
 
+        public IActionResult ClearFilters()
+        {
+            return RedirectToAction("List", new { sortOrder = "", searchString = "", selectedSupplier = "", selectedDate = "", selectedStatus = "" });
+        }
+
         public IActionResult Index()
         {
             return View();
