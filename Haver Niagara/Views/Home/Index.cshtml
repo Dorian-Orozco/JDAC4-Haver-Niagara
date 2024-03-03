@@ -7,90 +7,23 @@
 
 <style>
     h1 {
-        font-weight: 600;
         font-size: 38px;
+        font-weight: 600;
     }
 
     h2 {
-        font-weight: 600;
         font-size: 20px;
+        font-weight: 600;
     }
 
     h3 {
-        font-weight:600;
         font-size: 100px;
+        font-weight: 600;
     }
 
     .body {
-        font-family: Montserrat, sans-serif;
         color: #1C335E;
-    }
-
-    .dashboard-container {
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 2rem;
-        background-color: #E7E7E7;
-        border-radius: 10px;
-    }
-
-    .dashboard-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-
-    .page-title {
-        flex-basis: 50%;
-        text-align: left;
-    }
-
-    .filter-container {
-        flex-basis: 28%;
-        margin-right: 1rem;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .search-button {
-        flex-basis: 20%;
-        border: none;
-        border-radius: 5px;
-        align-self: flex-end;
-        color: white;
-        background-color: #4FC0FF;
-        width: 138px;
-        height: 45px;
-        font-weight: 700;
-    }
-
-    .card {
-        flex-basis: 32%;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        padding: 1rem;
-    }
-
-    .card-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-
-    .wide-card {
-        flex-basis: 100%;
-        background-color: white;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,p,0,0.1);
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        font-family: Montserrat, sans-serif;
     }
 
     .button-container {
@@ -100,19 +33,77 @@
     }
 
     .button {
-        margin-left: 1rem;
-        color: white;
         background-color: #0d6efd;
-        width: 138px;
-        height: 45px;
         border: none;
         border-radius: 5px;
+        color: white;
         font-weight: 700;
+        height: 45px;
+        margin-left: 1rem;
+        padding: 5px;
+        text-align: center;
+        width: 138px;
+    }
+
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        flex-basis: 32%;
+        padding: 1rem;
+    }
+
+    .card-content {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+    }
+
+    .dashboard-container {
+        background-color: #E7E7E7;
+        border-radius: 20px;
+        margin: 0 auto;
+        max-width: 1000px;
+        padding: 2rem;
+        width: 100%;
+    }
+
+    .dashboard-row {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .filter-container {
+        display: flex;
+        flex-basis: 28%;
+        flex-direction: column;
+        margin-right: 1rem;
+    }
+
+    .page-title {
+        flex-basis: 50%;
+        text-align: left;
+    }
+
+    .search-button {
+        align-self: flex-end;
+        background-color: #0d6efd;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        flex-basis: 20%;
+        font-weight: 700;
+        height: 45px;
+        width: 138px;
     }
 
     table {
-        width: 100%;
         border-collapse: collapse;
+        width: 100%;
     }
 
     th, td {
@@ -122,12 +113,23 @@
     }
 
     th {
-        background-color: #4FC0FF;
+        background-color: #0d6efd;
         color: white;
     }
 
     tr:nth-child(even) {
         background-color: #f2f2f2
+    }
+
+    .wide-card {
+        align-items: flex-start;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,p,0,0.1);
+        display: flex;
+        flex-basis: 100%;
+        flex-direction: column;
+        padding: 1rem;
     }
 </style>
 
@@ -270,7 +272,7 @@
             </table>
 
             <div class="button-container">
-                <button class="button">View All</button>
+                <a asp-controller="Home" asp-action="List" class="button">View All</a>
                 <a asp-controller="NCRs" asp-action="Create" class="button">Create New</a>
             </div>
         </div>
