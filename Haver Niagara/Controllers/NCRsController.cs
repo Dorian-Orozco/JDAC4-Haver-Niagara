@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Haver_Niagara.Controllers
 {
@@ -26,7 +27,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Engineering)
                 .Include(n => n.Operation)
                 .Include(n => n.Part)
-                    .ThenInclude(n=>n.Medias); // --> Test To see if can be ran without, faster loading if possible.
+                    .ThenInclude(n => n.Medias); // --> Test To see if can be ran without, faster loading if possible.
             return View(await haverNiagaraDbContext.ToListAsync());
         }
 
@@ -41,13 +42,13 @@ namespace Haver_Niagara.Controllers
             var nCR = await _context.NCRs
                 .Include(n => n.Engineering)
                 .Include(n => n.Part)
-                    .ThenInclude(n=>n.Supplier)
-                .Include(n=>n.Part)
-                    .ThenInclude(n=>n.Medias)
-                .Include(n=>n.Part)
-                    .ThenInclude(n=>n.DefectLists)
-                    .ThenInclude(n=>n.Defect)
-                .Include(n => n.Operation)           
+                    .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Medias)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.DefectLists)
+                    .ThenInclude(n => n.Defect)
+                .Include(n => n.Operation)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (nCR == null)
@@ -77,7 +78,9 @@ namespace Haver_Niagara.Controllers
             ViewBag.EmployeeNameOptions = employeeNameOptions;
             ///////////
             ///////////
-            
+            // Populate supplier dropdown list
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID");
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID");
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID");
@@ -90,16 +93,26 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,NCR_Number,NCR_Date,NCR_Status,NCR_Stage,PartID,OperationID,EngineeringID")]
-                NCR nCR, List<IFormFile> files)
+                NCR nCR, Part part, List<IFormFile> files, List<string> links)
         {
             if (ModelState.IsValid)
             {
+
+                //Add part so it automatically gets the generated ID once saved
+                _context.Add(part);
+                await _context.SaveChangesAsync();
+
+                //Assign the generated Part ID to this NCR
+                nCR.PartID = part.ID;
+
+                //Add the NCR to the context
                 _context.Add(nCR);
                 await _context.SaveChangesAsync();
 
+                //Images function to save
                 if (files != null && files.Count > 0)
                 {
-                    await OnPostUploadAsync(files, nCR.ID);
+                    await OnPostUploadAsync(files, nCR.ID, links);
                 }
                 return RedirectToAction("List", "Home");
 
@@ -108,6 +121,7 @@ namespace Haver_Niagara.Controllers
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             return View(nCR);
         }
 
@@ -150,8 +164,8 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,NCR_Date,NCR_Status,NCR_Stage,PartID,OperationID,EngineeringID")] 
-                    NCR nCR, List<IFormFile> files)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,NCR_Date,NCR_Status,NCR_Stage,PartID,OperationID,EngineeringID")]
+                    NCR nCR, List<IFormFile> files, List<string> links)
         {
             if (id != nCR.ID)
             {
@@ -163,7 +177,7 @@ namespace Haver_Niagara.Controllers
                 try
                 {
                     _context.Update(nCR);
-                    await OnPostUploadAsync(files, nCR.ID);
+                    await OnPostUploadAsync(files, nCR.ID, links);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -198,7 +212,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Engineering)
                 .Include(n => n.Operation)
                 .Include(n => n.Part)
-                    .ThenInclude(n=>n.Medias)
+                    .ThenInclude(n => n.Medias)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nCR == null)
             {
@@ -222,7 +236,7 @@ namespace Haver_Niagara.Controllers
             {
                 _context.NCRs.Remove(nCR);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction("List", "Home");
             //return RedirectToAction(nameof(Index));
@@ -230,8 +244,8 @@ namespace Haver_Niagara.Controllers
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files, int ncrID) //Accepting multiple Iformfiles, and an NCR ID to relate data
-        {
+        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files, int ncrID, List<string> links) //Accepting multiple Iformfiles, and an NCR ID to relate data
+        {                                                                   //added ability to take in multiple links as well.
             var ncr = await _context.NCRs
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Medias)
@@ -266,6 +280,30 @@ namespace Haver_Niagara.Controllers
                     }
                 }
             }
+
+            //dorian !
+            //ai prompt - how can i get the links and split them so theyre put into arrays and saved
+            //applied here to save links to media
+            if (links != null)
+            {
+                foreach (var linkGroup in links)
+                {
+                    if (linkGroup != null)
+                    {
+                        foreach (var link in linkGroup.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            if (!string.IsNullOrEmpty(link))
+                            {
+                                var media = new Media
+                                {
+                                    Links = link.Trim() // Trim whitespace from each link
+                                };
+                                ncr.Part.Medias.Add(media);
+                            }
+                        }
+                    }
+                }
+            }
             await _context.SaveChangesAsync();
 
             // Process uploaded files
@@ -276,7 +314,7 @@ namespace Haver_Niagara.Controllers
 
         private bool NCRExists(int id)
         {
-          return _context.NCRs.Any(e => e.ID == id);
+            return _context.NCRs.Any(e => e.ID == id);
         }
     }
 }

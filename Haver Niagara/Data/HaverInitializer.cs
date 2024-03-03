@@ -685,7 +685,7 @@ namespace Haver_Niagara.Data
                         NCR_Number = "2024-008",
                         NCR_Date = DateTime.Parse("2024-01-25"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)3,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 8),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 8)

@@ -101,7 +101,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CARNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    OperationID = table.Column<int>(type: "INTEGER", nullable: false)
+                    OperationID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,8 +110,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_CARs_Operations_OperationID",
                         column: x => x.OperationID,
                         principalTable: "Operations",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -122,7 +121,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .Annotation("Sqlite:Autoincrement", true),
                     FollowUpDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     FollowUpType = table.Column<string>(type: "TEXT", nullable: true),
-                    OperationID = table.Column<int>(type: "INTEGER", nullable: false)
+                    OperationID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,8 +130,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_FollowUps_Operations_OperationID",
                         column: x => x.OperationID,
                         principalTable: "Operations",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -150,7 +148,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     QuantityRecieved = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityDefect = table.Column<int>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    SupplierID = table.Column<int>(type: "INTEGER", nullable: true)
+                    SupplierID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -159,7 +157,8 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_Parts_Suppliers_SupplierID",
                         column: x => x.SupplierID,
                         principalTable: "Suppliers",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

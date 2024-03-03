@@ -22,9 +22,22 @@ namespace Haver_Niagara.Models
         [Display(Name ="Status")]
         public bool NCR_Status { get; set; }
 
+ 
+        public NCR()
+        {
+            //Sets the NCR_Status to false as default, because when an NCR is first created it cannot be true (finished).
+            NCR_Status = false;
+            //Defaulting when creating an NCR to have the quality representative as the first stage
+            NCR_Stage = NCRStage.QualityRepresentative;
+            //Setting a default of todays date
+            NCR_Date = DateTime.Today;
+        }
+
         //NCR Enumeration To Determine the Stage
         [Display(Name = "Stage")]
         public NCRStage NCR_Stage { get; set; }
+
+
 
         // PART ENTITY //
         [ForeignKey("Part")]

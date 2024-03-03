@@ -19,35 +19,68 @@
             </div>
             <div class="form-group">
                 <label asp-for="NCR_Date" class="control-label"></label>
-                <input asp-for="NCR_Date" class="form-control" />
+                <input asp-for="NCR_Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")"/>
                 <span asp-validation-for="NCR_Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="NCR_Status" class="control-label"></label>
-                <input asp-for="NCR_Status" class="form-control" />
-                <span asp-validation-for="NCR_Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NCR_Stage" class="control-label"></label>
-                <input asp-for="NCR_Stage" class="form-control" />
-                <span asp-validation-for="NCR_Stage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PartID" class="control-label">Part ID</label>
-                <input asp-for="PartID" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="OperationID" class="control-label">Operation ID</label>
-                <input asp-for="OperationID" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="EngineeringID" class="control-label">Engineering ID</label>
-                <input asp-for="EngineeringID" class="form-control" />
-            </div>
+            @* Images *@
             <div class="form-group">
                 <label for="files">Select files:</label>
                 <input type="file" name="files" id="files" class="form-control-file" multiple />
             </div>
+            @* Links *@
+            <div class="form-group">
+                <label for="links">Enter links (one per line):</label>
+                <textarea name="links" class="form-control"></textarea>
+                <span class="text-danger"></span>
+            </div>
+
+            @* Quality Rep 1 - PART TABLE / SUPPLIER TABLE *@
+            <div class="form-group">
+                <label asp-for="Part.Name" class="control-label"></label>
+                <input asp-for="Part.Name" class="form-control" />
+                <span asp-validation-for="Part.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.SAPNumber" class="control-label"></label>
+                <input asp-for="Part.SAPNumber" class="form-control" />
+                <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.PurchaseNumber" class="control-label"></label>
+                <input asp-for="Part.PurchaseNumber" class="form-control" />
+                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.SalesOrder" class="control-label"></label>
+                <input asp-for="Part.SalesOrder" class="form-control" />
+                <span asp-validation-for="Part.SalesOrder" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Part.QuantityRecieved" class="control-label"></label>
+                <input asp-for="Part.QuantityRecieved" class="form-control" />
+                <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.QuantityDefect" class="control-label"></label>
+                <input asp-for="Part.QuantityDefect" class="form-control" />
+                <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
+            </div>
+
+      @*       Gets View Bag Filled with Suppliers and Takes that ID and it back to controller to save to DB *@
+            <div class="form-group">
+                <label asp-for="Part.SupplierID" class="control-label"></label>
+                <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
+                    <option value="">--Select Supplier--</option>
+                </select>
+                <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

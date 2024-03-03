@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240303011328_Initial")]
+    [Migration("20240303043114_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -32,7 +32,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OperationID")
+                    b.Property<int?>("OperationID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
@@ -147,7 +147,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("FollowUpType")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OperationID")
+                    b.Property<int?>("OperationID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
@@ -323,7 +323,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int>("SalesOrder")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("SupplierID")
+                    b.Property<int>("SupplierID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
@@ -404,9 +404,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Operation", "Operation")
                         .WithOne("CAR")
-                        .HasForeignKey("Haver_Niagara.Models.CAR", "OperationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Haver_Niagara.Models.CAR", "OperationID");
 
                     b.Navigation("Operation");
                 });
@@ -445,9 +443,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Operation", "Operation")
                         .WithOne("FollowUp")
-                        .HasForeignKey("Haver_Niagara.Models.FollowUp", "OperationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Haver_Niagara.Models.FollowUp", "OperationID");
 
                     b.Navigation("Operation");
                 });
@@ -499,7 +495,9 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
                         .WithMany("Parts")
-                        .HasForeignKey("SupplierID");
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Supplier");
                 });

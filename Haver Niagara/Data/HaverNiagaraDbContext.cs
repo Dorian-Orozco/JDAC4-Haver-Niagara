@@ -56,7 +56,20 @@ namespace Haver_Niagara.Data
                 .WithOne(n => n.NewNCR)
                 .HasForeignKey<QualityInspection>(q => q.NewNCRID);
 
-            
+
+            //ai gen
+            modelBuilder.Entity<Operation>()
+                .Property(n => n.ID)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Part>()
+                .Property(n => n.ID)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Engineering>()
+                .Property(n => n.ID)
+                .ValueGeneratedOnAdd();
+
         }
     }
 }

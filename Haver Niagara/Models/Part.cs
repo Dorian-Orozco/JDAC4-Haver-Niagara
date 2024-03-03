@@ -1,10 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace Haver_Niagara.Models
 {
     public class Part
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Display(Name = "Part Name")]
@@ -34,7 +37,9 @@ namespace Haver_Niagara.Models
         [Display(Name = "Description of Item")]
         public string Description { get; set; }
 
-        //navigation property for supplier 
+        //navigation property for supplier
+        [Display(Name="Supplier")]
+        public int SupplierID { get; set; }
         public Supplier Supplier { get; set; }
 
         //One to many with NCR

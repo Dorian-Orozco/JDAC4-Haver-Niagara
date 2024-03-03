@@ -217,7 +217,14 @@
                     {
                         foreach (var image in Model.Part.Medias)
                         {
-                            <img src="data:@image.MimeType;base64,@Convert.ToBase64String(image.Content)" alt="@image.Description" width="300" height="300" />
+                            if(image.Content != null)
+                            {
+                                <img src="data:@image.MimeType;base64,@Convert.ToBase64String(image.Content)" alt="@image.Description" width="300" height="300" />
+                            }
+                            else
+                            {
+                                //Content Failed error ? 
+                            }
                         }
                     }
                     else
@@ -234,20 +241,20 @@
                     <dt class="ps-3">
                         Links
                     </dt>
-                    @if (Model.Part.Medias != null && Model.Part.Medias.Any())
+                    @if (Model.Part == null)
+                    {
+                        <dd class="mt-1 ps-3">
+                            No Part Associated
+                        </dd>
+                    }
+                    else if (Model.Part.Medias != null && Model.Part.Medias.Any())
                     {
                         @foreach (var media in Model.Part.Medias)
                         {
-                            if(media.Links != null || !string.IsNullOrEmpty(media.Links))
+                            if(!string.IsNullOrEmpty(media.Links))
                             {
                                 <dd class="mt-1 ps-3">
                                     <a href="@media.Links">@media.Links</a>
-                                </dd>
-                            }
-                            else
-                            {
-                                <dd class="mt-1 ps-3">
-                                   No Links Associated
                                 </dd>
                             }
                         }
@@ -255,7 +262,7 @@
                     else
                     {
                         <dd class="mt-1 ps-3">
-                            No Links Associated 
+                            No Links Associated
                         </dd>
                     }
                 </dl>
@@ -400,13 +407,21 @@
                         </dl>
                     </div>
                     <div class="col-sm">
-                        <dl>@*  https://stackoverflow.com/questions/21754071/templates-can-be-used-only-with-field-access-property-access-single-dimension has to be assigned before use  *@ 
-                            <dd>
-                                @{
-                                    var EngineeringRevisionDate = Model.Engineering.RevisionDate;
-                                }
-                                @EngineeringRevisionDate.ToString("yyyy-MM-dd")
-                            </dd>
+                       <dl>
+                            @if (Model.Engineering != null)
+                            {
+                                var EngineeringRevisionDate = Model.Engineering.RevisionDate;
+                                
+                                <dd>
+                                    @EngineeringRevisionDate.ToString("yyyy-MM-dd")
+                                </dd>
+                            }
+                            else
+                            {
+                                <dd>
+                                    No Engineering Associated
+                                </dd>
+                            }
                         </dl>
                     </div>
                 </div>
@@ -431,9 +446,9 @@
                         </dt>
                         <dd class="col-sm ms-2">
                             @{
-                                var engineeringSignatureDate = Model.Engineering.Date;
+                                var engineeringSignatureDate = Model.Engineering != null ? Model.Engineering.Date.ToString("yyyy-MM-dd") : "Date Not Specified";
                             }
-                            @engineeringSignatureDate.ToString("yyyy-MM-dd")
+                            @engineeringSignatureDate
                         </dd>
                     </dl>
                 </div>
@@ -571,9 +586,9 @@
                         </dt>
                         <dd class="col-sm ms-2">
                             @{
-                                var PurchasingSignatureDate = Model.Operation.OperationDate;
+                                var OperationDate = Model.Operation != null ? Model.Operation.OperationDate.ToString("yyyy-MM-dd") : "Date Not Specified";
                             }
-                            @PurchasingSignatureDate.ToString("yyyy-MM-dd")
+                            @OperationDate
                         </dd>
                     </dl>
                 </div>

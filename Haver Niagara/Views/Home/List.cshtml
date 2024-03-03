@@ -40,7 +40,7 @@
         {                           //Added some validation, will remove later.
             <tr>
                 <td class="text-center">
-                    @if (item.NCR_Status)
+                    @if (!item.NCR_Status)
                     {
                         <button class="status-btn closed" title="Closed"></button>
                     }
@@ -53,7 +53,7 @@
                 <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
                 <td class ="text-center">@(item.Part?.ProductNumber.ToString() ?? "line 54 list.cshtml")</td>
                 <td >@(item.Part?.Supplier.Name.ToString() ?? "line 55 list.cshtml")</td>
-                <td><p class="stage">1/ Quality Inspection</p></td>
+                <td><p class="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
                 <td class="text-center">
                     <div>
                     <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
