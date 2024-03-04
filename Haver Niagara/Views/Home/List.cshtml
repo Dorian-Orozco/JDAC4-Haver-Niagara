@@ -47,9 +47,9 @@
         Filter By Status:
         @Html.DropDownList("SelectedStatus", new List<SelectListItem>
             {
-            new SelectListItem { Text = "Open", Value = "true" },
+    new SelectListItem { Text = "Open", Value = "true", Selected = true},
             new SelectListItem { Text = "Closed", Value = "false" },
-            new SelectListItem { Text = "All", Value = "", Selected = true }
+            new SelectListItem { Text = "All", Value = ""}
             })
         <label for="SelectedDate">Filter By Date:</label>
         <input type="date" id="SelectedDate" name="SelectedDate">
