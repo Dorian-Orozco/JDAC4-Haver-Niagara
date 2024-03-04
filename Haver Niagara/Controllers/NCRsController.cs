@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Identity.Client;
 
 namespace Haver_Niagara.Controllers
 {
@@ -64,22 +65,6 @@ namespace Haver_Niagara.Controllers
         // GET: NCRs/Create
         public IActionResult Create()
         {
-            //Creating Employee Names, This can be used to mimic selecting lets say, the engineer..
-            //Creating Employee Names
-            var employeeNameOptions = new List<string>
-            {
-                "John Snow",
-                "Sandy Road",
-                "Bob Frank",
-                "Jimmy Garden",
-                "Pony Smith",
-                "Asgard Fiy",
-                "Alex Baxter",
-                "Sam Queen"
-            };
-            ViewBag.EmployeeNameOptions = employeeNameOptions;
-            ///////////
-            ///////////
             ///Populate list of defects
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
 
@@ -110,11 +95,9 @@ namespace Haver_Niagara.Controllers
                 _context.Add(qualityInspection);
                 
                 await _context.SaveChangesAsync();
-
                 //Assign the generated IDs to this NCR
                 nCR.PartID = part.ID;
                 nCR.QualityInspectionID = qualityInspection.ID;
-
                 //Add the NCR to the context
                 _context.Add(nCR);
 
@@ -145,23 +128,32 @@ namespace Haver_Niagara.Controllers
         }
 
         // GET: NCRs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id) 
         {
             if (id == null || _context.NCRs == null)
             {
                 return NotFound();
             }
 
-            //including all the data we are going to edit
+
+            //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
-                .Include(n => n.QualityInspection)
-                .Include(n=>n.Part)
-                .Include(n=>n.Part.DefectLists)
-                    .ThenInclude(n=>n.Defect)
                 .Include(n=>n.Part)
                     .ThenInclude(n=>n.Medias)
+                .Include(n=>n.QualityInspection)
+                .Include(n=>n.Part)
+                    .ThenInclude(n=>n.Supplier)
+                .Include(n=>n.Part)
+                    .ThenInclude(n=>n.DefectLists)
+                        .ThenInclude(n=>n.Defect)
                 .FirstOrDefaultAsync(n=>n.ID == id);
-          
+
+            ///Populate list of defects
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
+
+            // Populate supplier dropdown list
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+
             if (nCR == null)
             {
                 return NotFound();
@@ -176,10 +168,12 @@ namespace Haver_Niagara.Controllers
         // POST: NCRs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        
+        
+        [HttpPost]  
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,NCR_Date,NCR_Status,NCR_Stage,PartID,OperationID,EngineeringID,QualityInspectionID")]
-                    NCR nCR, Part part, [Bind("Name,Date,ItemMarked,QualityIdentify")] QualityInspection qualityInspection, List<IFormFile> files, List<string> links, int defectID)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,NCR_Date,PartID,OperationID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
+                    NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links)
         {
             if (id != nCR.ID)
             {
@@ -190,24 +184,59 @@ namespace Haver_Niagara.Controllers
             {
                 try
                 {
-                    if(part != null)            //null checks for part / quality inspection
+                    var existingNCR = await _context.NCRs
+                        .Include(n=>n.Part)
+                            .ThenInclude(p=>p.Medias)
+                        .Include(n=>n.Part)
+                            .ThenInclude(n=>n.DefectLists)
+                                .ThenInclude(n=>n.Defect)
+                        .Include(n=>n.QualityInspection)
+                        .FirstOrDefaultAsync(n=>n.ID == id);
+
+                    if(existingNCR == null)
                     {
-                        _context.Update(part);
-                        var defectList = new DefectList
+                        return NotFound();
+                    }
+
+                    //detaching to prevent tracking issues
+                    _context.Entry(existingNCR).State = EntityState.Detached;   
+                                                                                
+                    //Update NCR Properties
+                    existingNCR.NCR_Number = nCR.NCR_Number;                    
+                    existingNCR.NCR_Date = nCR.NCR_Date;   
+
+
+                    //ASSOCIATED TABLES PAST THIS POINT.
+                    //Updating Part Properties, gets old values so they are not overwritten if new val null
+                    if(part != null)
+                    {
+                        existingNCR.Part.Name = part.Name;
+                        existingNCR.Part.PartNumber = part.PartNumber;
+                        existingNCR.Part.SAPNumber = part.SAPNumber;
+                        existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
+                        existingNCR.Part.SalesOrder = part.SalesOrder;
+                        existingNCR.Part.ProductNumber = part.ProductNumber;
+                        existingNCR.Part.QuantityRecieved = part.QuantityRecieved;
+                        existingNCR.Part.QuantityDefect = part.QuantityDefect;
+                        existingNCR.Part.Description = part.Description;
+                        existingNCR.Part.SupplierID = part.SupplierID;
+
+                        // Clear existing defect lists and update with selected defects
+                       
+
+                        if (part.DefectLists != null && part.DefectLists.Any())
                         {
-                            PartID = part.ID,
-                            DefectID = defectID
-                        };
-
+                            existingNCR.Part.DefectLists.Clear();
+                            var selectedDefect = part.DefectLists.First();
+                            existingNCR.Part.DefectLists.Add(selectedDefect);
+                        }
                     }
-                  
-                    if(qualityInspection != null)
+                    _context.Attach(existingNCR).State = EntityState.Modified;  
+
+                    if(existingNCR.Part != null)
                     {
-                        _context.Update(qualityInspection);
+                        _context.Attach(existingNCR.Part).State = EntityState.Modified;
                     }
-                    _context.Update(nCR);
-
-
                     await OnPostUploadAsync(files, nCR.ID, links);
                     await _context.SaveChangesAsync();
                 }
@@ -223,10 +252,9 @@ namespace Haver_Niagara.Controllers
                     }
                 }
                 return RedirectToAction("List", "Home");
-                //return RedirectToAction(nameof(Index));
             }
             //Populate viewbag for list of suppliers
-            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+            //ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
 
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
@@ -235,6 +263,9 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+        
+        
+        
         // GET: NCRs/Delete/5
         public async Task<IActionResult> Delete(int? id)       
         {
@@ -258,6 +289,8 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+        
+        
         // POST: NCRs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -278,6 +311,8 @@ namespace Haver_Niagara.Controllers
             //return RedirectToAction(nameof(Index));
         }
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
+        
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files, int ncrID, List<string> links) //Accepting multiple Iformfiles, and an NCR ID to relate data
@@ -303,7 +338,6 @@ namespace Haver_Niagara.Controllers
                     using (var stream = new MemoryStream())
                     {
                         await formFile.CopyToAsync(stream);
-
 
                         var media = new Media
                         {
@@ -346,6 +380,54 @@ namespace Haver_Niagara.Controllers
             // Don't rely on or trust the FileName property without validation.
 
             return Ok(new { count = files.Count, size });
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveImage(int ncrID, int imageID)
+        {
+            //Getting NCRs
+            var ncr = await _context.NCRs
+                    .Include(n=>n.Part)
+                        .ThenInclude(n=>n.Medias)
+                    .FirstOrDefaultAsync(n=>n.ID == ncrID);
+
+            if (ncr != null && ncr.Part != null)
+            {
+                //Since a user can only delete one image at a time, we dont have to worry about looping through images in media
+                var imageToRemove = ncr.Part.Medias.FirstOrDefault(n=>n.ID == imageID);
+                if(imageToRemove != null)
+                {
+                    _context.Medias.Remove(imageToRemove);  //Removes the image retrieved
+                    await _context.SaveChangesAsync(); //saves changes. forgot to add. i spent so long trying to figure out WHY it wasnt saving. 
+                    return Ok();                    
+                }
+            }   
+            return NotFound();  //else not found
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveLink(int ncrID, int linkID) //Could have probably made this into one function, if time will do later. *FIX*
+        {
+            //Getting NCRs
+            var ncr = await _context.NCRs
+                    .Include(n => n.Part)
+                        .ThenInclude(n => n.Medias)
+                    .FirstOrDefaultAsync(n => n.ID == ncrID);
+
+            if (ncr != null && ncr.Part != null)
+            {
+                //Since a user can only delete one image at a time, we dont have to worry about looping through images in media
+                var linkToRemove = ncr.Part.Medias.FirstOrDefault(n => n.ID == linkID);
+                if (linkToRemove != null)
+                {
+                    _context.Medias.Remove(linkToRemove);  //Removes the image retrieved
+                    await _context.SaveChangesAsync(); //saves changes. forgot to add. i spent so long trying to figure out WHY it wasnt saving. 
+                    return Ok();
+                }
+            }
+            return NotFound();
+
         }
 
         private bool NCRExists(int id)

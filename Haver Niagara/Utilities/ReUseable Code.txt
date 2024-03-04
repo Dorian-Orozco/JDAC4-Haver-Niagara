@@ -61,3 +61,30 @@ EDIT NCR NCR STATUS AND STAGE CODE, REMOVE AS THESE FIELDS WILL BE DYNAMIC!
                 <select asp-for="EngineeringID" class="form-control" asp-items="ViewBag.EngineeringID"></select>
                 <span asp-validation-for="EngineeringID" class="text-danger"></span>
             </div>
+
+
+
+
+              if (part != null)            //null checks for part / quality inspection
+                    {
+                        _context.Update(part);
+                        //var defectList = new DefectList
+                        //{
+                        //    PartID = part.ID,
+                        //    DefectID = defectID
+                        //};
+                        await _context.SaveChangesAsync();
+                    }
+                    if (qualityInspection != null)
+                    {
+                        _context.Update(qualityInspection);
+                        await _context.SaveChangesAsync();
+                    }
+                    //Assign ID's
+                    nCR.QualityInspectionID = qualityInspection.ID;
+                    nCR.PartID = part.ID;
+                    
+                    _context.Update(nCR);
+
+                    await OnPostUploadAsync(files, nCR.ID, links);
+                    await _context.SaveChangesAsync();

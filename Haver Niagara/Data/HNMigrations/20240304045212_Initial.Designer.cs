@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240303232619_Initial")]
+    [Migration("20240304045212_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
