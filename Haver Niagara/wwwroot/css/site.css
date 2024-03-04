@@ -51,11 +51,11 @@ a{
 }
 
 .active{
-    background-color: green;
+    background-color: #005AB5;
 }
 
 .closed {
-    background-color: red;
+    background-color: #DC3220;
 }
 
 .stage {
