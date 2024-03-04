@@ -21,9 +21,21 @@
 @using (Html.BeginForm("List", "NCR", FormMethod.Get))
 {
     <p>
-        Filter By Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Filter By NCR or Part #: @Html.TextBox("SearchString")
+        Filter By Supplier:
+        @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier")
+        Filter By Status:
+        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
+            {
+            new SelectListItem { Text = "Open", Value = "true" },
+            new SelectListItem { Text = "Closed", Value = "false" },
+            new SelectListItem { Text = "All", Value = "", Selected = true }
+            })
+        <label for="SelectedDate">Filter By Date:</label>
+        <input type="date" id="SelectedDate" name="SelectedDate">
         <input type="submit" value="Search" />
-    </p>
+        <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-secondary">Clear Filters</a>
+    </p>    
 }
 
 <table class="table">

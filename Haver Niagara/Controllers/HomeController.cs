@@ -2,10 +2,13 @@
 using Haver_Niagara.Models;
 using Haver_Niagara.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Globalization;
 using X.PagedList;
+
 
 namespace Haver_Niagara.Controllers
 {
@@ -22,7 +25,8 @@ namespace Haver_Niagara.Controllers
 
 
 
-        public ViewResult List(string sortOrder, string currentFilter, string searchString, int? page)
+
+        public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus)
         {
             //Sorting Functionality , Tutorial Also included adding search box might be handy later. 
             //https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
@@ -59,6 +63,30 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(d => d.Defect)
                 .ToList();
 
+            // Create a list to store all NCRs with suppliers
+            var originalNCRs = _context.NCRs
+                .Include(p => p.Part)
+                .ThenInclude(s => s.Supplier)
+                .ToList();
+
+            // Create a separate list for dropdown options
+            var suppliersForDropdown = originalNCRs.Select(x => x.Part.Supplier.Name).Distinct().ToList();
+
+            // Update the ViewBag.SupplierList with the dropdown options
+            ViewBag.SupplierList = new SelectList(suppliersForDropdown, "Select Supplier");
+
+            // Filter by Supplier
+            if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
+            {
+                // Apply the supplier filter to the main list
+                ncrs = originalNCRs.Where(x => x.Part.Supplier.Name == selectedSupplier).ToList();
+            }
+
+            // Get all unique suppliers for the dropdown list
+            var allSuppliers = originalNCRs.Select(x => x.Part.Supplier.Name).Distinct().ToList();
+
+            ViewBag.SupplierList = new SelectList(allSuppliers, selectedSupplier);
+
             //Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -75,7 +103,22 @@ namespace Haver_Niagara.Controllers
                  x.Part.Supplier.Name.ToLower().Contains(searchString)
                  ).ToList();
             }
-            
+
+            // Filter by Date
+            if (!String.IsNullOrEmpty(selectedDate))
+            {
+                DateTime parsedDate;
+                if (DateTime.TryParseExact(selectedDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                {
+                    ncrs = ncrs.Where(x => x.NCR_Date.Date == parsedDate.Date).ToList();
+                }
+            }
+
+            // Filter by Status
+            if (selectedStatus.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value).ToList();
+            }
 
             //Determines the sorting order
             switch (sortOrder)       
@@ -117,6 +160,11 @@ namespace Haver_Niagara.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(ncrs.ToPagedList(pageNumber, pageSize));
+        }
+
+        public IActionResult ClearFilters()
+        {
+            return RedirectToAction("List", new { sortOrder = "", searchString = "", selectedSupplier = "", selectedDate = "", selectedStatus = "" });
         }
 
         public IActionResult Index()
