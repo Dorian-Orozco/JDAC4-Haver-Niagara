@@ -1,9 +1,33 @@
-﻿@model IEnumerable<Haver_Niagara.Models.NCR>
+﻿@model X.PagedList.IPagedList<Haver_Niagara.Models.NCR>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+
 
 ﻿@{
-    ViewData["Title"] = "NCR List";
+    ViewBag.Title = "NCR List";
 }
 
+<style>
+    h1 {
+        font-size: 38px;
+        font-weight: 600;
+    }
+
+    h2 {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    h3 {
+        font-size: 100px;
+        font-weight: 600;
+    }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 
 <div class="d-flex justify-content-between">
@@ -14,22 +38,34 @@
 </div>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("List", "NCR", FormMethod.Get))
 {
     <p>
-        Filter By Search: @Html.TextBox("SearchString")
+        Filter By NCR or Part #: @Html.TextBox("SearchString")
+        Filter By Supplier:
+        @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier")
+        Filter By Status:
+        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
+            {
+            new SelectListItem { Text = "Open", Value = "true" },
+            new SelectListItem { Text = "Closed", Value = "false" },
+            new SelectListItem { Text = "All", Value = "", Selected = true }
+            })
+        <label for="SelectedDate">Filter By Date:</label>
+        <input type="date" id="SelectedDate" name="SelectedDate">
         <input type="submit" value="Search" />
-    </p>
+        <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-secondary">Clear Filters</a>
+    </p>    
 }
 
 <table class="table">
     <thead>
         <tr>
-            <th class="text-center">@Html.ActionLink("Status", "List", new { sortOrder = ViewBag.StageSortParam })</th>
+            <th class="text-center">@Html.ActionLink("Status", "List", new { sortOrder = ViewBag.StageSortParam, currentFilter=ViewBag.CurrentFilter })</th>
             <th class="text-center">NCR Number</th>
-            <th class="text-center">@Html.ActionLink("Date Created", "List", new { sortOrder = ViewBag.DateSortParam })</th>
-            <th class="text-center">@Html.ActionLink("Part Number", "List", new { sortOrder = ViewBag.POSortParam })</th>
-            <th >@Html.ActionLink("Supplier", "List", new { sortOrder = ViewBag.SupplierSortParam })</th>
+            <th class="text-center">@Html.ActionLink("Date Created", "List", new { sortOrder = ViewBag.DateSortParam, currentFilter=ViewBag.CurrentFilter })</th>
+            <th class="text-center">@Html.ActionLink("Part Number", "List", new { sortOrder = ViewBag.POSortParam, currentFilter=ViewBag.CurrentFilter })</th>
+            <th>@Html.ActionLink("Supplier", "List", new { sortOrder = ViewBag.SupplierSortParam, currentFilter=ViewBag.CurrentFilter })</th>
              <th>Stage</th>
             <th class="text-center">Action</th>
             @* <th>Edit</th> *@
@@ -55,8 +91,8 @@
                 }
                 <td class="text-center">@year-@item.NCR_Number.PadLeft(3, '0')</td>
                 <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
-                <td class ="text-center">@(item.Part?.ProductNumber.ToString() ?? "line 54 list.cshtml")</td>
-                <td >@(item.Part?.Supplier.Name.ToString() ?? "line 55 list.cshtml")</td>
+                <td class ="text-center">@(item.Part?.ProductNumber.ToString() ?? "Product Number Not Found")</td>
+                <td >@(item.Part?.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
                 <td><p class="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
                 <td class="text-center">
                     <div>
@@ -72,3 +108,8 @@
         }
     </tbody>
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("List",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

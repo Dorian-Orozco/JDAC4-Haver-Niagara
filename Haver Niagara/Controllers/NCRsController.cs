@@ -269,6 +269,9 @@ namespace Haver_Niagara.Controllers
                 }
                 return RedirectToAction("List", "Home");
             }
+            //Populate viewbag for list of suppliers
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);

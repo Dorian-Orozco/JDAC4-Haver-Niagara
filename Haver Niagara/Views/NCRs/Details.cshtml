@@ -305,17 +305,13 @@
                         Does Customer require notification of NCR? <span class="fw-light">(If "Yes" then raise message to customer detailing issues)</span>
                         @* @Html.DisplayNameFor(model => model.Product.Description) *@
                     </dt>
-                    <dd class="mt-2">                       @* Also need to be made a boolean?, DEFAULT VALUE OF NO as it is not set up yet! *@
+                    <dd class="mt-2">
                         <div class="d-flex">
-                            <span class="ms-5 me-5">
-                                <input type="radio" id="marked" name="item_marked" disabled value="yes">
-                                <label for="marked">Yes</label><br>
-                             
-                            </span>
-                            <span>
-                                <input type="radio" id="notMarked" name="item_marked" disabled checked value="no">
-                                <label for="notMarked">No</label><br>
-                            </span>
+                            @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, true, new { @checked = Model.Engineering != null && Model.Engineering.CustomerNotify, @disabled = "disabled", @class = "me-2" })
+                            <label class="me-4">Yes</label>
+
+                            @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, @disabled = "disabled", @class = "me-2" })
+                            <label>No</label>
                         </div>
                     </dd>
                 </dl>
@@ -345,17 +341,13 @@
                             Does the drawing require updating?
                             @* @Html.DisplayNameFor(model => model.Product.Description) *@
                         </dt>
-                        <dd class="mt-2 mb-0">                          @* Again, bool property ? Defaulted to no as not set up *@
+                        <dd class="mt-2">
                             <div class="d-flex">
-                                <span class="ms-5 me-5">
-                                    <input type="radio" id="marked" name="item_marked" disabled value="yes">
-                                    <label for="marked">Yes</label><br>
-                                    @* @Html.DisplayFor(model => model.Engineering.CustomerNotify) *@
-                                </span>
-                                <span>
-                                    <input type="radio" id="notMarked" name="item_marked" disabled checked value="no">
-                                    <label for="notMarked">No</label><br>
-                                </span>
+                                @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, true, new { @checked = Model.Engineering != null && Model.Engineering.DrawUpdate, @disabled = "disabled", @class = "me-2" })
+                                <label class="me-4">Yes</label>
+
+                                @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, false, new { @checked = Model.Engineering != null && !Model.Engineering.DrawUpdate, @disabled = "disabled", @class = "me-2" })
+                                <label>No</label>
                             </div>
                         </dd>
                     </dl>
@@ -464,26 +456,15 @@
                         Purchasing's Preliminary Decision
                         @* @Html.DisplayNameFor(model => model.Purchasing.PurchasingDec) *@
                     </dt>
-                    <dd class="mt-2">
-                        <div class="ms-2">
-                            <span>                        @*   Have to get value from purchasing decision property which doesnt exist? disabled *@
-                                <input type="radio" id="asIs" name="disposition" disabled value="Use As Is">
-                                <label for="asIs"> Return to Supplier for either "rework" or "replacement"</label><br>
-                                @* @Html.DisplayFor(model => model.Purchasing.PurchasingDec) *@
+                    <dd class="mt-1 ms-2">
+                        @foreach (OperationDecision identify in Enum.GetValues(typeof(OperationDecision)))
+                        {
+                            <span class="ms-5 me-5">
+                                <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
+                                @(Model.QualityInspection != null && Model.Operation.OperationDecision == identify ? "checked" : "") />
+                                <label for="@identify">@identify</label><br />
                             </span>
-                            <span>
-                                <input type="radio" id="repair" name="disposition" disabled value="Repair">
-                                <label for="repair"> Rework "In-House"</label><br>
-                            </span>
-                            <span>
-                                <input type="radio" id="rework" name="disposition" disabled value="Rework">
-                                <label for="rework"> Scrap in House</label><br>
-                            </span>
-                            <span>
-                                <input type="radio" id="scrap" name="disposition" disabled value="Scrap">
-                                <label for="scrap"> Defer for HBC Engineering Review</label><br>
-                            </span>
-                        </div>
+                        }
                     </dd>
                 </dl>
             </div>
@@ -514,17 +495,13 @@
                             Was a CAR raised? <span class="fw-light">(If "Yes" indicate CAR #)</span>
                             @* @Html.DisplayNameFor(model => model.Purchasing.CAR) *@
                         </dt>
-                        <dd class="mt-2 mb-0">
+                        <dd class="mt-2">
                             <div class="d-flex">
-                                <span class="ms-2 me-5">
-                                    <input type="radio" id="marked" name="item_marked" disabled value="yes">
-                                    <label for="marked">Yes</label><br>
-                                    @* @Html.DisplayFor(model => model.Purchasing.CAR) *@
-                                </span>
-                                <span>
-                                    <input type="radio" id="notMarked" name="item_marked" disabled value="no">
-                                    <label for="notMarked">No</label><br>
-                                </span>
+                                @Html.RadioButtonFor(model => model.Operation.OperationCar, true, new { @checked = Model.Operation != null && Model.Operation.OperationCar, @disabled = "disabled", @class = "me-2" })
+                                <label class="me-4">Yes</label>
+
+                                @Html.RadioButtonFor(model => model.Operation.OperationCar, false, new { @checked = Model.Operation != null && !Model.Operation.OperationCar, @disabled = "disabled", @class = "me-2" })
+                                <label>No</label>
                             </div>
                         </dd>
                     </dl>
@@ -601,7 +578,7 @@
                 <dl>
                     <dt>
                         Re-Inspected Acceptable?
-                        @* @Html.DisplayNameFor(model => model.NCRClosed) *@
+                        @*@Html.DisplayNameFor(model => model.NCRClosed) *@
                     </dt>
                     <dd class="mt-2">
                         <div class="d-flex justify-content-center">

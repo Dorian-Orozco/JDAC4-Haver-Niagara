@@ -50,12 +50,12 @@ a{
     cursor: default;
 }
 
-.active{
-    background-color: green;
+.active {
+    background-color: #20DE10;
 }
 
 .closed {
-    background-color: red;
+    background-color: #DC3220;
 }
 
 .stage {
