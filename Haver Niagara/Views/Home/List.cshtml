@@ -1,7 +1,11 @@
-﻿@model IEnumerable<Haver_Niagara.Models.NCR>
+﻿@model X.PagedList.IPagedList<Haver_Niagara.Models.NCR>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+
 
 ﻿@{
-    ViewData["Title"] = "NCR List";
+    ViewBag.Title = "NCR List";
 }
 
 
@@ -14,10 +18,10 @@
 </div>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("List", "NCR", FormMethod.Get))
 {
     <p>
-        Filter By Search: @Html.TextBox("SearchString")
+        Filter By Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -25,11 +29,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th class="text-center">@Html.ActionLink("Status", "List", new { sortOrder = ViewBag.StageSortParam })</th>
+            <th class="text-center">@Html.ActionLink("Status", "List", new { sortOrder = ViewBag.StageSortParam, currentFilter=ViewBag.CurrentFilter })</th>
             <th class="text-center">NCR Number</th>
-            <th class="text-center">@Html.ActionLink("Date Created", "List", new { sortOrder = ViewBag.DateSortParam })</th>
-            <th class="text-center">@Html.ActionLink("Part Number", "List", new { sortOrder = ViewBag.POSortParam })</th>
-            <th >@Html.ActionLink("Supplier", "List", new { sortOrder = ViewBag.SupplierSortParam })</th>
+            <th class="text-center">@Html.ActionLink("Date Created", "List", new { sortOrder = ViewBag.DateSortParam, currentFilter=ViewBag.CurrentFilter })</th>
+            <th class="text-center">@Html.ActionLink("Part Number", "List", new { sortOrder = ViewBag.POSortParam, currentFilter=ViewBag.CurrentFilter })</th>
+            <th>@Html.ActionLink("Supplier", "List", new { sortOrder = ViewBag.SupplierSortParam, currentFilter=ViewBag.CurrentFilter })</th>
              <th>Stage</th>
             <th class="text-center">Action</th>
             @* <th>Edit</th> *@
@@ -72,3 +76,8 @@
         }
     </tbody>
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("List",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

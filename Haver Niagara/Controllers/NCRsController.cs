@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.IdentityModel.Tokens;
+using Haver_Niagara.Utilities;
 
 namespace Haver_Niagara.Controllers
 {
@@ -29,6 +30,8 @@ namespace Haver_Niagara.Controllers
                 .Include(n=>n.QualityInspection) //////////////remove if breaks
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Medias);
+
+
             return View(await haverNiagaraDbContext.ToListAsync());
         }
 
