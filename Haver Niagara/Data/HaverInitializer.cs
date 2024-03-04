@@ -121,7 +121,12 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 20,
                     QuantityDefect = 20,
                     Description = "Replacement wheels",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 1)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 1),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
+
+
                 },
                 new Part
                 {
@@ -131,7 +136,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 10,
                     QuantityDefect = 10,
                     Description = "Replacement wires",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                 {
@@ -141,7 +149,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 8,
                     QuantityDefect = 2,
                     Description = "Steel panels for repairs",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                 {
@@ -151,7 +162,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 100,
                     QuantityDefect = 100,
                     Description = "Bolts for repairs",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 3)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 3),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                 {
@@ -161,7 +175,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 200,
                     QuantityDefect = 100,
                     Description = "Nuts for repairs",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                 {
@@ -171,7 +188,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 200,
                     QuantityDefect = 10,
                     Description = "Screws for repairs.",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                 {
@@ -181,7 +201,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 100,
                     QuantityDefect = 40,
                     Description = "Rivets for repairs",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                 {
@@ -191,7 +214,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 50,
                     QuantityDefect = 1,
                     Description = "Washers for repairs",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                       {
@@ -201,7 +227,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 10,
                     QuantityDefect = 1,
                     Description = "Anchors for repairs",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                 {
@@ -211,7 +240,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 200,
                     QuantityDefect = 54,
                     Description = "Nails for repairs",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 },
                 new Part
                 {
@@ -221,7 +253,10 @@ namespace Haver_Niagara.Data
                     QuantityRecieved = 200,
                     QuantityDefect = 29,
                     Description = "Clips for repairs",
-                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7)
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 });
                 context.SaveChanges();
             }
@@ -672,6 +707,7 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 6),
                            QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 6)
+                        
                     },
                     new NCR
                     {
@@ -789,6 +825,7 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-02-01"),
                         ItemMarked = true,
                         ReInspected = false,
+                        
                     },
                     new QualityInspection
                     {
