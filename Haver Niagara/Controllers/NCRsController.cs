@@ -100,7 +100,7 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,NCR_Number,NCR_Date,NCR_Status,NCR_Stage,PartID,OperationID,EngineeringID,QualityInspectionID")]
-                NCR nCR, Part part, [Bind("Name","Date", "ItemMarked,QualityIdentify")] QualityInspection qualityInspection, List<IFormFile> files, List<string> links,
+                NCR nCR, Part part, [Bind("Name,Date,ItemMarked,QualityIdentify")] QualityInspection qualityInspection, List<IFormFile> files, List<string> links,
                 int defectID) 
         {
             if (ModelState.IsValid)
