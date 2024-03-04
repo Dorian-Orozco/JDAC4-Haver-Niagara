@@ -457,13 +457,18 @@
                         @* @Html.DisplayNameFor(model => model.Purchasing.PurchasingDec) *@
                     </dt>
                     <dd class="mt-1 ms-2">
-                        @foreach (OperationDecision identify in Enum.GetValues(typeof(OperationDecision)))
+                        @if (Model != null && Model.Operation != null)
                         {
-                            <span class="ms-5 me-5">
-                                <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
-                                @(Model.QualityInspection != null && Model.Operation.OperationDecision == identify ? "checked" : "") />
-                                <label for="@identify">@identify</label><br />
-                            </span>
+                        <dd class="mt-1 ms-2">
+                                @foreach (OperationDecision identify in Enum.GetValues(typeof(OperationDecision)))
+                                {
+                                <span class="ms-5 me-5">
+                                    <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
+                                        @(Model.QualityInspection != null && Model.Operation.OperationDecision == identify ? "checked" : "") />
+                                    <label for="@identify">@identify</label><br />
+                                </span>
+                                }
+                        </dd>
                         }
                     </dd>
                 </dl>
