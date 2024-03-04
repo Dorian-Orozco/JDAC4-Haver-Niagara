@@ -71,8 +71,8 @@
                 }
                 <td class="text-center">@year-@item.NCR_Number.PadLeft(3, '0')</td>
                 <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
-                <td class ="text-center">@(item.Part?.ProductNumber.ToString() ?? "line 54 list.cshtml")</td>
-                <td >@(item.Part?.Supplier.Name.ToString() ?? "line 55 list.cshtml")</td>
+                <td class ="text-center">@(item.Part?.ProductNumber.ToString() ?? "Product Number Not Found")</td>
+                <td >@(item.Part?.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
                 <td><p class="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
                 <td class="text-center">
                     <div>
