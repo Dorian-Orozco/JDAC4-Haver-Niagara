@@ -1,9 +1,11 @@
 ﻿using Haver_Niagara.Data;
 using Haver_Niagara.Models;
+using Haver_Niagara.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using X.PagedList;
 
 namespace Haver_Niagara.Controllers
 {
@@ -20,7 +22,7 @@ namespace Haver_Niagara.Controllers
 
 
 
-        public IActionResult List(string sortOrder, string searchString)
+        public ViewResult List(string sortOrder, string currentFilter, string searchString, int? page)
         {
             //Sorting Functionality , Tutorial Also included adding search box might be handy later. 
             //https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
@@ -36,6 +38,17 @@ namespace Haver_Niagara.Controllers
             //Order by date
             ViewBag.DateSortParam = sortOrder == "Date_Asc" ? "Date_Desc" : "Date_Asc";
 
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
 
             //Adding functionality to return the list of seed data 
             var ncrs = _context.NCRs
@@ -49,6 +62,8 @@ namespace Haver_Niagara.Controllers
             //Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
+
+
                 //You can add more columns to search, as long as the table relationship is established if it not an NCR
                 //Furthermore might consider adding a clear button? 
                 searchString = searchString.ToLower();
@@ -96,7 +111,12 @@ namespace Haver_Niagara.Controllers
                     break;
             }
 
-            return View(ncrs.ToList());
+
+
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(ncrs.ToPagedList(pageNumber, pageSize));
         }
 
         public IActionResult Index()
