@@ -11,53 +11,58 @@ namespace Haver_Niagara.Models
 
         [Display(Name = "NCR No.")]
         [Required(ErrorMessage = "You cannot leave the NCR number blank.")] 
-        public string NCR_Number {  get; set; }
+        public string NCR_Number { get; set; }
 
-        [Display(Name = "Sales Order")]
-        public string SalesOrder {  get; set; }
-
-        [Display(Name = "Inspector Name")]
-        public string InspectName { get; set; }
-
-        [Display(Name = "Inspected Date")]
+        [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime InspectDate { get; set; }
-
-        [Display(Name = "NCR Closed")]
-        public bool NCRClosed { get; set; }
-
-        [Display(Name = "Quality Name")]
-        public string QualSignature {  get; set; }
-
-        [Display(Name = "Quality Date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime QualDate { get; set; }
+        public DateTime NCR_Date{ get; set; }
 
 
-        // PRODUCT //
-        [ForeignKey("Product")]
-        public int? ProductID { get; set; }
+        [Display(Name ="Status")]
+        public bool NCR_Status { get; set; }
 
-        [Display(Name = "PO or Prod. Number")]
-        public Product Product { get; set; }
+ 
+        public NCR()
+        {
+            //Sets the NCR_Status to false as default, because when an NCR is first created it cannot be true (finished).
+            NCR_Status = false;
+            //Defaulting when creating an NCR to have the quality representative as the first stage
+            NCR_Stage = NCRStage.QualityRepresentative;
+            //Setting a default of todays date
+            NCR_Date = DateTime.Today;
+        }
+
+        //NCR Enumeration To Determine the Stage
+        [Display(Name = "Stage")]
+        public NCRStage NCR_Stage { get; set; }
 
 
-        //had to make nullable because create was not working, we have a problem with these foreign keys and i dont know what went wrong.
-        //
+
+        // PART ENTITY //
+        [ForeignKey("Part")]
+        public int? PartID { get; set; }
+        public Part Part{ get; set; }
+
+
         // PURCHASING //
-        [ForeignKey("Purchasing")]
-        public int? PurchasingID { get; set; }   
-        public Purchasing Purchasing { get; set; }
+        [ForeignKey("Operation")]
+        public int? OperationID { get; set; }   
+        public Operation Operation { get; set; }
 
-        // ENGINEERING //
+        // ENGINEERING // 
         [ForeignKey("Engineering")]
         public int? EngineeringID { get; set; }
         public Engineering Engineering { get; set; }
 
+        [ForeignKey("QualityInspection")]
+        public int? QualityInspectionID { get; set; }
+        public QualityInspection QualityInspection { get; set; }
 
-        // NEW NCR //
+        // NEW NCR // Relationship must be one to one
         public NewNCR? NewNCR { get; set; }
+    
+        ////NCR can have many Employees? 
+        //public ICollection<Employee> Employees { get; set; }
     }
 }

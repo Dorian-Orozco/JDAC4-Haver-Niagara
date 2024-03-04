@@ -9,6 +9,6 @@ namespace Haver_Niagara.Models
 
         [Display(Name = "Supplier Name")]
         public string Name { get; set; }
-        public ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public ICollection<Part> Parts { get; set; } = new HashSet<Part>();
     }   
 }

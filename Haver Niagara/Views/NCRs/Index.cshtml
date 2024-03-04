@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Haver_Niagara.Models.NCR>
 
-
 @{
     ViewData["Title"] = "Index";
 }
@@ -17,28 +16,16 @@
                 @Html.DisplayNameFor(model => model.NCR_Number)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SalesOrder)
+                @Html.DisplayNameFor(model => model.NCR_Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InspectName)
+                @Html.DisplayNameFor(model => model.NCR_Stage)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InspectDate)
+                @Html.DisplayNameFor(model => model.Part)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NCRClosed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QualSignature)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QualDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Purchasing)
+                @Html.DisplayNameFor(model => model.Operation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Engineering)
@@ -53,28 +40,16 @@
                 @Html.DisplayFor(modelItem => item.NCR_Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SalesOrder)
+                @Html.DisplayFor(modelItem => item.NCR_Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InspectName)
+                    @Html.DisplayFor(modelItem => item.NCR_Stage)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InspectDate)
+                @Html.DisplayFor(modelItem => item.Part.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NCRClosed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QualSignature)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QualDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purchasing.ID)
+                @Html.DisplayFor(modelItem => item.Operation.ID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Engineering.ID)

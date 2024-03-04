@@ -6,68 +6,140 @@
 
 <h1>Create</h1>
 
-<h4>NCR</h4>
+<h4>New NCR</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create"  method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="for-row">
+                <div class="row border m-1 p-2 ps-3 fs-6 section-header">NCR Information</div>
+            <div class="form-group col-md-6">
                 <label asp-for="NCR_Number" class="control-label"></label>
                 <input asp-for="NCR_Number" class="form-control" />
                 <span asp-validation-for="NCR_Number" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SalesOrder" class="control-label"></label>
-                <input asp-for="SalesOrder" class="form-control" />
-                <span asp-validation-for="SalesOrder" class="text-danger"></span>
+                <div class="form-group col-md-6">
+                <label asp-for="NCR_Date" class="control-label"></label>
+                <input asp-for="NCR_Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")"/>
+                <span asp-validation-for="NCR_Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="InspectName" class="control-label"></label>
-                <select asp-for="InspectName" class="form-control">
-                <option selected disabled>Select an Employee:</option>
-                    @foreach (var option in ViewBag.EmployeeNameOptions)
-                    {
-                        <option>@option</option>
-                    }
-                </select>
             </div>
-            <div class="form-group">
-                <label asp-for="InspectDate" class="control-label"></label>
-                <input asp-for="InspectDate" class="form-control" />
-                <span asp-validation-for="InspectDate" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="NCRClosed" /> @Html.DisplayNameFor(model => model.NCRClosed)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="QualSignature" class="control-label"></label>
-                <input asp-for="QualSignature" class="form-control" />
-                <span asp-validation-for="QualSignature" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="QualDate" class="control-label"></label>
-                <input asp-for="QualDate" class="form-control" />
-                <span asp-validation-for="QualDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductID" class="control-label">Product ID</label>
-                <input asp-for="ProductID" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="PurchasingID" class="control-label">Purchasing ID</label>
-                <input asp-for="PurchasingID" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="EngineeringID" class="control-label">Engineering ID</label>
-                <input asp-for="EngineeringID" class="form-control" />
-            </div>
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Media Images and Links</div>
+            @* Images *@
             <div class="form-group">
                 <label for="files">Select files:</label>
                 <input type="file" name="files" id="files" class="form-control-file" multiple />
             </div>
+            @* Links *@
+            <div class="form-group">
+                <label for="links">Enter links (one per line):</label>
+                <textarea name="links" class="form-control"></textarea>
+                <span class="text-danger"></span>
+            </div>
+
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Part Information</div>
+            @* Quality Rep 1 - PART TABLE / SUPPLIER TABLE *@
+            <div class="form-group">
+                <label asp-for="Part.Name" class="control-label"></label>
+                <input asp-for="Part.Name" class="form-control" />
+                <span asp-validation-for="Part.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.SAPNumber" class="control-label"></label>
+                <input asp-for="Part.SAPNumber" class="form-control" />
+                <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.PurchaseNumber" class="control-label"></label>
+                <input asp-for="Part.PurchaseNumber" class="form-control" />
+                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.ProductNumber" class="control-label"></label>
+                <input asp-for="Part.ProductNumber" class="form-control" />
+                <span asp-validation-for="Part.ProductNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.SalesOrder" class="control-label"></label>
+                <input asp-for="Part.SalesOrder" class="form-control" />
+                <span asp-validation-for="Part.SalesOrder" class="text-danger"></span>
+            </div>
+
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Defect Information</div>
+            <div class="form-group">
+                <label asp-for="Part.QuantityRecieved" class="control-label"></label>
+                <input asp-for="Part.QuantityRecieved" class="form-control" />
+                <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Part.QuantityDefect" class="control-label"></label>
+                <input asp-for="Part.QuantityDefect" class="form-control" />
+                <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
+            </div>
+                @* Gets view bagy filled with defects, takes id of defects and saves to controller then bd *@
+
+            <div class="form-group">
+                <label for="defectID">Select Defect:</label>
+                <select id="defectID" name="defectID" class="form-control">
+                    <option value="0">--Select Defect --</option>
+                    @foreach (var defect in ViewBag.DefectList)
+                    {
+                        <option value="@defect.Value">@defect.Text</option>
+                    }
+                </select>
+                <span class="text-danger"></span>
+            </div>
+
+      @*       Gets View Bag Filled with Suppliers and Takes that ID and it back to controller to save to DB *@
+            <div class="form-group">
+                <label asp-for="Part.SupplierID" class="control-label"></label>
+                <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
+                    <option value="">--Select Supplier--</option>
+                </select>
+                <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
+            </div>
+
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Quality Inspection</div>
+            @* Quality Inspection Stuff.. Name, Date, Item Marked? *@
+            <div class="form-group">
+                <label asp-for="QualityInspection.Name" class="control-label"></label>
+                <input asp-for="QualityInspection.Name" class="form-control" />
+                <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QualityInspection.Date" class="control-label"></label>
+                <input asp-for="QualityInspection.Date" type="date" class="form-control" />
+                <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QualityInspection.ItemMarked" class="control-label"></label><br />
+                <div class="form-check form-check-inline">
+                    <input asp-for="QualityInspection.ItemMarked" class="form-check-input" type="radio" value="true" id="itemMarkedYes" checked />
+                    <label class="form-check-label" for="itemMarkedYes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="QualityInspection.ItemMarked" class="form-check-input" type="radio" value="false" id="itemMarkedNo" />
+                    <label class="form-check-label" for="itemMarkedNo">No</label>
+                </div>
+                <span asp-validation-for="QualityInspection.ItemMarked" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Quality Identify</label><br />
+                @foreach (var qualityIdentify in Enum.GetValues(typeof(QualityIdentify)))
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" asp-for="QualityInspection.QualityIdentify" class="form-check-input" value="@qualityIdentify" id="@($"qualityIdentify{qualityIdentify}")" />
+                        <label class="form-check-label" for="@($"qualityIdentify{qualityIdentify}")">@qualityIdentify</label>
+                    </div>
+                }
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -75,9 +147,13 @@
     </div>
 </div>
 
-<div>
-    <a asp-controller="Home" asp-action="List">Back to Dashboard</a>
+
+<div class="d-flex justify-content-between">
+    <div class="mt-2">
+        <a asp-controller="Home" asp-action="List" class="btn btn-primary">Back to NCR Log</a>
+    </div>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

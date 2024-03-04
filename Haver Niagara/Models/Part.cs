@@ -1,16 +1,31 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace Haver_Niagara.Models
 {
-    public class Product
+    public class Part
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Display(Name = "Product Name")]
+        [Display(Name = "Part Name")]
         public string Name { get; set; }
 
-        [Display(Name = "Product Number")]
+        [Display(Name = "Part Number")]
+        public int PartNumber { get; set; }
+
+        [Display(Name="SAP")]
+        public int SAPNumber { get; set; }
+
+        [Display(Name="PO")]
+        public long PurchaseNumber { get; set; }
+
+        [Display(Name="Sales #")]
+        public string SalesOrder { get; set; }
+
+        [Display(Name="Prod #")]
         public int ProductNumber { get; set; }
 
         [Display(Name = "Quantity Received")]
@@ -22,7 +37,9 @@ namespace Haver_Niagara.Models
         [Display(Name = "Description of Item")]
         public string Description { get; set; }
 
-        //navigation property for supplier 
+        //navigation property for supplier
+        [Display(Name="Supplier")]
+        public int SupplierID { get; set; }
         public Supplier Supplier { get; set; }
 
         //One to many with NCR

@@ -13,15 +13,16 @@ namespace Haver_Niagara.Data
         public DbSet<Media> Medias { get; set; }
         public DbSet<NCR> NCRs { get; set; }
         public DbSet<NewNCR> NewNCRs { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Purchasing> Purchasings { get; set; }
+        public DbSet<Part> Parts { get; set; }
+        public DbSet<Operation> Operations { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
 
         //Defect Lists junfction table
         public DbSet<DefectList> DefectLists { get; set; }
 
-        //public DbSet<ProductDocumentMedia> ProductDocumentMedias { get; set; }
         public DbSet<UploadedFile> UploadedFiles { get; set; }
+
+        public DbSet<QualityInspection> QualityInspections { get; set; }
 
         public HaverNiagaraDbContext(DbContextOptions<HaverNiagaraDbContext> options)
             : base(options)
@@ -51,8 +52,29 @@ namespace Haver_Niagara.Data
             //    .HasForeignKey<Engineering>(e => e.NCRId)
             //    .IsRequired();
 
+            //modelBuilder.Entity<NewNCR>()
+            //    .HasOne(n => n.QualityInspection)
+            //    .WithOne(n => n.NewNCR)
+            //    .HasForeignKey<QualityInspection>(q => q.NewNCRID);
 
-            
+
+            //ai gen
+            modelBuilder.Entity<Operation>()
+                .Property(n => n.ID)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Part>()
+                .Property(n => n.ID)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Engineering>()
+                .Property(n => n.ID)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<QualityInspection>()
+                .Property(n => n.ID)
+                .ValueGeneratedOnAdd();
+
         }
     }
 }

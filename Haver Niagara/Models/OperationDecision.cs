@@ -2,15 +2,15 @@
 
 namespace Haver_Niagara.Models
 {
-    public enum PurchasingDecision
+    public enum OperationDecision
     {
         [Display(Name ="Rework In House")]
         ReworkInHouse,
         [Display(Name ="Scrap In House")]
         ScrapInHouse,
-        [Display(Name ="Defer To Engineering")]
+        [Display(Name ="Defer for HBC Engineering Review")]
         DeferToEngineering,
-        [Display(Name ="Return To Supplier")]
+        [Display(Name ="Return To Supplier for either rework or replacement")]
         ReturnToSupplier
     }
 }

@@ -10,68 +10,172 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
-            <div class="form-group">
+
+            @* NCR SECTION *@
+            <div class="border m-1 p-2 ps-3 fs-6 section-header">NCR</div>
+            <div class="form-group row">
+                <div class="col-md-6">
                 <label asp-for="NCR_Number" class="control-label"></label>
-                <input asp-for="NCR_Number" class="form-control" readonly/>
+                <input asp-for="NCR_Number" class="form-control" />
                 <span asp-validation-for="NCR_Number" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                <label asp-for="NCR_Date" class="control-label"></label>
+                <input asp-for="NCR_Date" class="form-control" />
+                <span asp-validation-for="NCR_Date" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="SalesOrder" class="control-label"></label>
-                <input asp-for="SalesOrder" class="form-control" />
-                <span asp-validation-for="SalesOrder" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InspectName" class="control-label"></label>
-                <select asp-for="InspectName" class="form-control">
-                    <option selected disabled>Select an Employee:</option>
-                    @foreach (var option in ViewBag.EmployeeNameOptions)
+            @* Media Stuff *@
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Existing Images</div>
+            <div class="form-group row">
+    
+                <div class="col-md-8">
+                @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
+                {
+                    foreach (var image in Model.Part.Medias)
                     {
-                        <option>@option</option>
+                        if (image.Content != null)
+                        {
+                            //Allows for JQUERY to delete this iteration of div and removes image from page
+                            <div class="image-container">
+                            <img src="data:@image.MimeType;base64,@Convert.ToBase64String(image.Content)" alt="@image.Description" style="width:300px; height: 300px;" />
+                                <button class="delete" data-ncrid="@Model.ID" data-imageid="@image.ID">Remove</button> @* //passes ncr id and image id *@
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Images Available</span>
+                        }
                     }
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="InspectDate" class="control-label"></label>
-                <input asp-for="InspectDate" class="form-control" />
-                <span asp-validation-for="InspectDate" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="NCRClosed" /> @Html.DisplayNameFor(model => model.NCRClosed)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="QualSignature" class="control-label"></label>
-                <input asp-for="QualSignature" class="form-control" />
-                <span asp-validation-for="QualSignature" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="QualDate" class="control-label"></label>
-                <input asp-for="QualDate" class="form-control" />
-                <span asp-validation-for="QualDate" class="text-danger"></span>
-            </div>
-            <div class="form-group" hidden>
-                <label asp-for="ProductID" class="control-label">Product ID</label>
-                <input asp-for="ProductID" class="form-control" />
-                <span asp-validation-for="ProductID" class="text-danger"></span>
-            </div>
-            <div class="form-group" hidden>
-                <label asp-for="PurchasingID" class="control-label">Purchasing ID</label>
-                <select asp-for="PurchasingID" class="form-control" asp-items="ViewBag.PurchasingID"></select>
-                <span asp-validation-for="PurchasingID" class="text-danger"></span>
-            </div>
-            <div class="form-group" hidden>
-                <label asp-for="EngineeringID" class="control-label">Engineering ID</label>
-                <select asp-for="EngineeringID" class="form-control" asp-items="ViewBag.EngineeringID"></select>
-                <span asp-validation-for="EngineeringID" class="text-danger"></span>
+                }
+                else
+                {
+                    <span>No Images Associated</span>
+                }
+                </div>
             </div>
             <div class="form-group">
                 <label for="files">Select files:</label>
                 <input type="file" name="files" id="files" class="form-control-file" multiple />
             </div>
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Existing Files</div>
+            <div class="form-group row">
+                <div class="col-md-8"></div>
+                <label>Existing Links:</label>
+                <div class="row">
+                    @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
+                    {
+                        foreach (var link in Model.Part.Medias)
+                        {
+                            if (!string.IsNullOrEmpty(link.Links))
+                            {
+                                <div class="link-container">
+                                    <span>@link.Links</span>
+                                    <button class="delete-link" data-ncrid="@Model.ID" data-linkid="@link.ID">Remove</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <span>No Links Available</span>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <span>No Links Associated</span>
+                    }
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                <label for="links">Enter links (one per line):</label>
+                <textarea name="links" class="form-control"></textarea>
+                <span class="text-danger"></span>
+                </div>
+            </div>
+            @* Part Stuff *@
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Part Information</div>
+            <div class="form-group">
+                <label asp-for="Part.Name" class="control-label"></label>
+                <input asp-for="Part.Name" class="form-control" />
+                <span asp-validation-for="Part.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.PartNumber" class="control-label"></label>
+                <input asp-for="Part.PartNumber" class="form-control" />
+                <span asp-validation-for="Part.PartNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.SAPNumber" class="control-label"></label>
+                <input asp-for="Part.SAPNumber" class="form-control" />
+                <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.PurchaseNumber" class="control-label"></label>
+                <input asp-for="Part.PurchaseNumber" class="form-control" />
+                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.SalesOrder" class="control-label"></label>
+                <input asp-for="Part.SalesOrder" class="form-control" />
+                <span asp-validation-for="Part.SalesOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.ProductNumber" class="control-label"></label>
+                <input asp-for="Part.ProductNumber" class="form-control" />
+                <span asp-validation-for="Part.ProductNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.Description" class="control-label"></label>
+                <input asp-for="Part.Description" class="form-control" />
+                <span asp-validation-for="Part.Description" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="PartID" value="@Model.PartID" />
+
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Supplier Information</div>
+            @* Supplier Stuff *@
+            <div class="form-group">
+                <label asp-for="Part.SupplierID" class="control-label"></label>
+                <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
+                    <option value="">--Select Supplier--</option>
+                </select>
+                <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
+            </div>
+            
+            @* Defect Stuff *@
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Defect Information</div>
+            <div class="form-group">
+                <label for="defectID">Select Defect:</label>
+                <select id="defectID" name="defectID" class="form-control">
+                    <option value="">--Select Defect--</option>
+                    @foreach (var defect in ViewBag.DefectList)
+                    {
+                        <option value="@defect.Value">@defect.Text</option>
+                    }
+                </select>
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.QuantityRecieved" class="control-label"></label>
+                <input asp-for="Part.QuantityRecieved" class="form-control" />
+                <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.QuantityDefect" class="control-label"></label>
+                <input asp-for="Part.QuantityDefect" class="form-control" />
+                <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
+            </div>
+
+
+            @* Quality Inspection ID *@
+          
+
+
+            @* Operation (Purchasing Stuff, Organize If time or for next meeting) *@
+            <input type="hidden" asp-for="OperationID" value="@Model.OperationID" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -79,10 +183,81 @@
     </div>
 </div>
 
-<div>
-    <a asp-controller="Home" asp-action="List">Back to Dashboard</a>
+<div class="d-flex justify-content-between">
+    <div class="mt-2">
+        <a asp-controller="Home" asp-action="List" class="btn btn-primary">Back to NCR Log</a>
+    </div>
 </div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+               
+<script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script>
+<script> /* Remove Images JQUERY/AJAX */
+    $(document).ready(function () {
+        // Attach click event handler to elements with class "delete"
+        $(".delete").click(function (event) {
+            // Prevent the default action of the link
+            event.preventDefault();
+
+            // Get the ncrID and imageID of the clicked link
+            var ncrID = $(this).data("ncrid");
+            var imageID = $(this).data("imageid");
+
+            //Storing most recently clicked button
+            var imageContainer = $(this).closest('.image-container');
+
+            // Show confirmation dialog
+            if (confirm('Are you sure you want to remove this image?')) {
+                // Make AJAX call to remove the image
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RemoveImage", "NCRs")',
+                    data: { ncrID: ncrID, imageID: imageID },
+                    success: function (response) {
+                        // Remove the image element from the DOM if removal is successful
+                        alert('Image Successfully Deleted!')
+                        imageContainer.remove();
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Delete Failed, Try Again Later.')
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+    //LISTS USING AJAX /JQUEWRY
+    $(document).ready(function () {
+        $(".delete-link").click(function (event) {
+            event.preventDefault();
+
+            var ncrID = $(this).data("ncrid");
+            var linkID = $(this).data("linkid");
+
+            var linkContainer = $(this).closest('.link-container'); //gets "this" (data) of the button pressed so it can be used to delete
+
+            if (confirm('Are you sure you want to remove this link?')) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RemoveLink", "NCRs")',
+                    data: { ncrID: ncrID, linkID: linkID },
+                    success: function (response) {
+                        alert('Link Successfully Deleted');
+                        linkContainer.remove();
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Delete Failed, Try Again Later.')
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+
+
+</script>
