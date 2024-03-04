@@ -124,9 +124,7 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 1),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
-
-
+                    SalesOrder = "Stock",
                 },
                 new Part
                 {
@@ -825,6 +823,7 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-02-01"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1
                         
                     },
                     new QualityInspection
