@@ -620,7 +620,7 @@
                             @* @Html.DisplayNameFor(model => model.InspectName) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.NCR_Date) @* Have to go through new ncr to get a name *@
+                            @(Model.QualityInspection?.Name ?? "John Smith")
                         </dd>
                     </dl>                                          @*  FIX THIS PART AND FIGURE OUT HOW TO GET QUALITYT REP NAME *@
                 </div>
