@@ -1,11 +1,14 @@
 ﻿using Haver_Niagara.Data;
 using Haver_Niagara.Models;
+using Haver_Niagara.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Globalization;
+using X.PagedList;
+
 
 namespace Haver_Niagara.Controllers
 {
@@ -19,6 +22,7 @@ namespace Haver_Niagara.Controllers
             _logger = logger;
             _context = context;
         }
+
 
 
 
@@ -37,6 +41,17 @@ namespace Haver_Niagara.Controllers
             ViewBag.StageSortParam = sortOrder == "Stage_Asc" ? "Stage_Desc" : "Stage_Asc";
             //Order by date
             ViewBag.DateSortParam = sortOrder == "Date_Asc" ? "Date_Desc" : "Date_Asc";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
 
             //Adding functionality to return the list of seed data 
@@ -75,6 +90,8 @@ namespace Haver_Niagara.Controllers
             //Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
+
+
                 //You can add more columns to search, as long as the table relationship is established if it not an NCR
                 //Furthermore might consider adding a clear button? 
                 searchString = searchString.ToLower();
@@ -122,7 +139,7 @@ namespace Haver_Niagara.Controllers
                     ncrs = ncrs.OrderBy(n=>n.Part.Supplier.Name).ToList();
                     break;
 
-                //Since we do not have a BOOLEAN value in NCR, this must be changed, currently using Status (open/closed atm)
+                //Since we do not have a BOOLEAN value in NCR, this must be changed, currently using Status (open/closed atm) 
                 case "Stage_Desc":              
                     ncrs = ncrs.OrderByDescending(b => b.NCR_Status).ToList();
                     break;
@@ -137,7 +154,12 @@ namespace Haver_Niagara.Controllers
                     break;
             }
 
-            return View(ncrs.ToList());
+
+
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(ncrs.ToPagedList(pageNumber, pageSize));
         }
 
         public IActionResult ClearFilters()

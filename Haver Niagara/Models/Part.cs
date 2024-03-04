@@ -28,7 +28,7 @@ namespace Haver_Niagara.Models
         [Display(Name="Prod #")]
         public int ProductNumber { get; set; }
 
-        [Display(Name = "Quantity Recieved")]
+        [Display(Name = "Quantity Received")]
         public int QuantityRecieved {  get; set; }
 
         [Display(Name = "Quantity Defective")]

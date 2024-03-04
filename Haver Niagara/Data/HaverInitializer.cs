@@ -604,7 +604,7 @@ namespace Haver_Niagara.Data
                 new NCR
                 {
                     ID = 1,
-                    NCR_Number = "2024-001",
+                    NCR_Number = "1",
                     NCR_Date = DateTime.Parse("2024-01-11"),
                     NCR_Status = true,
                     NCR_Stage = (NCRStage)1,       //NCR Stage can be changed to match the data 
@@ -616,7 +616,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 2,
-                        NCR_Number = "2024-002",
+                        NCR_Number = "2",
                         NCR_Date = DateTime.Parse("2024-01-12"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)1,   
@@ -628,7 +628,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 3,
-                        NCR_Number = "2024-003",
+                        NCR_Number = "3",
                         NCR_Date = DateTime.Parse("2024-01-15"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)2,      
@@ -640,7 +640,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 4,
-                        NCR_Number = "2024-004",
+                        NCR_Number = "4",
                         NCR_Date = DateTime.Parse("2024-01-18"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)1,
@@ -652,7 +652,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 5,
-                        NCR_Number = "2024-005",
+                        NCR_Number = "5",
                         NCR_Date = DateTime.Parse("2024-01-18"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)2,
@@ -664,7 +664,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 6,
-                        NCR_Number = "2024-006",
+                        NCR_Number = "6",
                         NCR_Date = DateTime.Parse("2024-01-20"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)3,
@@ -676,7 +676,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 7,
-                        NCR_Number =  "2024-007",
+                        NCR_Number =  "7",
                         NCR_Date = DateTime.Parse("2024-01-18"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)1,
@@ -688,7 +688,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 8,
-                        NCR_Number = "2024-008",
+                        NCR_Number = "8",
                         NCR_Date = DateTime.Parse("2024-01-25"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)3,
@@ -700,7 +700,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 9,
-                        NCR_Number = "2024-009",
+                        NCR_Number = "9",
                         NCR_Date = DateTime.Parse("2024-01-24"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)1,
@@ -712,7 +712,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 10,
-                        NCR_Number = "2024-010",
+                        NCR_Number = "10",
                         NCR_Date = DateTime.Parse("2024-01-25"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)2,
@@ -724,7 +724,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 11,
-                        NCR_Number = "2024-011",
+                        NCR_Number = "11",
                         NCR_Date = DateTime.Parse("2024-01-26"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)1,

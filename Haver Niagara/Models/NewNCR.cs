@@ -12,7 +12,7 @@ namespace Haver_Niagara.Models
         public DateTime Date { get; set; }
 
         //One to One with Quality Inspection Table
-        public int QualityInspectionID { get; set; }
+        public int? QualityInspectionID { get; set; }
         public QualityInspection QualityInspection { get; set; }
 
 

@@ -67,6 +67,23 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "QualityInspections",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ItemMarked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ReInspected = table.Column<bool>(type: "INTEGER", nullable: false),
+                    QualityIdentify = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QualityInspections", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Suppliers",
                 columns: table => new
                 {
@@ -262,6 +279,11 @@ namespace Haver_Niagara.Data.HNMigrations
                         column: x => x.PartID,
                         principalTable: "Parts",
                         principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_NCRs_QualityInspections_QualityInspectionID",
+                        column: x => x.QualityInspectionID,
+                        principalTable: "QualityInspections",
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -272,7 +294,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .Annotation("Sqlite:Autoincrement", true),
                     NewNCRNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    QualityInspectionID = table.Column<int>(type: "INTEGER", nullable: false),
+                    QualityInspectionID = table.Column<int>(type: "INTEGER", nullable: true),
                     NCRId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -284,30 +306,11 @@ namespace Haver_Niagara.Data.HNMigrations
                         principalTable: "NCRs",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "QualityInspections",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ItemMarked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ReInspected = table.Column<bool>(type: "INTEGER", nullable: false),
-                    QualityIdentify = table.Column<int>(type: "INTEGER", nullable: false),
-                    NewNCRID = table.Column<int>(type: "INTEGER", nullable: true),
-                    NCRId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QualityInspections", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_QualityInspections_NewNCRs_NewNCRID",
-                        column: x => x.NewNCRID,
-                        principalTable: "NewNCRs",
-                        principalColumn: "Id");
+                        name: "FK_NewNCRs_QualityInspections_QualityInspectionID",
+                        column: x => x.QualityInspectionID,
+                        principalTable: "QualityInspections",
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(
@@ -368,43 +371,20 @@ namespace Haver_Niagara.Data.HNMigrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_NewNCRs_QualityInspectionID",
+                table: "NewNCRs",
+                column: "QualityInspectionID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Parts_SupplierID",
                 table: "Parts",
                 column: "SupplierID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_QualityInspections_NewNCRID",
-                table: "QualityInspections",
-                column: "NewNCRID",
-                unique: true);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_NCRs_QualityInspections_QualityInspectionID",
-                table: "NCRs",
-                column: "QualityInspectionID",
-                principalTable: "QualityInspections",
-                principalColumn: "ID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_NCRs_Operations_OperationID",
-                table: "NCRs");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_NCRs_Parts_PartID",
-                table: "NCRs");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_NCRs_Engineerings_EngineeringID",
-                table: "NCRs");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_NCRs_QualityInspections_QualityInspectionID",
-                table: "NCRs");
-
             migrationBuilder.DropTable(
                 name: "CARs");
 
@@ -421,10 +401,19 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "Medias");
 
             migrationBuilder.DropTable(
+                name: "NewNCRs");
+
+            migrationBuilder.DropTable(
                 name: "Defects");
 
             migrationBuilder.DropTable(
                 name: "UploadedFiles");
+
+            migrationBuilder.DropTable(
+                name: "NCRs");
+
+            migrationBuilder.DropTable(
+                name: "Engineerings");
 
             migrationBuilder.DropTable(
                 name: "Operations");
@@ -433,19 +422,10 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "Parts");
 
             migrationBuilder.DropTable(
-                name: "Suppliers");
-
-            migrationBuilder.DropTable(
-                name: "Engineerings");
-
-            migrationBuilder.DropTable(
                 name: "QualityInspections");
 
             migrationBuilder.DropTable(
-                name: "NewNCRs");
-
-            migrationBuilder.DropTable(
-                name: "NCRs");
+                name: "Suppliers");
         }
     }
 }

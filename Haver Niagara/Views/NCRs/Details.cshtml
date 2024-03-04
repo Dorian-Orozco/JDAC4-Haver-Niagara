@@ -33,8 +33,8 @@
                         @foreach (QualityIdentify identify in Enum.GetValues(typeof(QualityIdentify)))
                         {
                             <span class="ms-5 me-5">
-                                <input type="radio" id="@identify" name="identify" value="@identify" disabled
-                                @(Model.QualityInspection?.QualityIdentify == identify ? "checked" : "") />
+                                <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
+                                @(Model.QualityInspection != null && Model.QualityInspection.QualityIdentify == identify ? "checked" : "") />
                                 <label for="@identify">@identify</label><br />
                             </span>
                         }
@@ -74,7 +74,6 @@
                     <dl class="d-flex m-0">
                         <dt class="col-sm-5 ">
                             PO or Prod No.
-                            @* @Html.DisplayNameFor(model => model.Product.ProductNumber) *@
                         </dt>
                         <dd class="col-sm-7 ms-2">
                             @Html.DisplayFor(model => model.Part.ProductNumber)  
@@ -104,9 +103,7 @@
                     </dt>
                     <dd class="mt-1">
                         <div class="d-flex">
-                            @* this needs to be changed to SAP number *@
-                            @Html.DisplayFor(model => model.Part.SAPNumber)
-                            @Html.DisplayFor(model => model.Part.Description)
+                            @Html.DisplayFor(model => model.Part.Name) #@Html.DisplayFor(model => model.Part.SAPNumber)
                         </div>
                     </dd>
                 </dl>
@@ -162,18 +159,15 @@
             <div class="col-sm-3 pt-3 ps-3 d-flex justify-content-start">
                 <dl>
                     <dt>
-                        Item marked Non-conforming 
-                    </dt>                                
-                    <dd class="mt-2">                   
+                        Item marked Non-conforming
+                    </dt>
+                    <dd class="mt-2">
                         <div class="d-flex">
-                            <span class="ms-5 me-5">
-                                <input type="radio" id="marked" name="item_marked" disabled @(Model.QualityInspection?.ItemMarked == true ? "checked" : "") value="yes">
-                                <label for="marked">Yes</label><br>
-                            </span>
-                            <span>
-                                <input type="radio" id="notMarked" name="item_marked" disabled @(Model.QualityInspection?.ItemMarked == false ? "checked" : "") value="no">
-                                <label for="notMarked">No</label><br>
-                            </span>
+                            @Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ItemMarked, @disabled = "disabled", @class = "me-2" })
+                            <label class="me-4">Yes</label>
+
+                            @Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ItemMarked, @disabled = "disabled", @class = "me-2" })
+                            <label>No</label>
                         </div>
                     </dd>
                 </dl>
@@ -191,7 +185,7 @@
                             @* @Html.DisplayNameFor(model => model.QualSignature) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.NewNCR.QualityInspection.Name) @* Where do we get quality reps name without going through new ncr? *@
+                            @Html.DisplayFor(model => model.QualityInspection.Name) @* Where do we get quality reps name without going through new ncr? *@
                         </dd>
                     </dl>
                 </div>
@@ -315,7 +309,7 @@
                             <span class="ms-5 me-5">
                                 <input type="radio" id="marked" name="item_marked" disabled value="yes">
                                 <label for="marked">Yes</label><br>
-                                @* @Html.DisplayFor(model => model.Engineering.CustomerNotify) *@
+                             
                             </span>
                             <span>
                                 <input type="radio" id="notMarked" name="item_marked" disabled checked value="no">
