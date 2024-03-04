@@ -28,11 +28,9 @@ namespace Haver_Niagara.Models
         public QualityIdentify QualityIdentify { get; set; }
 
         //One to One with New NCR
-        public int? NewNCRID { get; set; }
         public NewNCR NewNCR { get; set; }
 
         //Navigation property for NCR
-        public int NCRId { get; set; }
         public NCR NCR { get; set; }
     }
 }

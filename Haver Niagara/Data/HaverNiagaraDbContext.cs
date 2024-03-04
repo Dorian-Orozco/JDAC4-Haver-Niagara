@@ -52,10 +52,10 @@ namespace Haver_Niagara.Data
             //    .HasForeignKey<Engineering>(e => e.NCRId)
             //    .IsRequired();
 
-            modelBuilder.Entity<NewNCR>()
-                .HasOne(n => n.QualityInspection)
-                .WithOne(n => n.NewNCR)
-                .HasForeignKey<QualityInspection>(q => q.NewNCRID);
+            //modelBuilder.Entity<NewNCR>()
+            //    .HasOne(n => n.QualityInspection)
+            //    .WithOne(n => n.NewNCR)
+            //    .HasForeignKey<QualityInspection>(q => q.NewNCRID);
 
 
             //ai gen
