@@ -32,6 +32,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
     <PackageReference Include="SkiaSharp" Version="2.88.7" />
+<<<<<<< HEAD
     <PackageReference Include="X.PagedList" Version="7.2.0" />
     <PackageReference Include="X.PagedList.Mvc" Version="7.0.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="7.2.0" />
@@ -41,6 +42,11 @@
     <Content Update="wwwroot\images\Reports-Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+=======
+    <PackageReference Include="X.PagedList" Version="7.2" />
+    <PackageReference Include="X.PagedList.Mvc" Version="4.8.1" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.2" />
+>>>>>>> 630c574ba722ed04dadf47f1b491a4533cfa287b
   </ItemGroup>
 
   <ItemGroup>
