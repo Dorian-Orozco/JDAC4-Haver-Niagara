@@ -10,22 +10,28 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
-            <div class="form-group">
+
+            @* NCR SECTION *@
+            <div class="border m-1 p-2 ps-3 fs-6 section-header">NCR</div>
+            <div class="form-group row">
+                <div class="col-md-6">
                 <label asp-for="NCR_Number" class="control-label"></label>
                 <input asp-for="NCR_Number" class="form-control" />
                 <span asp-validation-for="NCR_Number" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                </div>
+                <div class="col-md-6">
                 <label asp-for="NCR_Date" class="control-label"></label>
                 <input asp-for="NCR_Date" class="form-control" />
                 <span asp-validation-for="NCR_Date" class="text-danger"></span>
+                </div>
             </div>
             @* Media Stuff *@
-            <div class="form-group">
-                <label>Existing Images:</label>
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Existing Images</div>
+            <div class="form-group row">
+    
                 <div class="col-md-8">
                 @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
                 {
@@ -55,9 +61,11 @@
                 <label for="files">Select files:</label>
                 <input type="file" name="files" id="files" class="form-control-file" multiple />
             </div>
-            <div class="form-group">
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Existing Files</div>
+            <div class="form-group row">
+                <div class="col-md-8"></div>
                 <label>Existing Links:</label>
-                <div class="col-md-8">
+                <div class="row">
                     @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
                     {
                         foreach (var link in Model.Part.Medias)
@@ -81,12 +89,15 @@
                     }
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
+                <div class="col-md-6">
                 <label for="links">Enter links (one per line):</label>
                 <textarea name="links" class="form-control"></textarea>
                 <span class="text-danger"></span>
+                </div>
             </div>
             @* Part Stuff *@
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Part Information</div>
             <div class="form-group">
                 <label asp-for="Part.Name" class="control-label"></label>
                 <input asp-for="Part.Name" class="form-control" />
@@ -118,22 +129,13 @@
                 <span asp-validation-for="Part.ProductNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Part.QuantityRecieved" class="control-label"></label>
-                <input asp-for="Part.QuantityRecieved" class="form-control" />
-                <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part.QuantityDefect" class="control-label"></label>
-                <input asp-for="Part.QuantityDefect" class="form-control" />
-                <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Part.Description" class="control-label"></label>
                 <input asp-for="Part.Description" class="form-control" />
                 <span asp-validation-for="Part.Description" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="PartID" value="@Model.PartID" />
 
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Supplier Information</div>
             @* Supplier Stuff *@
             <div class="form-group">
                 <label asp-for="Part.SupplierID" class="control-label"></label>
@@ -144,7 +146,7 @@
             </div>
             
             @* Defect Stuff *@
-
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Defect Information</div>
             <div class="form-group">
                 <label for="defectID">Select Defect:</label>
                 <select id="defectID" name="defectID" class="form-control">
@@ -155,6 +157,16 @@
                     }
                 </select>
                 <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.QuantityRecieved" class="control-label"></label>
+                <input asp-for="Part.QuantityRecieved" class="form-control" />
+                <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Part.QuantityDefect" class="control-label"></label>
+                <input asp-for="Part.QuantityDefect" class="form-control" />
+                <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
             </div>
 
 
@@ -171,8 +183,10 @@
     </div>
 </div>
 
-<div>
-    <a asp-controller="Home" asp-action="List">Back to Dashboard</a>
+<div class="d-flex justify-content-between">
+    <div class="mt-2">
+        <a asp-controller="Home" asp-action="List" class="btn btn-primary">Back to NCR Log</a>
+    </div>
 </div>
 
 

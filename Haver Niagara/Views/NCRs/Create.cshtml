@@ -6,22 +6,26 @@
 
 <h1>Create</h1>
 
-<h4>NCR</h4>
+<h4>New NCR</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create"  method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="for-row">
+                <div class="row border m-1 p-2 ps-3 fs-6 section-header">NCR Information</div>
+            <div class="form-group col-md-6">
                 <label asp-for="NCR_Number" class="control-label"></label>
                 <input asp-for="NCR_Number" class="form-control" />
                 <span asp-validation-for="NCR_Number" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                <div class="form-group col-md-6">
                 <label asp-for="NCR_Date" class="control-label"></label>
                 <input asp-for="NCR_Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")"/>
                 <span asp-validation-for="NCR_Date" class="text-danger"></span>
             </div>
+            </div>
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Media Images and Links</div>
             @* Images *@
             <div class="form-group">
                 <label for="files">Select files:</label>
@@ -34,6 +38,7 @@
                 <span class="text-danger"></span>
             </div>
 
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Part Information</div>
             @* Quality Rep 1 - PART TABLE / SUPPLIER TABLE *@
             <div class="form-group">
                 <label asp-for="Part.Name" class="control-label"></label>
@@ -65,7 +70,7 @@
                 <span asp-validation-for="Part.SalesOrder" class="text-danger"></span>
             </div>
 
-
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Defect Information</div>
             <div class="form-group">
                 <label asp-for="Part.QuantityRecieved" class="control-label"></label>
                 <input asp-for="Part.QuantityRecieved" class="form-control" />
@@ -100,6 +105,7 @@
                 <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
             </div>
 
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Quality Inspection</div>
             @* Quality Inspection Stuff.. Name, Date, Item Marked? *@
             <div class="form-group">
                 <label asp-for="QualityInspection.Name" class="control-label"></label>
@@ -141,9 +147,13 @@
     </div>
 </div>
 
-<div>
-    <a asp-controller="Home" asp-action="List">Back to NCR Log</a>
+
+<div class="d-flex justify-content-between">
+    <div class="mt-2">
+        <a asp-controller="Home" asp-action="List" class="btn btn-primary">Back to NCR Log</a>
+    </div>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
