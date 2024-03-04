@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240303072256_Initial")]
+    [Migration("20240303232619_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -253,12 +253,15 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int>("NewNCRNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("QualityInspectionID")
+                    b.Property<int?>("QualityInspectionID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NCRId")
+                        .IsUnique();
+
+                    b.HasIndex("QualityInspectionID")
                         .IsUnique();
 
                     b.ToTable("NewNCRs");
@@ -351,14 +354,8 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<bool>("ItemMarked")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NCRId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("NewNCRID")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("QualityIdentify")
                         .HasColumnType("INTEGER");
@@ -367,9 +364,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("NewNCRID")
-                        .IsUnique();
 
                     b.ToTable("QualityInspections");
                 });
@@ -501,7 +495,13 @@ namespace Haver_Niagara.Data.HNMigrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Haver_Niagara.Models.QualityInspection", "QualityInspection")
+                        .WithOne("NewNCR")
+                        .HasForeignKey("Haver_Niagara.Models.NewNCR", "QualityInspectionID");
+
                     b.Navigation("NCR");
+
+                    b.Navigation("QualityInspection");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Part", b =>
@@ -513,15 +513,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .IsRequired();
 
                     b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("Haver_Niagara.Models.QualityInspection", b =>
-                {
-                    b.HasOne("Haver_Niagara.Models.NewNCR", "NewNCR")
-                        .WithOne("QualityInspection")
-                        .HasForeignKey("Haver_Niagara.Models.QualityInspection", "NewNCRID");
-
-                    b.Navigation("NewNCR");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Defect", b =>
@@ -537,11 +528,6 @@ namespace Haver_Niagara.Data.HNMigrations
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
                 {
                     b.Navigation("NewNCR");
-                });
-
-            modelBuilder.Entity("Haver_Niagara.Models.NewNCR", b =>
-                {
-                    b.Navigation("QualityInspection");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Operation", b =>
@@ -565,6 +551,8 @@ namespace Haver_Niagara.Data.HNMigrations
             modelBuilder.Entity("Haver_Niagara.Models.QualityInspection", b =>
                 {
                     b.Navigation("NCR");
+
+                    b.Navigation("NewNCR");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>

@@ -83,13 +83,16 @@ namespace Haver_Niagara.Controllers
             ViewBag.EmployeeNameOptions = employeeNameOptions;
             ///////////
             ///////////
+            ///Populate list of defects
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
+
             // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
 
+            ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID");
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID");
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID");
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID");
-            ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID");
            
             return View();
         }
@@ -100,26 +103,33 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,NCR_Number,NCR_Date,NCR_Status,NCR_Stage,PartID,OperationID,EngineeringID,QualityInspectionID")]
-                NCR nCR, Part part, QualityInspection qualityInpsection, List<IFormFile> files, List<string> links)
+                NCR nCR, Part part, [Bind("Name","Date", "ItemMarked,QualityIdentify")] QualityInspection qualityInspection, List<IFormFile> files, List<string> links,
+                int defectID) 
         {
             if (ModelState.IsValid)
             {
 
                 // Add the part to the context
                 _context.Add(part);
-                if(qualityInpsection != null)
-                {
-                    _context.Add(qualityInpsection);
-                }
+                _context.Add(qualityInspection);
+                
 
                 await _context.SaveChangesAsync();
 
                 //Assign the generated IDs to this NCR
                 nCR.PartID = part.ID;
-                nCR.QualityInspectionID = qualityInpsection.ID;
+                nCR.QualityInspectionID = qualityInspection.ID;
 
                 //Add the NCR to the context
                 _context.Add(nCR);
+
+                var defectList = new DefectList
+                {
+                    PartID = part.ID,
+                    DefectID = defectID
+                };
+                _context.Add(defectList);
+
                 await _context.SaveChangesAsync();
 
                 //Images function to save
