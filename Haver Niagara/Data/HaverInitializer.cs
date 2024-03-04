@@ -266,8 +266,8 @@ namespace Haver_Niagara.Data
                 //Cat pictures, remove later :(
                 //byte[] demoPicture1 = File.ReadAllBytes("TemporaryImages/cat1.jpg");
                 //byte[] demoPicture2 = File.ReadAllBytes("TemporaryImages/cat2.jpg");
-                byte[] demoPicture3 = File.ReadAllBytes("TemporaryImages/cat3.jpg");
-                byte[] demoPicture4 = File.ReadAllBytes("TemporaryImages/cat4.jpg");
+                //byte[] demoPicture3 = File.ReadAllBytes("TemporaryImages/cat3.jpg");
+                //byte[] demoPicture4 = File.ReadAllBytes("TemporaryImages/cat4.jpg");
 
                 //Random Pictures of Defects
                 byte[] badPaint1 = File.ReadAllBytes("TemporaryImages/badpaint.jpg");
