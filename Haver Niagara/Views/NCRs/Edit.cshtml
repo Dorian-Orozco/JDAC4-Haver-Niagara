@@ -25,7 +25,7 @@
     </dl>
 </div>
 
-<form class="border p-4 asp-action=" Edit" method="post" enctype="multipart/form-data">
+<form class="border p-4" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ID" />
     <div>
@@ -297,7 +297,7 @@
                                 if (!string.IsNullOrEmpty(link.Links))
                                 {
                                     <div class="link-container ms-3">
-                                        <span>@link.Links</span>
+                                        <a href="@link.Links">@link.Links</a>
                                         <button class="delete-link btn btn-danger m-1" data-ncrid="@Model.ID" data-linkid="@link.ID">X</button>
                                     </div>
                                 }
