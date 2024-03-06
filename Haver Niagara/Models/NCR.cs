@@ -13,7 +13,7 @@ namespace Haver_Niagara.Models
         [Required(ErrorMessage = "You cannot leave the NCR number blank.")] 
         public string NCR_Number { get; set; }
 
-        [Display(Name = "Date")]
+        [Display(Name = "Date Created")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime NCR_Date{ get; set; }
@@ -33,11 +33,13 @@ namespace Haver_Niagara.Models
             NCR_Date = DateTime.Today;
         }
 
+
+
         //NCR Enumeration To Determine the Stage
         [Display(Name = "Stage")]
         public NCRStage NCR_Stage { get; set; }
 
-
+        
 
         // PART ENTITY //
         [ForeignKey("Part")]

@@ -1,4 +1,5 @@
-﻿
+﻿@using System.ComponentModel.DataAnnotations
+
 
 @model Haver_Niagara.Models.NCR
 
@@ -35,7 +36,7 @@
                             <span class="ms-5 me-5">
                                 <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
                                 @(Model.QualityInspection != null && Model.QualityInspection.QualityIdentify == identify ? "checked" : "") />
-                                <label for="@identify">@identify</label><br />
+                                <label for="@identify">@((typeof(QualityIdentify).GetMember(identify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
                             </span>
                         }
                     </dd>
@@ -288,7 +289,8 @@
                                 <span class="ms-5 me-5">
                                     <input type="radio" id="@disposition" name="disposition" disabled value="@disposition"
                                     @(Model.Engineering?.EngineeringDisposition == disposition ? "checked" : "") /> 
-                                    <label for="@disposition">@disposition</label><br />
+                                    @* <label for="@disposition">@disposition</label><br /> *@
+                                    <label for="@disposition">@((typeof(EngineeringDisposition).GetMember(disposition.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
 
                                 </span>
                             }
@@ -465,7 +467,8 @@
                                 <span class="ms-5 me-5">
                                     <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
                                         @(Model.QualityInspection != null && Model.Operation.OperationDecision == identify ? "checked" : "") />
-                                    <label for="@identify">@identify</label><br />
+                                    @* <label for="@identify">@identify</label><br /> *@
+                                    <label for="@identify">@((typeof(OperationDecision).GetMember(identify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
                                 </span>
                                 }
                         </dd>
