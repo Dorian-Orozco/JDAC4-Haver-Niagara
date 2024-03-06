@@ -37,15 +37,11 @@ namespace Haver_Niagara.Models
         [Display(Name = "Updated Revision Number")]
         public int RevisionUpdated { get; set; }
         
-
-        [Display(Name = "Revision Date")]
-        public DateTime RevisionDate { get; set; }
-        
        
         [Display(Name = "Revision Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime RevDate { get; set; }
+        public DateTime RevisionDate { get; set; }
 
 
         [Display(Name = "Engineering Disposition")]

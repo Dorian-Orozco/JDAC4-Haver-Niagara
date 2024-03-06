@@ -102,9 +102,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("RevDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("RevisionDate")
                         .HasColumnType("TEXT");
 

@@ -84,48 +84,46 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,NCR_Date,NCR_Status,NCR_Stage")]
-                NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links,
-                int defectID) 
+                NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering,
+                List<IFormFile> files, List<string> links,int defectID) 
         {
-            if (ModelState.IsValid)     //CREATE should be working fine, has NCR, PART and Quality Inspection. 
+            if (ModelState.IsValid)     
             {
-                // Add the part to the context
-                _context.Add(part);
+                                                            // Add the part to the context
+                _context.Add(part);                         //allows for part id to get an ID from databasee
+                await _context.SaveChangesAsync();          //saves to context
+
+                _context.Add(qualityInspection);            //allows qualityinspectionID to get ID from database value
                 await _context.SaveChangesAsync();
 
-                _context.Add(qualityInspection);
+                _context.Add(engineering);
                 await _context.SaveChangesAsync();
-
-
-                //Assign the generated IDs to this NCR
-                nCR.PartID = part.ID;
+                                                            //Assign the generated IDs to this NCR. this allows the NCR to have part and quality
+                nCR.PartID = part.ID;                       //inspection table associated to it
                 nCR.QualityInspectionID = qualityInspection.ID;
+                nCR.EngineeringID = engineering.ID;
+
                 //Add the NCR to the context
                 _context.Add(nCR);
 
-                var defectList = new DefectList
-                {
-                    PartID = part.ID,
+                var defectList = new DefectList             //creates a new defect list object
+                {                                           //since it is a junction table it takes a part ID and a defectID
+                    PartID = part.ID,                       //defect ID is retrieved through an int, which is passed through by a drop down 
                     DefectID = defectID
                 };
-                _context.Add(defectList);
+                _context.Add(defectList);                   //adding to context
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();          //saving changes
 
                 //Images function to save
-                if (files != null && files.Count > 0)
-                {
-                    await OnPostUploadAsync(files, nCR.ID, links);
-                }
-                return RedirectToAction("List", "Home");
-
-                //return RedirectToAction(nameof(Index));
+                if (files != null && files.Count > 0)               //checks for multiple images/files
+                {                                                   //sends to function where they are updated
+                    await OnPostUploadAsync(files, nCR.ID, links);  //through the current Ncr Id, it gets the part ID and from
+                }                                                   //there it creates them into new objects and associates them
+                return RedirectToAction("List", "Home");            //to that part => ncr. 
             }
-            ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
-            ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
-            ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
-            ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
-            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+            
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name"); //list of suppliers to pick 
             return View(nCR);
         }
 

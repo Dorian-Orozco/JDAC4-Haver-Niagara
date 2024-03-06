@@ -39,7 +39,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     RevisionOriginal = table.Column<int>(type: "INTEGER", nullable: false),
                     RevisionUpdated = table.Column<int>(type: "INTEGER", nullable: false),
                     RevisionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    RevDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EngineeringDisposition = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

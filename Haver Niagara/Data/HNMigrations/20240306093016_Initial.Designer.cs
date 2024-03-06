@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240306074415_Initial")]
+    [Migration("20240306093016_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -103,9 +103,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("RevDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("RevisionDate")
