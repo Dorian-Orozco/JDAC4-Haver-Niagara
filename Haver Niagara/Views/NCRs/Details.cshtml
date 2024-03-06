@@ -30,13 +30,12 @@
                         Identify Process Applicable:
                     </dt>
                     <dd class="mt-1 ms-2">
-                        @foreach (QualityIdentify identify in Enum.GetValues(typeof(QualityIdentify)))
+                        @foreach (var qualityIdentify in Enum.GetValues(typeof(QualityIdentify))) //working!
                         {
-                            <span class="ms-5 me-5">
-                                <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
-                                @(Model.QualityInspection != null && Model.QualityInspection.QualityIdentify == identify ? "checked" : "") />
-                                <label for="@identify">@identify</label><br />
-                            </span>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" asp-for="QualityInspection.QualityIdentify" disabled class="form-check-input" value="@qualityIdentify" id="@($"qualityIdentify{qualityIdentify}")" />
+                                <label class="form-check-label" for="@($"qualityIdentify{qualityIdentify}")">@qualityIdentify</label>
+                            </div>
                         }
                     </dd>
                 </dl>
@@ -141,7 +140,6 @@
                     </dt>
                     <dd class="mt-1">
                         <div class="d-flex">
-                            @* @Html.DisplayFor(model => model.Product.DefectLists) *@
                             @if (Model.Part != null && Model.Part.DefectLists != null)
                             {
                                 @foreach (var defectL in Model.Part.DefectLists)
@@ -196,7 +194,7 @@
                             @* @Html.DisplayNameFor(model => model.QualDate) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.NCR_Date)           @* FIX THIS PART TOO *@
+                            @Html.DisplayFor(model => model.QualityInspection.Date)       
                         </dd>
                     </dl>
                 </div>

@@ -12,15 +12,15 @@
     <div class="col-md-4">
         <form asp-action="Edit" method="post" enctype="multipart/form-data" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
+       
 
             @* NCR SECTION *@
             <div class="border m-1 p-2 ps-3 fs-6 section-header">NCR</div>
             <div class="form-group row">
                 <div class="col-md-6">
-                <label asp-for="ID" class="control-label">NCR Number (FORMAT?)</label>
-                    <input asp-for="ID" class="form-control" disabled />
-                    <span asp-validation-for="ID" class="text-danger"></span>
+                <label asp-for="FormattedID" class="control-label">NCR Number</label>
+                    <input asp-for="FormattedID" class="form-control" disabled />
+                    <span asp-validation-for="FormattedID" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                 <label asp-for="NCR_Date" class="control-label"></label>
@@ -28,76 +28,9 @@
                 <span asp-validation-for="NCR_Date" class="text-danger"></span>
                 </div>
             </div>
-            @* MEDIA SECTION *@
-            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Existing Images</div>
-            <div class="form-group row">
-    
-                <div class="col-md-8">
-                @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
-                {
-                    foreach (var image in Model.Part.Medias)
-                    {
-                        if (image.Content != null)
-                        {
-                            //Allows for JQUERY to delete this iteration of div and removes image from page
-                            <div class="image-container">
-                            <img src="data:@image.MimeType;base64,@Convert.ToBase64String(image.Content)" alt="@image.Description" style="width:300px; height: 300px;" />
-                                <button class="delete" data-ncrid="@Model.ID" data-imageid="@image.ID">Remove</button> @* //passes ncr id and image id *@
-                            </div>
-                        }
-                        else
-                        {
-                            <span>No Images Available</span>
-                        }
-                    }
-                }
-                else
-                {
-                    <span>No Images Associated</span>
-                }
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="files">Select files:</label>
-                <input type="file" name="files" id="files" class="form-control-file" multiple />
-            </div>
-            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Existing Files</div>
-            <div class="form-group row">
-                <div class="col-md-8"></div>
-                <label>Existing Links:</label>
-                <div class="row">
-                    @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
-                    {
-                        foreach (var link in Model.Part.Medias)
-                        {
-                            if (!string.IsNullOrEmpty(link.Links))
-                            {
-                                <div class="link-container">
-                                    <span>@link.Links</span>
-                                    <button class="delete-link" data-ncrid="@Model.ID" data-linkid="@link.ID">Remove</button>
-                                </div>
-                            }
-                            else
-                            {
-                                <span>No Links Available</span>
-                            }
-                        }
-                    }
-                    else
-                    {
-                        <span>No Links Associated</span>
-                    }
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-6">
-                <label for="links">Enter links (one per line):</label>
-                <textarea name="links" class="form-control"></textarea>
-                <span class="text-danger"></span>
-                </div>
-            </div>
+          
             @* PART SECTION *@
-            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Part Information</div>
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Part Table</div>
             <div class="form-group">
                 <label asp-for="Part.Name" class="control-label"></label>
                 <input asp-for="Part.Name" class="form-control" />
@@ -148,8 +81,8 @@
             @* Defect - not really working iirc.  *@
             <div class="row border m-1 p-2 ps-3 fs-6 section-header">Defect Information</div>
             <div class="form-group">
-                <label for="defectID">Select Defect:</label>
-                <select id="defectID" name="defectID" class="form-control">
+                <label for="defectID">Select Defect: ONE MUST BE SELECTED FOR EDIT TO WORK</label>
+                <select  id="defectID" name="defectID" class="form-control">
                     <option value="">--Select Defect--</option>
                     @if (ViewBag.DefectList != null)
                     {
@@ -173,50 +106,130 @@
                 <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
             </div>
 
-
-            @* Quality Inspection ID Quality Inspection ID Quality Inspection ID Quality Inspection ID Quality Inspection ID Quality Inspection ID  *@
-            <input type="hidden" asp-for="QualityInspectionID" value="@Model.QualityInspectionID" />
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Quality Inspection Table</div>
             <div class="form-group">
                 <label asp-for="QualityInspection.Name" class="control-label"></label>
                 <input asp-for="QualityInspection.Name" class="form-control" />
                 <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="QualityInspection.Date" class="control-label"></label>
-                <input asp-for="QualityInspection.Date" class="form-control" />
+                <input asp-for="QualityInspection.Date" type="date" class="form-control" />
                 <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
             </div>
 
-@*             <div class="form-group">
-                <label asp-for="QualityInspection.ItemMarked" class="control-label"></label>
-                <div>
-                    <input type="radio" name="QualityInspection.ItemMarked" value="true" @(Model.QualityInspection.ItemMarked ? "checked" : "") /> Yes
-                    <input type="radio" name="QualityInspection.ItemMarked" value="false" @(!Model.QualityInspection.ItemMarked ? "checked" : "") /> No
-                </div>
+            <div class="form-group">
+                <label asp-for="QualityInspection.ItemMarked" class="control-label"></label><br />
+                <div class="d-flex">
+                    @Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ItemMarked, @class = "me-2" })
+                    <label class="me-4">Yes</label>
+
+                    @Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ItemMarked, @class = "me-2" })
+                    <label>No</label>
                 <span asp-validation-for="QualityInspection.ItemMarked" class="text-danger"></span>
-            </div> *@
-
-@*             <div class="form-group">
-                <label asp-for="QualityInspection.ReInspected" class="control-label"></label>
-                <div>
-                    <input type="radio" name="QualityInspection.ReInspected" value="true" @(Model.QualityInspection.ReInspected ? "checked" : "") /> Yes
-                    <input type="radio" name="QualityInspection.ReInspected" value="false" @(!Model.QualityInspection.ReInspected ? "checked" : "") /> No
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="QualityInspection.ReInspected" class="control-label"></label><br />
+                    <div class="d-flex">
+                        @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ReInspected, @class = "me-2" })
+                        <label class="me-4">Yes</label>
+
+                        @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ReInspected, @class = "me-2" })
+                        <label>No</label>
                 <span asp-validation-for="QualityInspection.ReInspected" class="text-danger"></span>
-            </div> *@
-
-@*             <<div class="form-group">
-                <label asp-for="QualityInspection.QualityIdentify" class="control-label"></label>
-                <select asp-for="QualityInspection.QualityIdentify" class="form-control">
-                    <option value="">Select</option>
-                </select>
-                <span asp-validation-for="QualityInspection.QualityIdentify" class="text-danger"></span>
-            </div> *@
+                    </div>
+            </div>
 
 
+            <div class="form-group">
+                <label class="control-label">Quality Identify</label><br />
+                @foreach (var qualityIdentify in Enum.GetValues(typeof(QualityIdentify)))
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" asp-for="QualityInspection.QualityIdentify" class="form-check-input" value="@qualityIdentify" id="@($"qualityIdentify{qualityIdentify}")" />
+                        <label class="form-check-label" for="@($"qualityIdentify{qualityIdentify}")">@qualityIdentify</label>
+                    </div>
+                }
+            </div>
+                    @*////// Engineering Table ///////*@
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Engineering Table</div>
+            <div class="form-group">
+                <label asp-for="Engineering.Name" class="control-label"></label>
+                <input asp-for="Engineering.Name" class="form-control" />
+                <span asp-validation-for="Engineering.Name" class="text-danger"></span>
+            </div>
 
-            @* Operation *@
-            <input type="hidden" asp-for="OperationID" value="@Model.OperationID" />
+            <div class="form-group">
+                <label asp-for="Engineering.Date" class="control-label"></label>
+                <input asp-for="Engineering.Date" class="form-control" />
+                <span asp-validation-for="Engineering.Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Engineering.CustomerNotify" class="control-label"></label><br />
+                        <div class="d-flex">
+                            @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, true, new { @checked = Model.Engineering != null && Model.Engineering.CustomerNotify, @class = "me-2" })
+                            <label class="me-4">Yes</label>
+
+                            @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, @class = "me-2" })
+                            <label>No</label>
+                            </div>
+                <span asp-validation-for="Engineering.CustomerNotify" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Engineering.DrawUpdate" class="control-label"></label><br />
+                        <div class="d-flex">
+                            @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, true, new { @checked = Model.Engineering != null && Model.Engineering.DrawUpdate, @class = "me-2" })
+                            <label class="me-4">Yes</label>
+
+                            @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, false, new { @checked = Model.Engineering != null && !Model.Engineering.DrawUpdate, @class = "me-2" })
+                            <label>No</label>
+                        </div>
+                <span asp-validation-for="Engineering.DrawUpdate" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Engineering.DispositionNotes" class="control-label"></label>
+                <input asp-for="Engineering.DispositionNotes" class="form-control" />
+                <span asp-validation-for="Engineering.DispositionNotes" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Engineering.RevisionOriginal" class="control-label"></label>
+                <input asp-for="Engineering.RevisionOriginal" class="form-control" />
+                <span asp-validation-for="Engineering.RevisionOriginal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Engineering.RevisionUpdated" class="control-label"></label>
+                <input asp-for="Engineering.RevisionUpdated" class="form-control" />
+                <span asp-validation-for="Engineering.RevisionUpdated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Engineering.RevisionDate" class="control-label"></label>
+                <input asp-for="Engineering.RevisionDate" type="date" class="form-control" />
+                <span asp-validation-for="Engineering.RevisionDate" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label">Engineering Disposition</label><br />
+                @foreach (var engineerDisposition in Enum.GetValues(typeof(EngineeringDisposition)))
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" asp-for="Engineering.EngineeringDisposition" class="form-check-input" value="@engineerDisposition" id="@($"engineerDisposition{engineerDisposition}")" />
+                        <label class="form-check-label" for="@($"engineerDisposition{engineerDisposition}")">@engineerDisposition</label>
+                    </div>
+                }
+            </div>
+
+            @*////// Engineering Table ///////*@
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Operation Table</div>
+
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

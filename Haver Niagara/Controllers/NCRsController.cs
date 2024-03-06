@@ -150,18 +150,20 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n=>n.DefectLists)
                         .ThenInclude(n=>n.Defect)
                 .Include(n => n.QualityInspection)
+                .Include(n => n.Engineering)
+                .Include(n => n.Operation)
                 .FirstOrDefaultAsync(n=>n.ID == id);
 
-            ///Populate list of defects
-            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
-            // Populate supplier dropdown list
-            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
 
             if (nCR == null)
             {
                 return NotFound();
             }
-            
+
+            ///Populate list of defects
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
+            // Populate supplier dropdown list
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             return View(nCR);
         }
 
@@ -173,8 +175,10 @@ namespace Haver_Niagara.Controllers
         [HttpPost]  
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NCR_Date")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
-                    NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links)
+                    NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation, 
+                    List<IFormFile> files, List<string> links, int defectID, Defect defect)
         {
+            nCR.ID = id;
             if (id != nCR.ID)
             {
                 return NotFound();
@@ -192,6 +196,8 @@ namespace Haver_Niagara.Controllers
                             .ThenInclude(n => n.DefectLists)
                                 .ThenInclude(n => n.Defect)
                         .Include(n => n.QualityInspection)
+                        .Include(n=>n.Engineering)
+                        .Include(n=>n.Operation)
                         .FirstOrDefaultAsync(n => n.ID == id);
 
                     if (existingNCR == null)
@@ -203,13 +209,13 @@ namespace Haver_Niagara.Controllers
                     _context.Entry(existingNCR).State = EntityState.Detached;   
                                                                                 
                     //Update NCR Properties               
-                    existingNCR.NCR_Date = nCR.NCR_Date;   
+                    existingNCR.NCR_Date = nCR.NCR_Date;
 
-                    
+
 
                     //ASSOCIATED TABLES PAST THIS POINT.
-                    //Updating Part Properties, gets old values so they are not overwritten if new val null
-                    if(part != null)
+                    //Updating Part Properties
+                    if (part != null)
                     {
                         existingNCR.Part.Name = part.Name;
                         existingNCR.Part.PartNumber = part.PartNumber;
@@ -222,11 +228,11 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.Description = part.Description;
                         existingNCR.Part.SupplierID = part.SupplierID;
 
-                        if (part.DefectLists != null && part.DefectLists.Any())
+                        existingNCR.Part.DefectLists.Clear(); //removed existing defect 
+                        if (defectID != 0)  //id is passed through and assigned
                         {
-                            existingNCR.Part.DefectLists.Clear();
-                            var selectedDefect = part.DefectLists.First();
-                            existingNCR.Part.DefectLists.Add(selectedDefect);
+                            var newDefectList = new DefectList { PartID = existingNCR.Part.ID, DefectID = defectID };
+                            existingNCR.Part.DefectLists.Add(newDefectList);
                         }
                     }
 
@@ -234,10 +240,34 @@ namespace Haver_Niagara.Controllers
                     {
                         existingNCR.QualityInspection.Name = qualityInspection.Name;
                         existingNCR.QualityInspection.Date = qualityInspection.Date;
-                        //existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
-                        //existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
-                        //existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
+                        existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
+                        existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
+                        existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
                     }
+
+                    if(engineering != null)
+                    {
+                        existingNCR.Engineering.Name = engineering.Name;
+                        existingNCR.Engineering.Date = engineering.Date;
+                        existingNCR.Engineering.CustomerNotify = engineering.CustomerNotify;
+                        existingNCR.Engineering.DrawUpdate = engineering.DrawUpdate;
+                        existingNCR.Engineering.DispositionNotes = engineering.DispositionNotes;
+                        existingNCR.Engineering.RevisionOriginal = engineering.RevisionOriginal;
+                        existingNCR.Engineering.RevisionUpdated = engineering.RevisionUpdated;
+                        existingNCR.Engineering.RevisionDate = engineering.RevisionDate;
+                        existingNCR.Engineering.EngineeringDisposition = engineering.EngineeringDisposition;
+                    } 
+
+                    if(operation != null)
+                    {
+                        existingNCR.Operation.Name = operation.Name;
+                        existingNCR.Operation.OperationDate = operation.OperationDate;
+                        existingNCR.Operation.OperationDecision = operation.OperationDecision;
+                        existingNCR.Operation.OperationNotes = operation.OperationNotes;
+                        existingNCR.Operation.OperationCar = operation.OperationCar;
+                        existingNCR.Operation.OperationFollowUp = operation.OperationFollowUp;
+                    }
+
 
                     _context.Attach(existingNCR).State = EntityState.Modified;  //Attaches the NCR entity back to context 
 
@@ -259,6 +289,7 @@ namespace Haver_Niagara.Controllers
             }
             //Populate viewbag for list of suppliers
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+            
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);

@@ -9,16 +9,12 @@ namespace Haver_Niagara.Models
         [Key]
         public int DefectListID { get; set; }
         
-        //Setting up junction table remove code if doesnt work
-
         //Foreign key to defect
         public int DefectID { get; set; }   
         public Defect Defect { get; set; }
 
-
         //foreign key to product
         public int PartID { get; set; }
         public Part Part{ get; set; }
-
     }
 }
