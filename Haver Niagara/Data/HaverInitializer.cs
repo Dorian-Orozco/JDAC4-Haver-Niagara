@@ -639,7 +639,7 @@ namespace Haver_Niagara.Data
                     ID = 1,
                     NCR_Number = "1",
                     NCR_Date = DateTime.Parse("2024-01-11"),
-                    NCR_Status = false,
+                    NCR_Status = true,
                     NCR_Stage = (NCRStage)1,       //NCR Stage can be changed to match the data 
                     Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                     Engineering = context.Engineerings.FirstOrDefault(p=>p.ID == 1),
@@ -711,7 +711,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 7,
                         NCR_Number =  "7",
-                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Date = DateTime.Parse("2024-01-22"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)1,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 7),
@@ -723,7 +723,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 8,
                         NCR_Number = "8",
-                        NCR_Date = DateTime.Parse("2024-01-25"),
+                        NCR_Date = DateTime.Parse("2024-01-23"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)3,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 8),
