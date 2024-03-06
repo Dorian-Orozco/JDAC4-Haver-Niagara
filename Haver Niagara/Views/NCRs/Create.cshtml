@@ -14,11 +14,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="for-row">
                 <div class="row border m-1 p-2 ps-3 fs-6 section-header">NCR Information</div>
-            <div class="form-group col-md-6">
+@*             <div class="form-group col-md-6">
                 <label asp-for="NCR_Number" class="control-label"></label>
                 <input asp-for="NCR_Number" class="form-control" />
                 <span asp-validation-for="NCR_Number" class="text-danger"></span>
-            </div>
+            </div> *@
                 <div class="form-group col-md-6">
                 <label asp-for="NCR_Date" class="control-label"></label>
                 <input asp-for="NCR_Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")"/>

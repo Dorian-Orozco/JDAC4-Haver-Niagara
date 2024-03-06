@@ -18,9 +18,9 @@
             <div class="border m-1 p-2 ps-3 fs-6 section-header">NCR</div>
             <div class="form-group row">
                 <div class="col-md-6">
-                <label asp-for="NCR_Number" class="control-label"></label>
-                <input asp-for="NCR_Number" class="form-control" />
-                <span asp-validation-for="NCR_Number" class="text-danger"></span>
+                <label asp-for="ID" class="control-label">NCR Number (FORMAT?)</label>
+                    <input asp-for="ID" class="form-control" disabled />
+                    <span asp-validation-for="ID" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                 <label asp-for="NCR_Date" class="control-label"></label>
@@ -28,7 +28,7 @@
                 <span asp-validation-for="NCR_Date" class="text-danger"></span>
                 </div>
             </div>
-            @* Media Stuff *@
+            @* MEDIA SECTION *@
             <div class="row border m-1 p-2 ps-3 fs-6 section-header">Existing Images</div>
             <div class="form-group row">
     
@@ -96,7 +96,7 @@
                 <span class="text-danger"></span>
                 </div>
             </div>
-            @* Part Stuff *@
+            @* PART SECTION *@
             <div class="row border m-1 p-2 ps-3 fs-6 section-header">Part Information</div>
             <div class="form-group">
                 <label asp-for="Part.Name" class="control-label"></label>
@@ -136,7 +136,7 @@
             <input type="hidden" asp-for="PartID" value="@Model.PartID" />
 
             <div class="row border m-1 p-2 ps-3 fs-6 section-header">Supplier Information</div>
-            @* Supplier Stuff *@
+            @* Assigning Part A Supplier ID FROM VIEWBAG *@
             <div class="form-group">
                 <label asp-for="Part.SupplierID" class="control-label"></label>
                 <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
@@ -145,15 +145,19 @@
                 <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
             </div>
             
-            @* Defect Stuff *@
+            @* Defect - not really working iirc.  *@
             <div class="row border m-1 p-2 ps-3 fs-6 section-header">Defect Information</div>
             <div class="form-group">
                 <label for="defectID">Select Defect:</label>
                 <select id="defectID" name="defectID" class="form-control">
                     <option value="">--Select Defect--</option>
-                    @foreach (var defect in ViewBag.DefectList)
+                    @if (ViewBag.DefectList != null)
                     {
-                        <option value="@defect.Value">@defect.Text</option>
+
+                        foreach (var defect in ViewBag.DefectList)
+                        {
+                            <option value="@defect.Value">@defect.Text</option>
+                        }
                     }
                 </select>
                 <span class="text-danger"></span>
@@ -170,12 +174,50 @@
             </div>
 
 
-            @* Quality Inspection ID *@
-          
+            @* Quality Inspection ID Quality Inspection ID Quality Inspection ID Quality Inspection ID Quality Inspection ID Quality Inspection ID  *@
+            <input type="hidden" asp-for="QualityInspectionID" value="@Model.QualityInspectionID" />
+            <div class="form-group">
+                <label asp-for="QualityInspection.Name" class="control-label"></label>
+                <input asp-for="QualityInspection.Name" class="form-control" />
+                <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QualityInspection.Date" class="control-label"></label>
+                <input asp-for="QualityInspection.Date" class="form-control" />
+                <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
+            </div>
+
+@*             <div class="form-group">
+                <label asp-for="QualityInspection.ItemMarked" class="control-label"></label>
+                <div>
+                    <input type="radio" name="QualityInspection.ItemMarked" value="true" @(Model.QualityInspection.ItemMarked ? "checked" : "") /> Yes
+                    <input type="radio" name="QualityInspection.ItemMarked" value="false" @(!Model.QualityInspection.ItemMarked ? "checked" : "") /> No
+                </div>
+                <span asp-validation-for="QualityInspection.ItemMarked" class="text-danger"></span>
+            </div> *@
+
+@*             <div class="form-group">
+                <label asp-for="QualityInspection.ReInspected" class="control-label"></label>
+                <div>
+                    <input type="radio" name="QualityInspection.ReInspected" value="true" @(Model.QualityInspection.ReInspected ? "checked" : "") /> Yes
+                    <input type="radio" name="QualityInspection.ReInspected" value="false" @(!Model.QualityInspection.ReInspected ? "checked" : "") /> No
+                </div>
+                <span asp-validation-for="QualityInspection.ReInspected" class="text-danger"></span>
+            </div> *@
+
+@*             <<div class="form-group">
+                <label asp-for="QualityInspection.QualityIdentify" class="control-label"></label>
+                <select asp-for="QualityInspection.QualityIdentify" class="form-control">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="QualityInspection.QualityIdentify" class="text-danger"></span>
+            </div> *@
 
 
-            @* Operation (Purchasing Stuff, Organize If time or for next meeting) *@
+
+            @* Operation *@
             <input type="hidden" asp-for="OperationID" value="@Model.OperationID" />
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

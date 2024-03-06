@@ -199,10 +199,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<DateTime>("NCR_Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("NCR_Number")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("NCR_Stage")
                         .HasColumnType("INTEGER");
 
@@ -314,7 +310,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int>("ProductNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PurchaseNumber")
+                    b.Property<long>("PurchaseNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("QuantityDefect")
@@ -326,8 +322,8 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int>("SAPNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SalesOrder")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("SalesOrder")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("SupplierID")
                         .HasColumnType("INTEGER");

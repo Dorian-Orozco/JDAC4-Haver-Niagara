@@ -1,4 +1,5 @@
 ﻿using Haver_Niagara.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using SkiaSharp;
 using System.Diagnostics;
@@ -631,13 +632,108 @@ namespace Haver_Niagara.Data
                 });
                 context.SaveChanges();
             }
+            if (!context.QualityInspections.Any())
+            {
+                context.QualityInspections.AddRange(
+                    new QualityInspection
+                    {
+                        ID = 1,
+                        Name = "Dorian Orozco",
+                        Date = DateTime.Parse("2024-02-01"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+
+
+                    },
+                    new QualityInspection
+                    {
+                        ID = 2,
+                        Name = "John Doe",
+                        Date = DateTime.Parse("2024-01-23"),
+                        ItemMarked = true,
+                        ReInspected = true,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 3,
+                        Name = "Sam Jordan",
+                        Date = DateTime.Parse("2024-02-02"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 4,
+                        Name = "Gregy Frog",
+                        Date = DateTime.Parse("2024-01-12"),
+                        ItemMarked = false,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 5,
+                        Name = "Pillow Man",
+                        Date = DateTime.Parse("2024-02-01"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 6,
+                        Name = "Jorge Jeez",
+                        Date = DateTime.Parse("2024-02-01"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 7,
+                        Name = "Hunt Con",
+                        Date = DateTime.Parse("2024-02-01"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 8,
+                        Name = "Rise Saint",
+                        Date = DateTime.Parse("2024-02-01"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 9,
+                        Name = "Sunday Smith",
+                        Date = DateTime.Parse("2024-02-11"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 10,
+                        Name = "Prin Char",
+                        Date = DateTime.Parse("2024-02-29"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 11,
+                        Name = "Lei Ter",
+                        Date = DateTime.Parse("2024-01-23"),
+                        ItemMarked = true,
+                        ReInspected = true,
+                    });
+                context.SaveChanges();
+            }
             if (!context.NCRs.Any())
             {
                 context.NCRs.AddRange(
                 new NCR
                 {
-                    ID = 1,
-                    NCR_Number = "1",
+                    
                     NCR_Date = DateTime.Parse("2024-01-11"),
                     NCR_Status = true,
                     NCR_Stage = (NCRStage)1,       //NCR Stage can be changed to match the data 
@@ -649,7 +745,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 2,
-                        NCR_Number = "2",
                         NCR_Date = DateTime.Parse("2024-01-12"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)1,   
@@ -661,7 +756,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 3,
-                        NCR_Number = "3",
                         NCR_Date = DateTime.Parse("2024-01-15"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)2,      
@@ -673,7 +767,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 4,
-                        NCR_Number = "4",
                         NCR_Date = DateTime.Parse("2024-01-18"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)1,
@@ -685,7 +778,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 5,
-                        NCR_Number = "5",
                         NCR_Date = DateTime.Parse("2024-01-18"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)2,
@@ -697,7 +789,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 6,
-                        NCR_Number = "6",
                         NCR_Date = DateTime.Parse("2024-01-20"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)3,
@@ -710,7 +801,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 7,
-                        NCR_Number =  "7",
                         NCR_Date = DateTime.Parse("2024-01-18"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)1,
@@ -722,7 +812,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 8,
-                        NCR_Number = "8",
                         NCR_Date = DateTime.Parse("2024-01-25"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)3,
@@ -734,7 +823,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 9,
-                        NCR_Number = "9",
                         NCR_Date = DateTime.Parse("2024-01-24"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)1,
@@ -746,7 +834,6 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 10,
-                        NCR_Number = "10",
                         NCR_Date = DateTime.Parse("2024-01-25"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)2,
@@ -758,7 +845,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 11,
-                        NCR_Number = "11",
+                  
                         NCR_Date = DateTime.Parse("2024-01-26"),
                         NCR_Status = true,
                         NCR_Stage = (NCRStage)1,
@@ -812,52 +899,6 @@ namespace Haver_Niagara.Data
                 };
                 context.DefectLists.AddRange(defectLists);
                 context.SaveChanges();
-            }
-            if (!context.QualityInspections.Any())
-            {
-                context.QualityInspections.AddRange(
-                    new QualityInspection
-                    {
-                        ID = 1,
-                        Name = "John Smith",
-                        Date = DateTime.Parse("2024-02-01"),
-                        ItemMarked = true,
-                        ReInspected = false,
-                        QualityIdentify = (QualityIdentify)1
-                        
-                    },
-                    new QualityInspection
-                    {
-                        ID = 2,
-                        Name = "John Doe",
-                        Date = DateTime.Parse("2024-01-23"),
-                        ItemMarked = true,
-                        ReInspected = true,
-                    },
-                    new QualityInspection
-                    {
-                        ID = 3,
-                        Name = "Sam Jordan",
-                        Date = DateTime.Parse("2024-02-02"),
-                        ItemMarked = true,
-                        ReInspected = false,
-                    },
-                    new QualityInspection
-                    {
-                        ID = 4,
-                        Name = "Gregy Frog",
-                        Date = DateTime.Parse("2024-01-12"),
-                        ItemMarked = false,
-                        ReInspected = false,
-                    },
-                    new QualityInspection
-                    {
-                        ID = 5,
-                        Name = "Pillow Man",
-                        Date = DateTime.Parse("2024-02-01"),
-                        ItemMarked = true,
-                        ReInspected = false,
-                    });
             }
 
         }

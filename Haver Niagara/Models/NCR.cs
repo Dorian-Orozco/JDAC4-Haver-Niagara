@@ -9,9 +9,18 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Display(Name = "NCR No.")]
-        [Required(ErrorMessage = "You cannot leave the NCR number blank.")] 
-        public string NCR_Number { get; set; }
+        public string FormattedID
+        {
+            get
+            {
+                return $"{DateTime.UtcNow.Year}-{ID.ToString().PadLeft(3, '0')}";
+            }
+        }
+
+        //March 05 : Using ID for NCR Number instead of having an NCR Number. ID is auto generated and cannot be changed once db assigns.
+        //[Display(Name = "NCR No.")]
+        //[Required(ErrorMessage = "You cannot leave the NCR number blank.")] 
+        //public string NCR_Number { get; set; }
 
         [Display(Name = "Date")]
         [DataType(DataType.Date)]

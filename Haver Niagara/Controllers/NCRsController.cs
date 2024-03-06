@@ -27,7 +27,7 @@ namespace Haver_Niagara.Controllers
             var haverNiagaraDbContext = _context.NCRs
                 .Include(n => n.Engineering)
                 .Include(n => n.Operation)
-                .Include(n=>n.QualityInspection) //////////////remove if breaks
+                .Include(n=>n.QualityInspection)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Medias);
             return View(await haverNiagaraDbContext.ToListAsync());
@@ -43,7 +43,7 @@ namespace Haver_Niagara.Controllers
 
             var nCR = await _context.NCRs
                 .Include(n => n.Engineering)
-                .Include(n => n.QualityInspection)     //////////remove if break
+                .Include(n => n.QualityInspection)    
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Supplier)
                 .Include(n => n.Part)
@@ -71,11 +71,10 @@ namespace Haver_Niagara.Controllers
             // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
 
-            ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID");
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID");
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID");
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID");
-           
+            ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID");
             return View();
         }
 
@@ -84,17 +83,20 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NCR_Number,NCR_Date,NCR_Status,NCR_Stage,PartID,OperationID,EngineeringID,QualityInspectionID")]
-                NCR nCR, Part part, [Bind("Name,Date,ItemMarked,QualityIdentify")] QualityInspection qualityInspection, List<IFormFile> files, List<string> links,
+        public async Task<IActionResult> Create([Bind("ID,NCR_Date,NCR_Status,NCR_Stage")]
+                NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links,
                 int defectID) 
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid)     //CREATE should be working fine, has NCR, PART and Quality Inspection. 
             {
                 // Add the part to the context
                 _context.Add(part);
-                _context.Add(qualityInspection);
-                
                 await _context.SaveChangesAsync();
+
+                _context.Add(qualityInspection);
+                await _context.SaveChangesAsync();
+
+
                 //Assign the generated IDs to this NCR
                 nCR.PartID = part.ID;
                 nCR.QualityInspectionID = qualityInspection.ID;
@@ -138,7 +140,6 @@ namespace Haver_Niagara.Controllers
 
             //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
-                .Include(n => n.QualityInspection)
                 .Include(n=>n.Part)
                     .ThenInclude(n=>n.Medias)
                 .Include(n=>n.Part)
@@ -146,11 +147,11 @@ namespace Haver_Niagara.Controllers
                 .Include(n=>n.Part)
                     .ThenInclude(n=>n.DefectLists)
                         .ThenInclude(n=>n.Defect)
+                .Include(n => n.QualityInspection)
                 .FirstOrDefaultAsync(n=>n.ID == id);
 
             ///Populate list of defects
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
-
             // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
 
@@ -158,10 +159,11 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
-            ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
-            ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
-            ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
+            //ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
+            //ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
+            //ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
+            //ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
+           
             return View(nCR);
         }
 
@@ -172,27 +174,29 @@ namespace Haver_Niagara.Controllers
         
         [HttpPost]  
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NCR_Number,NCR_Date,PartID,OperationID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
-                    NCR nCR, Part part, List<IFormFile> files, List<string> links)
+        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
+                    NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links)
         {
             if (id != nCR.ID)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
                     var existingNCR = await _context.NCRs
-                        .Include(n=>n.Part)
-                            .ThenInclude(p=>p.Medias)
-                        .Include(n=>n.Part)
-                            .ThenInclude(n=>n.DefectLists)
-                                .ThenInclude(n=>n.Defect)
-                        .FirstOrDefaultAsync(n=>n.ID == id);
+                        .Include(n => n.Part)
+                            .ThenInclude(n => n.Medias)
+                        .Include(n => n.Part)
+                            .ThenInclude(n => n.Supplier)
+                        .Include(n => n.Part)
+                            .ThenInclude(n => n.DefectLists)
+                                .ThenInclude(n => n.Defect)
+                        .Include(n => n.QualityInspection)
+                        .FirstOrDefaultAsync(n => n.ID == id);
 
-                    if(existingNCR == null)
+                    if (existingNCR == null)
                     {
                         return NotFound();
                     }
@@ -200,8 +204,7 @@ namespace Haver_Niagara.Controllers
                     //detaching to prevent tracking issues
                     _context.Entry(existingNCR).State = EntityState.Detached;   
                                                                                 
-                    //Update NCR Properties
-                    existingNCR.NCR_Number = nCR.NCR_Number;                    
+                    //Update NCR Properties               
                     existingNCR.NCR_Date = nCR.NCR_Date;   
 
                     
@@ -228,30 +231,17 @@ namespace Haver_Niagara.Controllers
                             existingNCR.Part.DefectLists.Add(selectedDefect);
                         }
                     }
-               
-                    //if (qualityInspection != null)
-                    //{
-                    //    _context.Add(qualityInspection);
-                    //    await _context.SaveChangesAsync();
-                    //    await _context.Entry(qualityInspection).GetDatabaseValuesAsync();
-                    //    existingNCR.QualityInspectionID = qualityInspection.ID;
-                    //    existingNCR.QualityInspection.Name = qualityInspection.Name;
-                    //    existingNCR.QualityInspection.Date = qualityInspection.Date;
-                    //    existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
-                    //    existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
-                    //    existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
-                    //}
 
-                    _context.Attach(existingNCR).State = EntityState.Modified;
-                    if (existingNCR.Part != null)
+                    if (qualityInspection != null)
                     {
-                        _context.Attach(existingNCR.Part).State = EntityState.Modified;
+                        existingNCR.QualityInspection.Name = qualityInspection.Name;
+                        existingNCR.QualityInspection.Date = qualityInspection.Date;
+                        //existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
+                        //existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
+                        //existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
                     }
-                    //if(existingNCR.QualityInspection != null)
-                    //{
-                    //    _context.Attach(existingNCR.QualityInspection).State = EntityState.Modified;
-                    //}
 
+                    _context.Attach(existingNCR).State = EntityState.Modified;  //Attaches the NCR entity back to context 
 
                     await OnPostUploadAsync(files, nCR.ID, links);
                     await _context.SaveChangesAsync();
@@ -271,11 +261,12 @@ namespace Haver_Niagara.Controllers
             }
             //Populate viewbag for list of suppliers
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
-
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
+            
             return View(nCR);
         }
 

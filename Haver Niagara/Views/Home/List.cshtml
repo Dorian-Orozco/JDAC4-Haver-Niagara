@@ -87,11 +87,11 @@
                         <button class="status-btn active" title="Active"></button>
                     }
                 </td>
-                @* Gets Date Time Now/Year, sets it as the first part of the string, and the second part is NCR Number, giving the "2024-000" format *@
+                @* Gets Date Time Now/Year, sets it as the first part of the string, and the second part is ID, giving the "2024-000" format *@
                 @{
                     int year = DateTime.Now.Year;
                 }
-                <td class="text-center">@year-@item.NCR_Number.PadLeft(3, '0')</td>
+                <td class="text-center">@year-@item.ID.ToString().PadLeft(3, '0')</td> 
                 <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
                 <td class ="text-center">@(item.Part?.ProductNumber.ToString() ?? "Product Number Not Found")</td>
                 <td >@(item.Part?.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>

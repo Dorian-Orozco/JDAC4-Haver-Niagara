@@ -159,8 +159,8 @@ namespace Haver_Niagara.Data.HNMigrations
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     PartNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     SAPNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    PurchaseNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    SalesOrder = table.Column<int>(type: "INTEGER", nullable: false),
+                    PurchaseNumber = table.Column<long>(type: "INTEGER", nullable: false),
+                    SalesOrder = table.Column<string>(type: "TEXT", nullable: true),
                     ProductNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityRecieved = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityDefect = table.Column<int>(type: "INTEGER", nullable: false),
@@ -252,7 +252,6 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    NCR_Number = table.Column<string>(type: "TEXT", nullable: false),
                     NCR_Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     NCR_Status = table.Column<bool>(type: "INTEGER", nullable: false),
                     NCR_Stage = table.Column<int>(type: "INTEGER", nullable: false),
