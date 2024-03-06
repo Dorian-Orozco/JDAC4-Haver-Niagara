@@ -191,6 +191,17 @@
             </div>
 
             <div class="form-group">
+                <label asp-for="Engineering.RevisionUpdated" class="control-label"></label>
+                <input asp-for="Engineering.RevisionUpdated" class="form-control" />
+                <span asp-validation-for="Engineering.RevisionUpdated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Engineering.RevisionDate" class="control-label"></label>
+                <input asp-for="Engineering.RevisionDate" class="form-control" />
+                <span asp-validation-for="Engineering.RevisionDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label class="control-label">Engineering Disposition</label><br />
                 @foreach (var engineeringDisposition in Enum.GetValues(typeof(EngineeringDisposition)))
                 {
@@ -201,7 +212,58 @@
                 }
             </div>
 
+            <div class="row border m-1 p-2 ps-3 fs-6 section-header">TESTING OPERATION/PURCHASING ?</div>
+            <div class="form-group">
+                <label asp-for="Operation.Name" class="control-label"></label>
+                <input asp-for="Operation.Name" class="form-control" />
+                <span asp-validation-for="Operation.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Operation.OperationDate" class="control-label"></label>
+                <input asp-for="Operation.OperationDate" class="form-control" />
+                <span asp-validation-for="Operation.OperationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Operation Decision</label><br />
+                @foreach (var operationDecision in Enum.GetValues(typeof(OperationDecision)))
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" asp-for="Operation.OperationDecision" class="form-check-input" value="@operationDecision " id="@($"operationDecision{operationDecision }")" />
+                        <label class="form-check-label" for="@($"operationDecision{operationDecision }")">@operationDecision </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Operation.OperationNotes" class="control-label"></label>
+                <input asp-for="Operation.OperationNotes" class="form-control" />
+                <span asp-validation-for="Operation.OperationNotes" class="text-danger"></span>
+            </div>
 
+            <div class="form-group">
+                <label asp-for="Operation.OperationCar" class="control-label"></label><br />
+                <div class="form-check form-check-inline">
+                    <input asp-for="Operation.OperationCar" class="form-check-input" type="radio" value="true" name="operCar" id="carRaisedYes"/>
+                    <label class="form-check-label" for="CarUpdateYes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="Operation.OperationCar" class="form-check-input" type="radio" value="false" name="operCar" id="carRaisedNo" />
+                    <label class="form-check-label" for="CarUpdateNo">No</label>
+                </div>
+                <span asp-validation-for="Operation.OperationCar" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Operation.OperationFollowUp" class="control-label"></label><br />
+                <div class="form-check form-check-inline">
+                    <input asp-for="Operation.OperationFollowUp" class="form-check-input" type="radio" value="true" name="operFollow" id="followUpYes" />
+                    <label class="form-check-label" for="FollowUpYes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="Operation.OperationFollowUp" class="form-check-input" type="radio" value="false" name="operFollow" id="followUpNo" />
+                    <label class="form-check-label" for="FollowUpNo">No</label>
+                </div>
+                <span asp-validation-for="Operation.OperationFollowUp" class="text-danger"></span>
+            </div>
 
 
             <div class="form-group">

@@ -85,7 +85,7 @@ namespace Haver_Niagara.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,NCR_Date,NCR_Status,NCR_Stage")]
                 NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering,
-                List<IFormFile> files, List<string> links,int defectID) 
+            Operation operation, List<IFormFile> files, List<string> links,int defectID) 
         {
             if (ModelState.IsValid)     
             {
@@ -98,10 +98,14 @@ namespace Haver_Niagara.Controllers
 
                 _context.Add(engineering);
                 await _context.SaveChangesAsync();
+
+                _context.Add(operation);
+                await _context.SaveChangesAsync();
                                                             //Assign the generated IDs to this NCR. this allows the NCR to have part and quality
                 nCR.PartID = part.ID;                       //inspection table associated to it
                 nCR.QualityInspectionID = qualityInspection.ID;
                 nCR.EngineeringID = engineering.ID;
+                nCR.OperationID = operation.ID;
 
                 //Add the NCR to the context
                 _context.Add(nCR);
@@ -124,7 +128,7 @@ namespace Haver_Niagara.Controllers
             }
             
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name"); //list of suppliers to pick 
-            return View(nCR);
+            return View(nCR); //To test create, put a break point on this line and hover over 'nCR' and you can see the collections and see if they saved.
         }
 
         // GET: NCRs/Edit/5
@@ -157,11 +161,7 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            //ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
-            //ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
-            //ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
-            //ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
-           
+            
             return View(nCR);
         }
 
