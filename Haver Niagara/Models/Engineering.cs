@@ -9,7 +9,7 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Display(Name="Engineering Name")]
+        [Display(Name="Engineer Name")]
         public string Name { get; set; }
 
 
