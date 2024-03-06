@@ -18,24 +18,6 @@ namespace Haver_Niagara.Data
             context.Database.EnsureCreated();
             //context.Database.Migrate();
 
-            if (!context.CARs.Any())
-            {
-                var cars = new List<CAR>
-                    {
-                        new CAR {ID = 1, Date = DateTime.Parse("2024-01-22"), CARNumber = 12345 },
-                        new CAR {ID = 2, Date = DateTime.Parse("2024-01-22"), CARNumber = 98765 },
-                        new CAR {ID = 3, Date = DateTime.Parse("2024-01-22"), CARNumber = 56748 },
-                        new CAR {ID = 4, Date = DateTime.Parse("2024-01-22"), CARNumber = 84379 },
-                        new CAR {ID = 5, Date = DateTime.Parse("2024-01-22"), CARNumber = 93842 },
-                        new CAR {ID = 6, Date = DateTime.Parse("2024-01-22"), CARNumber = 42981 },
-                        new CAR {ID = 7, Date = DateTime.Parse("2024-01-22"), CARNumber = 29013 },
-                        new CAR {ID = 8, Date = DateTime.Parse("2024-01-22"), CARNumber = 90842},
-                        new CAR {ID = 9, Date = DateTime.Parse("2024-01-22"), CARNumber = 32491},
-                        new CAR {ID = 10, Date = DateTime.Parse("2024-01-22"), CARNumber = 31904}
-                    };
-                context.CARs.AddRange(cars);
-                context.SaveChanges();
-            }
             if (!context.Defects.Any())
             {
                 var defects = new List<Defect>
@@ -219,7 +201,7 @@ namespace Haver_Niagara.Data
                     SalesOrder = "Stock"
                 },
                 new Part
-                      {
+                {
                     ID = 9,
                     Name = "Anchors",
                     ProductNumber = 204231293,
@@ -259,6 +241,8 @@ namespace Haver_Niagara.Data
                 });
                 context.SaveChanges();
             }
+
+
             if (!context.Medias.Any())
             {
                 //takes pictures turns into binary, then when pulled from
@@ -292,7 +276,7 @@ namespace Haver_Niagara.Data
                         Description = "Faulty Blue Print 1",
                         MimeType = "image/jpg",
                         Links = "https://example.com/1bluePrint_video",
-                        Part = context.Parts.FirstOrDefault(p=>p.ID == 1)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 1)
                     },
                     new Media
                     {
@@ -326,7 +310,7 @@ namespace Haver_Niagara.Data
                         Content = badWeld,
                         Description = "Poorly done weld",
                         MimeType = "image/jpg",
-                        Part = context.Parts.FirstOrDefault(p=>p.ID == 3)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 3)
                     },
                     new Media
                     {
@@ -480,7 +464,7 @@ namespace Haver_Niagara.Data
                     OperationCar = false,
                     OperationFollowUp = false,
                 });
-                
+
                 context.SaveChanges();
             }
             if (!context.Engineerings.Any())
@@ -857,7 +841,24 @@ namespace Haver_Niagara.Data
       
                 context.SaveChanges();
             }
-          
+            if (!context.CARs.Any())
+            {
+                var cars = new List<CAR>
+                    {                                   //some operations dont have car or follow up raised, so do not assign them with an operation object here
+                        new CAR {ID = 1, Date = DateTime.Parse("2024-01-22"), CARNumber = 12345, Operation = context.Operations.FirstOrDefault(p => p.ID == 1) },
+                        new CAR {ID = 2, Date = DateTime.Parse("2024-01-22"), CARNumber = 98765, Operation = context.Operations.FirstOrDefault(p => p.ID == 2) },
+                        new CAR {ID = 3, Date = DateTime.Parse("2024-01-22"), CARNumber = 56748, Operation = context.Operations.FirstOrDefault(p => p.ID == 3) },
+                        new CAR {ID = 4, Date = DateTime.Parse("2024-01-22"), CARNumber = 84379, Operation = context.Operations.FirstOrDefault(p => p.ID == 4) },
+                        new CAR {ID = 5, Date = DateTime.Parse("2024-01-22"), CARNumber = 93842 },  //this means the first 4 records do have car / follow up types
+                        new CAR {ID = 6, Date = DateTime.Parse("2024-01-22"), CARNumber = 42981 },  //meaning the boolean values in operation
+                        new CAR {ID = 7, Date = DateTime.Parse("2024-01-22"), CARNumber = 29013 },  //for these first 4, should be set to TRUE.
+                        new CAR {ID = 8, Date = DateTime.Parse("2024-01-22"), CARNumber = 90842},
+                        new CAR {ID = 9, Date = DateTime.Parse("2024-01-22"), CARNumber = 32491},
+                        new CAR {ID = 10, Date = DateTime.Parse("2024-01-22"), CARNumber = 31904}
+                    };
+                context.CARs.AddRange(cars);
+                context.SaveChanges();
+            }
             if (!context.FollowUps.Any())
             {
                 context.FollowUps.AddRange(
@@ -865,21 +866,31 @@ namespace Haver_Niagara.Data
                 {
                     ID = 1,
                     FollowUpDate = DateTime.Parse("2024-01-29"),
-                    FollowUpType = "Contact New Supplier to Fufill Order"
+                    FollowUpType = "Contact New Supplier to Fufill Order",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 1)
                 },
                 new FollowUp
                 {
                     ID = 2,
                     FollowUpDate = DateTime.Parse("2024-01-30"),
-                    FollowUpType = "Contact Supplier to Re-Order to Specifications"
+                    FollowUpType = "Contact Supplier to Re-Order to Specifications",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 2)
                 },
                 new FollowUp
                 {
                     ID = 3,
                     FollowUpDate = DateTime.Parse("2024-01-31"),
-                    FollowUpType = "Contact Customer to Confirm Acceptable"
-                });
-                context.SaveChanges();
+                    FollowUpType = "Contact Customer to Confirm Acceptable",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 3)
+                },
+                new FollowUp
+                {
+                    ID = 4,
+                    FollowUpDate = DateTime.Parse("2024-01-31"),
+                    FollowUpType = "Contact Customer to Confirm Acceptable",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 4) //Since Some Operations Will Have No Follow Up, Change Seed Data to Reflect that,
+                });                                                               //So in operations if follow up = false, then that record should NOT have this an operations = firstordefault..  Same
+                context.SaveChanges();                                          //same with the Car.
             }
             if (!context.DefectLists.Any())
             {

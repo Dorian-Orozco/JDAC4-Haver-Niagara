@@ -1,9 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Haver_Niagara.Models
 {
     public class NewNCR
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int Id { get; set; }
         public int NewNCRNumber { get; set; }
 
@@ -15,11 +19,7 @@ namespace Haver_Niagara.Models
         public int? QualityInspectionID { get; set; }
         public QualityInspection QualityInspection { get; set; }
 
-
-        //navigation property
-        public int NCRId { get; set; }
         public NCR NCR { get; set; }
 
-        //
     }
 }

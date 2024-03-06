@@ -510,9 +510,10 @@
                     </dl>
                 </div>
                 <div class="row ms-1 mb-0">
-                    <p>
-                        CAR Number: Needs to be implemented
-                    </p>
+                        Car Number: @Html.DisplayFor(model=>model.Operation.CAR.CARNumber)
+                </div>
+                <div class="row ms-1 mb-0">
+                        Car Date: @Html.DisplayFor(model=>model.Operation.CAR.Date)
                 </div>
             </div>
             <div class="col-sm-3 pt-3 border ">
@@ -533,10 +534,10 @@
                     </dl>
                 </div>
                 <div class="row ms-1 mb-2">
-                    Type:
+                    Type: @Html.DisplayFor(model=>model.Operation.FollowUp.FollowUpType)
                 </div>
                 <div class="row ms-1 mb-2">
-                    Expected Date: Needs to be implemented
+                    Expected Date: @Html.DisplayFor(model=>model.Operation.FollowUp.FollowUpDate)
                 </div>
             </div>
             <div class="col-sm-6 border pt-3 ps-3">
@@ -544,7 +545,6 @@
                     <dl class="d-flex m-0">
                         <dt class="col-sm">
                             Operations Manager
-                            @* @Html.DisplayNameFor(model => model.Purchasing.PurchaseSignature) *@
                         </dt>
                         <dd class="col-sm ms-2">
                             @Html.DisplayFor(model => model.Operation.Name)
@@ -555,7 +555,6 @@
                     <dl class="d-flex">
                         <dt class="col-sm">
                             Date
-                            @* @Html.DisplayNameFor(model => model.Purchasing.SignatureDate) *@
                         </dt>
                         <dd class="col-sm ms-2">
                             @{

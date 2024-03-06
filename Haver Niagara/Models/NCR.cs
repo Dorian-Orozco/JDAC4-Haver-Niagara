@@ -69,7 +69,9 @@ namespace Haver_Niagara.Models
         public QualityInspection QualityInspection { get; set; }
 
         // NEW NCR // Relationship must be one to one
-        public NewNCR? NewNCR { get; set; }
+        [ForeignKey("NewNCRID")]
+        public int? NewNCRID { get; set; }
+        public NewNCR NewNCR { get; set; }
     
         ////NCR can have many Employees? 
         //public ICollection<Employee> Employees { get; set; }

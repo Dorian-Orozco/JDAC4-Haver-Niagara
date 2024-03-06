@@ -280,6 +280,36 @@
                 <span asp-validation-for="Operation.OperationFollowUp" class="text-danger"></span>
             </div>
 
+            @if(Model.Operation != null && Model.Operation.OperationCar)
+            {
+                <div class="form-group">
+                    <label asp-for="Operation.CAR.CARNumber" class="control-label"></label>
+                    <input asp-for="Operation.CAR.CARNumber" class="form-control" />
+                    <span asp-validation-for="Operation.CAR.CARNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Operation.CAR.Date" class="control-label"></label>
+                    <input asp-for="Operation.CAR.Date" type="date" class="form-control" />
+                    <span asp-validation-for="Operation.CAR.Date" class="text-danger"></span>
+                </div>
+            }
+            @if (Model.Operation != null && Model.Operation.OperationFollowUp)
+            {
+                <div class="form-group">
+                    <label asp-for="Operation.FollowUp.FollowUpDate" class="control-label"></label>
+                    <input asp-for="Operation.FollowUp.FollowUpDate" type="date" class="form-control" />
+                    <span asp-validation-for="Operation.FollowUp.FollowUpDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Operation.FollowUp.FollowUpType" class="control-label"></label>
+                    <input asp-for="Operation.FollowUp.FollowUpType" class="form-control" />
+                    <span asp-validation-for="Operation.FollowUp.FollowUpType" class="text-danger"></span>
+                </div>
+            }
+            
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

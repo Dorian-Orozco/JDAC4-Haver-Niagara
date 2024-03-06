@@ -52,6 +52,9 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.DefectLists)
                     .ThenInclude(n => n.Defect)
                 .Include(n => n.Operation)
+                    .ThenInclude(n=>n.FollowUp)
+                .Include(n=>n.Operation)
+                    .ThenInclude(n=>n.CAR)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (nCR == null)
@@ -152,6 +155,9 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.QualityInspection)
                 .Include(n => n.Engineering)
                 .Include(n => n.Operation)
+                    .ThenInclude(n=>n.CAR)
+                .Include(n=>n.Operation)
+                    .ThenInclude(n=>n.FollowUp)
                 .FirstOrDefaultAsync(n=>n.ID == id);
 
 
@@ -198,6 +204,9 @@ namespace Haver_Niagara.Controllers
                         .Include(n => n.QualityInspection)
                         .Include(n=>n.Engineering)
                         .Include(n=>n.Operation)
+                            .ThenInclude(n=>n.FollowUp)
+                        .Include(n => n.Operation)
+                            .ThenInclude(n=>n.CAR)
                         .FirstOrDefaultAsync(n => n.ID == id);
 
                     if (existingNCR == null)
@@ -266,6 +275,19 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Operation.OperationNotes = operation.OperationNotes;
                         existingNCR.Operation.OperationCar = operation.OperationCar;
                         existingNCR.Operation.OperationFollowUp = operation.OperationFollowUp;
+
+                        //Updating Follow Up if Not NUll
+                        if(operation.FollowUp != null)
+                        {
+                            existingNCR.Operation.FollowUp.FollowUpDate = operation.FollowUp.FollowUpDate;
+                            existingNCR.Operation.FollowUp.FollowUpType = operation.FollowUp.FollowUpType;
+                        }
+                        if(operation.CAR != null)
+                        {
+                            existingNCR.Operation.CAR.CARNumber = operation.CAR.CARNumber;
+                            existingNCR.Operation.CAR.Date = operation.CAR.Date;
+                        }
+
                     }
 
 

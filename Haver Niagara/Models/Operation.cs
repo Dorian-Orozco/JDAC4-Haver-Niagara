@@ -35,7 +35,6 @@ namespace Haver_Niagara.Models
         public FollowUp FollowUp { get; set; }
 
         //Car Property
-        public int CarID { get; set; }
         public CAR CAR { get; set; }
 
 
