@@ -227,9 +227,58 @@
                 }
             </div>
 
-            @*////// Engineering Table ///////*@
+            @*////// Operation Table ///////*@
             <div class="row border m-1 p-2 ps-3 fs-6 section-header">Operation Table</div>
+            <div class="form-group">
+                <label asp-for="Operation.Name" class="control-label"></label>
+                <input asp-for="Operation.Name" class="form-control" />
+                <span asp-validation-for="Operation.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Operation.OperationDate" class="control-label"></label>
+                <input asp-for="Operation.OperationDate" type="date" class="form-control" />
+                <span asp-validation-for="Operation.OperationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Operation Decision</label><br />
+                @foreach (var operationDecision in Enum.GetValues(typeof(OperationDecision)))
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" asp-for="Operation.OperationDecision" class="form-check-input" value="@operationDecision" id="@($"operationDecision{operationDecision}")" />
+                        <label class="form-check-label" for="@($"operationDecision{operationDecision}")">@operationDecision</label>
+                    </div>
+                }
+            </div>
 
+            <div class="form-group">
+                <label asp-for="Operation.OperationNotes" class="control-label"></label>
+                <input asp-for="Operation.OperationNotes" class="form-control" />
+                <span asp-validation-for="Operation.OperationNotes" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Operation.OperationCar" class="control-label"></label><br />
+                <div class="d-flex">
+                    @Html.RadioButtonFor(model => model.Operation.OperationCar, true, new { @checked = Model.Operation != null && Model.Operation.OperationCar, @class = "me-2" })
+                    <label class="me-4">Yes</label>
+
+                    @Html.RadioButtonFor(model => model.Operation.OperationCar, false, new { @checked = Model.Operation != null && !Model.Operation.OperationCar, @class = "me-2" })
+                    <label>No</label>
+                </div>
+                <span asp-validation-for="Operation.OperationCar" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Operation.OperationFollowUp" class="control-label"></label><br />
+                <div class="d-flex">
+                    @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, true, new { @checked = Model.Operation != null && Model.Operation.OperationFollowUp, @class = "me-2" })
+                    <label class="me-4">Yes</label>
+
+                    @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, false, new { @checked = Model.Operation != null && !Model.Operation.OperationFollowUp, @class = "me-2" })
+                    <label>No</label>
+                </div>
+                <span asp-validation-for="Operation.OperationFollowUp" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
