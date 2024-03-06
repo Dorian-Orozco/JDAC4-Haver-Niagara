@@ -1,110 +1,327 @@
 ﻿@model Haver_Niagara.Models.NCR
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Report";
 }
 
-<h1>Edit</h1>
+@* h1 *@
+<div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
+    <dl class="d-flex">
+        <dt>
+            @Html.DisplayNameFor(model => model.NCR_Number)
+        </dt>
+        <dd class="ms-2">
+            @Html.DisplayFor(model => model.NCR_Number)
+        </dd>
+    </dl>
+    <dl class="d-flex">
+        <dt>
+            <label asp-for="NCR_Date" class="control-label"></label>
+        </dt>
+        <dd class="ms-2">
+            <input asp-for="NCR_Date" class="form-control" />
+            <span asp-validation-for="NCR_Date" class="text-danger"></span>
+        </dd>
+    </dl>
+</div>
 
-<h4>NCR</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data" >
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-       
-
-            @* NCR SECTION *@
-            <div class="border m-1 p-2 ps-3 fs-6 section-header">NCR</div>
-            <div class="form-group row">
-                <div class="col-md-6">
-                <label asp-for="FormattedID" class="control-label">NCR Number</label>
-                    <input asp-for="FormattedID" class="form-control" disabled />
-                    <span asp-validation-for="FormattedID" class="text-danger"></span>
-                </div>
-                <div class="col-md-6">
-                <label asp-for="NCR_Date" class="control-label"></label>
-                <input asp-for="NCR_Date" class="form-control" />
-                <span asp-validation-for="NCR_Date" class="text-danger"></span>
-                </div>
-            </div>
-          
-            @* PART SECTION *@
-            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Part Table</div>
-            <div class="form-group">
-                <label asp-for="Part.Name" class="control-label"></label>
-                <input asp-for="Part.Name" class="form-control" />
-                <span asp-validation-for="Part.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part.PartNumber" class="control-label"></label>
-                <input asp-for="Part.PartNumber" class="form-control" />
-                <span asp-validation-for="Part.PartNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part.SAPNumber" class="control-label"></label>
-                <input asp-for="Part.SAPNumber" class="form-control" />
-                <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part.PurchaseNumber" class="control-label"></label>
-                <input asp-for="Part.PurchaseNumber" class="form-control" />
-                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part.SalesOrder" class="control-label"></label>
-                <input asp-for="Part.SalesOrder" class="form-control" />
-                <span asp-validation-for="Part.SalesOrder" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part.ProductNumber" class="control-label"></label>
-                <input asp-for="Part.ProductNumber" class="form-control" />
-                <span asp-validation-for="Part.ProductNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part.Description" class="control-label"></label>
-                <input asp-for="Part.Description" class="form-control" />
-                <span asp-validation-for="Part.Description" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="PartID" value="@Model.PartID" />
-
-            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Supplier Information</div>
-            @* Assigning Part A Supplier ID FROM VIEWBAG *@
-            <div class="form-group">
-                <label asp-for="Part.SupplierID" class="control-label"></label>
-                <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
-                    <option value="">--Select Supplier--</option>
-                </select>
-                <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
-            </div>
-            
-            @* Defect - not really working iirc.  *@
-            <div class="row border m-1 p-2 ps-3 fs-6 section-header">Defect Information</div>
-            <div class="form-group">
-                <label for="defectID">Select Defect: ONE MUST BE SELECTED FOR EDIT TO WORK</label>
-                <select  id="defectID" name="defectID" class="form-control">
-                    <option value="">--Select Defect--</option>
-                    @if (ViewBag.DefectList != null)
-                    {
-
-                        foreach (var defect in ViewBag.DefectList)
+<form class="border p-4" asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+    <div>
+        @* Quality Inspector Section *@
+        <div class="row border m-1 p-2 ps-3 fs-6 section-header">1/ Quality Representative</div>
+        @* row 1 *@
+        <div class="row m-1">
+            <div class="col-sm-4 border pt-3 ps-3">
+                <dl>
+                    <dt>
+                        Identify Process Applicable:
+                    </dt>
+                    <dd class="mt-1 ms-2">
+                        @foreach (QualityIdentify identify in Enum.GetValues(typeof(QualityIdentify)))
                         {
-                            <option value="@defect.Value">@defect.Text</option>
+                            <span class="ms-5 me-5">
+                                <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
+                                @(Model.QualityInspection != null && Model.QualityInspection.QualityIdentify == identify ? "checked" : "") />
+                                <label for="@identify">@identify</label><br />
+                            </span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-4 border pt-3 ps-3">
+                <dl>
+                    <dt class="">
+                        Supplier Name
+                    </dt>
+                    <dd class="mt-1">
+                        <div class="form-group">
+                            <label asp-for="Part.SupplierID" class="control-label"></label>
+                            <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
+                                <option value="">--Select Supplier--</option>
+                            </select>
+                            <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-4 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex mb-2">
+                        <dt class="col-sm-5 ">
+                            <label asp-for="NCR_Number" class="control-label"></label>
+                        </dt>
+                        <input asp-for="NCR_Number" class="form-control" />
+                        <span asp-validation-for="NCR_Number" class="text-danger"></span>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm-5 ">
+                            @* PO or Prod No. *@
+                            <label asp-for="Part.PurchaseNumber" class="control-label"></label>
+                        </dt>
+                        <dd class="col-sm-7 ">
+                            <input asp-for="Part.PurchaseNumber" class="form-control" />
+                            <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm-5 ">
+                            <label asp-for="Part.ProductNumber" class="control-label"></label>
+                        </dt>
+                        <dd class="col-sm-7 ">
+                            <input asp-for="Part.ProductNumber" class="form-control" />
+                            <span asp-validation-for="Part.ProductNumber" class="text-danger"></span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex mb-1">
+                        <dt class="col-sm-5 ">
+                            <label asp-for="Part.SalesOrder" class="control-label"></label>
+                        </dt>
+                        <dd class="col-sm-7">
+                            <input asp-for="Part.SalesOrder" class="form-control" />
+                            <span asp-validation-for="Part.SalesOrder" class="text-danger"></span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        @* row 2 *@
+        <div class="row m-1">
+            <div class="col-sm-8 border pt-3 ps-3">
+                <dl>
+                    <dt>
+                        Description of Item <span class="fw-light">(including SAP No.)</span>
+                       
+                    </dt>
+                    <dd class="mt-1">
+                        @* <div class="form-group">
+                            <label asp-for="Part.PartNumber" class="control-label"></label>
+                            <input asp-for="Part.PartNumber" class="form-control" />
+                            <span asp-validation-for="Part.PartNumber" class="text-danger"></span>
+                        </div> *@
+                        <div class="form-group">
+                            <label asp-for="Part.SAPNumber" class="control-label"></label>
+                            <input asp-for="Part.SAPNumber" class="form-control" />
+                            <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Part.Name" class="control-label"></label>
+                            <input asp-for="Part.Name" class="form-control" />
+                            <span asp-validation-for="Part.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Part.Description" class="control-label"></label>
+                            <input asp-for="Part.Description" class="form-control" />
+                            <span asp-validation-for="Part.Description" class="text-danger"></span>
+                        </div>
+                        <input type="hidden" asp-for="PartID" value="@Model.PartID" />
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-4 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            <label asp-for="Part.QuantityRecieved" class="control-label"></label>
+                        </dt>
+                        <dd class="col-sm">
+                            <input asp-for="Part.QuantityRecieved" class="form-control" />
+                            <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            <label asp-for="Part.QuantityDefect" class="control-label"></label>
+                        </dt>
+                        <dd class="col-sm">
+                            <input asp-for="Part.QuantityDefect" class="form-control" />
+                            <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        @* row 3 *@
+        <div class="row m-1">
+            <div class="col-sm-12 border pt-3 ps-3">
+                <dl>
+                    <dt>
+                        Description of Defect <span class="fw-light">(in as much detail as possible)</span>
+                        @* @Html.DisplayNameFor(model => model.Product.DefectLists) *@
+                    </dt>
+                    <dd class="mt-1">
+                        <div class="form-group">
+                            <label for="defectID">Select Defect:</label>
+                            <select id="defectID" name="defectID" class="form-control">
+                                <option value="">--Select Defect--</option>
+                                @foreach (var defect in ViewBag.DefectList)
+                                {
+                                    <option value="@defect.Value">@defect.Text</option>
+                                }
+                            </select>
+                            <span class="text-danger"></span>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        @* row 4 *@
+        <div class="row m-1 border">
+            <div class="col-sm-3 pt-3 ps-3 d-flex justify-content-start">
+                <dl>
+                    <dt>
+                        Item marked Non-conforming
+                    </dt>
+                    <dd class="mt-2">
+                        <div class="d-flex">
+                            @Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ItemMarked, @disabled = "disabled", @class = "me-2" })
+                            <label class="me-4">Yes</label>
+
+                            @Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ItemMarked, @disabled = "disabled", @class = "me-2" })
+                            <label>No</label>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-3 pt-2">
+                <small class="fw-light">
+                    Completed NCR to be forwarded to HBC Purchasing Manager complete with any relevant documents attached
+                </small>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Quality Representative's Name
+                            @* @Html.DisplayNameFor(model => model.QualSignature) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.QualityInspection.Name) @* Where do we get quality reps name without going through new ncr? *@
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.QualDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.NCR_Date)           @* FIX THIS PART TOO *@
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        @* row 5 *@
+        <div class="row m-1 border">
+            <dl class="">
+                <dt class="col-sm pt-3 ps-3 d-flex justify-content-between">
+                    @* Hard-coded value *@
+                    Images
+                    <span class="form-group">
+                        <label for="files">Select files:</label>
+                        <input type="file" name="files" id="files" class="form-control-file" multiple />
+                    </span>
+                </dt>
+                <dd class="col-sm pt-3 ps-3 d-flex">
+                    @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
+                    {
+                        foreach (var image in Model.Part.Medias)
+                        {
+                            if (image.Content != null)
+                            {
+                                //Allows for JQUERY to delete this iteration of div and removes image from page
+                                <div class="image-container">
+                                    <img src="data:@image.MimeType;base64,@Convert.ToBase64String(image.Content)" alt="@image.Description" style="width:300px; height: 300px;" />
+
+                                </div>
+                                <br />
+                                <div> <button class="delete btn btn-danger ms-3" data-ncrid="@Model.ID" data-imageid="@image.ID">X</button> @* //passes ncr id and image id *@</div>
+                            }
+                            else
+                            {
+                                <span>No Images Available</span>
+                            }
                         }
                     }
-                </select>
-                <span class="text-danger"></span>
+                    else
+                    {
+                        <span>No Images Associated</span>
+                    }
+                </dd>
+            </dl>
+
+        </div>
+        @* row 6 *@
+        <div class="row m-1">
+            <div class="col-sm-12 border pt-3 ps-3">
+                <dl>
+                    <dt class="ps-3">
+                        Links
+                    </dt>
+                    <dd class="d-flex">
+                        @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
+                        {
+                            foreach (var link in Model.Part.Medias)
+                            {
+                                if (!string.IsNullOrEmpty(link.Links))
+                                {
+                                    <div class="link-container ms-3">
+                                        <a href="@link.Links">@link.Links</a>
+                                        <button class="delete-link btn btn-danger m-1" data-ncrid="@Model.ID" data-linkid="@link.ID">X</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span>No Links Available</span>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <span>No Links Associated</span>
+                        }
+                    </dd>
+                </dl>
+            <div class="form-group ps-3 mb-3">
+                <div class="col-md-6">
+                    <label for="links">Enter links (one per line):</label>
+                    <textarea name="links" class="form-control"></textarea>
+                    <span class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Part.QuantityRecieved" class="control-label"></label>
-                <input asp-for="Part.QuantityRecieved" class="form-control" />
-                <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Part.QuantityDefect" class="control-label"></label>
-                <input asp-for="Part.QuantityDefect" class="form-control" />
-                <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
-            </div>
+        </div>
 
             <div class="row border m-1 p-2 ps-3 fs-6 section-header">Quality Inspection Table</div>
             <div class="form-group">
@@ -142,7 +359,27 @@
                 <span asp-validation-for="QualityInspection.ReInspected" class="text-danger"></span>
                     </div>
             </div>
+        @* Engineering Section *@
+        <div class="row border m-1 p-2 ps-3 fs-6 section-header">2/ Engineering</div>
 
+        @* row 7 *@
+        <div class="row m-1 border">
+            <div class="col-sm-12 pt-3 ps-3 d-flex justify-content-start">
+                <dl>
+                    <dt>
+                        Review by HBC Engineering <span class="fw-light">(indicate disposition by checking one of the following)</span>
+                    </dt>
+                    <dd class="mt-2">
+                        <div class="d-flex">
+                            @*          Loops through and gets each enumeration value, then for each display the value and create
+                            radio / label for. Then model check to see if it matches the decision in iteration
+                            and if it does, then use checked property, else nothing *@
+                            @foreach (EngineeringDisposition disposition in Enum.GetValues(typeof(EngineeringDisposition)))
+                            {
+                                <span class="ms-5 me-5">
+                                    <input type="radio" id="@disposition" name="disposition" disabled value="@disposition"
+                                    @(Model.Engineering?.EngineeringDisposition == disposition ? "checked" : "") />
+                                    <label for="@disposition">@disposition</label><br />
 
             <div class="form-group">
                 <label class="control-label">Quality Identify</label><br />
@@ -313,25 +550,420 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
+        @* row 8 *@
+        <div class="row m-1 border">
+            <div class="col-sm-12 pt-3 ps-3 d-flex justify-content-start">
+                <dl>
+                    <dt>
+                        Does Customer require notification of NCR? <span class="fw-light">(If "Yes" then raise message to customer detailing issues)</span>
+                        @* @Html.DisplayNameFor(model => model.Product.Description) *@
+                    </dt>
+                    <dd class="mt-2">
+                        <div class="d-flex">
+                            @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, true, new { @checked = Model.Engineering != null && Model.Engineering.CustomerNotify, @disabled = "disabled", @class = "me-2" })
+                            <label class="me-4">Yes</label>
+
+                            @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, @disabled = "disabled", @class = "me-2" })
+                            <label>No</label>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        @* row 9 *@
+        <div class="row m-1">
+            <div class="col-sm-12 border pt-3 ps-3">
+                <dl>
+                    <dt>
+                        Disposition <span class="fw-light">(Sequence of work steps required when "repair" or "rework" indicated)</span>
+                    </dt>
+                    <dd class="mt-1">
+                        <div class="d-flex">
+                            @Html.DisplayFor(model => model.Engineering.DispositionNotes)
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        @* row 10 *@
+        <div class="row m-1 border">
+            <div class="col-sm-6 pt-3 ps-3">
+                <div class="d-flex justify-content-start">
+                    <dl>
+                        <dt>
+                            Does the drawing require updating?
+                            @* @Html.DisplayNameFor(model => model.Product.Description) *@
+                        </dt>
+                        <dd class="mt-2">
+                            <div class="d-flex">
+                                @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, true, new { @checked = Model.Engineering != null && Model.Engineering.DrawUpdate, @disabled = "disabled", @class = "me-2" })
+                                <label class="me-4">Yes</label>
+
+                                @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, false, new { @checked = Model.Engineering != null && !Model.Engineering.DrawUpdate, @disabled = "disabled", @class = "me-2" })
+                                <label>No</label>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row ms-1 mb-0 d-flex">
+                    <span class="col-sm">
+                        <dl>
+                            <dt class="fw-normal">
+                                Original Rev. Number:
+                                @* @Html.DisplayNameFor(model => model.Engineering.RevisionOriginal) *@
+                            </dt>
+
+                        </dl>
+                    </span>
+                    <span class="col-sm">
+                        <dl>
+                            <dd>
+                                @Html.DisplayFor(model => model.Engineering.RevisionOriginal)
+                            </dd>
+                        </dl>
+                    </span>
+                </div>
+                <div class="row ms-1 mb-0">
+                    <span class="col-sm">
+                        <dl>
+                            <dt class="fw-normal">
+                                Updated Rev. Number:
+                                @* @Html.DisplayNameFor(model => model.Engineering.RevisionUpdated) *@
+                            </dt>
+
+                        </dl>
+                    </span>
+                    <span class="col-sm">
+                        <dl>
+                            <dd>
+                                @Html.DisplayFor(model => model.Engineering.RevisionUpdated)
+                            </dd>
+                        </dl>
+                    </span>
+                </div>
+                <div class="row ms-1 mb-0">
+                    <div class="col-sm">
+                        <dl>
+                            <dt class="fw-normal">
+                                Revision Date:
+                            </dt>
+                        </dl>
+                    </div>
+                    <div class="col-sm">
+                        <dl>
+                            @if (Model.Engineering != null)
+                            {
+                                var EngineeringRevisionDate = Model.Engineering.RevisionDate;
+
+                                <dd>
+                                    @EngineeringRevisionDate.ToString("yyyy-MM-dd")
+                                </dd>
+                            }
+                            else
+                            {
+                                <dd>
+                                    No Engineering Associated
+                                </dd>
+                            }
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Engineering's Name
+                            @* @Html.DisplayNameFor(model => model.Engineering.EngSignature) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => Model.Engineering.Name)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.Engineering.EngSignatureDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @{
+                                var engineeringSignatureDate = Model.Engineering != null ? Model.Engineering.Date.ToString("yyyy-MM-dd") : "Date Not Specified";
+                            }
+                            @engineeringSignatureDate
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        @* Purchasing Section *@
+        <div class="row border m-1 p-2 ps-3 fs-6 section-header">3/ Purchasing</div>
+
+        @* row 11 *@
+        <div class="row m-1 border">
+            <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
+                <dl>
+                    <dt>
+                        Purchasing's Preliminary Decision
+                        @* @Html.DisplayNameFor(model => model.Purchasing.PurchasingDec) *@
+                    </dt>
+                    <dd class="mt-1 ms-2">
+                        @if (Model != null && Model.Operation != null)
+                        {
+                        <dd class="mt-1 ms-2">
+                                @foreach (OperationDecision identify in Enum.GetValues(typeof(OperationDecision)))
+                                {
+                                <span class="ms-5 me-5">
+                                    <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
+                                        @(Model.QualityInspection != null && Model.Operation.OperationDecision == identify ? "checked" : "") />
+                                    <label for="@identify">@identify</label><br />
+                                </span>
+                                }
+                        </dd>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="m-0">
+                        <dt class="col-sm">
+                            Notes
+                        </dt>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl>
+                        <dd class="col-sm">
+                            Replacement required
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        @* row 12 *@
+        <div class="row m-1 border">
+            <div class="col-sm-3 pt-3 ">
+                <div class="d-flex justify-content-center">
+                    <dl>
+                        <dt>
+                            Was a CAR raised? <span class="fw-light">(If "Yes" indicate CAR #)</span>
+                            @* @Html.DisplayNameFor(model => model.Purchasing.CAR) *@
+                        </dt>
+                        <dd class="mt-2">
+                            <div class="d-flex">
+                                @Html.RadioButtonFor(model => model.Operation.OperationCar, true, new { @checked = Model.Operation != null && Model.Operation.OperationCar, @disabled = "disabled", @class = "me-2" })
+                                <label class="me-4">Yes</label>
+
+                                @Html.RadioButtonFor(model => model.Operation.OperationCar, false, new { @checked = Model.Operation != null && !Model.Operation.OperationCar, @disabled = "disabled", @class = "me-2" })
+                                <label>No</label>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row ms-1 mb-0">
+                    <p>
+                        CAR Number:
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-3 pt-3 border ">
+                <div class="d-flex justify-content-center">
+                    <dl>
+                        <dt>
+                            Follow-up Required? <span class="fw-light">(If "Yes" indicate type & expected date)</span>
+                            @* @Html.DisplayNameFor(model => model.Purchasing.followUp) *@
+                        </dt>
+                        <dd class="mt-2 mb-0">
+                            <div class="d-flex">
+                                <span class="ms-2 me-5">
+                                    <input type="radio" id="marked" name="item_marked" disabled value="yes">
+                                    <label for="marked">Yes</label><br>
+                                    @* @Html.DisplayFor(model => model.Purchasing.followUp) *@
+                                </span>
+                                <span>
+                                    <input type="radio" id="notMarked" name="item_marked" disabled value="no">
+                                    <label for="notMarked">No</label><br>
+                                </span>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row ms-1 mb-2">
+                    Type:
+                </div>
+                <div class="row ms-1 mb-2">
+                    Expected Date:
+                </div>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Operations Manager
+                            @* @Html.DisplayNameFor(model => model.Purchasing.PurchaseSignature) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.Operation.Name)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.Purchasing.SignatureDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @{
+                                var OperationDate = Model.Operation != null ? Model.Operation.OperationDate.ToString("yyyy-MM-dd") : "Date Not Specified";
+                            }
+                            @OperationDate
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        @* Quality Inspector Section *@
+        <div class="row border m-1 p-2 ps-3 fs-6 section-header">4/ Quality Representative</div>
+        @* row 13 *@
+        <div class="row m-1 border">
+            <div class="col-sm-3 pt-3 ps-3 d-flex justify-content-start">
+                <dl>
+                    <dt>
+                        Re-Inspected Acceptable?
+                        @*@Html.DisplayNameFor(model => model.NCRClosed) *@
+                    </dt>
+                    <dd class="mt-2">
+                        <div class="d-flex justify-content-center">
+                            <span class="me-5">
+                                <input type="radio" id="marked" name="item_marked" disabled value="yes">
+                                <label for="marked">Yes</label><br>
+                                @* @Html.DisplayFor(model => model.NCRClosed) *@
+                            </span>
+                            <span>
+                                <input type="radio" id="notMarked" name="item_marked" disabled value="no">
+                                <label for="notMarked">No</label><br>
+                            </span>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-3 pt-2">
+                <small class="fw-light">
+                    If "No" then record new NCR number
+                </small>
+                <div class="row">
+                    <dl>
+                        <dt class="mt-2 col-sm fw-normal">
+                            New NCR Number:
+                        </dt>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Inspector's Name
+                            @* @Html.DisplayNameFor(model => model.InspectName) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @(Model.QualityInspection?.Name ?? "John Smith")
+                        </dd>
+                    </dl>                                          @*  FIX THIS PART AND FIGURE OUT HOW TO GET QUALITYT REP NAME *@
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.InspectDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.NCR_Date)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        @* row 14 *@
+        <div class="row m-1 border">
+            <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
+                <dl>
+                    <dt>
+                        NCR Closed
+                    </dt>
+                    <dd class="mt-2">
+                        <div class="d-flex justify-content-center">
+                            <span class="me-5">
+                                <input type="radio" id="marked" name="item_marked" disabled value="yes">
+                                <label for="marked">Yes</label><br>
+                                @* @Html.DisplayFor(model => model.NCRClosed) *@
+                            </span>
+                            <span>
+                                <input type="radio" id="notMarked" name="item_marked" disabled value="no">
+                                <label for="notMarked">No</label><br>
+                            </span>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-6 border pt-3 ps-3">
+                <div class="row">
+                    <dl class="d-flex m-0">
+                        <dt class="col-sm">
+                            Quality Department
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.QualityInspection.QualityIdentify)        @* FIX THIS PART AS WELL! *@
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl class="d-flex">
+                        <dt class="col-sm">
+                            Date
+                            @* @Html.DisplayNameFor(model => model.InspectDate) *@
+                        </dt>
+                        <dd class="col-sm ms-2">
+                            @Html.DisplayFor(model => model.QualityInspection.Date)    @* FIX THIS PART AS WELL! *@
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+
+    @* Operation (Purchasing Stuff, Organize If time or for next meeting) *@
+    <input type="hidden" asp-for="OperationID" value="@Model.OperationID" />
+
+</form>
 
 <div class="d-flex justify-content-between">
     <div class="mt-2">
-        <a asp-controller="Home" asp-action="List" class="btn btn-primary">Back to NCR Log</a>
+        <a asp-controller="Home" asp-action="List" class="btn btn-outline-primary">Back to NCR Log</a>
+    </div>
+    <div class="mt-2">
+        <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 </div>
 
-
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
-               
 <script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script>
-<script> /* Remove Images JQUERY/AJAX */
+<script>
+    /* Remove Images JQUERY/AJAX */
     $(document).ready(function () {
         // Attach click event handler to elements with class "delete"
         $(".delete").click(function (event) {
@@ -395,3 +1027,4 @@
 
 
 </script>
+

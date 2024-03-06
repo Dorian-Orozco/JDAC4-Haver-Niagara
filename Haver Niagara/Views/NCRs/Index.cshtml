@@ -13,47 +13,49 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.NCR_Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NCR_Number)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.NCR_Date)
             </th>
             <th>
+                Part Number
+            </th>
+            <th>
+                Supplier
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.NCR_Stage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Part)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Operation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Engineering)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NCR_Date)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.NCR_Stage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Part.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Operation.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Engineering.ID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NCR_Status)
+                </td>
+                <td class="text-center">
+                    @{
+                        int year = DateTime.Now.Year;
+                    }
+                    @year-@item.NCR_Number.ToString().PadLeft(3, '0')
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.NCR_Date)</td>
+                <td>@(item.Part?.ProductNumber.ToString() ?? "Part Number Not Found")</td>
+                <td>@(item.Part?.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
+                <td>@Html.DisplayFor(modelItem => item.NCR_Stage)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

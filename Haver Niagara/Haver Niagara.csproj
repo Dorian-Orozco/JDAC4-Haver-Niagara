@@ -14,7 +14,9 @@
     <None Include="Views\NCRs\Details.cshtml" />
     <None Include="Views\NCRs\Edit.cshtml" />
     <None Include="Views\NCRs\Index.cshtml" />
-    <None Include="wwwroot\images\logo.png" />
+    <None Include="wwwroot\images\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -30,9 +32,21 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
     <PackageReference Include="SkiaSharp" Version="2.88.7" />
-    <PackageReference Include="X.PagedList" Version="8.4.7" />
-    <PackageReference Include="X.PagedList.Mvc" Version="8.0.7" />
-    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
+
+    <PackageReference Include="X.PagedList" Version="7.2.0" />
+    <PackageReference Include="X.PagedList.Mvc" Version="7.0.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\Reports-Icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
+    <PackageReference Include="X.PagedList" Version="7.2" />
+    <PackageReference Include="X.PagedList.Mvc" Version="4.8.1" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.2" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -45,13 +59,31 @@
     <None Update="TemporaryImages\badWeld.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TemporaryImages\blueprint1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TemporaryImages\blueprint2.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TemporaryImages\cable1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TemporaryImages\cat1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TemporaryImages\cat2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TemporaryImages\cat3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TemporaryImages\cat4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TemporaryImages\faultybolt.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TemporaryImages\faultyPrint.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TemporaryImages\faultyrope.jpg">
@@ -60,6 +92,10 @@
     <None Update="TemporaryImages\tube.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>
