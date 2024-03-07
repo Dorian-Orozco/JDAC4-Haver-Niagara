@@ -18,11 +18,6 @@ namespace Haver_Niagara.Models
             }
         }
 
-        //March 05 : Using ID for NCR Number instead of having an NCR Number. ID is auto generated and cannot be changed once db assigns.
-        //[Display(Name = "NCR No.")]
-        //[Required(ErrorMessage = "You cannot leave the NCR number blank.")] 
-        //public string NCR_Number { get; set; }
-
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -30,8 +25,16 @@ namespace Haver_Niagara.Models
 
 
         [Display(Name = "Status")]
-        public bool NCR_Status { get; set; }
+        public bool NCR_Status { get; set; } //If NCR status == true then report is active, else, report is closed!
 
+
+        //new properties for new ncrs
+
+        [Display(Name = "New NCR Number")]
+        public int? NewNCRID { get; set; }
+
+        [Display(Name ="Old NCR Number")]
+        public int? OldNCRID { get; set; }
 
         public NCR()
         {
@@ -68,13 +71,5 @@ namespace Haver_Niagara.Models
         [ForeignKey("QualityInspection")]
         public int? QualityInspectionID { get; set; }
         public QualityInspection QualityInspection { get; set; }
-
-        // NEW NCR // Relationship must be one to one
-        [ForeignKey("NewNCRID")]
-        public int? NewNCRID { get; set; }
-        public NewNCR NewNCR { get; set; }
-
-        ////NCR can have many Employees? 
-        //public ICollection<Employee> Employees { get; set; }
     }
 }

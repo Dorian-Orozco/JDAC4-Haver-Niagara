@@ -597,14 +597,16 @@
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
-                                    <span class="me-5">
-                                        <input type="radio" id="marked" name="item_marked" disabled value="yes">
-                                        <label for="marked">Yes</label><br>
-                                        @* @Html.DisplayFor(model => model.NCRClosed) *@
-                                    </span>
-                                    <span>
-                                        <input type="radio" id="notMarked" name="item_marked" disabled value="no">
-                                        <label for="notMarked">No</label><br>
+                                    <span class="ms-2 me-5">
+                                        <label asp-for="QualityInspection.ReInspected" class="control-label"></label><br />
+                                        <div class="d-flex">
+                                            @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ReInspected, @disabled = "disabled",  @class = "me-2" })
+                                            <label class="me-4">Yes</label>
+
+                                            @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ReInspected, @disabled = "disabled", @class = "me-2" })
+                                            <label>No</label>
+                                            <span asp-validation-for="QualityInspection.ReInspected" class="text-danger"></span>
+                                        </div>
                                     </span>
                                 </div>
                             </dd>
@@ -612,12 +614,15 @@
                     </div>
                     <div class="col-sm-3 pt-2">
                         <small class="fw-light">
-                            If "No" then record new NCR number
+                            If no, New NCR Number will be generated
+
                         </small>
                         <div class="row">
                             <dl>
                                 <dt class="mt-2 col-sm fw-normal">
-                                    New NCR Number:
+                                    <input asp-for="NewNCRID" disabled class="form-control" />
+                                    <span asp-validation-for="NewNCRID" class="text-danger"></span>
+
                                 </dt>
                             </dl>
                         </div>
@@ -638,10 +643,9 @@
                             <dl class="d-flex">
                                 <dt class="col-sm">
                                     Date
-                                    @* @Html.DisplayNameFor(model => model.InspectDate) *@
                                 </dt>
-                                <dd class="col-sm ms-2">
-                                    @Html.DisplayFor(model => model.NCR_Date)
+                                <dd class="col-sm ms-2"> 
+                                    @Html.DisplayFor(model => model.QualityInspection.Date)
                                 </dd>
                             </dl>
                         </div>
@@ -653,7 +657,7 @@
                     <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
                         <dl>
                             <dt>
-                                NCR Closed
+                                NCR Closed has to be changed to use property
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">

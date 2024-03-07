@@ -179,7 +179,6 @@
                         <dl>
                             <dt>
                                 Description of Defect <span class="fw-light">(in as much detail as possible)</span>
-                                @* @Html.DisplayNameFor(model => model.Product.DefectLists) *@
                             </dt>
                             <dd class="mt-1">
                                 <div class="form-group">
@@ -667,14 +666,16 @@
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
-                                    <span class="me-5">
-                                        <input type="radio" id="marked" name="item_marked" value="yes">
-                                        <label for="marked">Yes</label><br>
-                                        @* @Html.DisplayFor(model => model.NCRClosed) *@
-                                    </span>
-                                    <span>
-                                        <input type="radio" id="notMarked" name="item_marked" value="no">
-                                        <label for="notMarked">No</label><br>
+                                    <span class="ms-2 me-5">
+                                        <label asp-for="QualityInspection.ReInspected" class="control-label"></label><br />
+                                        <div class="d-flex">
+                                            @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ReInspected, @class = "me-2" })
+                                            <label class="me-4">Yes</label>
+
+                                            @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ReInspected, @class = "me-2" })
+                                            <label>No</label>
+                                            <span asp-validation-for="QualityInspection.ReInspected" class="text-danger"></span>
+                                        </div>
                                     </span>
                                 </div>
                             </dd>
@@ -682,18 +683,18 @@
                     </div>
                     <div class="col-sm-3 pt-2">
                         <small class="fw-light">
-                            If "No" then record new NCR number
+                            If Yes, Generates New NCR Number
                         </small>
                         <div class="row">
                             <dl>
                                 <dt class="mt-2 col-sm fw-normal">
-                                    New NCR Number:
+                                    <input asp-for="NewNCRID" disabled class="form-control" />
+                                    <span asp-validation-for="NewNCRID" class="text-danger"></span>
                                 </dt>
                                 <dd class="col-sm">
                                     <div class="form-group">
-                                        @* <label asp-for="QualityInspection.Date" class="control-label"></label> *@
-                                        <input asp-for="QualityInspection.NewNCR" class="form-control" />
-                                        <span asp-validation-for="QualityInspection.NewNCR" class="text-danger"></span>
+@*                                         <input asp-for="QualityInspection.NewNCR" class="form-control" />
+                                        <span asp-validation-for="QualityInspection.NewNCR" class="text-danger"></span> *@
                                     </div>
                                 </dd>
                             </dl>
@@ -704,24 +705,20 @@
                             <dl class="d-flex m-0">
                                 <dt class="col-sm">
                                     Inspector's Name
-                                    @* @Html.DisplayNameFor(model => model.InspectName) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @* @(Model.QualityInspection?.Name ?? "John Smith") *@
-                                    <input asp-for="QualityInspection.Name" class="form-control" />
-                                    <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
+                                    <input asp-for="QualityInspection.InspectorName" class="form-control" />
+                                    <span asp-validation-for="QualityInspection.InspectorDate" class="text-danger"></span>
                                 </dd>
-                            </dl>                                          @*  FIX THIS PART AND FIGURE OUT HOW TO GET QUALITYT REP NAME *@
+                            </dl>                                        
                         </div>
                         <div class="row">
                             <dl class="d-flex">
                                 <dt class="col-sm">
                                     Date
-                                    @* @Html.DisplayNameFor(model => model.InspectDate) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <div class="form-group">
-                                        @* <label asp-for="QualityInspection.Date" class="control-label"></label> *@
                                         <input asp-for="QualityInspection.Date" type="date" class="form-control" />
                                         <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
                                     </div>
@@ -736,7 +733,7 @@
                     <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
                         <dl>
                             <dt>
-                                NCR Closed
+                                NCR Closed    Has to be changed to use a open/closed property
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
@@ -775,9 +772,8 @@
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <div class="form-group"> 
-                                        @* <label asp-for="QualityInspection.Date" class="control-label"></label> *@
-                                        <input asp-for="QualityInspection.Date" type="date" class="form-control" />
-                                        <span asp-validation-for="QualityInspection.Date" class="text-danger"></span> @* quality department date add different property *@
+                                        <input asp-for="QualityInspection.DepartmentDate" type="date" class="form-control" />
+                                        <span asp-validation-for="QualityInspection.DepartmentDate" class="text-danger"></span> @* quality department date add different property *@
                                     </div>
                                 </dd>
                             </dl>
