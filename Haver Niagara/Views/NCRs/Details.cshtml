@@ -11,10 +11,10 @@
 <div class="pt-2 pb-0 ps-1 fs-5">
     <dl class="d-flex justify-content-start">
         <dt>
-            @Html.DisplayNameFor(model => model.NCR_Number)
+            @Html.DisplayNameFor(model => model.FormattedID)
         </dt>
         <dd class="ms-2">
-            @Html.DisplayFor(model => model.NCR_Number)
+            @Html.DisplayFor(model => model.FormattedID)
         </dd>
     </dl>
 </div>
@@ -31,13 +31,12 @@
                         Identify Process Applicable:
                     </dt>
                     <dd class="mt-1 ms-2">
-                        @foreach (QualityIdentify identify in Enum.GetValues(typeof(QualityIdentify)))
+                        @foreach (var qualityIdentify in Enum.GetValues(typeof(QualityIdentify))) //working!
                         {
-                            <span class="ms-5 me-5">
-                                <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
-                                @(Model.QualityInspection != null && Model.QualityInspection.QualityIdentify == identify ? "checked" : "") />
-                                <label for="@identify">@((typeof(QualityIdentify).GetMember(identify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
-                            </span>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" asp-for="QualityInspection.QualityIdentify" disabled class="form-check-input" value="@qualityIdentify" id="@($"qualityIdentify{qualityIdentify}")" />
+                                <label class="form-check-label" for="@($"qualityIdentify{qualityIdentify}")">@qualityIdentify</label>
+                            </div>
                         }
                     </dd>
                 </dl>
@@ -64,10 +63,10 @@
                 <div class="row">
                     <dl class="d-flex m-0">
                         <dt class="col-sm-5 ">
-                            @Html.DisplayNameFor(model => model.NCR_Number)
+                            @Html.DisplayNameFor(model => model.FormattedID)
                         </dt>
                         <dd class="col-sm-7 ms-2">
-                            @Html.DisplayFor(model => model.NCR_Number)
+                            @Html.DisplayFor(model => model.FormattedID)
                         </dd>
                     </dl>
                 </div>
@@ -466,7 +465,7 @@
                                 {
                                 <span class="ms-5 me-5">
                                     <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
-                                        @(Model.QualityInspection != null && Model.Operation.OperationDecision == identify ? "checked" : "") />
+                                        @(Model.Operation != null && Model.Operation.OperationDecision == identify ? "checked" : "") />
                                     @* <label for="@identify">@identify</label><br /> *@
                                     <label for="@identify">@((typeof(OperationDecision).GetMember(identify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
                                 </span>
@@ -487,7 +486,7 @@
                 <div class="row">
                     <dl>
                         <dd class="col-sm">
-                            Replacement required
+                            @Html.DisplayFor(model => model.Operation.OperationNotes)
                         </dd>
                     </dl>
                 </div>
@@ -501,7 +500,6 @@
                     <dl>
                         <dt>
                             Was a CAR raised? <span class="fw-light">(If "Yes" indicate CAR #)</span>
-                            @* @Html.DisplayNameFor(model => model.Purchasing.CAR) *@
                         </dt>
                         <dd class="mt-2">
                             <div class="d-flex">
@@ -516,7 +514,12 @@
                 </div>
                 <div class="row ms-1 mb-0">
                     <p>
-                        CAR Number:
+                        Car Number: @Html.DisplayFor(model => model.Operation.CAR.CARNumber)
+                    </p>
+                </div>
+                <div class="row ms-1 mb-1">
+                    <p>
+                        Car Date: @Html.DisplayFor(model => model.Operation.CAR.Date)
                     </p>
                 </div>
             </div>
@@ -530,23 +533,22 @@
                         <dd class="mt-2 mb-0">
                             <div class="d-flex">
                                 <span class="ms-2 me-5">
-                                    <input type="radio" id="marked" name="item_marked"  disabled value="yes">
-                                    <label for="marked">Yes</label><br>
-                                    @* @Html.DisplayFor(model => model.Purchasing.followUp) *@
-                                </span>
-                                <span>
-                                    <input type="radio" id="notMarked" name="item_marked" disabled value="no">
-                                    <label for="notMarked">No</label><br>
+                                   
+                                    @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, true, new { @checked = Model.Operation != null && Model.Operation.OperationFollowUp, @disabled = "disabled", @class = "me-2" })
+                                    <label class="me-4">Yes</label>
+
+                                    @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, false, new { @checked = Model.Operation != null && !Model.Operation.OperationFollowUp, @disabled = "disabled", @class = "me-2" })
+                                    <label>No</label>
                                 </span>
                             </div>
                         </dd>
                     </dl>
                 </div>
                 <div class="row ms-1 mb-2">
-                    Type:
+                    Type: @Html.DisplayFor(model => model.Operation.FollowUp.FollowUpType)
                 </div>
                 <div class="row ms-1 mb-2">
-                    Expected Date:
+                    Expected Date: @Html.DisplayFor(model => model.Operation.FollowUp.FollowUpDate)
                 </div>
             </div>
             <div class="col-sm-6 border pt-3 ps-3">

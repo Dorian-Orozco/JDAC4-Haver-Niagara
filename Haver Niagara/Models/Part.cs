@@ -16,29 +16,29 @@ namespace Haver_Niagara.Models
         [Display(Name = "Part Number")]
         public int PartNumber { get; set; }
 
-        [Display(Name="SAP")]
+        [Display(Name = "SAP")]
         public int SAPNumber { get; set; }
 
-        [Display(Name="PO")]
+        [Display(Name = "PO")]
         public long PurchaseNumber { get; set; }
 
-        [Display(Name="Sales #")]
+        [Display(Name = "Sales #")]
         public string SalesOrder { get; set; }
 
-        [Display(Name="Prod #")]
+        [Display(Name = "Prod #")]
         public int ProductNumber { get; set; }
 
         [Display(Name = "Quantity Received")]
-        public int QuantityRecieved {  get; set; }
+        public int QuantityRecieved { get; set; }
 
         [Display(Name = "Quantity Defective")]
-        public int QuantityDefect {  get; set; }
+        public int QuantityDefect { get; set; }
 
         [Display(Name = "Description of Item")]
         public string Description { get; set; }
 
         //navigation property for supplier
-        [Display(Name="Supplier")]
+        [Display(Name = "Supplier")]
         public int SupplierID { get; set; }
         public Supplier Supplier { get; set; }
 
@@ -47,7 +47,7 @@ namespace Haver_Niagara.Models
         //public ICollection<NCR> NCRs { get; set; } = new HashSet<NCR>();
 
         public ICollection<DefectList> DefectLists { get; set; } = new HashSet<DefectList>();
-        public ICollection<Media> Medias { get; set; } = new HashSet<Media>(); 
+        public ICollection<Media> Medias { get; set; } = new HashSet<Media>();
 
     }
 }

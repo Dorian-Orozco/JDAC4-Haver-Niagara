@@ -16,9 +16,6 @@
                 @Html.DisplayNameFor(model => model.NCR_Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NCR_Number)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.NCR_Date)
             </th>
             <th>
@@ -40,12 +37,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NCR_Status)
                 </td>
-                <td class="text-center">
-                    @{
-                        int year = DateTime.Now.Year;
-                    }
-                    @year-@item.NCR_Number.ToString().PadLeft(3, '0')
-                </td>
+                <td>@Html.DisplayFor(model => item.FormattedID)</td>
                 <td>@Html.DisplayFor(modelItem => item.NCR_Date)</td>
                 <td>@(item.Part?.ProductNumber.ToString() ?? "Part Number Not Found")</td>
                 <td>@(item.Part?.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>

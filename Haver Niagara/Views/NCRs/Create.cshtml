@@ -8,15 +8,6 @@
 <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
     <dl class="d-flex">
         <dt>
-            <label asp-for="NCR_Number" class="control-label"></label> 
-        </dt>
-        <dd class="ms-2">
-             <input asp-for="NCR_Number" class="form-control" disabled/>
-            <span asp-validation-for="NCR_Number" class="text-danger"></span> 
-        </dd>
-    </dl>
-    <dl class="d-flex">
-        <dt>
             <label asp-for="NCR_Date" class="control-label"></label>
         </dt>
         <dd class="ms-2">
@@ -28,7 +19,7 @@
 
 <form class="border p-4" asp-action="Create" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="ID" />
+@*     <input type="hidden" asp-for="ID" /> *@
     <div>
         @* Quality Inspector Section *@
         <div class="row border m-1 p-2 ps-3 fs-6 section-header">1/ Quality Representative</div>
@@ -57,9 +48,9 @@
             <div class="col-sm-4 border pt-3 ps-3">
                 <dl>
                     <dt class="">
+                    <dd class="mt-1">
                         Supplier Name
                     </dt>
-                    <dd class="mt-1">
                         <div class="form-group">
                             <label asp-for="Part.SupplierID" class="control-label"></label>
                             <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
@@ -73,11 +64,11 @@
             <div class="col-sm-4 border pt-3 ps-3">
                 <div class="row">
                     <dl class="d-flex mb-2">
-                        <dt class="col-sm-5 ">
+@*                         <dt class="col-sm-5 ">
                             <label asp-for="NCR_Number" class="control-label"></label>
                         </dt>
                         <input asp-for="NCR_Number" class="form-control" />
-                        <span asp-validation-for="NCR_Number" class="text-danger"></span>
+                        <span asp-validation-for="NCR_Number" class="text-danger"></span> *@
                     </dl>
                 </div>
                 <div class="row">
@@ -125,11 +116,6 @@
 
                     </dt>
                     <dd class="mt-1">
-                        @* <div class="form-group">
-                        <label asp-for="Part.PartNumber" class="control-label"></label>
-                        <input asp-for="Part.PartNumber" class="form-control" />
-                        <span asp-validation-for="Part.PartNumber" class="text-danger"></span>
-                        </div> *@
                         <div class="form-group">
                             <label asp-for="Part.SAPNumber" class="control-label"></label>
                             <input asp-for="Part.SAPNumber" class="form-control" />
@@ -145,7 +131,6 @@
                             <input asp-for="Part.Description" class="form-control" />
                             <span asp-validation-for="Part.Description" class="text-danger"></span>
                         </div>
-                     @*    <input type="hidden" asp-for="PartID" value="@Model.PartID" /> *@
                     </dd>
                 </dl>
             </div>
@@ -187,7 +172,7 @@
                             @* Gets view bagy filled with defects, takes id of defects and saves to controller then bd *@
                             <label for="defectID">Select Defect:</label>
                             <select id="defectID" name="defectID" class="form-control">
-                                <option value="0">--Select Defect --</option>
+                                <option value="0">-- Select Defect --</option>
                                 @foreach (var defect in ViewBag.DefectList)
                                 {
                                     <option value="@defect.Value">@defect.Text</option>
@@ -232,7 +217,6 @@
                     <dl class="d-flex m-0">
                         <dt class="col-sm">
                             Quality Representative's Name
-                            @* @Html.DisplayNameFor(model => model.QualSignature) *@
                         </dt>
                         <dd class="col-sm ms-2">
                             <div class="form-group">
@@ -247,7 +231,6 @@
                     <dl class="d-flex">
                         <dt class="col-sm">
                             Date
-                            @* @Html.DisplayNameFor(model => model.QualDate) *@
                         </dt>
                         <dd class="col-sm ms-2">
                             <div class="form-group">
@@ -264,7 +247,6 @@
         <div class="row m-1 border">
             <dl class="">
                 <dt class="col-sm pt-3 ps-3">
-                    @* Hard-coded value *@
                     Images
                     <div class="form-group mt-3">
                         <label for="files">Select files:</label>
@@ -272,7 +254,7 @@
                     </div>
                 </dt>
                 <dd class="col-sm pt-3 ps-3 d-flex">
-                   @* display image uploaded *@
+                   @* display image uploaded  fix*@
                 </dd>
             </dl>
 
@@ -285,7 +267,7 @@
                         Links
                     </dt>
                     <dd class="d-flex">
-                       @* display links  *@
+                       @* display links  fix *@
                     </dd>
                 </dl>
                 <div class="form-group ps-3 mb-3">
@@ -354,11 +336,11 @@
                     <dl>
                         <dt>
                             Does the drawing require updating?
-                            @* @Html.DisplayNameFor(model => model.Product.Description) *@
                         </dt>
                         <dd class="mt-2">
                             <div class="d-flex">
-                         
+                                
+
                             </div>
                         </dd>
                     </dl>
@@ -651,7 +633,9 @@
         </div>
 
     </div>
-
+    <div class="mt-2">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
 
 </form>
 
@@ -660,6 +644,7 @@
         <a asp-controller="Home" asp-action="List" class="btn btn-outline-primary">Back to NCR Log</a>
     </div>
     <div class="mt-2">
+        Submit button has to be in form for it to create, I dont want to mess up design 
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 </div>
