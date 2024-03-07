@@ -53,7 +53,6 @@ namespace Haver_Niagara.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-
             //Adding functionality to return the list of seed data 
             var ncrs = _context.NCRs
                 .Include(p => p.Part)
@@ -62,6 +61,23 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(d => d.DefectLists)
                     .ThenInclude(d => d.Defect)
                 .ToList();
+
+            if (!selectedStatus.HasValue)
+            {
+                //on defualt, sort ncr list by active
+                ncrs = ncrs.Where(x => x.NCR_Status == true).ToList();
+            }
+            else if (selectedStatus.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value).ToList();
+            }
+  
+
+            // Filter by Status
+            //if (selectedStatus.HasValue)
+            //{
+            //    ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value).ToList();
+            //}
 
             // Create a list to store all NCRs with suppliers
             var originalNCRs = _context.NCRs
@@ -90,8 +106,6 @@ namespace Haver_Niagara.Controllers
             //Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
-
-
                 //You can add more columns to search, as long as the table relationship is established if it not an NCR
                 //Furthermore might consider adding a clear button? 
                 searchString = searchString.ToLower();
@@ -114,11 +128,6 @@ namespace Haver_Niagara.Controllers
                 }
             }
 
-            // Filter by Status
-            if (selectedStatus.HasValue)
-            {
-                ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value).ToList();
-            }
 
             //Determines the sorting order
             switch (sortOrder)       
