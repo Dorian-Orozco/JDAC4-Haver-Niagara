@@ -13,14 +13,32 @@ namespace Haver_Niagara.Models
         [Display(Name = "Quality Representative's Name")]
         public string Name { get; set; }
 
+        [Display(Name = "Quality Representative Inpsection Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date { get; set; }
+
+
+        //Added properties to better track Quality Rep
+        [Display(Name ="Inspector's Name")] 
+        public string InspectorName { get; set; }
+        
+        [Display(Name = "Inspected Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime InspectorDate { get; set; }
 
         [Display(Name = "Quality Department")]
         public string Department { get; set; }
 
-        [Display(Name = "Quality Inspection Date")]
+        [Display(Name = "Department Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Date { get; set; }
+        public DateTime DepartmentDate { get; set; }
+
+
+
+
 
         [Display(Name = "Item Marked Non-Conforming")]
         public bool ItemMarked { get; set; }
@@ -30,9 +48,6 @@ namespace Haver_Niagara.Models
 
         [Display(Name = "Quality Identify")]
         public QualityIdentify QualityIdentify { get; set; }
-
-        //One to One with New NCR
-        public NewNCR NewNCR { get; set; }
 
         //Navigation property for NCR
         public NCR NCR { get; set; }

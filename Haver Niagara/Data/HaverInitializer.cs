@@ -622,11 +622,15 @@ namespace Haver_Niagara.Data
                     new QualityInspection
                     {
                         ID = 1,
-                        Name = "Dorian Orozco",
+                        Name = "Diego Fiery",
                         Date = DateTime.Parse("2024-02-01"),
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
+                        Department = "Not Sure What to Put 1",
+                        DepartmentDate = DateTime.Parse("2024-03-02"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2024-03-01")
 
 
                     },
@@ -637,6 +641,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-01-23"),
                         ItemMarked = true,
                         ReInspected = true,
+                        QualityIdentify = (QualityIdentify)2,
+                        Department = "Not Sure What to Put 2",
+                        DepartmentDate = DateTime.Parse("2024-01-5"),
+                        InspectorName = "Billy Bam",
+                        InspectorDate = DateTime.Parse("2024-03-01")
                     },
                     new QualityInspection
                     {
@@ -645,6 +654,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-02-02"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Not Sure What to Put 3",
+                        DepartmentDate = DateTime.Parse("2024-02-13"),
+                        InspectorName = "April Apple",
+                        InspectorDate = DateTime.Parse("2024-03-01")
                     },
                     new QualityInspection
                     {
@@ -653,6 +667,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-01-12"),
                         ItemMarked = false,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)2,
+                        Department = "Not Sure What to Put 4",
+                        DepartmentDate = DateTime.Parse("2024-03-01"),
+                        InspectorName = "Abigail Week",
+                        InspectorDate = DateTime.Parse("2024-03-01")
                     },
                     new QualityInspection
                     {
@@ -911,15 +930,6 @@ namespace Haver_Niagara.Data
                 context.DefectLists.AddRange(defectLists);
                 context.SaveChanges();
             }
-            if (!context.NewNCRs.Any())
-            {
-                context.NewNCRs.AddRange(
-                    new NewNCR
-                    {
-
-                    });
-            }
-
         }
     }
 }

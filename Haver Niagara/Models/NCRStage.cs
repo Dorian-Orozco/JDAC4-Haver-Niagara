@@ -13,6 +13,8 @@ namespace Haver_Niagara.Models
         [Display(Name = "4. Quality Rep")]
         QualityRepresentative_Final,
         [Display(Name = "Complete")]
-        Completed
+        Completed,
+        [Display(Name = "Closed")] //Added Closed Option        
+        Closed_NCR
     }
 }

@@ -166,12 +166,24 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
+
+
             ///Populate list of defects
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
+   
+
+
             // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             return View(nCR);
         }
+        private int? GetSelectedDefectID(int ncrID)
+        {
+            var selectedDefectId = _context.NCRs
+                .Where(n => n.ID == ncrID).SelectMany(n => n.Part.DefectLists).Select(n => n.DefectID).FirstOrDefault();
+                return selectedDefectId;
+        }
+
 
         // POST: NCRs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -180,7 +192,7 @@ namespace Haver_Niagara.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
+        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Closed,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
                     NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation,
                     List<IFormFile> files, List<string> links, int defectID, Defect defect)
         {
@@ -219,6 +231,8 @@ namespace Haver_Niagara.Controllers
 
                     //Update NCR Properties               
                     existingNCR.NCR_Date = nCR.NCR_Date;
+                    existingNCR.NCR_Status = nCR.NCR_Status;    //For radio buttons 
+                    existingNCR.OldNCRID = nCR.ID;              //Stores the ID Automatically
                     //ASSOCIATED TABLES PAST THIS POINT.
                     //Updating Part Properties
                     if (part != null)
@@ -234,6 +248,7 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.Description = part.Description;
                         existingNCR.Part.SupplierID = part.SupplierID;
 
+
                         existingNCR.Part.DefectLists.Clear(); //removed existing defect 
                         if (defectID != 0)  //id is passed through and assigned
                         {
@@ -245,6 +260,10 @@ namespace Haver_Niagara.Controllers
                     {
                         existingNCR.QualityInspection.Name = qualityInspection.Name;
                         existingNCR.QualityInspection.Date = qualityInspection.Date;
+                        existingNCR.QualityInspection.Department = qualityInspection.Department;
+                        existingNCR.QualityInspection.DepartmentDate = qualityInspection.DepartmentDate;
+                        existingNCR.QualityInspection.InspectorName = qualityInspection.InspectorName;
+                        existingNCR.QualityInspection.InspectorDate = qualityInspection.InspectorDate;
                         existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
                         existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
                         existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
