@@ -13,6 +13,10 @@ namespace Haver_Niagara.Models
         [Display(Name = "Quality Representative's Name")]
         public string Name { get; set; }
 
+
+        [Display(Name = "Quality Department")]
+        public string Department { get; set; }
+
         [Display(Name = "Quality Inspection Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

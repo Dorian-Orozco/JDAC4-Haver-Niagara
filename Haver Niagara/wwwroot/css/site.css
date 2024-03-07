@@ -26,6 +26,11 @@ a{
     text-decoration: none;
 }
 
+.bg-haver {
+    background-color: #0C2340;
+    opacity: 80%;
+}
+
 /*eye icon under action column in ncr table*/
 .view-btn {
     color: gray;
@@ -67,6 +72,15 @@ a{
     margin-top: 5px;
     margin-bottom: -5px;
     text-align: center;
+}
+
+.report-container{
+    padding: 30px 20px;
+}
+
+/*delete buttons content image and links in edit*/
+.delete, .delete-link{
+    font-size: 14px;
 }
 
 
