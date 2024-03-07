@@ -1,4 +1,5 @@
 ﻿using Haver_Niagara.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using SkiaSharp;
 using System.Diagnostics;
@@ -17,24 +18,6 @@ namespace Haver_Niagara.Data
             context.Database.EnsureCreated();
             //context.Database.Migrate();
 
-            if (!context.CARs.Any())
-            {
-                var cars = new List<CAR>
-                    {
-                        new CAR {ID = 1, Date = DateTime.Parse("2024-01-22"), CARNumber = 12345 },
-                        new CAR {ID = 2, Date = DateTime.Parse("2024-01-22"), CARNumber = 98765 },
-                        new CAR {ID = 3, Date = DateTime.Parse("2024-01-22"), CARNumber = 56748 },
-                        new CAR {ID = 4, Date = DateTime.Parse("2024-01-22"), CARNumber = 84379 },
-                        new CAR {ID = 5, Date = DateTime.Parse("2024-01-22"), CARNumber = 93842 },
-                        new CAR {ID = 6, Date = DateTime.Parse("2024-01-22"), CARNumber = 42981 },
-                        new CAR {ID = 7, Date = DateTime.Parse("2024-01-22"), CARNumber = 29013 },
-                        new CAR {ID = 8, Date = DateTime.Parse("2024-01-22"), CARNumber = 90842},
-                        new CAR {ID = 9, Date = DateTime.Parse("2024-01-22"), CARNumber = 32491},
-                        new CAR {ID = 10, Date = DateTime.Parse("2024-01-22"), CARNumber = 31904}
-                    };
-                context.CARs.AddRange(cars);
-                context.SaveChanges();
-            }
             if (!context.Defects.Any())
             {
                 var defects = new List<Defect>
@@ -218,7 +201,7 @@ namespace Haver_Niagara.Data
                     SalesOrder = "Stock"
                 },
                 new Part
-                      {
+                {
                     ID = 9,
                     Name = "Anchors",
                     ProductNumber = 204231293,
@@ -258,6 +241,8 @@ namespace Haver_Niagara.Data
                 });
                 context.SaveChanges();
             }
+
+
             if (!context.Medias.Any())
             {
                 //takes pictures turns into binary, then when pulled from
@@ -266,8 +251,8 @@ namespace Haver_Niagara.Data
                 //Cat pictures, remove later :(
                 //byte[] demoPicture1 = File.ReadAllBytes("TemporaryImages/cat1.jpg");
                 //byte[] demoPicture2 = File.ReadAllBytes("TemporaryImages/cat2.jpg");
-                //byte[] demoPicture3 = File.ReadAllBytes("TemporaryImages/cat3.jpg");
-                //byte[] demoPicture4 = File.ReadAllBytes("TemporaryImages/cat4.jpg");
+                byte[] demoPicture3 = File.ReadAllBytes("TemporaryImages/cat3.jpg");
+                byte[] demoPicture4 = File.ReadAllBytes("TemporaryImages/cat4.jpg");
 
                 //Random Pictures of Defects
                 byte[] badPaint1 = File.ReadAllBytes("TemporaryImages/badpaint.jpg");
@@ -291,7 +276,7 @@ namespace Haver_Niagara.Data
                         Description = "Faulty Blue Print 1",
                         MimeType = "image/jpg",
                         Links = "https://example.com/1bluePrint_video",
-                        Part = context.Parts.FirstOrDefault(p=>p.ID == 1)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 1)
                     },
                     new Media
                     {
@@ -325,7 +310,7 @@ namespace Haver_Niagara.Data
                         Content = badWeld,
                         Description = "Poorly done weld",
                         MimeType = "image/jpg",
-                        Part = context.Parts.FirstOrDefault(p=>p.ID == 3)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 3)
                     },
                     new Media
                     {
@@ -375,7 +360,7 @@ namespace Haver_Niagara.Data
                     Name = "James Jones",
                     OperationDate = DateTime.Parse("2024-01-20"),
                     OperationDecision = (OperationDecision)1,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires1.. (change in seed data)",
                     OperationCar = true,
                     OperationFollowUp = true,
                 },
@@ -385,7 +370,7 @@ namespace Haver_Niagara.Data
                     Name = "Jane Little",
                     OperationDate = DateTime.Parse("2024-01-22"),
                     OperationDecision = (OperationDecision)1,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires2.. (change in seed data)",
                     OperationCar = true,
                     OperationFollowUp = false,
                 },
@@ -395,7 +380,7 @@ namespace Haver_Niagara.Data
                     Name = "Matt Turner",
                     OperationDate = DateTime.Parse("2024-01-24"),
                     OperationDecision = (OperationDecision)2,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires3.. (change in seed data)",
                     OperationCar = false,
                     OperationFollowUp = true,
                 },
@@ -405,7 +390,7 @@ namespace Haver_Niagara.Data
                     Name = "Sandy Roof",
                     OperationDate = DateTime.Parse("2024-01-24"),
                     OperationDecision = (OperationDecision)2,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires.4. (change in seed data)",
                     OperationCar = true,
                     OperationFollowUp = false,
                 },
@@ -415,7 +400,7 @@ namespace Haver_Niagara.Data
                     Name = "Alex Baxter",
                     OperationDate = DateTime.Parse("2024-01-24"),
                     OperationDecision = (OperationDecision)2,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires5.. (change in seed data)",
                     OperationCar = false,
                     OperationFollowUp = true,
                 },
@@ -425,7 +410,7 @@ namespace Haver_Niagara.Data
                     Name = "Sam Smith",
                     OperationDate = DateTime.Parse("2024-01-24"),
                     OperationDecision = (OperationDecision)2,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires6.. (change in seed data)",
                     OperationCar = true,
                     OperationFollowUp = false,
                 },
@@ -435,7 +420,7 @@ namespace Haver_Niagara.Data
                     Name = "Alex Baxter",
                     OperationDate = DateTime.Parse("2024-01-24"),
                     OperationDecision = (OperationDecision)2,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires7.. (change in seed data)",
                     OperationCar = true,
                     OperationFollowUp = false,
                 },
@@ -445,7 +430,7 @@ namespace Haver_Niagara.Data
                     Name = "Jame Scot",
                     OperationDate = DateTime.Parse("2024-01-24"),
                     OperationDecision = (OperationDecision)2,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires8.. (change in seed data)",
                     OperationCar = false,
                     OperationFollowUp = false,
                 },
@@ -455,7 +440,7 @@ namespace Haver_Niagara.Data
                     Name = "Matt Turner",
                     OperationDate = DateTime.Parse("2024-01-24"),
                     OperationDecision = (OperationDecision)2,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires9.. (change in seed data)",
                     OperationCar = true,
                     OperationFollowUp = true,
                 },
@@ -465,7 +450,7 @@ namespace Haver_Niagara.Data
                     Name = "Matt Turner",
                     OperationDate = DateTime.Parse("2024-01-24"),
                     OperationDecision = (OperationDecision)2,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires10.. (change in seed data)",
                     OperationCar = true,
                     OperationFollowUp = false,
                 },
@@ -475,11 +460,11 @@ namespace Haver_Niagara.Data
                     Name = "James Jones",
                     OperationDate = DateTime.Parse("2024-01-20"),
                     OperationDecision = (OperationDecision)4,
-                    OperationNotes = "Fill Out With Real Data",
+                    OperationNotes = "Operation requires11.. (change in seed data)",
                     OperationCar = false,
                     OperationFollowUp = false,
                 });
-                
+
                 context.SaveChanges();
             }
             if (!context.Engineerings.Any())
@@ -631,200 +616,19 @@ namespace Haver_Niagara.Data
                 });
                 context.SaveChanges();
             }
-            if (!context.NCRs.Any())
-            {
-                context.NCRs.AddRange(
-                new NCR
-                {
-                    ID = 1,
-                    NCR_Number = "1",
-                    NCR_Date = DateTime.Parse("2024-01-11"),
-                    NCR_Status = true,
-                    NCR_Stage = (NCRStage)1,       //NCR Stage can be changed to match the data 
-                    Part = context.Parts.FirstOrDefault(p => p.ID == 1),
-                    Engineering = context.Engineerings.FirstOrDefault(p=>p.ID == 1),
-                    Operation = context.Operations.FirstOrDefault(p => p.ID == 1),
-                    QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 1)
-                },
-                    new NCR
-                    {
-                        ID = 2,
-                        NCR_Number = "2",
-                        NCR_Date = DateTime.Parse("2024-01-12"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,   
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 2),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 2),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p=>p.ID ==2),   
-                    },
-                    new NCR
-                    {
-                        ID = 3,
-                        NCR_Number = "3",
-                        NCR_Date = DateTime.Parse("2024-01-15"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)2,      
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 3),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 3),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 3),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 3)
-                    },
-                    new NCR
-                    {
-                        ID = 4,
-                        NCR_Number = "4",
-                        NCR_Date = DateTime.Parse("2024-01-18"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 4),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 4),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 4)
-                    },
-                    new NCR
-                    {
-                        ID = 5,
-                        NCR_Number = "5",
-                        NCR_Date = DateTime.Parse("2024-01-18"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)2,
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 5),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 5),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 5),
-                           QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 5)
-                    },
-                    new NCR
-                    {
-                        ID = 6,
-                        NCR_Number = "6",
-                        NCR_Date = DateTime.Parse("2024-01-20"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)3,
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 6),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 6),
-                           QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 6)
-                        
-                    },
-                    new NCR
-                    {
-                        ID = 7,
-                        NCR_Number =  "7",
-                        NCR_Date = DateTime.Parse("2024-01-22"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 7),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 7),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 7),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 7)
-                    },
-                    new NCR
-                    {
-                        ID = 8,
-                        NCR_Number = "8",
-                        NCR_Date = DateTime.Parse("2024-01-23"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)3,
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 8),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 8),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 8)
-                    },
-                    new NCR
-                    {
-                        ID = 9,
-                        NCR_Number = "9",
-                        NCR_Date = DateTime.Parse("2024-01-24"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 9),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 9),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 9),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 9)
-                    },
-                    new NCR
-                    {
-                        ID = 10,
-                        NCR_Number = "10",
-                        NCR_Date = DateTime.Parse("2024-01-25"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)2,
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 10),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 10),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 10)
-                    },
-                    new NCR
-                    {
-                        ID = 11,
-                        NCR_Number = "11",
-                        NCR_Date = DateTime.Parse("2024-01-26"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 11),
-                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 11),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 11),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 11)
-                    });
-      
-                context.SaveChanges();
-            }
-          
-            if (!context.FollowUps.Any())
-            {
-                context.FollowUps.AddRange(
-                new FollowUp
-                {
-                    ID = 1,
-                    FollowUpDate = DateTime.Parse("2024-01-29"),
-                    FollowUpType = "Contact New Supplier to Fufill Order"
-                },
-                new FollowUp
-                {
-                    ID = 2,
-                    FollowUpDate = DateTime.Parse("2024-01-30"),
-                    FollowUpType = "Contact Supplier to Re-Order to Specifications"
-                },
-                new FollowUp
-                {
-                    ID = 3,
-                    FollowUpDate = DateTime.Parse("2024-01-31"),
-                    FollowUpType = "Contact Customer to Confirm Acceptable"
-                });
-                context.SaveChanges();
-            }
-            if (!context.DefectLists.Any())
-            {
-                var defectLists = new List<DefectList>
-                {
-                    new DefectList { DefectID = 1, PartID = 1},
-                    new DefectList { DefectID = 2, PartID = 2},
-                    new DefectList { DefectID = 3, PartID = 3},
-                    new DefectList { DefectID = 4, PartID = 4},
-                    new DefectList { DefectID = 5, PartID = 5},
-                    new DefectList { DefectID = 6, PartID = 6},
-                    new DefectList { DefectID = 7, PartID = 7},
-                    new DefectList { DefectID = 8, PartID = 8},
-                    new DefectList { DefectID = 9, PartID = 9},
-                    new DefectList { DefectID = 10, PartID = 10},
-                    new DefectList { DefectID = 11, PartID = 11},
-                };
-                context.DefectLists.AddRange(defectLists);
-                context.SaveChanges();
-            }
             if (!context.QualityInspections.Any())
             {
                 context.QualityInspections.AddRange(
                     new QualityInspection
                     {
                         ID = 1,
-                        Name = "John Smith",
+                        Name = "Dorian Orozco",
                         Date = DateTime.Parse("2024-02-01"),
                         ItemMarked = true,
                         ReInspected = false,
-                        QualityIdentify = (QualityIdentify)1
-                        
+                        QualityIdentify = (QualityIdentify)1,
+
+
                     },
                     new QualityInspection
                     {
@@ -857,6 +661,262 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-02-01"),
                         ItemMarked = true,
                         ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 6,
+                        Name = "Jorge Jeez",
+                        Date = DateTime.Parse("2024-02-01"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 7,
+                        Name = "Hunt Con",
+                        Date = DateTime.Parse("2024-02-01"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 8,
+                        Name = "Rise Saint",
+                        Date = DateTime.Parse("2024-02-01"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 9,
+                        Name = "Sunday Smith",
+                        Date = DateTime.Parse("2024-02-11"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 10,
+                        Name = "Prin Char",
+                        Date = DateTime.Parse("2024-02-29"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 11,
+                        Name = "Lei Ter",
+                        Date = DateTime.Parse("2024-01-23"),
+                        ItemMarked = true,
+                        ReInspected = true,
+                    });
+                context.SaveChanges();
+            }
+            if (!context.NCRs.Any())
+            {
+                context.NCRs.AddRange(
+                new NCR
+                {
+
+                    NCR_Date = DateTime.Parse("2024-01-11"),
+                    NCR_Status = true,
+                    NCR_Stage = (NCRStage)1,       //NCR Stage can be changed to match the data 
+                    Part = context.Parts.FirstOrDefault(p => p.ID == 1),
+                    Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 1),
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 1),
+                    QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 1)
+                },
+                    new NCR
+                    {
+                        ID = 2,
+                        NCR_Date = DateTime.Parse("2024-01-12"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)1,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 2),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 2),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 2),
+                    },
+                    new NCR
+                    {
+                        ID = 3,
+                        NCR_Date = DateTime.Parse("2024-01-15"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 3),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 3),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 3),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 3)
+                    },
+                    new NCR
+                    {
+                        ID = 4,
+                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)1,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 4),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 4),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 4)
+                    },
+                    new NCR
+                    {
+                        ID = 5,
+                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 5),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 5),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 5),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 5)
+                    },
+                    new NCR
+                    {
+                        ID = 6,
+                        NCR_Date = DateTime.Parse("2024-01-20"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)3,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 6),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 6),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 6)
+
+                    },
+                    new NCR
+                    {
+                        ID = 7,
+                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 7),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 7),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 7),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 7)
+                    },
+                    new NCR
+                    {
+                        ID = 8,
+                        NCR_Date = DateTime.Parse("2024-01-25"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)3,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 8),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 8),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 8)
+                    },
+                    new NCR
+                    {
+                        ID = 9,
+                        NCR_Date = DateTime.Parse("2024-01-24"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 9),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 9),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 9),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 9)
+                    },
+                    new NCR
+                    {
+                        ID = 10,
+                        NCR_Date = DateTime.Parse("2024-01-25"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)2,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 10),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 10),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 10)
+                    },
+                    new NCR
+                    {
+                        ID = 11,
+
+                        NCR_Date = DateTime.Parse("2024-01-26"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 11),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 11),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 11),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 11)
+                    });
+
+                context.SaveChanges();
+            }
+            if (!context.CARs.Any())
+            {
+                var cars = new List<CAR>
+                    {                                   //some operations dont have car or follow up raised, so do not assign them with an operation object here
+                        new CAR {ID = 1, Date = DateTime.Parse("2024-01-22"), CARNumber = 12345, Operation = context.Operations.FirstOrDefault(p => p.ID == 1) },
+                        new CAR {ID = 2, Date = DateTime.Parse("2024-01-22"), CARNumber = 98765, Operation = context.Operations.FirstOrDefault(p => p.ID == 2) },
+                        new CAR {ID = 3, Date = DateTime.Parse("2024-01-22"), CARNumber = 56748, Operation = context.Operations.FirstOrDefault(p => p.ID == 3) },
+                        new CAR {ID = 4, Date = DateTime.Parse("2024-01-22"), CARNumber = 84379, Operation = context.Operations.FirstOrDefault(p => p.ID == 4) },
+                        new CAR {ID = 5, Date = DateTime.Parse("2024-01-22"), CARNumber = 93842 },  //this means the first 4 records do have car / follow up types
+                        new CAR {ID = 6, Date = DateTime.Parse("2024-01-22"), CARNumber = 42981 },  //meaning the boolean values in operation
+                        new CAR {ID = 7, Date = DateTime.Parse("2024-01-22"), CARNumber = 29013 },  //for these first 4, should be set to TRUE.
+                        new CAR {ID = 8, Date = DateTime.Parse("2024-01-22"), CARNumber = 90842},
+                        new CAR {ID = 9, Date = DateTime.Parse("2024-01-22"), CARNumber = 32491},
+                        new CAR {ID = 10, Date = DateTime.Parse("2024-01-22"), CARNumber = 31904}
+                    };
+                context.CARs.AddRange(cars);
+                context.SaveChanges();
+            }
+            if (!context.FollowUps.Any())
+            {
+                context.FollowUps.AddRange(
+                new FollowUp
+                {
+                    ID = 1,
+                    FollowUpDate = DateTime.Parse("2024-01-29"),
+                    FollowUpType = "Contact New Supplier to Fufill Order",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 1)
+                },
+                new FollowUp
+                {
+                    ID = 2,
+                    FollowUpDate = DateTime.Parse("2024-01-30"),
+                    FollowUpType = "Contact Supplier to Re-Order to Specifications",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 2)
+                },
+                new FollowUp
+                {
+                    ID = 3,
+                    FollowUpDate = DateTime.Parse("2024-01-31"),
+                    FollowUpType = "Contact Customer to Confirm Acceptable",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 3)
+                },
+                new FollowUp
+                {
+                    ID = 4,
+                    FollowUpDate = DateTime.Parse("2024-01-31"),
+                    FollowUpType = "Contact Customer to Confirm Acceptable",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 4) //Since Some Operations Will Have No Follow Up, Change Seed Data to Reflect that,
+                });                                                               //So in operations if follow up = false, then that record should NOT have this an operations = firstordefault..  Same
+                context.SaveChanges();                                          //same with the Car.
+            }
+            if (!context.DefectLists.Any())
+            {
+                var defectLists = new List<DefectList>
+                {
+                    new DefectList { DefectID = 1, PartID = 1},
+                    new DefectList { DefectID = 2, PartID = 2},
+                    new DefectList { DefectID = 3, PartID = 3},
+                    new DefectList { DefectID = 4, PartID = 4},
+                    new DefectList { DefectID = 5, PartID = 5},
+                    new DefectList { DefectID = 6, PartID = 6},
+                    new DefectList { DefectID = 7, PartID = 7},
+                    new DefectList { DefectID = 8, PartID = 8},
+                    new DefectList { DefectID = 9, PartID = 9},
+                    new DefectList { DefectID = 10, PartID = 10},
+                    new DefectList { DefectID = 11, PartID = 11},
+                };
+                context.DefectLists.AddRange(defectLists);
+                context.SaveChanges();
+            }
+            if (!context.NewNCRs.Any())
+            {
+                context.NewNCRs.AddRange(
+                    new NewNCR
+                    {
+
                     });
             }
 

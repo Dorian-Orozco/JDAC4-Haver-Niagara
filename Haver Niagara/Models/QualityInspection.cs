@@ -10,21 +10,21 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Display(Name="Quality Representative's Name")]
+        [Display(Name = "Quality Representative's Name")]
         public string Name { get; set; }
 
-        [Display(Name="Quality Inspection Date")]
+        [Display(Name = "Quality Inspection Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-        [Display(Name="Item Marked Non-Conforming")]
+        [Display(Name = "Item Marked Non-Conforming")]
         public bool ItemMarked { get; set; }
 
-        [Display(Name="Re-Inspected?")]
+        [Display(Name = "Re-Inspected?")]
         public bool ReInspected { get; set; }
 
-        [Display(Name="Quality Identify")]
+        [Display(Name = "Quality Identify")]
         public QualityIdentify QualityIdentify { get; set; }
 
         //One to One with New NCR

@@ -6,13 +6,17 @@ namespace Haver_Niagara.Models
     public class FollowUp
     {
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Display(Name ="Follow Up Date")]
+        [Display(Name = "Expected Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FollowUpDate { get; set; }
 
-        [Display(Name ="Follow Up Type")]
-        public string FollowUpType {  get; set; }
+        [Display(Name = "Type")]
+        public string FollowUpType { get; set; }
 
 
         [ForeignKey("Operation")]
