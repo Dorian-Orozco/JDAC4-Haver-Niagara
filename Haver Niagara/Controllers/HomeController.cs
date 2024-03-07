@@ -56,6 +56,8 @@ namespace Haver_Niagara.Controllers
 
             //Adding functionality to return the list of seed data 
             var ncrs = _context.NCRs
+                .Where(c => c.IsArchived == null)// important
+                .Where(c => c.IsArchived == false) // important
                 .Include(p => p.Part)
                     .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part)

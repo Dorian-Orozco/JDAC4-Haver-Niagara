@@ -22,7 +22,9 @@ namespace Haver_Niagara.Models
         [Display(Name ="Status")]
         public bool NCR_Status { get; set; }
 
- 
+        public bool? IsArchived { set; get; }
+
+
         public NCR()
         {
             //Sets the NCR_Status to false as default, because when an NCR is first created it cannot be true (finished).

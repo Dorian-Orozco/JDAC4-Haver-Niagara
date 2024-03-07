@@ -21,6 +21,8 @@ namespace Haver_Niagara.Controllers
             _context = context;
         }
 
+
+
         // GET: NCRs
         public async Task<IActionResult> Index()
         {
