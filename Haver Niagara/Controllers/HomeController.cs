@@ -99,7 +99,7 @@ namespace Haver_Niagara.Controllers
                 ncrs = ncrs.Where(x =>
                  x.NCR_Date.ToString().ToLower().Contains(searchString) ||
                  x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
-                 x.NCR_Number.ToString().ToLower().Contains(searchString) ||
+                 x.ID.ToString().ToLower().Contains(searchString) ||
                  x.Part.Supplier.Name.ToLower().Contains(searchString)
                  ).ToList();
             }

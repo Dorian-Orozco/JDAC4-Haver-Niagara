@@ -9,13 +9,13 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Display(Name="Engineer Name")]
+        [Display(Name = "Engineering Name")]
         public string Name { get; set; }
 
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Date { get; set; }  
+        public DateTime Date { get; set; }
 
         [Display(Name = "Notify Customer Required?")]
         public bool CustomerNotify { get; set; }
@@ -32,20 +32,16 @@ namespace Haver_Niagara.Models
 
         [Display(Name = "Original Revision Number")]
         public int RevisionOriginal { get; set; }
-        
+
 
         [Display(Name = "Updated Revision Number")]
         public int RevisionUpdated { get; set; }
-        
 
-        [Display(Name = "Revision Date")]
-        public DateTime RevisionDate { get; set; }
-        
-       
+
         [Display(Name = "Revision Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime RevDate { get; set; }
+        public DateTime RevisionDate { get; set; }
 
 
         [Display(Name = "Engineering Disposition")]
