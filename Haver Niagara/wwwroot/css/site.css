@@ -66,12 +66,35 @@ a{
 }
 
 .stage {
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 5px;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 5px 10px;
     margin-top: 5px;
     margin-bottom: -5px;
     text-align: center;
+    color: #0C2340;
+    /*background: #0C2340;*/
+}
+
+/*stage classes*/
+.stage-qual1 {
+    background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 25%, transparent 25%, transparent 100%);
+}
+
+.stage-eng2 {
+    background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 50%, transparent 50%, transparent 100%);
+}
+
+.stage-pur3 {
+    background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 75%, transparent 75%, transparent 100%);
+}
+
+.stage-qual4 {
+    background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 100%, transparent 100%, transparent 100%);
+}
+
+.stage-complete {
+    /* Add styles for complete stage here */
 }
 
 .report-container{
@@ -82,6 +105,8 @@ a{
 .delete, .delete-link{
     font-size: 14px;
 }
+
+
 
 
 
