@@ -51,11 +51,13 @@ a{
 }
 
 .active {
-    background-color: #20DE10;
+    /*background-color: #20DE10;*/
+    background-color: #0073e6; 
 }
 
 .closed {
-    background-color: #DC3220;
+    /*background-color: #DC3220;*/
+    background-color: #b51963;
 }
 
 .stage {
@@ -66,3 +68,6 @@ a{
     margin-bottom: -5px;
     text-align: center;
 }
+
+
+
