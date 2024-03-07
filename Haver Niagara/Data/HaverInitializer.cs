@@ -730,7 +730,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 2,
                         NCR_Date = DateTime.Parse("2024-01-12"),
-                        NCR_Status = false,
+                        NCR_Status = true,
                         NCR_Stage = (NCRStage)1,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 2),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
@@ -752,7 +752,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 4,
                         NCR_Date = DateTime.Parse("2024-01-18"),
-                        NCR_Status = false,
+                        NCR_Status = true,
                         NCR_Stage = (NCRStage)1,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 4),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
@@ -774,7 +774,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 6,
                         NCR_Date = DateTime.Parse("2024-01-20"),
-                        NCR_Status = false,
+                        NCR_Status = true,
                         NCR_Stage = (NCRStage)3,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 6),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
@@ -797,7 +797,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 8,
                         NCR_Date = DateTime.Parse("2024-01-25"),
-                        NCR_Status = false,
+                        NCR_Status = true,
                         NCR_Stage = (NCRStage)3,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 8),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
@@ -819,7 +819,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 10,
                         NCR_Date = DateTime.Parse("2024-01-25"),
-                        NCR_Status = false,
+                        NCR_Status = true,
                         NCR_Stage = (NCRStage)2,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 10),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
