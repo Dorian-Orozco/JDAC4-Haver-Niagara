@@ -1024,7 +1024,7 @@ namespace Haver_Niagara.Data
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Not Sure What to Put 1",
+                        Department = "Department 1",
                         DepartmentDate = DateTime.Parse("2024-03-02"),
                         InspectorName = "Johnny Jam",
                         InspectorDate = DateTime.Parse("2024-03-01")
@@ -1039,7 +1039,7 @@ namespace Haver_Niagara.Data
                         ItemMarked = true,
                         ReInspected = true,
                         QualityIdentify = (QualityIdentify)2,
-                        Department = "Not Sure What to Put 2",
+                        Department = "Department 2",
                         DepartmentDate = DateTime.Parse("2024-01-5"),
                         InspectorName = "Billy Bam",
                         InspectorDate = DateTime.Parse("2024-03-01")
@@ -1052,7 +1052,7 @@ namespace Haver_Niagara.Data
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Not Sure What to Put 3",
+                        Department = "Department 3",
                         DepartmentDate = DateTime.Parse("2024-02-13"),
                         InspectorName = "April Apple",
                         InspectorDate = DateTime.Parse("2024-03-01")
@@ -1065,7 +1065,7 @@ namespace Haver_Niagara.Data
                         ItemMarked = false,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)2,
-                        Department = "Not Sure What to Put 4",
+                        Department = "Department 4",
                         DepartmentDate = DateTime.Parse("2024-03-01"),
                         InspectorName = "Abigail Week",
                         InspectorDate = DateTime.Parse("2024-03-01")
@@ -1134,7 +1134,7 @@ namespace Haver_Niagara.Data
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Not Sure What to Put 1",
+                        Department = "Department 1",
                         DepartmentDate = DateTime.Parse("2024-03-02"),
                         InspectorName = "Johnny Jam",
                         InspectorDate = DateTime.Parse("2024-03-01")
@@ -1149,7 +1149,7 @@ namespace Haver_Niagara.Data
                         ItemMarked = true,
                         ReInspected = true,
                         QualityIdentify = (QualityIdentify)2,
-                        Department = "Not Sure What to Put 2",
+                        Department = "Department 2",
                         DepartmentDate = DateTime.Parse("2024-01-5"),
                         InspectorName = "Billy Bam",
                         InspectorDate = DateTime.Parse("2024-03-01")
@@ -1162,7 +1162,7 @@ namespace Haver_Niagara.Data
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Not Sure What to Put 3",
+                        Department = "Department 3",
                         DepartmentDate = DateTime.Parse("2024-02-13"),
                         InspectorName = "April Apple",
                         InspectorDate = DateTime.Parse("2024-03-01")
@@ -1175,7 +1175,7 @@ namespace Haver_Niagara.Data
                         ItemMarked = false,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)2,
-                        Department = "Not Sure What to Put 4",
+                        Department = "Department 4",
                         DepartmentDate = DateTime.Parse("2024-03-01"),
                         InspectorName = "Abigail Week",
                         InspectorDate = DateTime.Parse("2024-03-01")
@@ -1516,28 +1516,28 @@ namespace Haver_Niagara.Data
                 {
                     ID = 1,
                     FollowUpDate = DateTime.Parse("2024-01-29"),
-                    FollowUpType = "Contact New Supplier to Fufill Order",
+                    FollowUpType = "Phone Call",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 1)
                 },
                 new FollowUp
                 {
                     ID = 2,
                     FollowUpDate = DateTime.Parse("2024-01-30"),
-                    FollowUpType = "Contact Supplier to Re-Order to Specifications",
+                    FollowUpType = "Email",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 2)
                 },
                 new FollowUp
                 {
                     ID = 3,
                     FollowUpDate = DateTime.Parse("2024-01-31"),
-                    FollowUpType = "Contact Customer to Confirm Acceptable",
+                    FollowUpType = "Meeting",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 3)
                 },
                 new FollowUp
                 {
                     ID = 4,
                     FollowUpDate = DateTime.Parse("2024-01-31"),
-                    FollowUpType = "Contact Customer to Confirm Acceptable",
+                    FollowUpType = "None",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 4) //Since Some Operations Will Have No Follow Up, Change Seed Data to Reflect that,
                 });                                                               //So in operations if follow up = false, then that record should NOT have this an operations = firstordefault..  Same
                 context.SaveChanges();                                          //same with the Car.
