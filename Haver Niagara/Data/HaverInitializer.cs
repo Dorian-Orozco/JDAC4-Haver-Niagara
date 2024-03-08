@@ -1425,7 +1425,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 17,
-                        NCR_Date = DateTime.Parse("2024-01-20"),
+                        NCR_Date = DateTime.Parse("2017-01-20"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 17),
