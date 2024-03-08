@@ -42,10 +42,10 @@
             </dl>
             <dl class="d-flex">
                 <dt>
-                    <label asp-for="NCR_Date" class="control-label"></label>
+                    <label asp-for="NCR_Date" class="control-label"></label> Wont update more than once if not in form
                 </dt>
                 <dd class="ms-2">
-                    <input asp-for="NCR_Date" class="form-control" />
+                    <input asp-for="NCR_Date" class="form-control" type="date" />
                     <span asp-validation-for="NCR_Date" class="text-danger"></span>
                 </dd>
             </dl>
@@ -54,6 +54,15 @@
         <form class="" asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
+            <dl class="d-flex">
+                <dt>
+                    <label asp-for="NCR_Date" class="control-label"></label> In form and does update more than once
+                </dt>
+                <dd class="ms-2">
+                    <input asp-for="NCR_Date" class="form-control" type="date" />
+                    <span asp-validation-for="NCR_Date" class="text-danger"></span>
+                </dd>
+            </dl>
             <div>
                 @* Quality Inspector Section *@
                 <div class="row border m-1 p-2 ps-3 fs-6 section-header">1/ Quality Representative</div>

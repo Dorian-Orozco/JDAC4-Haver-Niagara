@@ -236,12 +236,18 @@ namespace Haver_Niagara.Controllers
                         return NotFound();
                     }
                     //detaching to prevent tracking issues
-                    _context.Entry(existingNCR).State = EntityState.Detached;
-                    //Update NCR Properties               
+                    //_context.Entry(existingNCR).State = EntityState.Detached;
+               
                     existingNCR.NCR_Date = nCR.NCR_Date;
                     existingNCR.NCR_Status = nCR.NCR_Status;    //For radio buttons 
-                    existingNCR.OldNCRID = nCR.ID;              //Stores the ID Automatically
-                    //ASSOCIATED TABLES PAST THIS POINT.
+
+                    if(existingNCR.OldNCRID != null)
+                    {
+                        existingNCR.OldNCRID = nCR.ID;
+                    }
+
+                    //Stores the ID Automatically
+                    _context.Update(existingNCR);   //added for safe measures..if other edit properties break try removing this!
                     //Updating Part Properties
                     if (part != null)
                     {
@@ -309,9 +315,10 @@ namespace Haver_Niagara.Controllers
 
                     if (existingNCR.NCR_Status && !qualityInspection.ReInspected) //If yes the NCR is being closed
                     {
+                       
                         return RedirectToAction("Create", new { oldNCRID = id});
                     }
-                    _context.Attach(existingNCR).State = EntityState.Modified;  //Attaches the NCR entity back to context 
+                    //_context.Attach(existingNCR).State = EntityState.Modified;  //Attaches the NCR entity back to context 
                     await OnPostUploadAsync(files, nCR.ID, links);
                     await _context.SaveChangesAsync();
                 }
