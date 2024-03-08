@@ -5,6 +5,7 @@ namespace Haver_Niagara.Models
     {
         [Display(Name ="Supplier or Rec-Insp")]
         Supplier_Or_Rec_Inspection,
+
         [Display(Name ="WIP (Production Order)")]
         WIP_Production_Order
     }

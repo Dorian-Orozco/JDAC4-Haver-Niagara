@@ -3,6 +3,7 @@ using System;
 using Haver_Niagara.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    partial class HaverNiagaraDbContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:Haver Niagara/Data/HNMigrations/20240308015836_Initial.Designer.cs
+    [Migration("20240308015836_Initial")]
+========
+    [Migration("20240308012832_Initial")]
+>>>>>>>> dff4190c0d4c58edc8ea0f8dcc246ef508167491:Haver Niagara/Data/HNMigrations/20240308012832_Initial.Designer.cs
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.16");

@@ -12,7 +12,6 @@ namespace Haver_Niagara.Data
         public DbSet<FollowUp> FollowUps { get; set; }
         public DbSet<Media> Medias { get; set; }
         public DbSet<NCR> NCRs { get; set; }
-        public DbSet<NewNCR> NewNCRs { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
