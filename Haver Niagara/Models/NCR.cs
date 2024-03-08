@@ -36,8 +36,9 @@ namespace Haver_Niagara.Models
 
         [Display(Name ="Old NCR Number")]
         public int? OldNCRID { get; set; }
-        
 
+        
+        public bool? IsArchived { set; get; }
 
 
         public NCR()

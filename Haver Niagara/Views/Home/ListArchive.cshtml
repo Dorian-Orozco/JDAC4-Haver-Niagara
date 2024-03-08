@@ -55,7 +55,7 @@
     <div class="report-container">
 
         <div class="d-flex justify-content-between">
-            <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
+            <h1 class="mt-4 mb-4"> Non-Conformance Archive</h1>
             <p>
                 <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary">Create NCR Report</a>
             </p>
@@ -181,7 +181,7 @@
                                     <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
                                         <ion-icon name="create"></ion-icon>
                                     </a>
-                                    <a href="@Url.Action("Archive", "NCRs", new { id = item.ID })" class="view-btn me-2" title="Archive NCR report">
+                                    <a href="@Url.Action("Archive", "NCRs", new { id = item.ID })" class="view-btn" title="Archive NCR report">
                                         <ion-icon name="archive-outline"></ion-icon>
                                     </a>
                                 </div>
