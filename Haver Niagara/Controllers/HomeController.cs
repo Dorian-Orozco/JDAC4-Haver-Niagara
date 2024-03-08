@@ -26,6 +26,8 @@ namespace Haver_Niagara.Controllers
 
 
 
+
+
         public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter)
         {
             //Sorting Functionality , Tutorial Also included adding search box might be handy later. 

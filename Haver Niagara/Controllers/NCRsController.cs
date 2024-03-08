@@ -66,6 +66,21 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+        public async Task<IActionResult> Archive(int? id)
+        {
+
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+
+            NCR Ncr = _context.NCRs.Find(id);
+
+            Ncr.IsArchived = true;
+
+            return RedirectToAction("List", "Home");
+        }
+
         // GET: NCRs/Create
         public IActionResult Create()
         {
@@ -168,6 +183,8 @@ namespace Haver_Niagara.Controllers
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
             return View(nCR);
         }
+
+
 
         // POST: NCRs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
