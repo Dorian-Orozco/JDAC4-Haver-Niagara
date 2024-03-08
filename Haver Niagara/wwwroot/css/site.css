@@ -95,7 +95,8 @@ a{
 }
 
 .stage-complete {
-    /* Add styles for complete stage here */
+    background: #558ECB;
+    color: white;
 }
 
 .report-container{

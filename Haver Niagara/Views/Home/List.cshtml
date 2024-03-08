@@ -244,7 +244,7 @@
                     var stage = $(this).text().trim();
 
                     // Remove existing classes
-                    $(this).removeClass('stage-eng2 stage-pur3 stage-qual4');
+                    $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
 
                     // Depending on the stage, change the color
                     switch (stage) {
@@ -261,6 +261,9 @@
                             // $(this).css('color', 'green');
                             break;
                         // Add more cases as needed for other stages
+                        case "Complete":
+                            $(this).addClass('stage-complete');
+                            break;
                         default:
                             // Default class if stage not matched
                             $(this).addClass('stage');
