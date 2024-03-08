@@ -55,12 +55,10 @@
     <div class="report-container">
 
         <div class="d-flex justify-content-between">
-            <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
-            <p>
-                <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary">Create NCR Report</a>
-            </p>
+            <h1 class="mt-4 mb-4"> Non-Conformance Archive</h1>
+
         </div>
-        <form asp-action="List" asp-controller="Home" method="get">
+        <form asp-action="ListArchive" asp-controller="Home" method="get">
             <div class="form-horizontal">
                 <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                     Filter/Search
@@ -178,11 +176,6 @@
                                     <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
                                         <ion-icon name="eye"></ion-icon>
                                     </a>
-                                    <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
-                                        <ion-icon name="create"></ion-icon>
-                                    </a>
-
-
                                 </div>
                             </td>
                         </tr>
@@ -243,7 +236,7 @@
                     var stage = $(this).text().trim();
 
                     // Remove existing classes
-                    $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
+                    $(this).removeClass('stage-eng2 stage-pur3 stage-qual4');
 
                     // Depending on the stage, change the color
                     switch (stage) {
@@ -260,9 +253,6 @@
                             // $(this).css('color', 'green');
                             break;
                         // Add more cases as needed for other stages
-                        case "Complete":
-                            $(this).addClass('stage-complete');
-                            break;
                         default:
                             // Default class if stage not matched
                             $(this).addClass('stage');

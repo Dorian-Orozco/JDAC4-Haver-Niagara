@@ -71,6 +71,9 @@ namespace Haver_Niagara.Controllers
 
             return View(nCR);
         }
+        ///new method in controller to archive an ncr
+
+
 
         // GET: NCRs/Create
         public IActionResult Create(int? oldNCRID)

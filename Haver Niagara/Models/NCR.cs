@@ -36,8 +36,34 @@ namespace Haver_Niagara.Models
 
         [Display(Name ="Old NCR Number")]
         public int? OldNCRID { get; set; }
+
         
 
+        
+        public bool? IsArchived {
+
+
+
+            get
+            {
+
+                int years = DateTime.Now.Year - NCR_Date.Year;
+
+                if (years >= 5)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            set { }
+        
+        }
+
+        
 
 
         public NCR()

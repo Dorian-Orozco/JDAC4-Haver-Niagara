@@ -1262,7 +1262,7 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 2),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 2),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 2),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 2)
                     },
                     new NCR
                     {
@@ -1386,7 +1386,7 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 13),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 13),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 13),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 13),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 13)
                     },
                     new NCR
                     {
