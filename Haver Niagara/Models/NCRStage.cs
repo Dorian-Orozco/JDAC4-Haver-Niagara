@@ -10,7 +10,7 @@ namespace Haver_Niagara.Models
         Engineering,
         [Display(Name = "3. Purchasing")]
         Purchasing,
-        [Display(Name = "4. Quality Rep")]
+        [Display(Name = "4. Quality")]
         QualityRepresentative_Final,
         [Display(Name = "Complete")]
         Completed,
