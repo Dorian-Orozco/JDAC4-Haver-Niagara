@@ -33,8 +33,12 @@ namespace Haver_Niagara.Models
         [Display(Name = "New NCR Number")]
         public int? NewNCRID { get; set; }
 
+
         [Display(Name ="Old NCR Number")]
         public int? OldNCRID { get; set; }
+        
+
+
 
         public NCR()
         {

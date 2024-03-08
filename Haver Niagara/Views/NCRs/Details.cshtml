@@ -19,6 +19,52 @@
                     @Html.DisplayFor(model => model.FormattedID)
                 </dd>
             </dl>
+
+            <dl class="d-flex justify-content-start">
+                <dt>
+                    @{
+                        // If the Old or New NCRID's are not null then..
+                        if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
+                        {
+                            // Declare formatID to use for comparison
+                            var newNCR = ViewBag?.NewNCRID;
+                            var oldNCR = Model?.OldNCRID;
+
+                            // Format NCR IDs with the current year
+                            string newNCR_ID = newNCR != null ? $"{DateTime.UtcNow.Year}-{newNCR.ToString().PadLeft(3, '0')}" : null;
+                            string oldNCR_ID = oldNCR != null ? $"{DateTime.UtcNow.Year}-{oldNCR.ToString().PadLeft(3, '0')}" : null;
+
+                            // If the formatted ID is NOT the same as the old one OR if the formatted id is NOT equal to the ViewBag format ID, proceed
+                            if (Model.FormattedID != oldNCR_ID || Model.FormattedID != newNCR_ID)
+                            {
+                                // If the old NCR id is not null, then it must be Previous, else it must be New
+                                string ncrLabel = oldNCR != null ? "Previous NCR Number" : "New NCR Number";
+                                @ncrLabel
+                            }
+                        }
+
+                    }
+                </dt> 
+                @{
+                    if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
+                    {
+                        // Declare formatID to use for comparison
+                        var newNCR = ViewBag?.NewNCRID;
+                        var oldNCR = Model?.OldNCRID;
+
+                        // Format NCR IDs with the current year
+                        string newNCR_ID = newNCR != null ? $"{DateTime.UtcNow.Year}-{newNCR.ToString().PadLeft(3, '0')}" : null;
+                        string oldNCR_ID = oldNCR != null ? $"{DateTime.UtcNow.Year}-{oldNCR.ToString().PadLeft(3, '0')}" : null;
+
+                        if (oldNCR_ID != Model.FormattedID || newNCR_ID != Model.FormattedID)
+                        {
+                            // If old NCR ID is null then use new NCR ID
+                            string useID = oldNCR_ID != null ? oldNCR_ID : newNCR_ID;
+                            @useID
+                        }
+                    }
+                }
+            </dl>
         </div>
 
         <form class="">
@@ -593,7 +639,6 @@
                         <dl>
                             <dt>
                                 Re-Inspected Acceptable?
-                                @*@Html.DisplayNameFor(model => model.NCRClosed) *@
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
@@ -657,19 +702,19 @@
                     <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
                         <dl>
                             <dt>
-                                NCR Closed has to be changed to use property
+                                NCR Still Active?
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
-                                    <span class="me-5">
-                                        <input type="radio" id="marked" name="item_marked" disabled value="yes">
-                                        <label for="marked">Yes</label><br>
-                                        @* @Html.DisplayFor(model => model.NCRClosed) *@
-                                    </span>
-                                    <span>
-                                        <input type="radio" id="notMarked" name="item_marked" disabled value="no">
-                                        <label for="notMarked">No</label><br>
-                                    </span>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="d-flex">
+                                            @Html.RadioButtonFor(model => model.NCR_Status, true, new { @checked = Model != null && Model.NCR_Status, @disabled = "disabled", @class = "me-2" })
+                                            <label class="me-4">Yes</label>
+
+                                            @Html.RadioButtonFor(model => model.NCR_Status, false, new { @checked = Model != null && !Model.NCR_Status, @disabled = "disabled", @class = "me-2" })
+                                            <label>No</label>
+                                            <span asp-validation-for="NCR_Status" class="text-danger"></span>
+                                        </div>
                                 </div>
                             </dd>
                         </dl>

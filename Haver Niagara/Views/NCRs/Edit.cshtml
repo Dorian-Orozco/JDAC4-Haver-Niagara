@@ -17,6 +17,29 @@
                     @Html.DisplayFor(model => model.FormattedID)
                 </dd>
             </dl>
+            <dl class="d-flex justify-content-start">
+                <dt>
+                    @{
+                        if (Model.OldNCRID != null || Model.NewNCRID != null)
+                        {
+                            //if the old ncr id has an old ncr id value then we know it must be a preivous ncr number, else it must be new
+                            string ncrLabel = Model.OldNCRID != null ? "Previous NCR Number" : "New NCR Number";
+                            @ncrLabel
+                        }
+                    }
+                </dt>
+                @{
+                    if(Model.OldNCRID != null || Model.NewNCRID != null)
+                    {
+                        //again if has value, show old value formatted, else show new value formatted.
+                        string formattedNCRID = Model.OldNCRID != null ? $"{DateTime.UtcNow.Year}-{Model.OldNCRID.ToString().PadLeft(3, '0')}"
+                        : $"{DateTime.UtcNow.Year}-{Model.NewNCRID.ToString().PadLeft(3, '0')}";
+                        <dd class="m2-2">
+                            @formattedNCRID
+                        </dd>
+                    }
+                }
+            </dl>
             <dl class="d-flex">
                 <dt>
                     <label asp-for="NCR_Date" class="control-label"></label>
@@ -607,7 +630,7 @@
                         </div>
                         @* Purchasing Follow Up Required *@
                         <div class="row ms-1 mb-2">
-                            @if (Model.Operation != null && Model.Operation.OperationFollowUp)
+                            @if (Model.Operation != null @* && Model.Operation.OperationFollowUp *@)
                             {
                                 <div class="form-group">
                                     <label asp-for="Operation.FollowUp.FollowUpType" class="control-label"></label>
@@ -617,7 +640,7 @@
                             }
                         </div>
                         <div class="row ms-1 mb-2">
-                            @if (Model.Operation != null && Model.Operation.OperationFollowUp)
+                            @if (Model.Operation != null @* && Model.Operation.OperationFollowUp *@)
                             {
                                 <div class="form-group">
                                     <label asp-for="Operation.FollowUp.FollowUpDate" class="control-label"></label>
@@ -683,7 +706,7 @@
                     </div>
                     <div class="col-sm-3 pt-2">
                         <small class="fw-light">
-                            If Yes, Generates New NCR Number
+                            If No, Create New NCR Number
                         </small>
                         <div class="row">
                             <dl>
@@ -733,19 +756,17 @@
                     <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
                         <dl>
                             <dt>
-                                NCR Closed    Has to be changed to use a open/closed property
+                                NCR Closed?
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
-                                    <span class="me-5">
-                                        <input type="radio" id="marked" name="item_marked" value="yes">
-                                        <label for="marked">Yes</label><br>
-                                        @* @Html.DisplayFor(model => model.NCRClosed) *@
-                                    </span>
-                                    <span>
-                                        <input type="radio" id="notMarked" name="item_marked" value="no">
-                                        <label for="notMarked">No</label><br>
-                                    </span>
+                                    <div class="d-flex">
+                                        @Html.RadioButtonFor(model => model.NCR_Status, true, new { @checked = Model != null && Model.NCR_Status, @class = "me-2" })
+                                        <label class="me-4">Yes</label>
+
+                                        @Html.RadioButtonFor(model => model.NCR_Status, false, new { @checked = Model != null && !Model.NCR_Status, @class = "me-2" })
+                                        <label>No</label>
+                                        <span asp-validation-for="NCR_Status" class="text-danger"></span>
                                 </div>
                             </dd>
                         </dl>

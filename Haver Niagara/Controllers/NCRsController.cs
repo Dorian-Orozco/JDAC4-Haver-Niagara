@@ -57,6 +57,13 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.CAR)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
+            if(nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
+            {
+                ViewBag.NewNCRID = nCR.NewNCRID;
+            }
+
+
+
             if (nCR == null)
             {
                 return NotFound();
@@ -66,13 +73,17 @@ namespace Haver_Niagara.Controllers
         }
 
         // GET: NCRs/Create
-        public IActionResult Create()
+        public IActionResult Create(int? oldNCRID)
         {
             ///Populate list of defects
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
 
             // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+
+
+            //Passes in the OLD NCRID
+            ViewBag.OldNCRID = oldNCRID;
 
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID");
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID");
@@ -85,8 +96,8 @@ namespace Haver_Niagara.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NCR_Date,NCR_Status,NCR_Stage")]
+        [ValidateAntiForgeryToken]              //oldNCRID is passed through in edit controller
+        public async Task<IActionResult> Create(int? oldNCRID,[Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID")]
                 NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering,
             Operation operation, List<IFormFile> files, List<string> links, int defectID)
         {
@@ -95,23 +106,36 @@ namespace Haver_Niagara.Controllers
                 // Add the part to the context
                 _context.Add(part);                         //allows for part id to get an ID from databasee
                 await _context.SaveChangesAsync();          //saves to context
-
                 _context.Add(qualityInspection);            //allows qualityinspectionID to get ID from database value
                 await _context.SaveChangesAsync();
-
                 _context.Add(engineering);
                 await _context.SaveChangesAsync();
-
                 _context.Add(operation);
                 await _context.SaveChangesAsync();
                 //Assign the generated IDs to this NCR. this allows the NCR to have part and quality
-                nCR.PartID = part.ID;                       //inspection table associated to it
+                nCR.PartID = part.ID;                  
                 nCR.QualityInspectionID = qualityInspection.ID;
                 nCR.EngineeringID = engineering.ID;
                 nCR.OperationID = operation.ID;
 
+                //Retrieves the old ncr from the GET create. 
+                nCR.OldNCRID = oldNCRID ?? null; 
+                
                 //Add the NCR to the context
                 _context.Add(nCR);
+                await _context.SaveChangesAsync();
+                //If theres a value, find that old table to assign it the newly generated ID
+                if (oldNCRID != null)
+                {   //get the record that had the "old id"
+                    var oldNCR = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == oldNCRID);
+                    if (oldNCR != null)
+                    {
+                        oldNCR.NewNCRID = nCR.ID; //set the old ncr's new ncr id == current id
+                        _context.Update(oldNCR);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
 
                 var defectList = new DefectList             //creates a new defect list object
                 {                                           //since it is a junction table it takes a part ID and a defectID
@@ -119,9 +143,7 @@ namespace Haver_Niagara.Controllers
                     DefectID = defectID
                 };
                 _context.Add(defectList);                   //adding to context
-
                 await _context.SaveChangesAsync();          //saving changes
-
                 //Images function to save
                 if (files != null && files.Count > 0)               //checks for multiple images/files
                 {                                                   //sends to function where they are updated
@@ -129,7 +151,6 @@ namespace Haver_Niagara.Controllers
                 }                                                   //there it creates them into new objects and associates them
                 return RedirectToAction("List", "Home");            //to that part => ncr. 
             }
-
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name"); //list of suppliers to pick 
             return View(nCR); //To test create, put a break point on this line and hover over 'nCR' and you can see the collections and see if they saved.
         }
@@ -165,26 +186,12 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-
-
-
             ///Populate list of defects
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
-   
-
-
             // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             return View(nCR);
         }
-        private int? GetSelectedDefectID(int ncrID)
-        {
-            var selectedDefectId = _context.NCRs
-                .Where(n => n.ID == ncrID).SelectMany(n => n.Part.DefectLists).Select(n => n.DefectID).FirstOrDefault();
-                return selectedDefectId;
-        }
-
-
         // POST: NCRs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -192,7 +199,7 @@ namespace Haver_Niagara.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Closed,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
+        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
                     NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation,
                     List<IFormFile> files, List<string> links, int defectID, Defect defect)
         {
@@ -225,10 +232,8 @@ namespace Haver_Niagara.Controllers
                     {
                         return NotFound();
                     }
-
                     //detaching to prevent tracking issues
                     _context.Entry(existingNCR).State = EntityState.Detached;
-
                     //Update NCR Properties               
                     existingNCR.NCR_Date = nCR.NCR_Date;
                     existingNCR.NCR_Status = nCR.NCR_Status;    //For radio buttons 
@@ -247,8 +252,6 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.QuantityDefect = part.QuantityDefect;
                         existingNCR.Part.Description = part.Description;
                         existingNCR.Part.SupplierID = part.SupplierID;
-
-
                         existingNCR.Part.DefectLists.Clear(); //removed existing defect 
                         if (defectID != 0)  //id is passed through and assigned
                         {
@@ -268,7 +271,6 @@ namespace Haver_Niagara.Controllers
                         existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
                         existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
                     }
-
                     if (engineering != null)
                     {
                         existingNCR.Engineering.Name = engineering.Name;
@@ -281,7 +283,6 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Engineering.RevisionDate = engineering.RevisionDate;
                         existingNCR.Engineering.EngineeringDisposition = engineering.EngineeringDisposition;
                     }
-
                     if (operation != null)
                     {
                         existingNCR.Operation.Name = operation.Name;
@@ -290,7 +291,6 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Operation.OperationNotes = operation.OperationNotes;
                         existingNCR.Operation.OperationCar = operation.OperationCar;
                         existingNCR.Operation.OperationFollowUp = operation.OperationFollowUp;
-
                         //Updating Follow Up if Not NUll
                         if (operation.FollowUp != null)
                         {
@@ -302,12 +302,13 @@ namespace Haver_Niagara.Controllers
                             existingNCR.Operation.CAR.CARNumber = operation.CAR.CARNumber;
                             existingNCR.Operation.CAR.Date = operation.CAR.Date;
                         }
-
                     }
 
-
+                    if (existingNCR.NCR_Status && !qualityInspection.ReInspected) //If yes the NCR is being closed
+                    {
+                        return RedirectToAction("Create", new { oldNCRID = id});
+                    }
                     _context.Attach(existingNCR).State = EntityState.Modified;  //Attaches the NCR entity back to context 
-
                     await OnPostUploadAsync(files, nCR.ID, links);
                     await _context.SaveChangesAsync();
                 }
@@ -326,17 +327,19 @@ namespace Haver_Niagara.Controllers
             }
             //Populate viewbag for list of suppliers
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
-
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
-
             return View(nCR);
         }
 
-
+        ////Create New NCR Edit Post
+        //private IActionResult CreateNewNCR(int originalNCRid) //Redirects to the create page
+        //{                                                   //and passes along the oldNCRID from the ncr that called it
+        //    return RedirectToAction("Create", new { oldNCRID = originalNCRid});
+        //}
 
 
         // GET: NCRs/Delete/5
