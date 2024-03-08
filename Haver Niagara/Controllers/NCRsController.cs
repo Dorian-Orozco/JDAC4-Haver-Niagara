@@ -35,6 +35,8 @@ namespace Haver_Niagara.Controllers
             return View(await haverNiagaraDbContext.ToListAsync());
         }
 
+
+
         // GET: NCRs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
