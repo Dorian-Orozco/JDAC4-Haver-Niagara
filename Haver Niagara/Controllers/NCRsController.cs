@@ -73,23 +73,6 @@ namespace Haver_Niagara.Controllers
         }
         ///new method in controller to archive an ncr
 
-        public async Task<IActionResult> Archive(int? id)
-        {
-
-            if (id == null || _context.NCRs == null)
-            {
-                return NotFound();
-            }
-
-            NCR Ncr = _context.NCRs.Find(id);
-
-
-
-            Ncr.IsArchived = true;
-            await _context.SaveChangesAsync();  
-
-            return RedirectToAction("ListArchive", "Home");
-        }
 
 
         // GET: NCRs/Create
