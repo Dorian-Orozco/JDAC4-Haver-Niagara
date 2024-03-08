@@ -102,21 +102,59 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="text-center">@Html.ActionLink("Status", "List", new { sortOrder = ViewBag.StageSortParam, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th class="text-center">
+                            <a asp-action="List"
+                               asp-route-sortOrder="@ViewBag.StageSortParam"
+                               asp-route-currentFilter="@ViewBag.CurrentFilter"
+                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                               asp-route-selectedDate="@ViewBag.SelectedDate"
+                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                               asp-route-page="@Model.PageNumber">
+                                Status
+                            </a>
+                        </th>
                         <th class="text-center">NCR Number</th>
-                        <th class="text-center">@Html.ActionLink("Date Created", "List", new { sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter })</th>
-                        <th class="text-center">@Html.ActionLink("Part Number", "List", new { sortOrder = ViewBag.POSortParam, currentFilter = ViewBag.CurrentFilter })</th>
-                        <th>@Html.ActionLink("Supplier", "List", new { sortOrder = ViewBag.SupplierSortParam, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th class="text-center">
+                            <a asp-action="List"
+                               asp-route-sortOrder="@ViewBag.DateSortParam"
+                               asp-route-currentFilter="@ViewBag.CurrentFilter"
+                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                               asp-route-selectedDate="@ViewBag.SelectedDate"
+                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                               asp-route-page="@Model.PageNumber">
+                                Date Created
+                            </a>
+                        </th>
+                        <th class="text-center">
+                            <a asp-action="List"
+                               asp-route-sortOrder="@ViewBag.POSortParam"
+                               asp-route-currentFilter="@ViewBag.CurrentFilter"
+                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                               asp-route-selectedDate="@ViewBag.SelectedDate"
+                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                               asp-route-page="@Model.PageNumber">
+                                Part Number
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-action="List"
+                               asp-route-sortOrder="@ViewBag.SupplierSortParam"
+                               asp-route-currentFilter="@ViewBag.CurrentFilter"
+                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                               asp-route-selectedDate="@ViewBag.SelectedDate"
+                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                               asp-route-page="@Model.PageNumber">
+                                Supplier
+                            </a>
+                        </th>
                         <th>Stage</th>
                         <th class="text-center"></th>
-                        @* <th>Edit</th> *@
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {                           //Added some validation, will remove later.
                         <tr>
-
                             <td class="text-center">
                                 @if (!item.NCR_Status)
                                 {
@@ -127,7 +165,6 @@
                                     <button class="status-btn active" title="Active"></button>
                                 }
                             </td>
-                            @* Gets Date Time Now/Year, sets it as the first part of the string, and the second part is NCR Number, giving the "2024-000" format *@
                             @{
                                 int year = DateTime.Now.Year;
                             }
@@ -236,7 +273,3 @@
     }
 
 </div>
-
-
-
-

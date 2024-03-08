@@ -7,15 +7,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using X.PagedList;
-
 
 namespace Haver_Niagara.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly HaverNiagaraDbContext _context; //allows for db access
+        private readonly HaverNiagaraDbContext _context; // allows for db access
 
         public HomeController(ILogger<HomeController> logger, HaverNiagaraDbContext context)
         {
@@ -23,24 +23,17 @@ namespace Haver_Niagara.Controllers
             _context = context;
         }
 
-
-
-
         public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter)
         {
-            //Sorting Functionality , Tutorial Also included adding search box might be handy later. 
-            //https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
-
-            //Better view bag sortOrder assignment (tutorial didnt work) https://stackoverflow.com/questions/38082611/asp-net-mvc-sort-not-work?rq=3
-
-            //Part Number Sort
+            // Sorting Functionality
             ViewBag.POSortParam = sortOrder == "ProductNum_Asc" ? "ProductNum_Desc" : "ProductNum_Asc";
-            //Supplier Name
             ViewBag.SupplierSortParam = sortOrder == "Supplier_Asc" ? "Supplier_Desc" : "Supplier_Asc";
-            //Order by open or closed 
             ViewBag.StageSortParam = sortOrder == "Stage_Asc" ? "Stage_Desc" : "Stage_Asc";
-            //Order by date
             ViewBag.DateSortParam = sortOrder == "Date_Asc" ? "Date_Desc" : "Date_Asc";
+            ViewBag.CurrentFilter = currentFilter;
+            ViewBag.SelectedSupplier = selectedSupplier;
+            ViewBag.SelectedDate = selectedDate;
+            ViewBag.SelectedStatus = selectedStatus;
 
             if (searchString != null)
             {
@@ -53,69 +46,47 @@ namespace Haver_Niagara.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            //Adding functionality to return the list of seed data 
-            var ncrs = _context.NCRs
-                .Include(p => p.Part)
-                    .ThenInclude(s => s.Supplier)
-                .Include(p => p.Part)
-                    .ThenInclude(d => d.DefectLists)
-                    .ThenInclude(d => d.Defect)
-                .ToList();
-
-            if (!selectedStatus.HasValue)
-            {
-                //on defualt, sort ncr list by active
-                ncrs = ncrs.Where(x => x.NCR_Status == true).ToList();
-            }
-            else if (selectedStatus.HasValue)
-            {
-                ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value).ToList();
-            }
-  
-
-            // Filter by Status
-            //if (selectedStatus.HasValue)
-            //{
-            //    ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value).ToList();
-            //}
-
-            // Create a list to store all NCRs with suppliers
             var originalNCRs = _context.NCRs
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
+                .Include(p => p.Part.DefectLists)
+                .ThenInclude(d => d.Defect)
                 .ToList();
 
-            // Create a separate list for dropdown options
-            var suppliersForDropdown = originalNCRs.Select(x => x.Part.Supplier.Name).Distinct().ToList();
+            var ncrs = _context.NCRs
+                .Include(p => p.Part)
+                .ThenInclude(s => s.Supplier)
+                .Include(p => p.Part.DefectLists)
+                .ThenInclude(d => d.Defect)
+                .AsQueryable();
 
-            // Update the ViewBag.SupplierList with the dropdown options
-            ViewBag.SupplierList = new SelectList(suppliersForDropdown, "Select Supplier");
-
-            // Filter by Supplier
+            // Apply filters
             if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
             {
-                // Apply the supplier filter to the main list
-                ncrs = originalNCRs.Where(x => x.Part.Supplier.Name == selectedSupplier).ToList();
+                ncrs = ncrs.Where(x => x.Part.Supplier.Name == selectedSupplier);
             }
 
-            // Get all unique suppliers for the dropdown list
-            var allSuppliers = originalNCRs.Select(x => x.Part.Supplier.Name).Distinct().ToList();
+            if (!selectedStatus.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.NCR_Status == true);
+            }
+            else if (selectedStatus.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value);
+            }
+            ViewBag.SelectedStatus = selectedStatus;
 
-            ViewBag.SupplierList = new SelectList(allSuppliers, selectedSupplier);
-
-            //Search Box
+            // Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
-                //You can add more columns to search, as long as the table relationship is established if it not an NCR
-                //Furthermore might consider adding a clear button? 
                 searchString = searchString.ToLower();
 
                 ncrs = ncrs.Where(x =>
-                 x.NCR_Date.ToString().ToLower().Contains(searchString) ||
-                 x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
-                 x.ID.ToString().ToLower().Contains(searchString) ||
-                 x.Part.Supplier.Name.ToLower().Contains(searchString)
-                 ).ToList();
+                    x.NCR_Date.ToString().ToLower().Contains(searchString) ||
+                    x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
+                    x.ID.ToString().ToLower().Contains(searchString) ||
+                    x.Part.Supplier.Name.ToLower().Contains(searchString)
+                );
             }
 
             // Filter by Date
@@ -124,56 +95,73 @@ namespace Haver_Niagara.Controllers
                 DateTime parsedDate;
                 if (DateTime.TryParseExact(selectedDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
                 {
-                    ncrs = ncrs.Where(x => x.NCR_Date.Date == parsedDate.Date).ToList();
+                    ncrs = ncrs.Where(x => x.NCR_Date.Date == parsedDate.Date);
                 }
             }
 
-
-            //Determines the sorting order
-            switch (sortOrder)       
+            // Sorting
+            IOrderedQueryable<NCR> sortedNCRs;
+            switch (sortOrder)
             {
-                //Part Number
                 case "ProductNum_Desc":
-                    ncrs = ncrs.OrderByDescending(b => b.Part.ProductNumber).ToList();
+                    sortedNCRs = ncrs.OrderByDescending(b => b.Part.ProductNumber);
                     break;
                 case "ProductNum_Asc":
-                    ncrs = ncrs.OrderBy(b=>b.Part.ProductNumber).ToList();
+                    sortedNCRs = ncrs.OrderBy(b => b.Part.ProductNumber);
                     break;
-
-                //Supplier Name
                 case "Supplier_Desc":
-                    ncrs = ncrs.OrderByDescending(s => s.Part.Supplier.Name).ToList();
+                    sortedNCRs = ncrs.OrderByDescending(s => s.Part.Supplier.Name);
                     break;
                 case "Supplier_Asc":
-                    ncrs = ncrs.OrderBy(n=>n.Part.Supplier.Name).ToList();
+                    sortedNCRs = ncrs.OrderBy(n => n.Part.Supplier.Name);
                     break;
-
-                //Since we do not have a BOOLEAN value in NCR, this must be changed, currently using Status (open/closed atm) 
-                case "Stage_Desc":              
-                    ncrs = ncrs.OrderByDescending(b => b.NCR_Status).ToList();
+                case "Stage_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(b => b.NCR_Status);
                     break;
                 case "Stage_Asc":
-                    ncrs = ncrs.OrderBy(b=>b.NCR_Status).ToList();
+                    sortedNCRs = ncrs.OrderBy(b => b.NCR_Status);
                     break;
                 case "Date_Asc":
-                    ncrs = ncrs.OrderByDescending(b=>b.NCR_Date).ToList();
+                    sortedNCRs = ncrs.OrderBy(b => b.NCR_Date);
                     break;
                 case "Date_Desc":
-                    ncrs = ncrs.OrderBy(b => b.NCR_Date).ToList();
+                    sortedNCRs = ncrs.OrderByDescending(b => b.NCR_Date);
+                    break;
+                default:
+                    sortedNCRs = ncrs.OrderBy(b => b.ID);
                     break;
             }
 
-
-
-
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(ncrs.ToPagedList(pageNumber, pageSize));
+
+            var pagedNCRs = sortedNCRs.ToPagedList(pageNumber, pageSize);
+
+            // Create a separate list for dropdown options
+            var suppliersForDropdown = originalNCRs
+                .Where(x => x.Part != null && x.Part.Supplier != null)
+                .Select(x => x.Part.Supplier.Name)
+                .Distinct()
+                .ToList();
+
+            // Update the ViewBag.SupplierList with the dropdown options
+            ViewBag.SupplierList = new SelectList(suppliersForDropdown, selectedSupplier);
+
+            // Get all unique suppliers for the dropdown list
+            var allSuppliers = originalNCRs
+                .Where(x => x.Part != null && x.Part.Supplier != null && x.Part.Supplier.Name != null)
+                .Select(x => x.Part.Supplier.Name)
+                .Distinct()
+                .ToList();
+
+            ViewBag.SupplierList = new SelectList(allSuppliers, selectedSupplier);
+
+            return View(pagedNCRs);
         }
 
         public IActionResult ClearFilters()
         {
-            return RedirectToAction("List", new { sortOrder = "", searchString = "", selectedSupplier = "", selectedDate = "", selectedStatus = "" });
+            return RedirectToAction("List");
         }
 
         public IActionResult Index()
