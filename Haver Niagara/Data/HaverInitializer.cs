@@ -1289,7 +1289,7 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 4),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 4),
-                        IsArchived = false
+                        IsArchived = true
                     },
                     new NCR
                     {

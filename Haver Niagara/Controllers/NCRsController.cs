@@ -83,7 +83,10 @@ namespace Haver_Niagara.Controllers
 
             NCR Ncr = _context.NCRs.Find(id);
 
+
+
             Ncr.IsArchived = true;
+            await _context.SaveChangesAsync();  
 
             return RedirectToAction("ListArchive", "Home");
         }
