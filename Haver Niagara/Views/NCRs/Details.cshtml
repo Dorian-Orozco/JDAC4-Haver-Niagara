@@ -44,7 +44,7 @@
                         }
 
                     }
-                </dt> 
+                </dt>
                 @{
                     if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
                     {
@@ -511,17 +511,17 @@
                             <dd class="mt-1 ms-2">
                                 @if (Model != null && Model.Operation != null)
                                 {
-                                <div class="mt-1 ms-2">
+                                    <div class="mt-1 ms-2">
                                         @foreach (OperationDecision identify in Enum.GetValues(typeof(OperationDecision)))
                                         {
-                                        <span class="ms-5 me-5">
-                                            <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
+                                            <span class="ms-5 me-5">
+                                                <input type="radio" id="@identify" name="qualityIdentify" value="@identify" disabled
                                                 @(Model.Operation != null && Model.Operation.OperationDecision == identify ? "checked" : "") />
                                                 @* <label for="@identify">@identify</label><br /> *@
-                                            <label for="@identify">@((typeof(OperationDecision).GetMember(identify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
-                                        </span>
+                                                <label for="@identify">@((typeof(OperationDecision).GetMember(identify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
+                                            </span>
                                         }
-                                </div>
+                                    </div>
                                 }
                             </dd>
                         </dl>
@@ -643,9 +643,9 @@
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
                                     <span class="ms-2 me-5">
-                                        <label asp-for="QualityInspection.ReInspected" class="control-label"></label><br />
+                                        @* <label asp-for="QualityInspection.ReInspected" class="control-label"></label><br /> *@
                                         <div class="d-flex">
-                                            @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ReInspected, @disabled = "disabled",  @class = "me-2" })
+                                            @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ReInspected, @disabled = "disabled", @class = "me-2" })
                                             <label class="me-4">Yes</label>
 
                                             @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ReInspected, @disabled = "disabled", @class = "me-2" })
@@ -659,15 +659,12 @@
                     </div>
                     <div class="col-sm-3 pt-2">
                         <small class="fw-light">
-                            If no, New NCR Number will be generated
-
+                            @* New NCR Number *@
                         </small>
                         <div class="row">
                             <dl>
                                 <dt class="mt-2 col-sm fw-normal">
-                                    <input asp-for="NewNCRID" disabled class="form-control" />
-                                    <span asp-validation-for="NewNCRID" class="text-danger"></span>
-
+                                    @Html.DisplayFor(model => model.NewNCRID)
                                 </dt>
                             </dl>
                         </div>
@@ -689,7 +686,7 @@
                                 <dt class="col-sm">
                                     Date
                                 </dt>
-                                <dd class="col-sm ms-2"> 
+                                <dd class="col-sm ms-2">
                                     @Html.DisplayFor(model => model.QualityInspection.Date)
                                 </dd>
                             </dl>
@@ -706,15 +703,14 @@
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="d-flex">
-                                            @Html.RadioButtonFor(model => model.NCR_Status, true, new { @checked = Model != null && Model.NCR_Status, @disabled = "disabled", @class = "me-2" })
-                                            <label class="me-4">Yes</label>
+                                    <div class="d-flex">
+                                        @Html.RadioButtonFor(model => model.NCR_Status, true, new { @checked = Model != null && Model.NCR_Status, @disabled = "disabled", @class = "me-2" })
+                                        <label class="me-4">Yes</label>
 
-                                            @Html.RadioButtonFor(model => model.NCR_Status, false, new { @checked = Model != null && !Model.NCR_Status, @disabled = "disabled", @class = "me-2" })
-                                            <label>No</label>
-                                            <span asp-validation-for="NCR_Status" class="text-danger"></span>
-                                        </div>
+                                        @Html.RadioButtonFor(model => model.NCR_Status, false, new { @checked = Model != null && !Model.NCR_Status, @disabled = "disabled", @class = "me-2" })
+                                        <label>No</label>
+                                        <span asp-validation-for="NCR_Status" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </dd>
                         </dl>
@@ -726,8 +722,8 @@
                                     Quality Department
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @Html.DisplayFor(model => model.QualityInspection.QualityIdentify)        @* FIX THIS PART AS WELL! *@
-                                </dd>
+
+                                    @Html.DisplayFor(model => model.QualityInspection.Department)
                             </dl>
                         </div>
                         <div class="row">
@@ -737,7 +733,7 @@
                                     @* @Html.DisplayNameFor(model => model.InspectDate) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @Html.DisplayFor(model => model.QualityInspection.Date)    @* FIX THIS PART AS WELL! *@
+                                    @Html.DisplayFor(model => model.QualityInspection.DepartmentDate)
                                 </dd>
                             </dl>
                         </div>

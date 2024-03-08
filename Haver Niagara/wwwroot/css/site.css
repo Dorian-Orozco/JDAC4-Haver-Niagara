@@ -27,8 +27,9 @@ a{
 }
 
 .bg-haver {
-    background-color: #0C2340;
-    opacity: 80%;
+/*    background-color: #0C2340;
+    opacity: 80%;*/
+    background-color: #1C335E;
 }
 
 /*eye icon under action column in ncr table*/
@@ -94,7 +95,8 @@ a{
 }
 
 .stage-complete {
-    /* Add styles for complete stage here */
+    background: #558ECB;
+    color: white;
 }
 
 .report-container{
