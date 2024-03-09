@@ -78,6 +78,12 @@
 		margin-bottom: 1rem;
 	}
 
+	.disclaimer-txt {
+		font-size: 12px;
+		text-align: right;
+		margin-left: 23rem;
+	}
+
 	.filter-container {
 		display: flex;
 		flex-basis: 28%;
@@ -256,6 +262,7 @@
 			<div class="button-container">
 				<a asp-controller="Home" asp-action="List" class="button">View All</a>
 				<a asp-controller="NCRs" asp-action="Create" class="button">Create New</a>
+				<p class="disclaimer-txt">(Displaying the oldest 5 open NCRs)</p>
 			</div>
 		</div>
 	</div>
