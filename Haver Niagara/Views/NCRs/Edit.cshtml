@@ -8,6 +8,17 @@
 <div class="container list-container shadow mt-5 bg-white">
     <div class="report-container">
         @* h1 *@
+        <dl>
+            <dt class="text-muted">
+                @* Should show previous ncr number if one is linked *@
+                @{
+                    var OldNCRNumber_id = ViewBag.OldNCRID != null ? $"Previous NCR No. {DateTime.UtcNow.Year}-{ViewBag.OldNCRID.ToString().PadLeft(3, '0')}" : "";
+                }
+                <span class="m2-2">
+                    @OldNCRNumber_id
+                </span>
+            </dt>
+        </dl>
         <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
             <dl class="d-flex">
                 <dt>

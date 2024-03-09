@@ -13,11 +13,10 @@ namespace Haver_Niagara.Models
         [Display(Name = "Quality Representative's Name")]
         public string Name { get; set; }
 
-        [Display(Name = "Quality Representative Inpsection Date")]
+        [Display(Name = "Quality Representative Inspection Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
-
 
         //Added properties to better track Quality Rep
         [Display(Name ="Inspector's Name")] 
@@ -35,10 +34,6 @@ namespace Haver_Niagara.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DepartmentDate { get; set; }
-
-
-
-
 
         [Display(Name = "Item Marked Non-Conforming")]
         public bool ItemMarked { get; set; }

@@ -13,7 +13,6 @@ namespace Haver_Niagara.Models
         public int DefectID { get; set; }   
         public Defect Defect { get; set; }
 
-
         //foreign key to product
         public int PartID { get; set; }
         public Part Part{ get; set; }
