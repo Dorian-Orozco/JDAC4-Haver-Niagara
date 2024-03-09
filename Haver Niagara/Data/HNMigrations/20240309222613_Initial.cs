@@ -140,8 +140,8 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CARNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CARNumber = table.Column<int>(type: "INTEGER", nullable: true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: true),
                     OperationID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -160,7 +160,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FollowUpDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FollowUpDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     FollowUpType = table.Column<string>(type: "TEXT", nullable: true),
                     OperationID = table.Column<int>(type: "INTEGER", nullable: true)
                 },

@@ -13,10 +13,10 @@ namespace Haver_Niagara.Models
         [Display(Name = "Expected Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FollowUpDate { get; set; }
+        public DateTime? FollowUpDate { get; set; }
 
         [Display(Name = "Type")]
-        public string FollowUpType { get; set; }
+        public string? FollowUpType { get; set; }
 
 
         [ForeignKey("Operation")]

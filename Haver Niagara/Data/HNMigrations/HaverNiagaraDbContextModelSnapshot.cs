@@ -23,10 +23,10 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CARNumber")
+                    b.Property<int?>("CARNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("OperationID")
@@ -135,7 +135,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FollowUpDate")
+                    b.Property<DateTime?>("FollowUpDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FollowUpType")
