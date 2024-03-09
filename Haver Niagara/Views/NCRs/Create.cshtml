@@ -730,7 +730,7 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <div class="mt-2">
-                    <a asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
+                    <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
                 </div>
                 <div class="mt-2">
                     <input type="submit" value="Create Report" class="btn btn-primary" />
@@ -741,11 +741,17 @@
     </div>
 </div>
 
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        document.getElementById("cancel-button").addEventListener("click", function (event) {
+            if (!confirm("Are you sure you want to cancel?")) {
+                event.preventDefault();
+            }
+        });
+    </script>
 }
 
 
