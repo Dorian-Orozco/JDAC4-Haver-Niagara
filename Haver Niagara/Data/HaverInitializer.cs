@@ -1497,6 +1497,45 @@ namespace Haver_Niagara.Data
                 context.SaveChanges();
             }
 
+            // PROCUREMENT
+
+            if (!context.Procurements.Any())
+            {
+                context.Procurements.AddRange(
+                    new Procurement
+                    {
+                        ID = 1,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        //DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
+                        ToReceiveDate = DateTime.Parse("2024-03-09"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false,
+                        NCR = context.NCRs.FirstOrDefault(n => n.ID == 19) // Adjust this according to your NCR seeding
+                    },
+                    new Procurement
+                    {
+                        ID = 2,
+                        ReturnRejected = false,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2024-03-10"),
+                        SuppReturnCompletedSAP = false,
+                        ExpectSuppCredit = false,
+                        BillSupplier = true,
+                        NCR = context.NCRs.FirstOrDefault(n => n.ID == 20), // Adjust this according to your NCR seeding
+                    });
+                context.SaveChanges();
+            }
+            // Add more procurement instances as needed
+
+            //context.Procurements.AddRange(procurements);
+            //context.SaveChanges();
+
+
             // QUALITY INSPECTION: ONE FOR EA. NCR ( DATES MUST MAKE SENSE )
 
             if (!context.QualityInspections.Any())
