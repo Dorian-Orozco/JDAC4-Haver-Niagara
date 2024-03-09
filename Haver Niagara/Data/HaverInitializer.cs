@@ -53,6 +53,8 @@ namespace Haver_Niagara.Data
                 context.SaveChanges();
             }
 
+            // SUPPLIERS
+
             if (!context.Suppliers.Any())
             {
                 context.Suppliers.AddRange(
@@ -93,6 +95,9 @@ namespace Haver_Niagara.Data
                 });
                 context.SaveChanges();
             }
+
+            // PARTS: ONE FOR EA. NCR
+
             if (!context.Parts.Any())
             {
                 context.Parts.AddRange(
@@ -381,10 +386,50 @@ namespace Haver_Niagara.Data
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
                     SalesOrder = "Stock"
+                },
+                new Part
+                {
+                    ID = 23,
+                    Name = "Anchors",
+                    ProductNumber = 204231293,
+                    QuantityRecieved = 10,
+                    QuantityDefect = 1,
+                    Description = "Anchors for repairs",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
+                },
+                new Part
+                {
+                    ID = 24,
+                    Name = "Screws",
+                    ProductNumber = 209031296,
+                    QuantityRecieved = 200,
+                    QuantityDefect = 10,
+                    Description = "Screws for repairs.",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
+                },
+                new Part
+                {
+                    ID = 25,
+                    Name = "Wires",
+                    ProductNumber = 206547333,
+                    QuantityRecieved = 10,
+                    QuantityDefect = 10,
+                    Description = "Replacement wires",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock"
                 });
                 context.SaveChanges();
             }
 
+            // MEDIA
 
             if (!context.Medias.Any())
             {
@@ -493,6 +538,9 @@ namespace Haver_Niagara.Data
                     );
                 context.SaveChanges();
             }
+
+            // OPERATION: ONE FOR EA. NCR ( DATES MUST MAKE SENSE )
+
             if (!context.Operations.Any())
             {
                 //REPRESENTS A FORM NOT A PERSON! THERE HAS TO BE ONE To ONE WITH NCR. 10 NCRS = 10 PURCHASING 
@@ -501,7 +549,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 1,
                     Name = "James Jones",
-                    OperationDate = DateTime.Parse("2024-01-20"),
+                    OperationDate = DateTime.Parse("2010-01-01"),
                     OperationDecision = (OperationDecision)1,
                     OperationNotes = "Rework per engineering disposition",
                     OperationCar = true,
@@ -511,7 +559,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 2,
                     Name = "Jane Little",
-                    OperationDate = DateTime.Parse("2024-01-22"),
+                    OperationDate = DateTime.Parse("2011-04-15"),
                     OperationDecision = (OperationDecision)1,
                     OperationNotes = "Replacement required",
                     OperationCar = true,
@@ -521,7 +569,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 3,
                     Name = "Matt Turner",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2013-08-22"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "Local fabricator to repaint Haver Grey and we will bill Western Cast for the costs",
                     OperationCar = false,
@@ -531,7 +579,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 4,
                     Name = "Sandy Roof",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2014-12-07"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "make new",
                     OperationCar = true,
@@ -541,7 +589,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 5,
                     Name = "Alex Baxter",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2015-06-30"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "Use as is",
                     OperationCar = false,
@@ -551,7 +599,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 6,
                     Name = "Sam Smith",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2016-09-14"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "Repaint required",
                     OperationCar = true,
@@ -561,7 +609,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 7,
                     Name = "Alex Baxter",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2017-11-25"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -571,7 +619,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 8,
                     Name = "Jame Scot",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2018-03-09"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = false,
@@ -581,7 +629,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 9,
                     Name = "Matt Turner",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2019-05-18"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -591,7 +639,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 10,
                     Name = "Matt Turner",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2020-08-02"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -601,7 +649,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 11,
                     Name = "James Jones",
-                    OperationDate = DateTime.Parse("2024-01-20"),
+                    OperationDate = DateTime.Parse("2021-10-11"),
                     OperationDecision = (OperationDecision)4,
                     OperationNotes = "N/A",
                     OperationCar = false,
@@ -611,7 +659,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 12,
                     Name = "James Jones",
-                    OperationDate = DateTime.Parse("2024-01-20"),
+                    OperationDate = DateTime.Parse("2022-02-26"),
                     OperationDecision = (OperationDecision)1,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -621,7 +669,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 13,
                     Name = "Jane Little",
-                    OperationDate = DateTime.Parse("2024-01-22"),
+                    OperationDate = DateTime.Parse("2022-06-17"),
                     OperationDecision = (OperationDecision)1,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -631,7 +679,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 14,
                     Name = "Matt Turner",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2022-12-07"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = false,
@@ -641,7 +689,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 15,
                     Name = "Sandy Roof",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2022-12-10"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -651,7 +699,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 16,
                     Name = "Alex Baxter",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2023-03-24"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = false,
@@ -661,7 +709,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 17,
                     Name = "Sam Smith",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2023-07-09"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -671,7 +719,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 18,
                     Name = "Alex Baxter",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2023-10-20"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -681,7 +729,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 19,
                     Name = "Jame Scot",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2023-11-02"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = false,
@@ -691,7 +739,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 20,
                     Name = "Matt Turner",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2023-12-15"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -701,7 +749,7 @@ namespace Haver_Niagara.Data
                 {
                     ID = 21,
                     Name = "Matt Turner",
-                    OperationDate = DateTime.Parse("2024-01-24"),
+                    OperationDate = DateTime.Parse("2024-01-10"),
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
@@ -711,15 +759,48 @@ namespace Haver_Niagara.Data
                 {
                     ID = 22,
                     Name = "James Jones",
-                    OperationDate = DateTime.Parse("2024-01-20"),
+                    OperationDate = DateTime.Parse("2024-01-15"),
                     OperationDecision = (OperationDecision)4,
                     OperationNotes = "N/A",
                     OperationCar = false,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 23,
+                    Name = "Sam Smith",
+                    OperationDate = DateTime.Parse("2024-02-08"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Repaint required",
+                    OperationCar = true,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 24,
+                    Name = "Alex Baxter",
+                    OperationDate = DateTime.Parse("2024-02-24"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 25,
+                    Name = "Alex Baxter",
+                    OperationDate = DateTime.Parse("2024-03-02"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
                     OperationFollowUp = false,
                 });
 
                 context.SaveChanges();
             }
+
+            // ENGINEERING: ONE FOR EA. NCR ( DATES MUST MAKE SENSE )
+
             if (!context.Engineerings.Any())
             {
                 context.Engineerings.AddRange(
@@ -731,9 +812,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering suggested a change in the assembly process to improve efficiency",
                     RevisionOriginal = 12345,
                     RevisionUpdated = 12346,
-                    RevisionDate = DateTime.Parse("2024-01-20"),
+                    RevisionDate = DateTime.Parse("2010-01-01"),
                     Name = "John Smith",
-                    Date = DateTime.Parse("2024-01-20"),
+                    Date = DateTime.Parse("2010-01-01"),
                     EngineeringDisposition = 0
                 },
                 new Engineering
@@ -744,9 +825,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering instructed the fabrication team to use a higher-grade alloy for improved durability",
                     RevisionOriginal = 32434,
                     RevisionUpdated = 52123,
-                    RevisionDate = DateTime.Parse("2024-01-22"),
+                    RevisionDate = DateTime.Parse("2011-04-15"),
                     Name = "James Brady",
-                    Date = DateTime.Parse("2024-01-22"),
+                    Date = DateTime.Parse("2011-04-15"),
                     EngineeringDisposition = (EngineeringDisposition)1,
                 },
                 new Engineering
@@ -757,9 +838,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering revised the technical specifications to accommodate new performance requirements",
                     RevisionOriginal = 87645,
                     RevisionUpdated = 54632,
-                    RevisionDate = DateTime.Parse("2024-01-24"),
+                    RevisionDate = DateTime.Parse("2013-08-22"),
                     Name = "Linda Johnson",
-                    Date = DateTime.Parse("2024-01-24"),
+                    Date = DateTime.Parse("2013-08-22"),
                     EngineeringDisposition = (EngineeringDisposition)2,
                 },
                 new Engineering
@@ -770,9 +851,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering provided clarification on the tolerance requirements for precision machining",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2014-12-07"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2014-12-07"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -783,9 +864,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering recommended a redesign of the structural support to enhance stability",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2015-06-30"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2025-06-30"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -796,9 +877,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering advised increasing the thickness of the material to meet safety standards.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2016-09-14"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2016-09-14"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -809,9 +890,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering proposed integrating a new feature to enhance product functionality.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2017-11-25"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2017-11-25"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -822,9 +903,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "N/A",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2018-03-09"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2018-03-09"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -835,9 +916,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering identified a potential flaw in the design and suggested a modification",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2019-05-18"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2019-05-18"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -848,9 +929,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering conducted a feasibility study for implementing a cost-saving measure",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2020-08-02"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2020-08-02"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -861,9 +942,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering insisted on creating a new way to solve this problem.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2021-10-11"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2021-10-11"),
                     EngineeringDisposition = (EngineeringDisposition)3,
 
                 },
@@ -875,9 +956,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering suggested a change in the assembly process to improve efficiency",
                     RevisionOriginal = 12345,
                     RevisionUpdated = 12346,
-                    RevisionDate = DateTime.Parse("2024-01-20"),
+                    RevisionDate = DateTime.Parse("2022-02-26"),
                     Name = "John Smith",
-                    Date = DateTime.Parse("2024-01-20"),
+                    Date = DateTime.Parse("2022-02-26"),
                     EngineeringDisposition = 0
                 },
                 new Engineering
@@ -888,9 +969,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering instructed the fabrication team to use a higher-grade alloy for improved durability",
                     RevisionOriginal = 32434,
                     RevisionUpdated = 52123,
-                    RevisionDate = DateTime.Parse("2024-01-22"),
+                    RevisionDate = DateTime.Parse("2022-06-17"),
                     Name = "James Brady",
-                    Date = DateTime.Parse("2024-01-22"),
+                    Date = DateTime.Parse("2022-06-17"),
                     EngineeringDisposition = (EngineeringDisposition)1,
                 },
                 new Engineering
@@ -901,9 +982,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering revised the technical specifications to accommodate new performance requirements",
                     RevisionOriginal = 87645,
                     RevisionUpdated = 54632,
-                    RevisionDate = DateTime.Parse("2024-01-24"),
+                    RevisionDate = DateTime.Parse("2022-12-07"),
                     Name = "Linda Johnson",
-                    Date = DateTime.Parse("2024-01-24"),
+                    Date = DateTime.Parse("2022-12-07"),
                     EngineeringDisposition = (EngineeringDisposition)2,
                 },
                 new Engineering
@@ -914,9 +995,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering provided clarification on the tolerance requirements for precision machining",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2022-12-10"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2022-12-10"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -927,9 +1008,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering recommended a redesign of the structural support to enhance stability",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2023-03-24"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2023-03-24"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -940,9 +1021,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering advised increasing the thickness of the material to meet safety standards.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2023-07-09"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2023-07-09"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -953,9 +1034,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering proposed integrating a new feature to enhance product functionality.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2023-10-20"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2023-10-20"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -966,9 +1047,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "N/A",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2023-11-02"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2023-11-02"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -979,9 +1060,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering identified a potential flaw in the design and suggested a modification",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2023-12-15"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2023-12-15"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -992,9 +1073,9 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering conducted a feasibility study for implementing a cost-saving measure",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2024-01-10"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2024-01-10"),
                     EngineeringDisposition = (EngineeringDisposition)3,
                 },
                 new Engineering
@@ -1005,14 +1086,57 @@ namespace Haver_Niagara.Data
                     DispositionNotes = "Engineering insisted on creating a new way to solve this problem.",
                     RevisionOriginal = 09854,
                     RevisionUpdated = 23465,
-                    RevisionDate = DateTime.Parse("2024-01-26"),
+                    RevisionDate = DateTime.Parse("2024-01-15"),
                     Name = "Luke Miller",
-                    Date = DateTime.Parse("2024-01-26"),
+                    Date = DateTime.Parse("2024-01-15"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+
+                },
+                new Engineering
+                {
+                    ID = 23,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering identified a potential flaw in the design and suggested a modification",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-02-08"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-02-08"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 24,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering conducted a feasibility study for implementing a cost-saving measure",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-02-24"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-02-24"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 25,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering insisted on creating a new way to solve this problem.",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-03-02"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-03-02"),
                     EngineeringDisposition = (EngineeringDisposition)3,
 
                 });
                 context.SaveChanges();
             }
+
+            // QUALITY INSPECTION: ONE FOR EA. NCR ( DATES MUST MAKE SENSE )
+
             if (!context.QualityInspections.Any())
             {
                 context.QualityInspections.AddRange(
@@ -1020,14 +1144,14 @@ namespace Haver_Niagara.Data
                     {
                         ID = 1,
                         Name = "Diego Fiery",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2010-01-01"),
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2024-03-02"),
+                        DepartmentDate = DateTime.Parse("2010-01-01"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2024-03-01")
+                        InspectorDate = DateTime.Parse("2010-01-01")
 
 
                     },
@@ -1035,46 +1159,46 @@ namespace Haver_Niagara.Data
                     {
                         ID = 2,
                         Name = "John Doe",
-                        Date = DateTime.Parse("2024-01-23"),
+                        Date = DateTime.Parse("2011-04-15"),
                         ItemMarked = true,
                         ReInspected = true,
                         QualityIdentify = (QualityIdentify)2,
                         Department = "Department 2",
-                        DepartmentDate = DateTime.Parse("2024-01-5"),
+                        DepartmentDate = DateTime.Parse("2011-04-15"),
                         InspectorName = "Billy Bam",
-                        InspectorDate = DateTime.Parse("2024-03-01")
+                        InspectorDate = DateTime.Parse("2011-04-15")
                     },
                     new QualityInspection
                     {
                         ID = 3,
                         Name = "Sam Jordan",
-                        Date = DateTime.Parse("2024-02-02"),
+                        Date = DateTime.Parse("2013-08-22"),
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
                         Department = "Department 3",
-                        DepartmentDate = DateTime.Parse("2024-02-13"),
+                        DepartmentDate = DateTime.Parse("2013-08-22"),
                         InspectorName = "April Apple",
-                        InspectorDate = DateTime.Parse("2024-03-01")
+                        InspectorDate = DateTime.Parse("2013-08-22")
                     },
                     new QualityInspection
                     {
                         ID = 4,
                         Name = "Gregy Frog",
-                        Date = DateTime.Parse("2024-01-12"),
+                        Date = DateTime.Parse("2014-12-07"),
                         ItemMarked = false,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)2,
                         Department = "Department 4",
-                        DepartmentDate = DateTime.Parse("2024-03-01"),
+                        DepartmentDate = DateTime.Parse("2014-12-07"),
                         InspectorName = "Abigail Week",
-                        InspectorDate = DateTime.Parse("2024-03-01")
+                        InspectorDate = DateTime.Parse("2014-12-07")
                     },
                     new QualityInspection
                     {
                         ID = 5,
                         Name = "Pillow Man",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2015-06-30"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1082,7 +1206,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 6,
                         Name = "Jorge Jeez",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2016-09-14"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1090,7 +1214,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 7,
                         Name = "Hunt Con",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2017-11-25"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1098,7 +1222,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 8,
                         Name = "Rise Saint",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2018-03-09"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1106,7 +1230,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 9,
                         Name = "Sunday Smith",
-                        Date = DateTime.Parse("2024-02-11"),
+                        Date = DateTime.Parse("2019-05-18"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1114,7 +1238,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 10,
                         Name = "Prin Char",
-                        Date = DateTime.Parse("2024-02-29"),
+                        Date = DateTime.Parse("2020-08-02"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1122,7 +1246,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 11,
                         Name = "Lei Ter",
-                        Date = DateTime.Parse("2024-01-23"),
+                        Date = DateTime.Parse("2021-10-11"),
                         ItemMarked = true,
                         ReInspected = true,
                     },
@@ -1130,14 +1254,14 @@ namespace Haver_Niagara.Data
                     {
                         ID = 12,
                         Name = "Diego Fiery",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2022-02-26"),
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2024-03-02"),
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2024-03-01")
+                        InspectorDate = DateTime.Parse("2022-02-26")
 
 
                     },
@@ -1145,46 +1269,46 @@ namespace Haver_Niagara.Data
                     {
                         ID = 13,
                         Name = "John Doe",
-                        Date = DateTime.Parse("2024-01-23"),
+                        Date = DateTime.Parse("2022-06-17"),
                         ItemMarked = true,
                         ReInspected = true,
                         QualityIdentify = (QualityIdentify)2,
                         Department = "Department 2",
-                        DepartmentDate = DateTime.Parse("2024-01-5"),
+                        DepartmentDate = DateTime.Parse("2022-06-17"),
                         InspectorName = "Billy Bam",
-                        InspectorDate = DateTime.Parse("2024-03-01")
+                        InspectorDate = DateTime.Parse("2022-06-17")
                     },
                     new QualityInspection
                     {
                         ID = 14,
                         Name = "Sam Jordan",
-                        Date = DateTime.Parse("2024-02-02"),
+                        Date = DateTime.Parse("2022-12-07"),
                         ItemMarked = true,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
                         Department = "Department 3",
-                        DepartmentDate = DateTime.Parse("2024-02-13"),
+                        DepartmentDate = DateTime.Parse("2022-12-07"),
                         InspectorName = "April Apple",
-                        InspectorDate = DateTime.Parse("2024-03-01")
+                        InspectorDate = DateTime.Parse("2022-12-07")
                     },
                     new QualityInspection
                     {
                         ID = 15,
                         Name = "Gregy Frog",
-                        Date = DateTime.Parse("2024-01-12"),
+                        Date = DateTime.Parse("2022-12-10"),
                         ItemMarked = false,
                         ReInspected = false,
                         QualityIdentify = (QualityIdentify)2,
                         Department = "Department 4",
-                        DepartmentDate = DateTime.Parse("2024-03-01"),
+                        DepartmentDate = DateTime.Parse("2022-12-10"),
                         InspectorName = "Abigail Week",
-                        InspectorDate = DateTime.Parse("2024-03-01")
+                        InspectorDate = DateTime.Parse("2022-12-10")
                     },
                     new QualityInspection
                     {
                         ID = 16,
                         Name = "Pillow Man",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2023-03-24"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1192,7 +1316,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 17,
                         Name = "Jorge Jeez",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2023-07-09"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1200,7 +1324,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 18,
                         Name = "Hunt Con",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2023-10-20"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1208,7 +1332,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 19,
                         Name = "Rise Saint",
-                        Date = DateTime.Parse("2024-02-01"),
+                        Date = DateTime.Parse("2023-11-02"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1216,7 +1340,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 20,
                         Name = "Sunday Smith",
-                        Date = DateTime.Parse("2024-02-11"),
+                        Date = DateTime.Parse("2023-12-15"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1224,7 +1348,7 @@ namespace Haver_Niagara.Data
                     {
                         ID = 21,
                         Name = "Prin Char",
-                        Date = DateTime.Parse("2024-02-29"),
+                        Date = DateTime.Parse("2024-01-10"),
                         ItemMarked = true,
                         ReInspected = false,
                     },
@@ -1232,21 +1356,48 @@ namespace Haver_Niagara.Data
                     {
                         ID = 22,
                         Name = "Lei Ter",
-                        Date = DateTime.Parse("2024-01-23"),
+                        Date = DateTime.Parse("2024-01-15"),
                         ItemMarked = true,
                         ReInspected = true,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 23,
+                        Name = "Pillow Man",
+                        Date = DateTime.Parse("2024-02-08"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 24,
+                        Name = "Jorge Jeez",
+                        Date = DateTime.Parse("2024-02-24"),
+                        ItemMarked = true,
+                        ReInspected = false,
+                    },
+                    new QualityInspection
+                    {
+                        ID = 25,
+                        Name = "Rise Saint",
+                        Date = DateTime.Parse("2024-03-02"),
+                        ItemMarked = true,
+                        ReInspected = false,
                     });
                 context.SaveChanges();
             }
+
+            // ACTUAL NCRS: MAKE SURE DATES ARE CORRECT AND MAKE SENSE
+
             if (!context.NCRs.Any())
             {
                 context.NCRs.AddRange(
                     new NCR
                     {
 
-                        NCR_Date = DateTime.Parse("2024-01-11"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,       //NCR Stage can be changed to match the data 
+                        NCR_Date = DateTime.Parse("2010-01-01"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,       //NCR Stage can be changed to match the data 
                         Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 1),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 1),
@@ -1256,9 +1407,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 2,
-                        NCR_Date = DateTime.Parse("2024-01-12"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
+                        NCR_Date = DateTime.Parse("2011-04-15"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 2),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 2),
@@ -1267,9 +1418,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 3,
-                        NCR_Date = DateTime.Parse("2024-01-15"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)2,
+                        NCR_Date = DateTime.Parse("2013-08-22"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         NewNCRID = 8,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 3),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 3),
@@ -1279,9 +1430,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 4,
-                        NCR_Date = DateTime.Parse("2024-01-18"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
+                        NCR_Date = DateTime.Parse("2014-12-07"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 4),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 4),
@@ -1290,9 +1441,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 5,
-                        NCR_Date = DateTime.Parse("2024-01-18"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)2,
+                        NCR_Date = DateTime.Parse("2015-06-30"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 5),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 5),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 5),
@@ -1301,9 +1452,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 6,
-                        NCR_Date = DateTime.Parse("2024-01-20"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)3,
+                        NCR_Date = DateTime.Parse("2016-09-14"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 6),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 6),
@@ -1313,9 +1464,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 7,
-                        NCR_Date = DateTime.Parse("2024-01-18"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
+                        NCR_Date = DateTime.Parse("2017-11-25"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 7),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 7),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 7),
@@ -1324,9 +1475,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 8,
-                        NCR_Date = DateTime.Parse("2024-01-25"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)3,
+                        NCR_Date = DateTime.Parse("2018-03-09"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 8),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 8),
@@ -1335,9 +1486,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 9,
-                        NCR_Date = DateTime.Parse("2024-01-24"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
+                        NCR_Date = DateTime.Parse("2019-05-18"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 9),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 9),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 9),
@@ -1346,9 +1497,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 10,
-                        NCR_Date = DateTime.Parse("2024-01-25"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)2,
+                        NCR_Date = DateTime.Parse("2020-08-02"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 10),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 10),
@@ -1358,9 +1509,9 @@ namespace Haver_Niagara.Data
                     {
                         ID = 11,
 
-                        NCR_Date = DateTime.Parse("2024-01-26"),
-                        NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
+                        NCR_Date = DateTime.Parse("2021-10-11"),
+                        NCR_Status = false,
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 11),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 11),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 11),
@@ -1369,9 +1520,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 12,
-                        NCR_Date = DateTime.Parse("2024-01-11"),
+                        NCR_Date = DateTime.Parse("2022-02-26"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,       
+                        NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 12),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 12),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 12),
@@ -1380,7 +1531,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 13,
-                        NCR_Date = DateTime.Parse("2024-01-12"),
+                        NCR_Date = DateTime.Parse("2022-06-17"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 13),
@@ -1391,7 +1542,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 14,
-                        NCR_Date = DateTime.Parse("2024-01-15"),
+                        NCR_Date = DateTime.Parse("2022-12-07"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 14),
@@ -1403,7 +1554,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 15,
-                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Date = DateTime.Parse("2022-12-10"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 15),
@@ -1414,7 +1565,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 16,
-                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Date = DateTime.Parse("2023-07-09"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 16),
@@ -1425,7 +1576,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 17,
-                        NCR_Date = DateTime.Parse("2024-01-20"),
+                        NCR_Date = DateTime.Parse("2023-07-09"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 17),
@@ -1437,7 +1588,7 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 18,
-                        NCR_Date = DateTime.Parse("2024-01-18"),
+                        NCR_Date = DateTime.Parse("2023-10-20"),
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)4,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 18),
@@ -1448,9 +1599,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 19,
-                        NCR_Date = DateTime.Parse("2024-01-25"),
-                        NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Date = DateTime.Parse("2023-11-02"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)3,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 19),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 19),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 19),
@@ -1459,9 +1610,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 20,
-                        NCR_Date = DateTime.Parse("2024-01-24"),
-                        NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Date = DateTime.Parse("2023-12-15"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)3,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 20),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 20),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 20),
@@ -1470,9 +1621,9 @@ namespace Haver_Niagara.Data
                     new NCR
                     {
                         ID = 21,
-                        NCR_Date = DateTime.Parse("2024-01-25"),
-                        NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Date = DateTime.Parse("2024-01-10"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)3,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 21),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 21),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 21),
@@ -1482,67 +1633,112 @@ namespace Haver_Niagara.Data
                     {
                         ID = 22,
 
-                        NCR_Date = DateTime.Parse("2024-01-26"),
-                        NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Date = DateTime.Parse("2024-01-15"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 22),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 22),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 22),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 22)
+                    },
+                    new NCR
+                    {
+                        ID = 23,
+
+                        NCR_Date = DateTime.Parse("2024-02-08"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 23),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 23),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 23),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 23)
+                    },
+                    new NCR
+                    {
+                        ID = 24,
+
+                        NCR_Date = DateTime.Parse("2024-02-24"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 24),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24)
+                    },
+                    new NCR
+                    {
+                        ID = 25,
+
+                        NCR_Date = DateTime.Parse("2024-03-02"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 25),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 25),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 25),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25)
                     });
                 context.SaveChanges();
             }
+
+            // CAR
+
             if (!context.CARs.Any())
             {
                 var cars = new List<CAR>
                     {                                   //some operations dont have car or follow up raised, so do not assign them with an operation object here
-                        new CAR {ID = 1, Date = DateTime.Parse("2024-01-22"), CARNumber = 12345, Operation = context.Operations.FirstOrDefault(p => p.ID == 1) },
-                        new CAR {ID = 2, Date = DateTime.Parse("2024-01-22"), CARNumber = 98765, Operation = context.Operations.FirstOrDefault(p => p.ID == 2) },
-                        new CAR {ID = 3, Date = DateTime.Parse("2024-01-22"), CARNumber = 56748, Operation = context.Operations.FirstOrDefault(p => p.ID == 3) },
-                        new CAR {ID = 4, Date = DateTime.Parse("2024-01-22"), CARNumber = 84379, Operation = context.Operations.FirstOrDefault(p => p.ID == 4) },
-                        new CAR {ID = 5, Date = DateTime.Parse("2024-01-22"), CARNumber = 93842 },  //this means the first 4 records do have car / follow up types
-                        new CAR {ID = 6, Date = DateTime.Parse("2024-01-22"), CARNumber = 42981 },  //meaning the boolean values in operation
-                        new CAR {ID = 7, Date = DateTime.Parse("2024-01-22"), CARNumber = 29013 },  //for these first 4, should be set to TRUE.
-                        new CAR {ID = 8, Date = DateTime.Parse("2024-01-22"), CARNumber = 90842},
-                        new CAR {ID = 9, Date = DateTime.Parse("2024-01-22"), CARNumber = 32491},
-                        new CAR {ID = 10, Date = DateTime.Parse("2024-01-22"), CARNumber = 31904}
+                        new CAR {ID = 1, Date = DateTime.Parse("2010-01-01"), CARNumber = 12345, Operation = context.Operations.FirstOrDefault(p => p.ID == 1) },
+                        new CAR {ID = 2, Date = DateTime.Parse("2011-04-15"), CARNumber = 98765, Operation = context.Operations.FirstOrDefault(p => p.ID == 2) },
+                        new CAR {ID = 3, Date = DateTime.Parse("2013-08-22"), CARNumber = 56748, Operation = context.Operations.FirstOrDefault(p => p.ID == 3) },
+                        new CAR {ID = 4, Date = DateTime.Parse("2014-12-07"), CARNumber = 84379, Operation = context.Operations.FirstOrDefault(p => p.ID == 4) },
+                        new CAR {ID = 5, Date = DateTime.Parse("2015-06-30"), CARNumber = 93842 },  //this means the first 4 records do have car / follow up types
+                        new CAR {ID = 6, Date = DateTime.Parse("2016-09-14"), CARNumber = 42981 },  //meaning the boolean values in operation
+                        new CAR {ID = 7, Date = DateTime.Parse("2017-11-25"), CARNumber = 29013 },  //for these first 4, should be set to TRUE.
+                        new CAR {ID = 8, Date = DateTime.Parse("2018-03-09"), CARNumber = 90842},
+                        new CAR {ID = 9, Date = DateTime.Parse("2019-05-18"), CARNumber = 32491},
+                        new CAR {ID = 10, Date = DateTime.Parse("2020-08-02"), CARNumber = 31904}
                     };
                 context.CARs.AddRange(cars);
                 context.SaveChanges();
             }
+
+            // FOLLOW UP
+
             if (!context.FollowUps.Any())
             {
                 context.FollowUps.AddRange(
                 new FollowUp
                 {
                     ID = 1,
-                    FollowUpDate = DateTime.Parse("2024-01-29"),
+                    FollowUpDate = DateTime.Parse("2010-01-01"),
                     FollowUpType = "Phone Call",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 1)
                 },
                 new FollowUp
                 {
                     ID = 2,
-                    FollowUpDate = DateTime.Parse("2024-01-30"),
+                    FollowUpDate = DateTime.Parse("2011-04-15"),
                     FollowUpType = "Email",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 2)
                 },
                 new FollowUp
                 {
                     ID = 3,
-                    FollowUpDate = DateTime.Parse("2024-01-31"),
+                    FollowUpDate = DateTime.Parse("2013-08-22"),
                     FollowUpType = "Meeting",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 3)
                 },
                 new FollowUp
                 {
                     ID = 4,
-                    FollowUpDate = DateTime.Parse("2024-01-31"),
+                    FollowUpDate = DateTime.Parse("2014-12-07"),
                     FollowUpType = "None",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 4) //Since Some Operations Will Have No Follow Up, Change Seed Data to Reflect that,
                 });                                                               //So in operations if follow up = false, then that record should NOT have this an operations = firstordefault..  Same
                 context.SaveChanges();                                          //same with the Car.
             }
+
+            // DEFECT LIST
+
             if (!context.DefectLists.Any())
             {
                 var defectLists = new List<DefectList>
