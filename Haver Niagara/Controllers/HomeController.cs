@@ -304,6 +304,7 @@ namespace Haver_Niagara.Controllers
             return RedirectToAction("List");
         }
 
+        // For Dashboard
 		public async Task<IActionResult> Index()
 		{
 			var ncrs = await _context.NCRs
@@ -315,6 +316,18 @@ namespace Haver_Niagara.Controllers
 				.ToListAsync();
 
 			return View(ncrs);
+		}
+
+		public async Task<IActionResult> GetOpenNCRCount()
+		{
+			var openNCRCount = await _context.NCRs.CountAsync(n => n.NCR_Status);
+			return Json(new { count = openNCRCount });
+		}
+
+		public async Task<IActionResult> GetClosedNCRCount()
+		{
+			var closedNCRCount = await _context.NCRs.CountAsync(n => !n.NCR_Status);
+			return Json(new { count = closedNCRCount });
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
