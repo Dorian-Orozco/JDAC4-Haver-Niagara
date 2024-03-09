@@ -318,19 +318,19 @@ namespace Haver_Niagara.Controllers
 			return View(ncrs);
 		}
 
-		public async Task<IActionResult> GetOpenNCRCount()
-		{
-			var openNCRCount = await _context.NCRs.CountAsync(n => n.NCR_Status);
-			return Json(new { count = openNCRCount });
-		}
+        public async Task<IActionResult> GetOpenNCRCount()
+        {
+            var openNCRCount = await _context.NCRs.CountAsync(n => n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year);
+            return Json(new { count = openNCRCount });
+        }
 
-		public async Task<IActionResult> GetClosedNCRCount()
-		{
-			var closedNCRCount = await _context.NCRs.CountAsync(n => !n.NCR_Status);
-			return Json(new { count = closedNCRCount });
-		}
+        public async Task<IActionResult> GetClosedNCRCount()
+        {
+            var closedNCRCount = await _context.NCRs.CountAsync(n => !n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year);
+            return Json(new { count = closedNCRCount });
+        }
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
