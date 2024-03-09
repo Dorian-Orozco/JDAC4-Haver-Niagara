@@ -55,15 +55,16 @@
     <div class="report-container">
 
         <div class="d-flex">
-            <h1 class="mt-4 mb-4">
-                <button onclick="window.history.back()" class="btn-back" title="Go Back">
-                    <ion-icon name="arrow-back-circle-outline" class="btn-back-icon"></ion-icon>
-                </button> 
-                <span>Non-Conformance Archive</span>
+            <button onclick="window.history.back()" class="btn-back" title="Go Back">
+                <ion-icon name="arrow-back-circle-outline" class="btn-back-icon"></ion-icon>
+            </button>
+            <h1 class="mt-4 mb-1">
+                <span>Archived Reports</span>
             </h1>
-
         </div>
-        <form asp-action="ListArchive" asp-controller="Home" method="get">
+        <small class="text-under-heading">NCR Reports that have been closed for more than 5 years</small>
+
+        <form asp-action="ListArchive" asp-controller="Home" method="get" class="mt-4">
             <div class="form-horizontal">
                 <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                     Filter/Search
@@ -72,16 +73,16 @@
                     <div class="card card-body bg-light mb-2 d-flex">
 
                         <div class="row">
-                            <div class="form-group col-sm-1 me-2">
-                                <label class="control-label">Status:</label>
-                                <div>
-                                    @Html.DropDownList("SelectedStatus", new List<SelectListItem>
-                                    {
-                                    new SelectListItem { Text = "Active", Value = "true" },
-                                    new SelectListItem { Text = "Closed", Value = "false" }
-                                    })
-                                </div>
+                            @*  <div class="form-group col-sm-1 me-2">
+                            <label class="control-label">Status:</label>
+                            <div>
+                            @Html.DropDownList("SelectedStatus", new List<SelectListItem>
+                            {
+                            new SelectListItem { Text = "Active", Value = "true" },
+                            new SelectListItem { Text = "Closed", Value = "false" }
+                            })
                             </div>
+                            </div> *@
                             <div class="form-group col-sm">
                                 <label class="control-label" for="SelectedDate">Date Created:</label>
                                 <input type="date" id="SelectedDate" name="SelectedDate">
@@ -226,10 +227,10 @@
 
         </form>
 
-      @*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
         @Html.PagedListPager(Model, page => Url.Action("List",
-                 new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })) *@
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })) *@
     </div>
 
     @section scripts {
@@ -240,8 +241,6 @@
                     // Get the text content of the element
                     var stage = $(this).text().trim();
 
-                    // Remove existing classes
-                    $(this).removeClass('stage-eng2 stage-pur3 stage-qual4');
 
                     // Depending on the stage, change the color
                     switch (stage) {
@@ -253,11 +252,14 @@
                             $(this).addClass('stage-pur3');
                             // $(this).css('color', 'blue');
                             break;
-                        case "4. Quality Rep":
+                        case "4. Quality":
                             $(this).addClass('stage-qual4');
                             // $(this).css('color', 'green');
                             break;
                         // Add more cases as needed for other stages
+                        case "Complete":
+                            $(this).addClass('stage-complete');
+                            break;
                         default:
                             // Default class if stage not matched
                             $(this).addClass('stage');

@@ -162,10 +162,17 @@ a {
 .btn-back{
     border: none;
     background: transparent;
+    margin-top: 25px;
+    margin-right: 10px;
 }
 
 .btn-back-icon {
     background-color: #1C335E;
     border-radius: 30px;
     color: white;
+    font-size: 40px;
+}
+
+.text-under-heading {
+    margin-left: 60px;
 }
