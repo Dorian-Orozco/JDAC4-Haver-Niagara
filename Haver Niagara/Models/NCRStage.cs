@@ -6,11 +6,11 @@ namespace Haver_Niagara.Models
     {
         [Display(Name = "1. Quality Rep")]
         QualityRepresentative,
-        [Display(Name = "2. Engineering")]
+        [Display(Name = "Engineering")]
         Engineering,
-        [Display(Name = "3. Purchasing")]
+        [Display(Name = "Purchasing")]
         Purchasing,
-        [Display(Name = "4. Quality")]
+        [Display(Name = "Quality Rep")]
         QualityRepresentative_Final,
         [Display(Name = "Complete")]
         Completed,
