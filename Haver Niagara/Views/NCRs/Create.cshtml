@@ -11,19 +11,14 @@
         <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
             <dl class="d-flex">
                 <dt class="text-muted">
-                    Create NCR Report
-                </dt>
-                @* add auto-generated ncr number here when we figure out how to do that *@                
-                @{
-                    var OldNCRNumber_id = ViewBag.OldNCRID != null ? $"Previous NCR No.{DateTime.UtcNow.Year}-{ViewBag.OldNCRID.ToString().PadLeft(3, '0')}" : "No Previous Record";
-                }
-                <dd class="m2-2">
+                    @* Create NCR Report *@
+                    @{
+                        var OldNCRNumber_id = ViewBag.OldNCRID != null ? $"Previous NCR No. {DateTime.UtcNow.Year}-{ViewBag.OldNCRID.ToString().PadLeft(3, '0')}" : "Create NCR Report";
+                    }
+                    <span class="m2-2">
                         @OldNCRNumber_id
-                    </dd>
-                <dd class="ms-2">
-                    @*     <input asp-for="NCR_Date" disabled class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
-                    <span asp-validation-for="NCR_Date" class="text-danger"></span> *@
-                </dd>
+                    </span>
+                </dt>
             </dl>
             <dl class="d-flex">
                 <dt>
@@ -35,6 +30,7 @@
                 </dd>
             </dl>
         </div>
+       
 
         <form class="" asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -632,7 +628,7 @@
                                 <dd class="col-sm ">
                                     <div class="form-group">
                                         @* <label asp-for="QualityInspection.Date" class="control-label"></label> *@
-@*                                         <input asp-for="QualityInspection.NewNCR" class="form-control" />
+                                        @*                                         <input asp-for="QualityInspection.NewNCR" class="form-control" />
                                         <span asp-validation-for="QualityInspection.NewNCR" class="text-danger"></span> *@
                                     </div>
                                 </dd>
