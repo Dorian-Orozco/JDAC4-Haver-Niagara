@@ -182,12 +182,19 @@
                             </dt>
                             <dd class="mt-1">
                                 <div class="form-group">
-                                    <label for="defectID">Select Defect:</label>
+                                    @* <label for="defectID">Select Defect:</label> *@
                                     <select id="defectID" name="defectID" class="form-control">
                                         <option value="">--Select Defect--</option>
                                         @foreach (var defect in ViewBag.DefectList)
                                         {
-                                            <option value="@defect.Value">@defect.Text</option>
+                                            if (Model.Part != null && Model.Part.DefectLists != null && Model.Part.DefectLists.Any(defectL => defectL.Defect.Description == defect.Text))
+                                            {
+                                                <option value="@defect.Value" selected>@defect.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@defect.Value">@defect.Text</option>
+                                            }
                                         }
                                     </select>
                                     <span class="text-danger"></span>
