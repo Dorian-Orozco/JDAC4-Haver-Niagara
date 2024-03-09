@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240308193559_Initial")]
+    [Migration("20240309060534_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -196,6 +196,9 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int?>("EngineeringID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool?>("IsArchived")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("NCR_Date")
                         .HasColumnType("TEXT");
 
@@ -217,6 +220,9 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int?>("PartID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("ProcurementID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("QualityInspectionID")
                         .HasColumnType("INTEGER");
 
@@ -229,6 +235,9 @@ namespace Haver_Niagara.Data.HNMigrations
                         .IsUnique();
 
                     b.HasIndex("PartID")
+                        .IsUnique();
+
+                    b.HasIndex("ProcurementID")
                         .IsUnique();
 
                     b.HasIndex("QualityInspectionID")
@@ -307,6 +316,47 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasIndex("SupplierID");
 
                     b.ToTable("Parts");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Procurement", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AccountNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("BillSupplier")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CarrierName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CarrierPhone")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("DisposeOnSite")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ExpectSuppCredit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RMANumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ReturnRejected")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("SuppReturnCompletedSAP")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ToReceiveDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Procurements");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.QualityInspection", b =>
@@ -453,6 +503,10 @@ namespace Haver_Niagara.Data.HNMigrations
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "PartID");
 
+                    b.HasOne("Haver_Niagara.Models.Procurement", "Procurement")
+                        .WithOne("NCR")
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "ProcurementID");
+
                     b.HasOne("Haver_Niagara.Models.QualityInspection", "QualityInspection")
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "QualityInspectionID");
@@ -462,6 +516,8 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("Operation");
 
                     b.Navigation("Part");
+
+                    b.Navigation("Procurement");
 
                     b.Navigation("QualityInspection");
                 });
@@ -502,6 +558,11 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.Navigation("Medias");
 
+                    b.Navigation("NCR");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Procurement", b =>
+                {
                     b.Navigation("NCR");
                 });
 

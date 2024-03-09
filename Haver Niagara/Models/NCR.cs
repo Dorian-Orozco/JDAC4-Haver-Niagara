@@ -14,7 +14,7 @@ namespace Haver_Niagara.Models
         {
             get
             {
-                return $"{DateTime.UtcNow.Year}-{ID.ToString().PadLeft(3, '0')}";
+                return $"{NCR_Date.Year}-{ID.ToString().PadLeft(3, '0')}";
             }
         }
 
@@ -34,13 +34,13 @@ namespace Haver_Niagara.Models
         [Display(Name ="Old NCR Number")]
         public int? OldNCRID { get; set; }
 
-        public bool? IsArchived {
+        public bool? IsArchived
+        {
             get
             {
+                int daysInFiveYears = 365 * 5 + 1; // 365 days per year + 1 additional day for possible leap year
 
-                int years = DateTime.Now.Year - NCR_Date.Year;
-
-                if (years >= 5)
+                if (DateTime.Now.Subtract(NCR_Date).Days >= daysInFiveYears)
                 {
                     return true;
                 }
