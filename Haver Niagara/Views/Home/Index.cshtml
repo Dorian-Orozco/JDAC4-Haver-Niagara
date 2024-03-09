@@ -198,7 +198,7 @@
 		<div class="card">
 			<div class="card-content">
 				<h2>NCR's in Engineering Stage</h2>
-				<h3>2</h3>
+				<h3>5</h3>
 				<p>Currently</p>
 			</div>
 		</div>
@@ -283,3 +283,44 @@
 			});
 	});
 </script>
+
+@section scripts {
+	<script>
+		$(document).ready(function () {
+			// Select all elements with the class "stage"
+			$('.stage').each(function () {
+				// Get the text content of the element
+				var stage = $(this).text().trim();
+
+				// Remove existing classes
+				$(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
+
+				// Depending on the stage, change the color
+				switch (stage) {
+					case "2. Engineering":
+						$(this).addClass('stage-eng2');
+						// $(this).css('color', 'red');
+						break;
+					case "3. Purchasing":
+						$(this).addClass('stage-pur3');
+						// $(this).css('color', 'blue');
+						break;
+					case "4. Quality":
+						$(this).addClass('stage-qual4');
+						// $(this).css('color', 'green');
+						break;
+					// Add more cases as needed for other stages
+					case "Complete":
+						$(this).addClass('stage-complete');
+						break;
+					default:
+						// Default class if stage not matched
+						$(this).addClass('stage');
+					// Default color if stage not matched
+					// $(this).css('color', 'black');
+				}
+			});
+		});
+	</script>
+}
+
