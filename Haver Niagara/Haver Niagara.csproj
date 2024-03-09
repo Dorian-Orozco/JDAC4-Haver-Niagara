@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\**" />
+    <Content Remove="ViewModels\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\NCRs\Create.cshtml" />
     <None Include="Views\NCRs\Delete.cshtml" />
     <None Include="Views\NCRs\Details.cshtml" />
@@ -95,7 +102,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Folder Include="View Models\" />
   </ItemGroup>
 
 </Project>

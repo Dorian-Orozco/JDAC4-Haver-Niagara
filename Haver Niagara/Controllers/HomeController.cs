@@ -304,12 +304,20 @@ namespace Haver_Niagara.Controllers
             return RedirectToAction("List");
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+		public async Task<IActionResult> Index()
+		{
+			var ncrs = await _context.NCRs
+				.Include(n => n.Part)
+					.ThenInclude(p => p.Supplier)
+				.Where(n => n.NCR_Status == true)
+				.OrderBy(n => n.NCR_Date)
+				.Take(5)
+				.ToListAsync();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+			return View(ncrs);
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
