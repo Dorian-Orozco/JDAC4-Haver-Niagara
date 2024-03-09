@@ -23,27 +23,18 @@ namespace Haver_Niagara.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime NCR_Date { get; set; }
 
-
         [Display(Name = "Status")]
         public bool NCR_Status { get; set; } //If NCR status == true then report is active, else, report is closed!
-
 
         //new properties for new ncrs
 
         [Display(Name = "New NCR Number")]
         public int? NewNCRID { get; set; }
 
-
         [Display(Name ="Old NCR Number")]
         public int? OldNCRID { get; set; }
 
-        
-
-        
         public bool? IsArchived {
-
-
-
             get
             {
 
@@ -60,33 +51,16 @@ namespace Haver_Niagara.Models
             }
 
             set { }
-        
-        }
-
-        
-
-
-        public NCR()
-        {
-            //Sets the NCR_Status to false as default, because when an NCR is first created it cannot be true (finished).
-            NCR_Status = false;
-            //Defaulting when creating an NCR to have the quality representative as the first stage
-            NCR_Stage = NCRStage.QualityRepresentative;
-            //Setting a default of todays date
-            NCR_Date = DateTime.Today;
         }
 
         //NCR Enumeration To Determine the Stage
         [Display(Name = "Stage")]
         public NCRStage NCR_Stage { get; set; }
 
-
-
         // PART ENTITY //
         [ForeignKey("Part")]
         public int? PartID { get; set; }
         public Part Part { get; set; }
-
 
         // PURCHASING //
         [ForeignKey("Operation")]
@@ -98,8 +72,25 @@ namespace Haver_Niagara.Models
         public int? EngineeringID { get; set; }
         public Engineering Engineering { get; set; }
 
+        // QUALITY //
         [ForeignKey("QualityInspection")]
         public int? QualityInspectionID { get; set; }
         public QualityInspection QualityInspection { get; set; }
+
+        // PROCUREMENT //
+        [ForeignKey("Procurement")]
+        public int? ProcurementID { get; set; }
+        public Procurement Procurement { get; set; }
+
+        // DEFAULT CONSTRUCTOR //
+        public NCR()
+        {
+            //Sets the NCR_Status to false as default, because when an NCR is first created it cannot be true (finished).
+            NCR_Status = false;
+            //Defaulting when creating an NCR to have the quality representative as the first stage
+            NCR_Stage = NCRStage.QualityRepresentative;
+            //Setting a default of todays date
+            NCR_Date = DateTime.Today;
+        }
     }
 }
