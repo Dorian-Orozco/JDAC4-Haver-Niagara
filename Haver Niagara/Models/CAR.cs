@@ -8,7 +8,6 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-
         [Display(Name = "CAR Number")]
         public int CARNumber { get; set; }
 

@@ -15,13 +15,10 @@ namespace Haver_Niagara.Data
         public DbSet<Part> Parts { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-
-        //Defect Lists junfction table
-        public DbSet<DefectList> DefectLists { get; set; }
-
+        public DbSet<DefectList> DefectLists { get; set; } //Defect Lists junfction table
         public DbSet<UploadedFile> UploadedFiles { get; set; }
-
         public DbSet<QualityInspection> QualityInspections { get; set; }
+        public DbSet<Procurement> Procurements { get; set; }
 
         public HaverNiagaraDbContext(DbContextOptions<HaverNiagaraDbContext> options)
             : base(options)
