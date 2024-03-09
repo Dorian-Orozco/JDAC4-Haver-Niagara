@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Haver_Niagara.Data.HNMigrations
+namespace Haver_Niagara.Data.Migrations
 {
-    [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240309060534_Initial")]
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20240309194529_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -40,7 +40,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasIndex("OperationID")
                         .IsUnique();
 
-                    b.ToTable("CARs");
+                    b.ToTable("CAR");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Defect", b =>
@@ -57,7 +57,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Defects");
+                    b.ToTable("Defect");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.DefectList", b =>
@@ -78,7 +78,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasIndex("PartID");
 
-                    b.ToTable("DefectLists");
+                    b.ToTable("DefectList");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>
@@ -116,20 +116,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Engineerings");
-                });
-
-            modelBuilder.Entity("Haver_Niagara.Models.FileContent", b =>
-                {
-                    b.Property<int>("FileContentID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<byte[]>("Content")
-                        .HasColumnType("BLOB");
-
-                    b.HasKey("FileContentID");
-
-                    b.ToTable("FileContent");
+                    b.ToTable("Engineering");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.FollowUp", b =>
@@ -152,7 +139,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasIndex("OperationID")
                         .IsUnique();
 
-                    b.ToTable("FollowUps");
+                    b.ToTable("FollowUp");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Media", b =>
@@ -184,7 +171,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasIndex("PartID");
 
-                    b.ToTable("Medias");
+                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
@@ -243,7 +230,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasIndex("QualityInspectionID")
                         .IsUnique();
 
-                    b.ToTable("NCRs");
+                    b.ToTable("NCR");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Operation", b =>
@@ -272,7 +259,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Operations");
+                    b.ToTable("Operation");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Part", b =>
@@ -315,7 +302,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Parts");
+                    b.ToTable("Part");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Procurement", b =>
@@ -356,7 +343,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Procurements");
+                    b.ToTable("Procurement");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.QualityInspection", b =>
@@ -394,7 +381,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("QualityInspections");
+                    b.ToTable("QualityInspection");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>
@@ -408,26 +395,203 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Supplier");
                 });
 
-            modelBuilder.Entity("Haver_Niagara.Models.UploadedFile", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FileName")
-                        .HasMaxLength(255)
+                    b.Property<string>("ClaimType")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MimeType")
-                        .HasMaxLength(255)
+                    b.Property<string>("ClaimValue")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ID");
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.ToTable("UploadedFiles");
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.CAR", b =>
@@ -456,17 +620,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("Defect");
 
                     b.Navigation("Part");
-                });
-
-            modelBuilder.Entity("Haver_Niagara.Models.FileContent", b =>
-                {
-                    b.HasOne("Haver_Niagara.Models.UploadedFile", "UploadedFile")
-                        .WithOne("FileContent")
-                        .HasForeignKey("Haver_Niagara.Models.FileContent", "FileContentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UploadedFile");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.FollowUp", b =>
@@ -533,6 +686,57 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("Supplier");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Haver_Niagara.Models.Defect", b =>
                 {
                     b.Navigation("DefectLists");
@@ -574,11 +778,6 @@ namespace Haver_Niagara.Data.HNMigrations
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>
                 {
                     b.Navigation("Parts");
-                });
-
-            modelBuilder.Entity("Haver_Niagara.Models.UploadedFile", b =>
-                {
-                    b.Navigation("FileContent");
                 });
 #pragma warning restore 612, 618
         }
