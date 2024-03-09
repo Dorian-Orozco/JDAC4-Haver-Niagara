@@ -4,6 +4,8 @@
 	ViewData["Title"] = "Home Page";
 }
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <style>
 	h1 {
 		font-size: 38px;
@@ -11,7 +13,7 @@
 	}
 
 	h2 {
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 600;
 	}
 
@@ -174,7 +176,7 @@
 		<div class="card">
 			<div class="card-content">
 				<h2>Total Open NCR's</h2>
-				<h3>11</h3>
+				<h3 id="openNCRCount"></h3>
 				<p>This year</p>
 			</div>
 		</div>
@@ -182,7 +184,7 @@
 		<div class="card">
 			<div class="card-content">
 				<h2>Total Closed NCR's</h2>
-				<h3>11</h3>
+				<h3 id="closedNCRCount"></h3>
 				<p>This year</p>
 			</div>
 		</div>
@@ -213,7 +215,7 @@
 					</tr>
 				</thead>
 
-@* Table Contents *@
+				@* Table Contents *@
 				<tbody>
 					@foreach (var item in Model)
 					{                           //Added some validation, will remove later.
@@ -259,3 +261,18 @@
 	</div>
 </div> @* container div *@
 
+<script>
+	$(document).ready(function () {
+		fetch('/Home/GetOpenNCRCount')
+			.then(response => response.json())
+			.then(data => {
+				$('#openNCRCount').text(data.count);
+			});
+
+		fetch('/Home/GetClosedNCRCount')
+			.then(response => response.json())
+			.then(data => {
+				$('#closedNCRCount').text(data.count);
+			});
+	});
+</script>
