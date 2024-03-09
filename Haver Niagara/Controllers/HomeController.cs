@@ -208,12 +208,12 @@ namespace Haver_Niagara.Controllers
 
             if (!selectedStatus.HasValue)
             {
-                ncrs = ncrs.Where(x => x.NCR_Status == true);
+                ncrs = ncrs.Where(x => x.NCR_Status == false); //archive list shows closed ncr's on default
             }
-            else if (selectedStatus.HasValue)
-            {
-                ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value);
-            }
+            //else if (selectedStatus.HasValue)
+            //{
+            //    ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value);
+            //}
             ViewBag.SelectedStatus = selectedStatus;
 
             // Search Box
