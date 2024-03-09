@@ -133,3 +133,30 @@ a {
 .delete, .delete-link {
     font-size: 14px;
 }
+
+.archive-btn-icon {
+    position: relative;
+    top: 2px;
+}
+
+.archive-btn {
+    background: #b51963;
+    color: white;
+}
+
+.archive-btn:hover {
+    background: white;
+    color: #b51963;
+    border-color: #b51963;
+}
+
+.btn-back{
+    border: none;
+    background: transparent;
+}
+
+.btn-back-icon {
+    background-color: #1C335E;
+    border-radius: 30px;
+    color: white;
+}

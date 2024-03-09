@@ -181,14 +181,16 @@
                                     <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
                                         <ion-icon name="create"></ion-icon>
                                     </a>
-
-
                                 </div>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end">
+                <a asp-controller="Home" asp-action="ListArchive" class="btn archive-btn">Archive <ion-icon name="archive" class="archive-btn-icon ms-1"></ion-icon></a>
+            </div>
+
             <br />
 
             @* PAGING NAV BAR *@
@@ -228,10 +230,10 @@
 
         </form>
 
-      @*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
         @Html.PagedListPager(Model, page => Url.Action("List",
-                 new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })) *@
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })) *@
     </div>
 
     @section scripts {

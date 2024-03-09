@@ -17,29 +17,6 @@
                     @Html.DisplayFor(model => model.FormattedID)
                 </dd>
             </dl>
-            <dl class="d-flex justify-content-start">
-                <dt>
-                    @{
-                        if (Model.OldNCRID != null || Model.NewNCRID != null)
-                        {
-                            //if the old ncr id has an old ncr id value then we know it must be a preivous ncr number, else it must be new
-                            string ncrLabel = Model.OldNCRID != null ? "Previous NCR Number" : "New NCR Number";
-                            @ncrLabel
-                        }
-                    }
-                </dt>
-                @{
-                    if(Model.OldNCRID != null || Model.NewNCRID != null)
-                    {
-                        //again if has value, show old value formatted, else show new value formatted.
-                        string formattedNCRID = Model.OldNCRID != null ? $"{DateTime.UtcNow.Year}-{Model.OldNCRID.ToString().PadLeft(3, '0')}"
-                        : $"{DateTime.UtcNow.Year}-{Model.NewNCRID.ToString().PadLeft(3, '0')}";
-                        <dd class="m2-2">
-                            @formattedNCRID
-                        </dd>
-                    }
-                }
-            </dl>
             <dl class="d-flex">
                 <dt>
                     <label asp-for="NCR_Date" class="control-label"></label> 
@@ -205,12 +182,19 @@
                             </dt>
                             <dd class="mt-1">
                                 <div class="form-group">
-                                    <label for="defectID">Select Defect:</label>
+                                    @* <label for="defectID">Select Defect:</label> *@
                                     <select id="defectID" name="defectID" class="form-control">
                                         <option value="">--Select Defect--</option>
                                         @foreach (var defect in ViewBag.DefectList)
                                         {
-                                            <option value="@defect.Value">@defect.Text</option>
+                                            if (Model.Part != null && Model.Part.DefectLists != null && Model.Part.DefectLists.Any(defectL => defectL.Defect.Description == defect.Text))
+                                            {
+                                                <option value="@defect.Value" selected>@defect.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@defect.Value">@defect.Text</option>
+                                            }
                                         }
                                     </select>
                                     <span class="text-danger"></span>
@@ -706,20 +690,30 @@
                     </div>
                     <div class="col-sm-3 pt-2">
                         <small class="fw-light">
-                            If No, Create New NCR Number
                         </small>
                         <div class="row">
                             <dl>
                                 <dt class="mt-2 col-sm fw-normal">
-                                    <input asp-for="NewNCRID" disabled class="form-control" />
-                                    <span asp-validation-for="NewNCRID" class="text-danger"></span>
+                                        @{
+                                            if (Model.OldNCRID != null || Model.NewNCRID != null)
+                                            {
+                                                //if the old ncr id has an old ncr id value then we know it must be a preivous ncr number, else it must be new
+                                                string ncrLabel = Model.OldNCRID != null ? "Previous NCR Number" : "New NCR Number";
+                                                @ncrLabel
+                                            }
+                                        }
                                 </dt>
-                                <dd class="col-sm">
-                                    <div class="form-group">
-@*                                         <input asp-for="QualityInspection.NewNCR" class="form-control" />
-                                        <span asp-validation-for="QualityInspection.NewNCR" class="text-danger"></span> *@
-                                    </div>
-                                </dd>
+                                    @{
+                                        if (Model.OldNCRID != null || Model.NewNCRID != null)
+                                        {
+                                            //again if has value, show old value formatted, else show new value formatted.
+                                            string formattedNCRID = Model.OldNCRID != null ? $"{DateTime.UtcNow.Year}-{Model.OldNCRID.ToString().PadLeft(3, '0')}"
+                                            : $"{DateTime.UtcNow.Year}-{Model.NewNCRID.ToString().PadLeft(3, '0')}";
+                                        <dd class="m2-2">
+                                                @formattedNCRID
+                                        </dd>
+                                        }
+                                    }
                             </dl>
                         </div>
                     </div>
