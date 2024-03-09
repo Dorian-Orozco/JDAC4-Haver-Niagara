@@ -10,8 +10,8 @@
 <div class="container list-container shadow mt-5 bg-white">
     <div class="report-container">
         @* h1 *@
-        <div class="pt-2 pb-0 ps-1 fs-5">
-            <dl class="d-flex justify-content-start">
+        <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
+            <dl class="d-flex ">
                 <dt>
                     @Html.DisplayNameFor(model => model.FormattedID)
                 </dt>
@@ -19,51 +19,14 @@
                     @Html.DisplayFor(model => model.FormattedID)
                 </dd>
             </dl>
-
-            <dl class="d-flex justify-content-start">
+            <dl class="d-flex">
                 <dt>
-                    @{
-                        // If the Old or New NCRID's are not null then..
-                        if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
-                        {
-                            // Declare formatID to use for comparison
-                            var newNCR = ViewBag?.NewNCRID;
-                            var oldNCR = Model?.OldNCRID;
-
-                            // Format NCR IDs with the current year
-                            string newNCR_ID = newNCR != null ? $"{DateTime.UtcNow.Year}-{newNCR.ToString().PadLeft(3, '0')}" : null;
-                            string oldNCR_ID = oldNCR != null ? $"{DateTime.UtcNow.Year}-{oldNCR.ToString().PadLeft(3, '0')}" : null;
-
-                            // If the formatted ID is NOT the same as the old one OR if the formatted id is NOT equal to the ViewBag format ID, proceed
-                            if (Model.FormattedID != oldNCR_ID || Model.FormattedID != newNCR_ID)
-                            {
-                                // If the old NCR id is not null, then it must be Previous, else it must be New
-                                string ncrLabel = oldNCR != null ? "Previous NCR Number" : "New NCR Number";
-                                @ncrLabel
-                            }
-                        }
-
-                    }
+                    Date Created:
+                    @* @Html.DisplayNameFor(model => model.NCR_Date) *@
                 </dt>
-                @{
-                    if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
-                    {
-                        // Declare formatID to use for comparison
-                        var newNCR = ViewBag?.NewNCRID;
-                        var oldNCR = Model?.OldNCRID;
-
-                        // Format NCR IDs with the current year
-                        string newNCR_ID = newNCR != null ? $"{DateTime.UtcNow.Year}-{newNCR.ToString().PadLeft(3, '0')}" : null;
-                        string oldNCR_ID = oldNCR != null ? $"{DateTime.UtcNow.Year}-{oldNCR.ToString().PadLeft(3, '0')}" : null;
-
-                        if (oldNCR_ID != Model.FormattedID || newNCR_ID != Model.FormattedID)
-                        {
-                            // If old NCR ID is null then use new NCR ID
-                            string useID = oldNCR_ID != null ? oldNCR_ID : newNCR_ID;
-                            @useID
-                        }
-                    }
-                }
+                <dd class="ms-2">
+                    @Html.DisplayFor(model => model.NCR_Date)
+                </dd>
             </dl>
         </div>
 
@@ -664,7 +627,49 @@
                         <div class="row">
                             <dl>
                                 <dt class="mt-2 col-sm fw-normal">
-                                    @Html.DisplayFor(model => model.NewNCRID)
+                                <div>
+                                        @{
+                                            // If the Old or New NCRID's are not null then..
+                                            if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
+                                            {
+                                                // Declare formatID to use for comparison
+                                                var newNCR = ViewBag?.NewNCRID;
+                                                var oldNCR = Model?.OldNCRID;
+
+                                                // Format NCR IDs with the current year
+                                                string newNCR_ID = newNCR != null ? $"{DateTime.UtcNow.Year}-{newNCR.ToString().PadLeft(3, '0')}" : null;
+                                                string oldNCR_ID = oldNCR != null ? $"{DateTime.UtcNow.Year}-{oldNCR.ToString().PadLeft(3, '0')}" : null;
+
+                                                // If the formatted ID is NOT the same as the old one OR if the formatted id is NOT equal to the ViewBag format ID, proceed
+                                                if (Model.FormattedID != oldNCR_ID || Model.FormattedID != newNCR_ID)
+                                                {
+                                                    // If the old NCR id is not null, then it must be Previous, else it must be New
+                                                    string ncrLabel = oldNCR != null ? "Previous NCR Number" : "New NCR Number";
+                                                    @ncrLabel
+                                                }
+                                            }
+
+                                        }
+                                </div>
+                                    @{
+                                        if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
+                                        {
+                                            // Declare formatID to use for comparison
+                                            var newNCR = ViewBag?.NewNCRID;
+                                            var oldNCR = Model?.OldNCRID;
+
+                                            // Format NCR IDs with the current year
+                                            string newNCR_ID = newNCR != null ? $"{DateTime.UtcNow.Year}-{newNCR.ToString().PadLeft(3, '0')}" : null;
+                                            string oldNCR_ID = oldNCR != null ? $"{DateTime.UtcNow.Year}-{oldNCR.ToString().PadLeft(3, '0')}" : null;
+
+                                            if (oldNCR_ID != Model.FormattedID || newNCR_ID != Model.FormattedID)
+                                            {
+                                                // If old NCR ID is null then use new NCR ID
+                                                string useID = oldNCR_ID != null ? oldNCR_ID : newNCR_ID;
+                                                @useID
+                                            }
+                                        }
+                                    }
                                 </dt>
                             </dl>
                         </div>
