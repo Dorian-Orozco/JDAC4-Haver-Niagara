@@ -134,7 +134,14 @@ a {
     font-size: 14px;
 }
 
-.archive-btn-icon {
+.create-btn-icon {
+    font-size: 22px;
+    position: relative;
+    top: 5px;
+    margin-left: 3px;
+}
+
+.archive-btn-icon{
     position: relative;
     top: 2px;
 }
