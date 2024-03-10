@@ -71,6 +71,13 @@ namespace Haver_Niagara.Data
                 .Property(n => n.ID)
                 .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<DefectList>()
+                .Property(n=>n.DefectListID) 
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Defect>()
+                .Property(n=>n.ID) 
+                .ValueGeneratedOnAdd();
         }
     }
 }
