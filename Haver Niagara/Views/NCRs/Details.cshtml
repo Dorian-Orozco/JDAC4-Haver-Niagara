@@ -32,6 +32,15 @@
                 </dd>
             </dl>
         </div>
+        <div class="d-flex justify-content-start text-muted mb-3">
+            @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage))) //working!
+            {
+                <div class="form-check form-check-inline">
+                    <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
+                    <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+                </div>
+            }
+        </div>
 
         <form class="">
             <div>
@@ -781,9 +790,10 @@
                                     @* @Html.DisplayNameFor(model => model.InspectName) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @(Model.QualityInspection?.InspectorName ?? "John Smith")
+                                    @Html.DisplayFor(model => model.QualityInspection.Name)
                                 </dd>
-                            </dl>                                      
+                            </dl>
+
                         </div>
                         <div class="row">
                             <dl class="d-flex">
