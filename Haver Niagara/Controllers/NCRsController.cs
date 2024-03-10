@@ -9,6 +9,7 @@ using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Identity.Client;
+using Microsoft.VisualStudio.Web.CodeGeneration;
 
 namespace Haver_Niagara.Controllers
 {
@@ -55,6 +56,7 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.FollowUp)
                 .Include(n => n.Operation)
                     .ThenInclude(n => n.CAR)
+                    .Include(n=>n.Procurement)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if(nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
@@ -102,7 +104,7 @@ namespace Haver_Niagara.Controllers
         [ValidateAntiForgeryToken]              //oldNCRID is passed through in edit controller
         public async Task<IActionResult> Create(int? oldNCRID,[Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID")]
                 NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering,
-            Operation operation, List<IFormFile> files, List<string> links, int defectID)
+            Operation operation, Procurement procurement, List<IFormFile> files, List<string> links, int defectID)
         {
             if (ModelState.IsValid)
             {
@@ -115,11 +117,14 @@ namespace Haver_Niagara.Controllers
                 await _context.SaveChangesAsync();
                 _context.Add(operation);
                 await _context.SaveChangesAsync();
+                _context.Add(procurement);
+                await _context.SaveChangesAsync();
                 //Assign the generated IDs to this NCR. this allows the NCR to have part and quality
                 nCR.PartID = part.ID;                  
                 nCR.QualityInspectionID = qualityInspection.ID;
                 nCR.EngineeringID = engineering.ID;
                 nCR.OperationID = operation.ID;
+                nCR.ProcurementID = procurement.ID;
 
                 //Retrieves the old ncr from the GET create. 
                 nCR.OldNCRID = oldNCRID ?? null; 
@@ -182,6 +187,7 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.CAR)
                 .Include(n => n.Operation)
                     .ThenInclude(n => n.FollowUp)
+                    .Include(p=>p.Procurement)
                 .FirstOrDefaultAsync(n => n.ID == id);
 
 
@@ -203,7 +209,7 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
-                    NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation,
+                    NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation, Procurement procurement,
                     List<IFormFile> files, List<string> links, int defectID, Defect defect)
         {
             nCR.ID = id;
@@ -229,6 +235,7 @@ namespace Haver_Niagara.Controllers
                             .ThenInclude(n => n.FollowUp)
                         .Include(n => n.Operation)
                             .ThenInclude(n => n.CAR)
+                            .Include(n=>n.Procurement)
                         .FirstOrDefaultAsync(n => n.ID == id);
 
                     if (existingNCR == null)
@@ -303,14 +310,41 @@ namespace Haver_Niagara.Controllers
                         //Updating Follow Up if Not NUll
                         if (operation.FollowUp != null)
                         {
-                            existingNCR.Operation.FollowUp.FollowUpDate = operation.FollowUp.FollowUpDate;
-                            existingNCR.Operation.FollowUp.FollowUpType = operation.FollowUp.FollowUpType;
+                            if(operation.FollowUp.FollowUpDate != null)
+                            {
+                                existingNCR.Operation.FollowUp.FollowUpDate = operation.FollowUp.FollowUpDate;
+                            }
+                            //existingNCR.Operation.FollowUp.FollowUpDate = operation.FollowUp.FollowUpDate;
+                            if(operation.FollowUp.FollowUpType != null)
+                            {
+                                existingNCR.Operation.FollowUp.FollowUpType = operation.FollowUp.FollowUpType;
+                            }
                         }
                         if (operation.CAR != null)
                         {
-                            existingNCR.Operation.CAR.CARNumber = operation.CAR.CARNumber;
-                            existingNCR.Operation.CAR.Date = operation.CAR.Date;
+                            if(operation.CAR.CARNumber != null)
+                            {
+                                existingNCR.Operation.CAR.CARNumber = operation.CAR.CARNumber;
+                            }
+                            if(operation.CAR.Date != null)
+                            {
+                                existingNCR.Operation.CAR.Date = operation.CAR.Date;
+                            }
+                            
                         }
+                    }
+                    if(procurement != null)
+                    {
+                        existingNCR.Procurement.ReturnRejected = procurement.ReturnRejected;
+                        existingNCR.Procurement.RMANumber = procurement.RMANumber;
+                        existingNCR.Procurement.CarrierName = procurement.CarrierName;
+                        existingNCR.Procurement.CarrierPhone = procurement.CarrierPhone;
+                        existingNCR.Procurement.AccountNumber = procurement.AccountNumber;
+                        existingNCR.Procurement.DisposeOnSite = procurement.DisposeOnSite;
+                        existingNCR.Procurement.ToReceiveDate = procurement.ToReceiveDate;
+                        existingNCR.Procurement.SuppReturnCompletedSAP = procurement.SuppReturnCompletedSAP;
+                        existingNCR.Procurement.ExpectSuppCredit = procurement.ExpectSuppCredit;
+                        existingNCR.Procurement.BillSupplier = procurement.BillSupplier;
                     }
 
                     if (existingNCR.NCR_Status && !qualityInspection.ReInspected) //If yes the NCR is being closed
