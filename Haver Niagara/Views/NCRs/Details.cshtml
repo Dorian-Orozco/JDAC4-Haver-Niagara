@@ -781,9 +781,9 @@
                                     @* @Html.DisplayNameFor(model => model.InspectName) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @(Model.QualityInspection?.Name ?? "John Smith")
+                                    @Html.DisplayFor(model => model.QualityInspection.Name)
                                 </dd>
-                            </dl>                                          @*  FIX THIS PART AND FIGURE OUT HOW TO GET QUALITYT REP NAME *@
+                            </dl>                                       
                         </div>
                         <div class="row">
                             <dl class="d-flex">

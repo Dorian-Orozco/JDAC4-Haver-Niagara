@@ -188,13 +188,16 @@
                                 <div class="form-group">
                                     @* Gets view bagy filled with defects, takes id of defects and saves to controller then bd *@
                                     @* <label for="defectID">Select Defect:</label> *@
-                                    <select id="defectID" name="defectID" class="form-control">
-                                        <option value="0">Select a Defect</option>
-                                        @foreach (var defect in ViewBag.DefectList)
-                                        {
-                                            <option value="@defect.Value">@defect.Text</option>
-                                        }
-                                    </select>
+                                    @if (ViewBag.DefectList != null)
+                                    {
+                                        <select id="defectID" name="defectID" class="form-control">
+                                            <option value="0">Select a Defect</option>
+                                            @foreach (var defect in ViewBag.DefectList)
+                                            {
+                                                <option value="@defect.Value">@defect.Text</option>
+                                            }
+                                        </select>
+                                    }
                                     <span class="text-danger"></span>
                                 </div>
                             </dd>
@@ -232,7 +235,7 @@
                             Select Images
                             <div class="form-group mt-3">
                                 @* <label for="files">Select files:</label> *@
-                                <input type="file" name="files" id="files" class="form-control-file" multiple/>
+                                <input type="file" name="files" id="files" class="form-control-file" multiple />
                             </div>
                         </dt>
                         <dd class="col-sm pt-3 ps-3 d-flex">
@@ -291,7 +294,7 @@
                         </dl>
                     </div>
                     @* <small class="fw-light">
-                        Completed NCR to be forwarded to HBC Purchasing Manager complete with any relevant documents attached
+                    Completed NCR to be forwarded to HBC Purchasing Manager complete with any relevant documents attached
                     </small> *@
                 </div>
 

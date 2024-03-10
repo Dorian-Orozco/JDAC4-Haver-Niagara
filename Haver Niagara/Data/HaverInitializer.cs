@@ -1976,7 +1976,7 @@ namespace Haver_Niagara.Data
                         ID = 9,
                         NCR_Date = DateTime.Parse("2019-05-18"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5, //Completed
                         Part = context.Parts.FirstOrDefault(p => p.ID == 9),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 9),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 9),
@@ -1987,7 +1987,7 @@ namespace Haver_Niagara.Data
                         ID = 10,
                         NCR_Date = DateTime.Parse("2020-08-02"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 10),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 10),
@@ -1999,7 +1999,7 @@ namespace Haver_Niagara.Data
 
                         NCR_Date = DateTime.Parse("2021-10-11"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 11),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 11),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 11),
@@ -2010,7 +2010,7 @@ namespace Haver_Niagara.Data
                         ID = 12,
                         NCR_Date = DateTime.Parse("2022-02-26"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 12),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 12),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 12),
@@ -2021,7 +2021,7 @@ namespace Haver_Niagara.Data
                         ID = 13,
                         NCR_Date = DateTime.Parse("2022-06-17"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 13),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 13),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 13),
@@ -2032,7 +2032,7 @@ namespace Haver_Niagara.Data
                         ID = 14,
                         NCR_Date = DateTime.Parse("2022-12-07"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 14),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 14),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 14),
@@ -2044,7 +2044,7 @@ namespace Haver_Niagara.Data
                         ID = 15,
                         NCR_Date = DateTime.Parse("2022-12-10"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 15),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 15),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 15),
@@ -2055,7 +2055,7 @@ namespace Haver_Niagara.Data
                         ID = 16,
                         NCR_Date = DateTime.Parse("2023-07-09"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 16),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 16),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 16),
@@ -2066,7 +2066,7 @@ namespace Haver_Niagara.Data
                         ID = 17,
                         NCR_Date = DateTime.Parse("2023-07-09"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 17),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 17),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 17),
@@ -2078,7 +2078,7 @@ namespace Haver_Niagara.Data
                         ID = 18,
                         NCR_Date = DateTime.Parse("2023-10-20"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 18),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 18),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 18),
@@ -2089,7 +2089,7 @@ namespace Haver_Niagara.Data
                         ID = 19,
                         NCR_Date = DateTime.Parse("2023-11-02"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 19),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 19),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 19),
@@ -2100,7 +2100,7 @@ namespace Haver_Niagara.Data
                         ID = 20,
                         NCR_Date = DateTime.Parse("2023-12-15"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 20),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 20),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 20),
@@ -2111,7 +2111,7 @@ namespace Haver_Niagara.Data
                         ID = 21,
                         NCR_Date = DateTime.Parse("2024-01-01"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 21),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 21),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 21),
@@ -2123,7 +2123,7 @@ namespace Haver_Niagara.Data
 
                         NCR_Date = DateTime.Parse("2024-01-10"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 22),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 22),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 22),
@@ -2135,7 +2135,7 @@ namespace Haver_Niagara.Data
 
                         NCR_Date = DateTime.Parse("2024-01-15"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)4,
+                        NCR_Stage = (NCRStage)5,
                         Part = context.Parts.FirstOrDefault(p => p.ID == 23),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 23),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 23),
@@ -2150,12 +2150,12 @@ namespace Haver_Niagara.Data
 
                         NCR_Date = DateTime.Parse("2024-01-25"),
                         NCR_Status = true,
-                        NCR_Stage = (NCRStage)3,
+                        NCR_Stage = (NCRStage)4, //QualityRep
                         Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1), //TESTING PROCUREMENT
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24)
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1) //TESTING PROCUREMENT
+                        //QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24)
                     },
                     new NCR
                     {
@@ -2163,12 +2163,12 @@ namespace Haver_Niagara.Data
 
                         NCR_Date = DateTime.Parse("2024-02-02"),
                         NCR_Status = true,
-                        NCR_Stage = (NCRStage)1,
+                        NCR_Stage = (NCRStage)4, //QualityRep
                         Part = context.Parts.FirstOrDefault(p => p.ID == 2),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 25),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 25),
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 2), //TESTING PROCUREMENT
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25)
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 2) //TESTING PROCUREMENT
+                        //QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25)
                     },
 					new NCR
 					{
@@ -2176,11 +2176,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-02-08"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)1,
+						NCR_Stage = (NCRStage)3, //Procurement
 						Part = context.Parts.FirstOrDefault(p => p.ID == 3),
 						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 26),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 26),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26)
+						Operation = context.Operations.FirstOrDefault(p => p.ID == 26)
+						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26)
 					},
 					new NCR
 					{
@@ -2188,11 +2188,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-02-12"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)3,
+						NCR_Stage = (NCRStage)3, //Procurement
 						Part = context.Parts.FirstOrDefault(p => p.ID == 4),
 						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 27),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 27),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 27)
+						Operation = context.Operations.FirstOrDefault(p => p.ID == 27)
+						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 27)
 					},
 					new NCR
 					{
@@ -2200,11 +2200,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-02-18"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)3,
+						NCR_Stage = (NCRStage)3, //Procurement
 						Part = context.Parts.FirstOrDefault(p => p.ID == 5),
 						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 28),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 28),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 28)
+						Operation = context.Operations.FirstOrDefault(p => p.ID == 28)
+						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 28)
 					},
 					new NCR
 					{
@@ -2212,11 +2212,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-02-21"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)2,
+						NCR_Stage = (NCRStage)2, //Operations
 						Part = context.Parts.FirstOrDefault(p => p.ID == 6),
-						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 29),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 29),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 29)
+						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 29)
+						//Operation = context.Operations.FirstOrDefault(p => p.ID == 29),
+						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 29)
 					},
 					new NCR
 					{
@@ -2224,11 +2224,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-02-29"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)2,
+						NCR_Stage = (NCRStage)2, //Operations
 						Part = context.Parts.FirstOrDefault(p => p.ID == 7),
 						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 30),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 30),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 30)
+						//Operation = context.Operations.FirstOrDefault(p => p.ID == 30),
+						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 30)
 					},
 					new NCR
 					{
@@ -2236,11 +2236,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-03-01"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)2,
+						NCR_Stage = (NCRStage)2, //Operations
 						Part = context.Parts.FirstOrDefault(p => p.ID == 31),
-						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 31),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 31),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 31)
+						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 31)
+						//Operation = context.Operations.FirstOrDefault(p => p.ID == 31),
+						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 31)
 					},
 					new NCR
 					{
@@ -2248,11 +2248,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-03-03"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)2,
-						Part = context.Parts.FirstOrDefault(p => p.ID == 32),
-						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 32),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 32),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 32)
+						NCR_Stage = (NCRStage)1, //Engineering
+						Part = context.Parts.FirstOrDefault(p => p.ID == 32)
+						//Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 32),
+						//Operation = context.Operations.FirstOrDefault(p => p.ID == 32),
+						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 32)
 					},
 					new NCR
 					{
@@ -2260,11 +2260,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-03-05"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)1,
-						Part = context.Parts.FirstOrDefault(p => p.ID == 33),
-						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 33),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 33),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 33)
+						NCR_Stage = (NCRStage)1, //Engineering
+						Part = context.Parts.FirstOrDefault(p => p.ID == 33)
+						//Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 33),
+						//Operation = context.Operations.FirstOrDefault(p => p.ID == 33),
+						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 33)
 					},
 					new NCR
 					{
