@@ -61,6 +61,7 @@
                                         <label class="" for="@($"qualityIdentify{qualityIdentify}")">@((typeof(QualityIdentify).GetMember(qualityIdentify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
                                     </div>
                                 }
+                                <span asp-validation-for="QualityInspection.QualityIdentify" class="text-danger"></span>
                             </dd>
                         </dl>
                     </div>
@@ -135,11 +136,6 @@
 
                             </dt>
                             <dd class="mt-1">
-                                @* <div class="form-group">
-                                <label asp-for="Part.PartNumber" class="control-label"></label>
-                                <input asp-for="Part.PartNumber" class="form-control" />
-                                <span asp-validation-for="Part.PartNumber" class="text-danger"></span>
-                                </div> *@
                                 <div class="form-group">
                                     <label asp-for="Part.SAPNumber" class="control-label"></label>
                                     <input asp-for="Part.SAPNumber" class="form-control" />
@@ -585,17 +581,17 @@
                             </dl>
                         </div>
                         <div class="row ms-1 mb-0">
-                            @if (Model.Operation != null && Model.Operation.OperationCar)
+                            @if (Model.Operation != null @* && Model.Operation.OperationCar *@)
                             {
                                 <div class="form-group">
                                     <label asp-for="Operation.CAR.CARNumber" class="control-label"></label>
-                                    <input asp-for="Operation.CAR.CARNumber" class="form-control" />
+                                    <input asp-for="Operation.CAR.CARNumber" id="CARNumber" class="form-control" />
                                     <span asp-validation-for="Operation.CAR.CARNumber" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label asp-for="Operation.CAR.Date" class="control-label"></label>
-                                    <input asp-for="Operation.CAR.Date" type="date" class="form-control" />
+                                    <input asp-for="Operation.CAR.Date" type="date" id="CARDate" class="form-control" />
                                     <span asp-validation-for="Operation.CAR.Date" class="text-danger"></span>
                                 </div>
                             }
@@ -630,7 +626,7 @@
                             {
                                 <div class="form-group">
                                     <label asp-for="Operation.FollowUp.FollowUpType" class="control-label"></label>
-                                    <input asp-for="Operation.FollowUp.FollowUpType" class="form-control" />
+                                    <input asp-for="Operation.FollowUp.FollowUpType" id="FollowUpType" class="form-control" />
                                     <span asp-validation-for="Operation.FollowUp.FollowUpType" class="text-danger"></span>
                                 </div>
                             }
@@ -640,7 +636,7 @@
                             {
                                 <div class="form-group">
                                     <label asp-for="Operation.FollowUp.FollowUpDate" class="control-label"></label>
-                                    <input asp-for="Operation.FollowUp.FollowUpDate" type="date" class="form-control" />
+                                    <input asp-for="Operation.FollowUp.FollowUpDate" id="FollowUpDate"  type="date" class="form-control" />
                                     <span asp-validation-for="Operation.FollowUp.FollowUpDate" class="text-danger"></span>
                                 </div>
                             }
@@ -687,7 +683,7 @@
                                 </dt>
                                 <dd class="mt-2">
                                     <div class="d-flex">
-                                        @Html.RadioButtonFor(model => model.Procurement.ReturnRejected, true, new { @checked = Model.Procurement != null && Model.Procurement.ReturnRejected, @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Procurement.ReturnRejected,  true, new { @checked = Model.Procurement != null && Model.Procurement.ReturnRejected, @class = "me-2" })
                                         <label class="me-4">Yes</label>
 
                                         @Html.RadioButtonFor(model => model.Procurement.ReturnRejected, false, new { @checked = Model.Procurement != null && !Model.Procurement.ReturnRejected, @class = "me-2" })
@@ -720,26 +716,28 @@
 
                             <div class="form-group">
                                 <label asp-for="Procurement.RMANumber" class="control-label"></label>
-                                <input asp-for="Procurement.RMANumber" class="form-control" />
+                                <input asp-for="Procurement.RMANumber" id="RMANumber" class="form-control" />
                                 <span asp-validation-for="Procurement.RMANumber" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Procurement.CarrierName" class="control-label"></label>
-                                <input asp-for="Procurement.CarrierName" class="form-control" />
+                                <input asp-for="Procurement.CarrierName" id="CarrierName" class="form-control" />
                                 <span asp-validation-for="Procurement.CarrierName" class="text-danger"></span>
+
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Procurement.CarrierPhone" class="control-label"></label>
-                                <input asp-for="Procurement.CarrierPhone" class="form-control" />
+                                <input asp-for="Procurement.CarrierPhone" id="CarrierPhone" class="form-control" />
                                 <span asp-validation-for="Procurement.CarrierPhone" class="text-danger"></span>
                             </div>
 
                             <div class="form-group mb-3">
                                 <label asp-for="Procurement.AccountNumber" class="control-label"></label>
-                                <input asp-for="Procurement.AccountNumber" class="form-control" />
+                                <input asp-for="Procurement.AccountNumber" id="AccountNumber" class="form-control" />
                                 <span asp-validation-for="Procurement.AccountNumber" class="text-danger"></span>
+
                             </div>
 
                         </div>
@@ -750,10 +748,10 @@
                                 </dt>
                                 <dd class="mt-2">
                                     <div class="d-flex">
-                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, true, new { @checked = Model.Procurement != null && Model.Procurement.DisposeOnSite, @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, true, new { @checked = Model.Procurement != null && Model.Procurement.DisposeOnSite == true, @class = "me-2" })
                                         <label class="me-4">Yes</label>
 
-                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, false, new { @checked = Model.Procurement != null && !Model.Procurement.DisposeOnSite, @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, false, new { @checked = Model.Procurement != null && !Model.Procurement.DisposeOnSite == false, @class = "me-2" })
                                         <label>No</label>
                                         <span asp-validation-for="Procurement.DisposeOnSite" class="text-danger"></span>
                                     </div>
@@ -860,8 +858,8 @@
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <div class="form-group">
-                                        <input asp-for="QualityInspection.Date" type="date" class="form-control" />
-                                        <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
+                                        <input asp-for="QualityInspection.InspectorDate" type="date" class="form-control" />
+                                        <span asp-validation-for="QualityInspection.InspectorDate" class="text-danger"></span>
                                     </div>
                                 </dd>
                             </dl>
@@ -874,7 +872,7 @@
                     <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
                         <dl>
                             <dt>
-                                NCR Closed?
+                                Keep NCR Open?
                             </dt>
                             <dd class="mt-2">
                                 <div class="d-flex justify-content-center">
@@ -1012,6 +1010,59 @@
         if (!confirm("Are you sure you want to cancel?")) {
             event.preventDefault();
         }
+    });
+    $(document).ready(function () {
+        // Handler for the change event of the OperationFollowUp radio button
+        $('input[name="Operation.OperationFollowUp"]').change(function () {
+            // Check if OperationFollowUp is set to false
+            if ($(this).val() === "False") {
+                // Clear the FollowUpType and FollowUpDate input fields
+                $('#FollowUpType').val('');
+                $('#FollowUpDate').val('');
+            }
+        });
+
+        // Handler for the change event of the OperationCar radio button
+        $('input[name="Operation.OperationCar"]').change(function () {
+            // Check if OperationCar is set to false
+            if ($(this).val() === "False") {
+                // Clear the CARNumber and CARDate input fields
+                $('#CARNumber').val('');
+                $('#CARDate').val('');
+            }
+        });
+    });
+
+
+
+    // Define variables to store initial values
+    var initialRMANumber, initialCarrierName, initialCarrierPhone, initialAccountNumber, initialDisposeOnSite;
+
+    $(document).ready(function () {
+        // Store initial values when the page loads
+        initialRMANumber = $('#RMANumber').val();
+        initialCarrierName = $('#CarrierName').val();
+        initialCarrierPhone = $('#CarrierPhone').val();
+        initialAccountNumber = $('#AccountNumber').val();
+        initialDisposeOnSite = $('input[name="Procurement.DisposeOnSite"]:checked').val();
+
+        // Handler for the change event of the ReturnRejected radio buttons
+        $('input[name="Procurement.ReturnRejected"]').change(function () {
+            // Check if "Yes" is selected
+            if ($(this).val() === "False") {
+                // Clear inputs if "Yes" is selected
+                // Clear RMANumber
+                $('#RMANumber').val('');
+                // Clear CarrierName
+                $('#CarrierName').val('');
+                // Clear CarrierPhone
+                $('#CarrierPhone').val('');
+                // Clear AccountNumber
+                $('#AccountNumber').val('');
+                // Clear DisposeOnSite
+                $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
+            }
+        });
     });
 </script>
 

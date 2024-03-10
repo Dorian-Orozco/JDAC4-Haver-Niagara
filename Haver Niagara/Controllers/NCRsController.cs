@@ -104,7 +104,7 @@ namespace Haver_Niagara.Controllers
         [ValidateAntiForgeryToken]              //oldNCRID is passed through in edit controller
         public async Task<IActionResult> Create(int? oldNCRID,[Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID")]
                 NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering,
-            Operation operation, Procurement procurement, List<IFormFile> files, List<string> links, int defectID)
+            Operation operation, Procurement procurement, List<IFormFile> files, List<string> links, Defect defects, int defectID)
         {
             if (ModelState.IsValid)
             {
@@ -240,9 +240,7 @@ namespace Haver_Niagara.Controllers
                     {
                         return NotFound();
                     }
-                    //detaching to prevent tracking issues
-                    //_context.Entry(existingNCR).State = EntityState.Detached;
-               
+   
                     existingNCR.NCR_Date = nCR.NCR_Date;
                     existingNCR.NCR_Status = nCR.NCR_Status;    //For radio buttons 
 
@@ -306,39 +304,80 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Operation.OperationCar = operation.OperationCar;
                         existingNCR.Operation.OperationFollowUp = operation.OperationFollowUp;
                         //Updating Follow Up if Not NUll
-                        if (operation.FollowUp != null)
+                        if (operation.FollowUp != null) //means that the the user passes back a true/yes for a follow up
                         {
-                            if(operation.FollowUp.FollowUpDate != null)
+                            if (operation.OperationFollowUp)
                             {
-                                existingNCR.Operation.FollowUp.FollowUpDate = operation.FollowUp.FollowUpDate;
+                                //If they choose follow up, and there is no Follow Up Object in the NCR it will crash so we have to assign one
+                                if (existingNCR.Operation.FollowUp == null)
+                                {
+                                    existingNCR.Operation.FollowUp = new FollowUp(); //create new folloow up
+                                }
+                                if (operation.FollowUp.FollowUpDate != DateTime.MinValue) //if date isnt null
+                                {
+                                    existingNCR.Operation.FollowUp.FollowUpDate = operation.FollowUp.FollowUpDate; //assign it
+                                }
+                                if (!string.IsNullOrEmpty(operation.FollowUp.FollowUpType)) //if follow up type is NOT empty
+                                {
+                                    existingNCR.Operation.FollowUp.FollowUpType = operation.FollowUp.FollowUpType; //assign it
+                                }
                             }
-                            //existingNCR.Operation.FollowUp.FollowUpDate = operation.FollowUp.FollowUpDate;
-                            if(operation.FollowUp.FollowUpType != null)
+                            else
                             {
-                                existingNCR.Operation.FollowUp.FollowUpType = operation.FollowUp.FollowUpType;
+                                existingNCR.Operation.FollowUp = null;
                             }
                         }
+                        //Updating CAR if user says yes car required
                         if (operation.CAR != null)
                         {
-                            if(operation.CAR.CARNumber != null)
+                            if (operation.OperationCar) //yes / no checkbox // if yes do all of these
                             {
-                                existingNCR.Operation.CAR.CARNumber = operation.CAR.CARNumber;
+                                //create and assign new car to existing NCR
+                                if (existingNCR.Operation.CAR == null)
+                                {
+                                    existingNCR.Operation.CAR = new CAR();
+                          
+                                }
+                                if (operation.CAR.CARNumber != null) //if not null assign
+                                {
+                                    existingNCR.Operation.CAR.CARNumber = operation.CAR.CARNumber;
+                                }
+                                if (operation.CAR.Date != DateTime.MinValue)
+                                {
+                                    existingNCR.Operation.CAR.Date = operation.CAR.Date;
+                                }
                             }
-                            if(operation.CAR.Date != null)
+                            else //else remove car. 
                             {
-                                existingNCR.Operation.CAR.Date = operation.CAR.Date;
+                                existingNCR.Operation.CAR = null;
                             }
-                            
                         }
                     }
                     if(procurement != null)
                     {
-                        existingNCR.Procurement.ReturnRejected = procurement.ReturnRejected;
-                        existingNCR.Procurement.RMANumber = procurement.RMANumber;
-                        existingNCR.Procurement.CarrierName = procurement.CarrierName;
-                        existingNCR.Procurement.CarrierPhone = procurement.CarrierPhone;
-                        existingNCR.Procurement.AccountNumber = procurement.AccountNumber;
-                        existingNCR.Procurement.DisposeOnSite = procurement.DisposeOnSite;
+                        if(existingNCR.Procurement == null)
+                        {
+                            existingNCR.Procurement = new Procurement();
+                        }
+
+                        if(procurement.ReturnRejected == true)
+                        {
+                            existingNCR.Procurement.ReturnRejected = procurement.ReturnRejected;
+                            existingNCR.Procurement.RMANumber = procurement.RMANumber;
+                            existingNCR.Procurement.CarrierName = procurement.CarrierName;
+                            existingNCR.Procurement.CarrierPhone = procurement.CarrierPhone;
+                            existingNCR.Procurement.AccountNumber = procurement.AccountNumber;
+                            existingNCR.Procurement.DisposeOnSite = procurement.DisposeOnSite;
+                        }
+                        else
+                        {
+                            existingNCR.Procurement.ReturnRejected = false;
+                            existingNCR.Procurement.RMANumber = null;
+                            existingNCR.Procurement.CarrierName = null;
+                            existingNCR.Procurement.CarrierPhone = null;
+                            existingNCR.Procurement.AccountNumber = null;
+                            existingNCR.Procurement.DisposeOnSite = null;
+                        }
                         existingNCR.Procurement.ToReceiveDate = procurement.ToReceiveDate;
                         existingNCR.Procurement.SuppReturnCompletedSAP = procurement.SuppReturnCompletedSAP;
                         existingNCR.Procurement.ExpectSuppCredit = procurement.ExpectSuppCredit;
