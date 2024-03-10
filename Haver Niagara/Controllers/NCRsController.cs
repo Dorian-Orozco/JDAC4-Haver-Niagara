@@ -143,8 +143,6 @@ namespace Haver_Niagara.Controllers
                         await _context.SaveChangesAsync();
                     }
                 }
-
-
                 var defectList = new DefectList             //creates a new defect list object
                 {                                           //since it is a junction table it takes a part ID and a defectID
                     PartID = part.ID,                       //defect ID is retrieved through an int, which is passed through by a drop down 

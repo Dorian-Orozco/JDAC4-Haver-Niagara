@@ -781,9 +781,10 @@
                                     @* @Html.DisplayNameFor(model => model.InspectName) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @(Model.QualityInspection?.InspectorName ?? "John Smith")
+                                    @Html.DisplayFor(model => model.QualityInspection.Name)
                                 </dd>
-                            </dl>                                      
+                            </dl>                                       
+
                         </div>
                         <div class="row">
                             <dl class="d-flex">
