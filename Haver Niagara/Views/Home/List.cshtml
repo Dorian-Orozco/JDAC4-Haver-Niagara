@@ -68,6 +68,7 @@
                 <div class="collapse" id="collapseFilter">
                     <div class="card card-body bg-light mb-2 d-flex">
 
+
                         <div class="row">
                             <div class="form-group col-sm-1 me-2">
                                 <label class="control-label">Status:</label>
@@ -104,14 +105,14 @@
                     <tr>
                         <th class="text-center">
                             Status
-                      @*       <a asp-action="List"
-                               asp-route-sortOrder="@ViewBag.StageSortParam"
-                               asp-route-currentFilter="@ViewBag.CurrentFilter"
-                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                               asp-route-selectedDate="@ViewBag.SelectedDate"
-                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                               asp-route-page="@Model.PageNumber">
-                                Status
+                            @*       <a asp-action="List"
+                            asp-route-sortOrder="@ViewBag.StageSortParam"
+                            asp-route-currentFilter="@ViewBag.CurrentFilter"
+                            asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                            asp-route-selectedDate="@ViewBag.SelectedDate"
+                            asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                            asp-route-page="@Model.PageNumber">
+                            Status
                             </a> *@
                         </th>
                         <th class="text-center">NCR Number</th>
@@ -244,45 +245,49 @@
         @Html.PagedListPager(Model, page => Url.Action("List",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })) *@
     </div>
-
-    @section scripts {
-        <script>
-            $(document).ready(function () {
-                // Select all elements with the class "stage"
-                $('.stage').each(function () {
-                    // Get the text content of the element
-                    var stage = $(this).text().trim();
-
-                    // Remove existing classes
-                    $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
-
-                    // Depending on the stage, change the color
-                    switch (stage) {
-                        case "Engineering":
-                            $(this).addClass('stage-eng2');
-                            // $(this).css('color', 'red');
-                            break;
-                        case "Purchasing":
-                            $(this).addClass('stage-pur3');
-                            // $(this).css('color', 'blue');
-                            break;
-                        case "Quality Rep":
-                            $(this).addClass('stage-qual4');
-                            // $(this).css('color', 'green');
-                            break;
-                        // Add more cases as needed for other stages
-                        case "Complete":
-                            $(this).addClass('stage-complete');
-                            break;
-                        default:
-                            // Default class if stage not matched
-                            $(this).addClass('stage');
-                        // Default color if stage not matched
-                        // $(this).css('color', 'black');
-                    }
-                });
-            });
-        </script>
-    }
-
 </div>
+
+@section scripts {
+    @* FUNCTION FOR STATUS BAR IN STAGE COLUMN *@
+    <script>
+        $(document).ready(function () {
+            // Select all elements with the class "stage"
+            $('.stage').each(function () {
+                // Get the text content of the element
+                var stage = $(this).text().trim();
+
+                // Remove existing classes
+                $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
+
+                // Depending on the stage, change the color
+                switch (stage) {
+                    case "Engineering":
+                        $(this).addClass('stage-eng2');
+                        // $(this).css('color', 'red');
+                        break;
+                    case "Operations":
+                        $(this).addClass('stage-oper3');
+                        // $(this).css('color', 'blue');
+                        break;
+                    case "Procurement":
+                        $(this).addClass('stage-procure4');
+                        // $(this).css('color', 'green');
+                        break;
+                    case "Quality Rep":
+                        $(this).addClass('stage-qual5');
+                        // $(this).css('color', 'green');
+                        break;
+                    // Add more cases as needed for other stages
+                    case "Complete":
+                        $(this).addClass('stage-complete');
+                        break;
+                    default:
+                        // Default class if stage not matched
+                        $(this).addClass('stage');
+                    // Default color if stage not matched
+                    // $(this).css('color', 'black');
+                }
+            });
+        });
+    </script>
+}

@@ -101,17 +101,22 @@ a {
 
 .stage-eng2 {
     /*   background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 50%, transparent 50%, transparent 100%);*/
-    background: linear-gradient(to right, rgba(0, 191, 178, 0.5) 0%, rgba(0, 191, 178, 0.5) 20%, transparent 40%, transparent 100%);
+    background: linear-gradient(to right, rgba(0, 191, 178, 0.5) 0%, rgba(0, 191, 178, 0.5) 20%, transparent 35%, transparent 100%);
 }
 
-.stage-pur3 {
+.stage-oper3 {
     /* background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 75%, transparent 75%, transparent 100%);*/
-    background: linear-gradient(to right, rgba(0, 191, 178, 0.5) 0%, rgba(0, 191, 178, 0.5) 40%, transparent 65%, transparent 100%);
+    background: linear-gradient(to right, rgba(0, 191, 178, 0.5) 0%, rgba(0, 191, 178, 0.5) 35%, transparent 55%, transparent 100%);
 }
 
-.stage-qual4 {
+.stage-procure4 {
     /*  background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 100%, transparent 100%, transparent 100%);*/
-    background: linear-gradient(to right, rgba(0, 191, 178, 0.5) 0%, rgba(0, 191, 178, 0.5) 65%, transparent 95%, transparent 100%);
+    background: linear-gradient(to right, rgba(0, 191, 178, 0.5) 0%, rgba(0, 191, 178, 0.5) 45%, transparent 75%, transparent 100%);
+}
+
+.stage-qual5 {
+    /*  background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 100%, transparent 100%, transparent 100%);*/
+    background: linear-gradient(to right, rgba(0, 191, 178, 0.5) 0%, rgba(0, 191, 178, 0.5) 55%, transparent 95%, transparent 100%);
 }
 
 .stage-complete {

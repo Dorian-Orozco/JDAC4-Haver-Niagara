@@ -4,17 +4,19 @@ namespace Haver_Niagara.Models
 {
     public enum NCRStage
     {
-        [Display(Name = "1. Quality Rep")]
+        [Display(Name = "Quality Rep")] //0
         QualityRepresentative,
-        [Display(Name = "Engineering")]
+        [Display(Name = "Engineering")] //1
         Engineering,
-        [Display(Name = "Purchasing")]
+        [Display(Name = "Operations")] //2
         Purchasing,
-        [Display(Name = "Quality Rep")]
+        [Display(Name = "Procurement")] //3
+        Procurement,
+        [Display(Name = "Quality Rep")] //4
         QualityRepresentative_Final,
-        [Display(Name = "Complete")]
-        Completed,
-        [Display(Name = "Closed")] //Added Closed Option        
+        //[Display(Name = "Complete")]
+        //Completed,
+        [Display(Name = "Complete")] //5       
         Closed_NCR
     }
 }
