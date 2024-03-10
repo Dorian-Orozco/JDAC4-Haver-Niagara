@@ -660,10 +660,10 @@
                                 </dt>
                                 <dd class="mt-2">
                                     <div class="d-flex">
-                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, true, new { @checked = Model.Procurement != null && Model.Procurement.DisposeOnSite, @disabled = "disabled", @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, true, new { @checked = Model.Procurement != null && Model.Procurement.DisposeOnSite == true, @disabled = "disabled", @class = "me-2" })
                                         <label class="me-4">Yes</label>
 
-                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, false, new { @checked = Model.Procurement != null && !Model.Procurement.DisposeOnSite, @disabled = "disabled", @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, false, new { @checked = Model.Procurement != null && !Model.Procurement.DisposeOnSite == false, @disabled = "disabled", @class = "me-2" })
                                         <label>No</label>
                                     </div>
                                 </dd>
@@ -781,9 +781,9 @@
                                     @* @Html.DisplayNameFor(model => model.InspectName) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @(Model.QualityInspection?.Name ?? "John Smith")
+                                    @(Model.QualityInspection?.InspectorName ?? "John Smith")
                                 </dd>
-                            </dl>                                          @*  FIX THIS PART AND FIGURE OUT HOW TO GET QUALITYT REP NAME *@
+                            </dl>                                      
                         </div>
                         <div class="row">
                             <dl class="d-flex">
@@ -791,7 +791,7 @@
                                     Date
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @Html.DisplayFor(model => model.QualityInspection.Date)
+                                    @Html.DisplayFor(model => model.QualityInspection.InspectorDate)
                                 </dd>
                             </dl>
                         </div>

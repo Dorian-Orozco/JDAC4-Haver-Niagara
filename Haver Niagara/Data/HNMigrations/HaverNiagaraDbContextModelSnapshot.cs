@@ -91,6 +91,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DispositionNotes")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("DrawUpdate")
@@ -100,6 +101,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("RevisionDate")
@@ -250,6 +252,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("OperationCar")
@@ -279,9 +282,11 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("PartNumber")
@@ -321,7 +326,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AccountNumber")
+                    b.Property<int?>("AccountNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("BillSupplier")
@@ -333,13 +338,13 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("CarrierPhone")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("DisposeOnSite")
+                    b.Property<bool?>("DisposeOnSite")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("ExpectSuppCredit")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RMANumber")
+                    b.Property<int?>("RMANumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("ReturnRejected")
@@ -381,6 +386,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("QualityIdentify")

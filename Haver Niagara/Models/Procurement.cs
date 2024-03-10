@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Haver_Niagara.Models
 {
-    public class Procurement
+    public class Procurement : IValidatableObject
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,19 +14,19 @@ namespace Haver_Niagara.Models
 
         //if ReturnRejected = true (yes)
         [Display(Name = "RMA No.")]
-        public int RMANumber {  get; set; }
+        public int? RMANumber {  get; set; }
 
         [Display(Name = "Carrier")]
-        public string CarrierName {  get; set; }
+        public string? CarrierName {  get; set; }
 
         [Display(Name = "Carrier Phone No.")]
-        public string CarrierPhone { get; set; }
+        public string? CarrierPhone { get; set; }
 
         [Display(Name = "Account No.")]
-        public int AccountNumber { get; set; }
+        public int? AccountNumber { get; set; }
 
         [Display(Name = "Dispose on site")] 
-        public bool DisposeOnSite {  get; set; } //if ReturnRejected = false (no)
+        public bool? DisposeOnSite {  get; set; } //if ReturnRejected = false (no)
 
         [Display(Name = "When will replacement/reworked item be received/returned?")]
         [DataType(DataType.Date)]
@@ -44,5 +44,22 @@ namespace Haver_Niagara.Models
 
         public NCR NCR { get; set; } //FK
 
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (ReturnRejected)
+            {
+                if (RMANumber <= 0 || RMANumber == null)
+                    yield return new ValidationResult("RMA Number is Required.", new[] { "RMANumber" });
+                if (string.IsNullOrWhiteSpace(CarrierName))
+                    yield return new ValidationResult("Carrier Name is Required.", new[] { "CarrierName" });
+                if (string.IsNullOrWhiteSpace(CarrierPhone))
+                    yield return new ValidationResult("Carrier Phone Number is Required.", new[] { "CarrierPhone" });
+                if (AccountNumber <= 0 || AccountNumber == null)
+                    yield return new ValidationResult("Account Number is Required.", new[] { "AccountNumber" });
+                if (!DisposeOnSite.HasValue)
+                    yield return new ValidationResult("Required", new[] { "DisposeOnSite" });
+  
+            }
+        }
     }
 }

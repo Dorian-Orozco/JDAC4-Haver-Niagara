@@ -31,11 +31,11 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CustomerNotify = table.Column<bool>(type: "INTEGER", nullable: false),
                     DrawUpdate = table.Column<bool>(type: "INTEGER", nullable: false),
-                    DispositionNotes = table.Column<string>(type: "TEXT", nullable: true),
+                    DispositionNotes = table.Column<string>(type: "TEXT", nullable: false),
                     RevisionOriginal = table.Column<int>(type: "INTEGER", nullable: false),
                     RevisionUpdated = table.Column<int>(type: "INTEGER", nullable: false),
                     RevisionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -52,7 +52,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     OperationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     OperationDecision = table.Column<int>(type: "INTEGER", nullable: false),
                     OperationNotes = table.Column<string>(type: "TEXT", nullable: true),
@@ -71,11 +71,11 @@ namespace Haver_Niagara.Data.HNMigrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ReturnRejected = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RMANumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    RMANumber = table.Column<int>(type: "INTEGER", nullable: true),
                     CarrierName = table.Column<string>(type: "TEXT", nullable: true),
                     CarrierPhone = table.Column<string>(type: "TEXT", nullable: true),
-                    AccountNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    DisposeOnSite = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccountNumber = table.Column<int>(type: "INTEGER", nullable: true),
+                    DisposeOnSite = table.Column<bool>(type: "INTEGER", nullable: true),
                     ToReceiveDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     SuppReturnCompletedSAP = table.Column<bool>(type: "INTEGER", nullable: false),
                     ExpectSuppCredit = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -92,7 +92,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     InspectorName = table.Column<string>(type: "TEXT", nullable: true),
                     InspectorDate = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -180,7 +180,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     PartNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     SAPNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     PurchaseNumber = table.Column<long>(type: "INTEGER", nullable: false),
@@ -188,7 +188,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     ProductNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityRecieved = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityDefect = table.Column<int>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     SupplierID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
