@@ -29,6 +29,8 @@ namespace Haver_Niagara.Models
         public bool DisposeOnSite {  get; set; } //if ReturnRejected = false (no)
 
         [Display(Name = "When will replacement/reworked item be received/returned?")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ToReceiveDate { get; set; } //When will replacement/reworked item be received/returned?
 
         [Display(Name = "Supplier return has been completed in SAP")]
