@@ -241,19 +241,25 @@
                     // Get the text content of the element
                     var stage = $(this).text().trim();
 
+                    // Remove existing classes
+                    $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
 
                     // Depending on the stage, change the color
                     switch (stage) {
-                        case "2. Engineering":
+                        case "Engineering":
                             $(this).addClass('stage-eng2');
                             // $(this).css('color', 'red');
                             break;
-                        case "3. Purchasing":
-                            $(this).addClass('stage-pur3');
+                        case "Operations":
+                            $(this).addClass('stage-oper3');
                             // $(this).css('color', 'blue');
                             break;
-                        case "4. Quality":
-                            $(this).addClass('stage-qual4');
+                        case "Procurement":
+                            $(this).addClass('stage-procure4');
+                            // $(this).css('color', 'green');
+                            break;
+                        case "Quality Rep":
+                            $(this).addClass('stage-qual5');
                             // $(this).css('color', 'green');
                             break;
                         // Add more cases as needed for other stages
