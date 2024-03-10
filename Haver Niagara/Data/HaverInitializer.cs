@@ -563,15 +563,6 @@ namespace Haver_Niagara.Data
 
             if (!context.Medias.Any())
             {
-                //takes pictures turns into binary, then when pulled from
-                //the database / model it returns them to original form. 
-
-                //Cat pictures, remove later :(
-                //byte[] demoPicture1 = File.ReadAllBytes("TemporaryImages/cat1.jpg");
-                //byte[] demoPicture2 = File.ReadAllBytes("TemporaryImages/cat2.jpg");
-                byte[] demoPicture3 = File.ReadAllBytes("TemporaryImages/cat3.jpg");
-                byte[] demoPicture4 = File.ReadAllBytes("TemporaryImages/cat4.jpg");
-
                 //Random Pictures of Defects
                 byte[] badPaint1 = File.ReadAllBytes("TemporaryImages/badpaint.jpg");
                 byte[] badPaint2 = File.ReadAllBytes("TemporaryImages/badpaint2.jpg");
@@ -913,7 +904,7 @@ namespace Haver_Niagara.Data
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
-                    OperationFollowUp = false,
+                    OperationFollowUp = true,
                 },
                 new Operation
                 {
@@ -923,7 +914,7 @@ namespace Haver_Niagara.Data
                     OperationDecision = (OperationDecision)2,
                     OperationNotes = "N/A",
                     OperationCar = true,
-                    OperationFollowUp = false,
+                    OperationFollowUp = true,
                 },
 				new Operation
 				{
@@ -932,7 +923,7 @@ namespace Haver_Niagara.Data
 					OperationDate = DateTime.Parse("2024-02-08"),
 					OperationDecision = (OperationDecision)2,
 					OperationNotes = "N/A",
-					OperationCar = false,
+					OperationCar = true,
 					OperationFollowUp = true,
 				},
 				new Operation
@@ -2142,8 +2133,6 @@ namespace Haver_Niagara.Data
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 23)
                     },
 
-                    // TEST PROCUREMENT FOR ACTIVE REPORTS //
-
                     new NCR
                     {
                         ID = 24,
@@ -2154,7 +2143,7 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1), //TESTING PROCUREMENT
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24)
                     },
                     new NCR
@@ -2303,10 +2292,10 @@ namespace Haver_Niagara.Data
                         new CAR {ID = 2, Date = DateTime.Parse("2011-04-15"), CARNumber = 98765, Operation = context.Operations.FirstOrDefault(p => p.ID == 2) },
                         new CAR {ID = 3, Date = DateTime.Parse("2013-08-22"), CARNumber = 56748, Operation = context.Operations.FirstOrDefault(p => p.ID == 3) },
                         new CAR {ID = 4, Date = DateTime.Parse("2014-12-07"), CARNumber = 84379, Operation = context.Operations.FirstOrDefault(p => p.ID == 4) },
-                        new CAR {ID = 5, Date = DateTime.Parse("2015-06-30"), CARNumber = 93842 },  //this means the first 4 records do have car / follow up types
-                        new CAR {ID = 6, Date = DateTime.Parse("2016-09-14"), CARNumber = 42981 },  //meaning the boolean values in operation
-                        new CAR {ID = 7, Date = DateTime.Parse("2017-11-25"), CARNumber = 29013 },  //for these first 4, should be set to TRUE.
-                        new CAR {ID = 8, Date = DateTime.Parse("2018-03-09"), CARNumber = 90842},
+                        new CAR {ID = 5, Date = DateTime.Parse("2024-02-15"), CARNumber = 93842, Operation = context.Operations.FirstOrDefault(p =>p.ID == 24) },  //this means the first 4 records do have car / follow up types
+                        new CAR {ID = 6, Date = DateTime.Parse("2023-09-14"), CARNumber = 42981, Operation = context.Operations.FirstOrDefault(p =>p.ID == 25) },  //meaning the boolean values in operation
+                        new CAR {ID = 7, Date = DateTime.Parse("2024-1-23"), CARNumber = 29013, Operation = context.Operations.FirstOrDefault(p =>p.ID == 26) },  //for these first 4, should be set to TRUE.
+                        new CAR {ID = 8, Date = DateTime.Parse("2024-03-01"), CARNumber = 90842, Operation = context.Operations.FirstOrDefault(p =>p.ID == 27)},
                         new CAR {ID = 9, Date = DateTime.Parse("2019-05-18"), CARNumber = 32491},
                         new CAR {ID = 10, Date = DateTime.Parse("2020-08-02"), CARNumber = 31904}
                     };
@@ -2346,6 +2335,34 @@ namespace Haver_Niagara.Data
                     FollowUpDate = DateTime.Parse("2014-12-07"),
                     FollowUpType = "None",
                     Operation = context.Operations.FirstOrDefault(p => p.ID == 4) //Since Some Operations Will Have No Follow Up, Change Seed Data to Reflect that,
+                },
+                new FollowUp
+                {
+                    ID = 5,
+                    FollowUpDate = DateTime.Parse("2024-03-09"),
+                    FollowUpType = "Consultation",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 24)
+                },
+                new FollowUp
+                {
+                    ID = 6,
+                    FollowUpDate = DateTime.Parse("2024-01-12"),
+                    FollowUpType = "Group Meeting",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 25)
+                },
+                new FollowUp
+                {
+                    ID = 7,
+                    FollowUpDate = DateTime.Parse("2024-02-02"),
+                    FollowUpType = "Counselling",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 26)
+                },
+                new FollowUp
+                {
+                    ID = 8,
+                    FollowUpDate = DateTime.Parse("2024-03-23"),
+                    FollowUpType = "Meeting",
+                    Operation = context.Operations.FirstOrDefault(p => p.ID == 27)
                 });                                                               //So in operations if follow up = false, then that record should NOT have this an operations = firstordefault..  Same
                 context.SaveChanges();                                          //same with the Car.
             }
