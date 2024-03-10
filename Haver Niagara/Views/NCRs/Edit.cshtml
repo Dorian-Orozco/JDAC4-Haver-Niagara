@@ -356,11 +356,12 @@
                                     @foreach (var engineerDisposition in Enum.GetValues(typeof(EngineeringDisposition)))
                                     {
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" asp-for="Engineering.EngineeringDisposition" class="form-check-input" value="@engineerDisposition" id="@($"engineerDisposition{engineerDisposition}")" />
+                                            <input type="radio" asp-for="Engineering.EngineeringDisposition" required class="form-check-input" value="@engineerDisposition" id="@($"engineerDisposition{engineerDisposition}")" />
                                             @* <label class="form-check-label" for="@($"engineerDisposition{engineerDisposition}")">@engineerDisposition</label> *@
                                             <label for="@($"engineerDisposition{engineerDisposition}")">@((typeof(EngineeringDisposition).GetMember(engineerDisposition.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
                                         </div>
                                     }
+                                    <span class="text-danger" asp-validation-for="Engineering.EngineeringDisposition"></span>
                                 </div>
                             </dd>
                         </dl>
@@ -381,6 +382,7 @@
                                     @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, @class = "me-2" })
                                     <label>No</label>
                                 </div>
+                                <span class="text-danger" asp-validation-for="Engineering.CustomerNotify"></span>
                             </dd>
                         </dl>
                     </div>
@@ -416,6 +418,7 @@
 
                                         @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, false, new { @checked = Model.Engineering != null && !Model.Engineering.DrawUpdate, @class = "me-2" })
                                         <label>No</label>
+                                        <span class="text-danger" asp-validation-for="Engineering.DrawUpdate"></span>
                                     </div>
                                 </dd>
                             </dl>
@@ -536,8 +539,8 @@
                                         <label for="@($"oppDecision{oppDecision}")">@((typeof(OperationDecision).GetMember(oppDecision.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
                                     </div>
                                 }
-
                             </dd>
+                            <span asp-validation-for="Operation.OperationDecision" class="text-danger"></span>
                         </dl>
                     </div>
                     <div class="col-sm-6 border pt-3 ps-3">
@@ -701,7 +704,7 @@
                                     @Html.DisplayNameFor(model => model.Procurement.ToReceiveDate)
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    <input asp-for="Procurement.ToReceiveDate" type="date" class="form-control" />
+                                    <input asp-for="Procurement.ToReceiveDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
                                     <span asp-validation-for="Procurement.ToReceiveDate" class="text-danger"></span>
                                 </dd>
                             </dl>
@@ -847,7 +850,7 @@
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <input asp-for="QualityInspection.InspectorName" class="form-control" />
-                                    <span asp-validation-for="QualityInspection.InspectorDate" class="text-danger"></span>
+                                    <span asp-validation-for="QualityInspection.InspectorName" class="text-danger"></span>
                                 </dd>
                             </dl>
                         </div>
@@ -858,7 +861,7 @@
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <div class="form-group">
-                                        <input asp-for="QualityInspection.InspectorDate" type="date" class="form-control" />
+                                        <input asp-for="QualityInspection.InspectorDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
                                         <span asp-validation-for="QualityInspection.InspectorDate" class="text-danger"></span>
                                     </div>
                                 </dd>
@@ -910,7 +913,7 @@
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <div class="form-group">
-                                        <input asp-for="QualityInspection.DepartmentDate" type="date" class="form-control" />
+                                        <input asp-for="QualityInspection.DepartmentDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
                                         <span asp-validation-for="QualityInspection.DepartmentDate" class="text-danger"></span> @* quality department date add different property *@
                                     </div>
                                 </dd>

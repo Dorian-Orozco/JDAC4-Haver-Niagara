@@ -29,6 +29,7 @@ namespace Haver_Niagara.Models
         public bool? DisposeOnSite {  get; set; } //if ReturnRejected = false (no)
 
         [Display(Name = "When will replacement/reworked item be received/returned?")]
+        [Required(ErrorMessage = "Date is Required")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ToReceiveDate { get; set; } //When will replacement/reworked item be received/returned?
@@ -44,6 +45,10 @@ namespace Haver_Niagara.Models
 
         public NCR NCR { get; set; } //FK
 
+        public Procurement()
+        {
+            ToReceiveDate = DateTime.Today;
+        }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (ReturnRejected)
@@ -58,7 +63,11 @@ namespace Haver_Niagara.Models
                     yield return new ValidationResult("Account Number is Required.", new[] { "AccountNumber" });
                 if (!DisposeOnSite.HasValue)
                     yield return new ValidationResult("Required", new[] { "DisposeOnSite" });
-  
+            }
+            var today = DateTime.Today;
+            if(ToReceiveDate < today)
+            {
+                yield return new ValidationResult("Recieve Date Cannot Be in The Past", new[] { "ToReceiveDate" });
             }
         }
     }

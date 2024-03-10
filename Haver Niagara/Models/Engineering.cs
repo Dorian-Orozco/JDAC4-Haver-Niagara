@@ -19,6 +19,7 @@ namespace Haver_Niagara.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
+        [Required(ErrorMessage = "Customer Notify?")]
         [Display(Name = "Notify Customer Required?")]
         public bool CustomerNotify { get; set; }
 
@@ -26,9 +27,6 @@ namespace Haver_Niagara.Models
         [Display(Name = "Drawing Updated?")]
         public bool DrawUpdate { get; set; }
 
-
-        
-        [Required(ErrorMessage = "Engineer's Disposition Notes Required")]
         [Display(Name = "Disposition Sequence")]
         public string DispositionNotes { get; set; }
 
@@ -59,6 +57,12 @@ namespace Haver_Niagara.Models
             if (Date > TodaysDate || RevisionDate > TodaysDate)
             {
                 yield return new ValidationResult("Date Cannot be in The Future", new[] { "Date", "RevisionDate"});
+            }
+            if(EngineeringDisposition == EngineeringDisposition.Repair || EngineeringDisposition == EngineeringDisposition.Rework)
+            {
+                if (string.IsNullOrEmpty(DispositionNotes)){
+                    yield return new ValidationResult("Disposition Notes Required", new[] {"DispositionNotes"});
+                }
             }
         }
     }

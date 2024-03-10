@@ -188,14 +188,14 @@
                                 <div class="form-group">
                                     @* Gets view bagy filled with defects, takes id of defects and saves to controller then bd *@
                                     @* <label for="defectID">Select Defect:</label> *@
-                                    <select id="defectID" name="SelectedDefectID" class="form-control">
+                                    <select id="defectID" name="SelectedDefectID" class="form-control" required>
                                         <option value="0">Select a Defect</option>
                                         @foreach (var defect in ViewBag.DefectList)
                                         {
                                             <option value="@defect.Value">@defect.Text</option>
                                         }
                                     </select>
-                                    <span  class="text-danger"></span>
+                                    <span class="text-danger"></span>
                                 </div>
                             </dd>
                         </dl>
@@ -284,7 +284,7 @@
                             <dd class="col-sm">
                                 <div class="form-group">
                                     @* <label asp-for="QualityInspection.Date" class="control-label"></label> *@
-                                    <input asp-for="QualityInspection.Date" type="date" class="form-control" />
+                                    <input asp-for="QualityInspection.Date" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")"  class="form-control" />
                                     <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
                                 </div>
                             </dd>
