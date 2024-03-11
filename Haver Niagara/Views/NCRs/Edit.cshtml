@@ -449,7 +449,7 @@
                                     @* Revision Date *@
                                     <div class="form-group">
                                         <label asp-for="Engineering.RevisionDate" class="control-label"></label>
-                                        <input asp-for="Engineering.RevisionDate" type="date" class="form-control" />
+                                        <input asp-for="Engineering.RevisionDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
                                         <span asp-validation-for="Engineering.RevisionDate" class="text-danger"></span>
                                     </div>
                                 </span>
@@ -521,7 +521,7 @@
                                     <dd class="col-sm ms-2">
                                         <div class="form-group">
 
-                                            <input asp-for="Engineering.Date" class="form-control" />
+                                            <input asp-for="Engineering.Date" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
                                             <span asp-validation-for="Engineering.Date" class="text-danger"></span>
                                         </div>
                                     </dd>
@@ -608,7 +608,7 @@
 
                                     <div class="form-group">
                                         <label asp-for="Operation.CAR.Date" class="control-label"></label>
-                                        <input asp-for="Operation.CAR.Date" type="date" id="CARDate" class="form-control" />
+                                        <input asp-for="Operation.CAR.Date" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="CARDate" class="form-control" />
                                         <span asp-validation-for="Operation.CAR.Date" class="text-danger"></span>
                                     </div>
                                 }
@@ -653,7 +653,7 @@
                                 {
                                     <div class="form-group">
                                         <label asp-for="Operation.FollowUp.FollowUpDate" class="control-label"></label>
-                                        <input asp-for="Operation.FollowUp.FollowUpDate" id="FollowUpDate" type="date" class="form-control" />
+                                        <input asp-for="Operation.FollowUp.FollowUpDate" id="FollowUpDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" type="date" class="form-control" />
                                         <span asp-validation-for="Operation.FollowUp.FollowUpDate" class="text-danger"></span>
                                     </div>
                                 }
@@ -678,7 +678,7 @@
                                         @* @Html.DisplayNameFor(model => model.Purchasing.SignatureDate) *@
                                     </dt>
                                     <dd class="col-sm ms-2">
-                                        <input asp-for="Operation.OperationDate" type="date" class="form-control" />
+                                        <input asp-for="Operation.OperationDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
                                         <span asp-validation-for="Operation.OperationDate" class="text-danger"></span>
                                     </dd>
                                 </dl>

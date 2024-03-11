@@ -117,21 +117,15 @@ namespace Haver_Niagara.Controllers
             {
                     _context.Add(part);                         //allows for part id to get an ID from databasee//saves to context
                     _context.Add(qualityInspection);            //allows qualityinspectionID to get ID from database value
-                    //_context.Add(engineering);
-                    //_context.Add(operation);
-                    //_context.Add(procurement);
+
                     await _context.SaveChangesAsync();
                 
                 //Assign the generated IDs to this NCR. this allows the NCR to have part and quality
                 nCR.PartID = part.ID;                  
                 nCR.QualityInspectionID = qualityInspection.ID;
-                //nCR.EngineeringID = engineering.ID;
-                //nCR.OperationID = operation.ID;
-                //nCR.ProcurementID = procurement.ID;
 
                 //Retrieves the old ncr from the GET create. 
                 nCR.OldNCRID = oldNCRID ?? null;
-
                 var defectList = new DefectList            
                 {                                          
                     PartID = part.ID,                      
@@ -219,7 +213,7 @@ namespace Haver_Niagara.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
                     NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation, Procurement procurement,
-                    List<IFormFile> files, List<string> links, int defectID, Defect defect)
+                    List<IFormFile> files, List<string> links, int SelectedDefectID, Defect defect)
         {
             nCR.ID = id;
             if (id != nCR.ID)
@@ -280,9 +274,9 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.Description = part.Description;
                         existingNCR.Part.SupplierID = part.SupplierID;
                         existingNCR.Part.DefectLists.Clear(); //removed existing defect 
-                        if (defectID != 0)  //id is passed through and assigned
+                        if (SelectedDefectID != 0)  //id is passed through and assigned
                         {
-                            var newDefectList = new DefectList { PartID = existingNCR.Part.ID, DefectID = defectID };
+                            var newDefectList = new DefectList { PartID = existingNCR.Part.ID, DefectID = SelectedDefectID };
                             existingNCR.Part.DefectLists.Add(newDefectList);
                         }
                     }
@@ -317,6 +311,14 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Engineering.RevisionUpdated = engineering.RevisionUpdated;
                         existingNCR.Engineering.RevisionDate = engineering.RevisionDate;
                         existingNCR.Engineering.EngineeringDisposition = engineering.EngineeringDisposition;
+
+                        //Temporary If These Inputs Are Filled, then change NCR Status to Indicate that the Engineering Section is done
+                        //Compliments AJAX code that checks for NCR status //only 2 inputs to not mess up existing ncrs
+                        if (!string.IsNullOrEmpty(engineering.Name) && engineering.Date != DateTime.MinValue && engineering.EngineeringDisposition.ToString() != null)
+                        {
+                            existingNCR.NCR_Stage = NCRStage.Purchasing;
+                        }
+
                     }
                     if (operation != null)
                     {
@@ -363,7 +365,7 @@ namespace Haver_Niagara.Controllers
                                 if (existingNCR.Operation.CAR == null)
                                 {
                                     existingNCR.Operation.CAR = new CAR();
-                          
+
                                 }
                                 if (operation.CAR.CARNumber != null) //if not null assign
                                 {
@@ -378,6 +380,11 @@ namespace Haver_Niagara.Controllers
                             {
                                 existingNCR.Operation.CAR = null;
                             }
+                        }
+                        //Checking to see if inputs are filled out(could do more but as long as the name property is filled out it wont affect
+                        if(!string.IsNullOrEmpty(operation.Name) && operation.OperationDate != DateTime.MinValue) //existing ncrs as well as date.
+                        {
+                            existingNCR.NCR_Stage = NCRStage.Procurement;
                         }
                     }
                     if(procurement != null)
@@ -409,13 +416,31 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Procurement.SuppReturnCompletedSAP = procurement.SuppReturnCompletedSAP;
                         existingNCR.Procurement.ExpectSuppCredit = procurement.ExpectSuppCredit;
                         existingNCR.Procurement.BillSupplier = procurement.BillSupplier;
+
+                        if (procurement.ReturnRejected == true) //have to fill it out.
+                        {
+                            existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
+                        }
+                    }
+                    
+                    
+                    if (existingNCR.NCR_Status) //If yes the NCR is being kept open
+                    {
+                        if (!qualityInspection.ReInspected) //if this is false (no) then redirect to Create
+                        {
+                            return RedirectToAction("Create", new { oldNCRID = id });
+                        }
+                    }
+                    if (!existingNCR.NCR_Status) //if no, dont keep ncr open
+                    {
+                        existingNCR.NCR_Stage = NCRStage.Closed_NCR; //set stage to complete
+                        _context.Update(existingNCR); //save changes
+                        if (!qualityInspection.ReInspected)
+                        {
+                            return RedirectToAction("Create", new { oldNCRID = id });
+                        }
                     }
 
-                    if (existingNCR.NCR_Status && !qualityInspection.ReInspected) //If yes the NCR is being closed
-                    {
-                       
-                        return RedirectToAction("Create", new { oldNCRID = id});
-                    }
                     //_context.Attach(existingNCR).State = EntityState.Modified;  //Attaches the NCR entity back to context 
                     await OnPostUploadAsync(files, nCR.ID, links);
                     await _context.SaveChangesAsync();

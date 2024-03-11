@@ -86,7 +86,7 @@ namespace Haver_Niagara.Models
         // DEFAULT CONSTRUCTOR //
         public NCR()
         {
-            //Sets the NCR_Status to false as default, because when an NCR is first created it cannot be true (finished).
+            //Sets the NCR_Status to true because its active bc it was just made
             NCR_Status = true; //change back to false if everthing breaks
             //Defaulting when creating an NCR to have the quality representative as the first stage
             NCR_Stage = NCRStage.Engineering;

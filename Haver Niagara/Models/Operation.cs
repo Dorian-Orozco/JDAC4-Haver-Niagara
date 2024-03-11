@@ -11,11 +11,11 @@ namespace Haver_Niagara.Models
         public int ID { get; set; }
 
         [Display(Name = "Operation Name")]
-        [Required(ErrorMessage ="Operation's Name Required")]
+        //[Required(ErrorMessage ="Operation's Name Required")] //Had to remove to make edit work 2024-03-11
         public string Name { get; set; }
 
 
-        [Required(ErrorMessage = "Date is Required")]
+        //[Required(ErrorMessage = "Date is Required")] //Had to remove to make edit work 2024-03-11
         [Display(Name = "Operation Date")]
         public DateTime OperationDate { get; set; }
 
