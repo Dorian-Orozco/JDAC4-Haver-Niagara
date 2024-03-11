@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240310205928_Initial")]
+    [Migration("20240311032218_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -94,7 +94,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DispositionNotes")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("DrawUpdate")
@@ -341,7 +340,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("CarrierPhone")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("DisposeOnSite")
+                    b.Property<bool>("DisposeOnSite")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("ExpectSuppCredit")
@@ -374,6 +373,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Department")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DepartmentDate")
@@ -383,6 +383,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("InspectorName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("ItemMarked")
