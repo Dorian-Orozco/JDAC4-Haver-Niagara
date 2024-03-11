@@ -26,7 +26,7 @@ namespace Haver_Niagara.Models
         public int? AccountNumber { get; set; }
 
         [Display(Name = "Dispose on site")] 
-        public bool? DisposeOnSite {  get; set; } //if ReturnRejected = false (no)
+        public bool DisposeOnSite {  get; set; } //if ReturnRejected = false (no)
 
         [Display(Name = "When will replacement/reworked item be received/returned?")]
         [Required(ErrorMessage = "Date is Required")]
@@ -61,8 +61,6 @@ namespace Haver_Niagara.Models
                     yield return new ValidationResult("Carrier Phone Number is Required.", new[] { "CarrierPhone" });
                 if (AccountNumber <= 0 || AccountNumber == null)
                     yield return new ValidationResult("Account Number is Required.", new[] { "AccountNumber" });
-                if (!DisposeOnSite.HasValue)
-                    yield return new ValidationResult("Required", new[] { "DisposeOnSite" });
             }
             var today = DateTime.Today;
             if(ToReceiveDate < today)
