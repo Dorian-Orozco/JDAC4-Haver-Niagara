@@ -188,7 +188,7 @@
                                 <div class="form-group">
                                     @* Gets view bagy filled with defects, takes id of defects and saves to controller then bd *@
                                     @* <label for="defectID">Select Defect:</label> *@
-                                    <select id="defectID" name="defectID" class="form-control">
+                                    <select id="defectID" name="SelectedDefectID" class="form-control" required>
                                         <option value="0">Select a Defect</option>
                                         @foreach (var defect in ViewBag.DefectList)
                                         {
@@ -232,7 +232,7 @@
                             Select Images
                             <div class="form-group mt-3">
                                 @* <label for="files">Select files:</label> *@
-                                <input type="file" name="files" id="files" class="form-control-file" multiple/>
+                                <input type="file" name="files" id="files" class="form-control-file" multiple />
                             </div>
                         </dt>
                         <dd class="col-sm pt-3 ps-3 d-flex">
@@ -284,14 +284,14 @@
                             <dd class="col-sm">
                                 <div class="form-group">
                                     @* <label asp-for="QualityInspection.Date" class="control-label"></label> *@
-                                    <input asp-for="QualityInspection.Date" type="date" class="form-control" />
+                                    <input asp-for="QualityInspection.Date" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")"  class="form-control" />
                                     <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
                                 </div>
                             </dd>
                         </dl>
                     </div>
                     @* <small class="fw-light">
-                        Completed NCR to be forwarded to HBC Purchasing Manager complete with any relevant documents attached
+                    Completed NCR to be forwarded to HBC Purchasing Manager complete with any relevant documents attached
                     </small> *@
                 </div>
 

@@ -23,6 +23,7 @@ namespace Haver_Niagara.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime NCR_Date { get; set; }
 
+        [Required(ErrorMessage = "Keep NCR Open? field is required")]
         [Display(Name = "Status")]
         public bool NCR_Status { get; set; } //If NCR status == true then report is active, else, report is closed!
 
@@ -86,9 +87,9 @@ namespace Haver_Niagara.Models
         public NCR()
         {
             //Sets the NCR_Status to false as default, because when an NCR is first created it cannot be true (finished).
-            NCR_Status = false;
+            NCR_Status = true; //change back to false if everthing breaks
             //Defaulting when creating an NCR to have the quality representative as the first stage
-            NCR_Stage = NCRStage.QualityRepresentative;
+            NCR_Stage = NCRStage.Engineering;
             //Setting a default of todays date
             NCR_Date = DateTime.Today;
         }

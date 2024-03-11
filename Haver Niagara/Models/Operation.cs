@@ -47,6 +47,12 @@ namespace Haver_Niagara.Models
         //NCR Property
         public NCR NCR { get; set; }
 
+        public Operation()
+        {
+            OperationDate = DateTime.Today;
+            
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var TodaysDate = DateTime.Today;

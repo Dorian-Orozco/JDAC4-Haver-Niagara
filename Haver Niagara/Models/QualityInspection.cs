@@ -15,27 +15,28 @@ namespace Haver_Niagara.Models
         public string Name { get; set; }
 
         [Display(Name = "Quality Representative Inspection Date")]
-        [Required(ErrorMessage = "Date Required")]
+        [Required(ErrorMessage = "Date is Required")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-        //Added properties to better track Quality Rep
-        //[Required(ErrorMessage ="Inspector's Name Required")]
+
         [Display(Name ="Inspector's Name")] 
+        [Required(ErrorMessage = "Inspector Name Required")] //added
         public string InspectorName { get; set; }
         
         [Display(Name = "Inspected Date")]
-        //[Required(ErrorMessage ="Inspector Date Required")]
+        [Required(ErrorMessage = "Date is Required")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InspectorDate { get; set; }
 
         [Display(Name = "Quality Department")]
+        [Required(ErrorMessage = "Quality Department Required")] //added
         public string Department { get; set; }
 
         [Display(Name = "Department Date")]
-        //[Required(ErrorMessage="Department Date Required")]
+        [Required(ErrorMessage = "Date is Required")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DepartmentDate { get; set; }
@@ -50,6 +51,16 @@ namespace Haver_Niagara.Models
         [Display(Name = "Quality Identify")]
         [Required(ErrorMessage = "Please Select The Process Applicable")]
         public QualityIdentify QualityIdentify { get; set; }
+
+
+        public QualityInspection()
+        {
+            Date = DateTime.Today;
+            InspectorDate = DateTime.Today;
+            DepartmentDate = DateTime.Today;
+            ReInspected = true; //
+        }
+
 
         //Navigation property for NCR
         public NCR NCR { get; set; }
