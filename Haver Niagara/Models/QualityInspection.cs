@@ -21,8 +21,8 @@ namespace Haver_Niagara.Models
         public DateTime Date { get; set; }
 
 
-        //[Required(ErrorMessage = "Inspector Name Required")]
         [Display(Name ="Inspector's Name")] 
+        [Required(ErrorMessage = "Inspector Name Required")] //added
         public string InspectorName { get; set; }
         
         [Display(Name = "Inspected Date")]
@@ -31,8 +31,8 @@ namespace Haver_Niagara.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InspectorDate { get; set; }
 
-        //[Required(ErrorMessage = "Quality Department Required")]
         [Display(Name = "Quality Department")]
+        [Required(ErrorMessage = "Quality Department Required")] //added
         public string Department { get; set; }
 
         [Display(Name = "Department Date")]
