@@ -223,7 +223,7 @@ namespace Haver_Niagara.Controllers
 
                 ncrs = ncrs.Where(x =>
                     x.NCR_Date.ToString().ToLower().Contains(searchString) ||
-                    x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
+                    x.Part.PartNumber.ToString().ToLower().Contains(searchString) ||
                     x.ID.ToString().ToLower().Contains(searchString) ||
                     x.Part.Supplier.Name.ToLower().Contains(searchString)
                 );
@@ -244,10 +244,10 @@ namespace Haver_Niagara.Controllers
             switch (sortOrder)
             {
                 case "ProductNum_Desc":
-                    sortedNCRs = ncrs.OrderByDescending(b => b.Part.ProductNumber);
+                    sortedNCRs = ncrs.OrderByDescending(b => b.Part.PartNumber);
                     break;
                 case "ProductNum_Asc":
-                    sortedNCRs = ncrs.OrderBy(b => b.Part.ProductNumber);
+                    sortedNCRs = ncrs.OrderBy(b => b.Part.PartNumber);
                     break;
                 case "Supplier_Desc":
                     sortedNCRs = ncrs.OrderByDescending(s => s.Part.Supplier.Name);
