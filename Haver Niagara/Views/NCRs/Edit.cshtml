@@ -200,7 +200,7 @@
                                 <div class="form-group">
 
                                     @* <label for="defectID">Select Defect:</label> *@
-                                    <select id="defectID" name="defectID" class="form-control">
+                                    <select id="defectID" name="SelectedDefectID" class="form-control">
                                         <option value="">--Select Defect--</option>
                                         @foreach (var defect in ViewBag.DefectList)
                                         {
@@ -235,6 +235,7 @@
                                     @Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ItemMarked, @class = "me-2" })
                                     <label>No</label>
                                 </div>
+                                <span asp-validation-for="QualityInspection.ItemMarked" class="text-danger"></span>
                             </dd>
                         </dl>
                     </div>
@@ -776,6 +777,7 @@
                                             <span asp-validation-for="Procurement.DisposeOnSite" class="text-danger"></span>
                                         </div>
                                     </dd>
+
                                 </dl>
                             </div>
                         </div>
@@ -845,7 +847,7 @@
                                             {
                                                 //if the old ncr id has an old ncr id value then we know it must be a preivous ncr number, else it must be new
                                                 string ncrLabel = Model.OldNCRID != null ? "Previous NCR Number" : "New NCR Number";
-                                                @ncrLabel
+                                                        @ncrLabel
                                             }
                                         }
                                     </dt>
@@ -855,9 +857,9 @@
                                             //again if has value, show old value formatted, else show new value formatted.
                                             string formattedNCRID = Model.OldNCRID != null ? $"{DateTime.UtcNow.Year}-{Model.OldNCRID.ToString().PadLeft(3, '0')}"
                                             : $"{DateTime.UtcNow.Year}-{Model.NewNCRID.ToString().PadLeft(3, '0')}";
-                                            <dd class="m2-2">
-                                                @formattedNCRID
-                                            </dd>
+                                                    <dd class="m2-2">
+                                                        @formattedNCRID
+                                                    </dd>
                                         }
                                     }
                                 </dl>
@@ -1003,6 +1005,8 @@
 }
 
 
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script>
 <script>
     /* Remove Images JQUERY/AJAX */
@@ -1110,18 +1114,21 @@
         // Handler for the change event of the ReturnRejected radio buttons
         $('input[name="Procurement.ReturnRejected"]').change(function () {
             // Check if "Yes" is selected
-            if ($(this).val() === "False") {
-                // Clear inputs if "Yes" is selected
-                // Clear RMANumber
-                $('#RMANumber').val('');
-                // Clear CarrierName
-                $('#CarrierName').val('');
-                // Clear CarrierPhone
-                $('#CarrierPhone').val('');
-                // Clear AccountNumber
-                $('#AccountNumber').val('');
-                // Clear DisposeOnSite
-                $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
+            if ($(this).val() === "True") {
+                $('input[name="Procurement.DisposeOnSite"]').prop('required', true);
+            }
+            else{
+                    // Clear inputs if "Yes" is selected
+                    // Clear RMANumber
+                    $('#RMANumber').val('');
+                    // Clear CarrierName
+                    $('#CarrierName').val('');
+                    // Clear CarrierPhone
+                    $('#CarrierPhone').val('');
+                    // Clear AccountNumber
+                    $('#AccountNumber').val('');
+                    // Clear DisposeOnSite
+                    $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
             }
         });
     });
