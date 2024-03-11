@@ -1593,6 +1593,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2015-06-30"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1601,6 +1606,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2016-09-14"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1609,6 +1619,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2017-11-25"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1617,6 +1632,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2018-03-09"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1625,6 +1645,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2019-05-18"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1633,6 +1658,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2020-08-02"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1641,6 +1671,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2021-10-11"),
                         ItemMarked = true,
                         ReInspected = true,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1703,6 +1738,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2023-03-24"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1711,6 +1751,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2023-07-09"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1719,6 +1764,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2023-10-20"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1727,6 +1777,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2023-11-02"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1735,6 +1790,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2023-12-15"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1743,6 +1803,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-01-01"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1751,6 +1816,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-01-10"),
                         ItemMarked = true,
                         ReInspected = true,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1759,6 +1829,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-01-15"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
                     new QualityInspection
                     {
@@ -1766,8 +1841,8 @@ namespace Haver_Niagara.Data
                         Name = "Jorge Jeez",
                         Date = DateTime.Parse("2024-01-25"),
                         ItemMarked = true,
-                        ReInspected = true,
-                        QualityIdentify = (QualityIdentify)0, // IDENTIFY PROCESS APPLICABLE NOT WORKING //
+                        QualityIdentify = (QualityIdentify)0,
+                        ReInspected = true, //last section for quality inspection
                         Department = "Department 2",
                         DepartmentDate = DateTime.Parse("2022-06-17"),
                         InspectorName = "Billy Bam",
@@ -1780,6 +1855,11 @@ namespace Haver_Niagara.Data
                         Date = DateTime.Parse("2024-02-02"),
                         ItemMarked = true,
                         ReInspected = false,
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
                     },
 
 					new QualityInspection
@@ -1789,7 +1869,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-02-08"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 27,
@@ -1797,7 +1882,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-02-12"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 28,
@@ -1805,7 +1895,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-02-18"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 29,
@@ -1813,7 +1908,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-02-21"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 30,
@@ -1821,7 +1921,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-02-29"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 31,
@@ -1829,7 +1934,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-03-01"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 32,
@@ -1837,7 +1947,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-03-03"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 33,
@@ -1845,7 +1960,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-03-05"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 34,
@@ -1853,7 +1973,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-03-06"),
 						ItemMarked = true,
 						ReInspected = false,
-					},
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
 					new QualityInspection
 					{
 						ID = 35,
@@ -1861,7 +1986,12 @@ namespace Haver_Niagara.Data
 						Date = DateTime.Parse("2024-03-08"),
 						ItemMarked = true,
 						ReInspected = false,
-					});
+                        QualityIdentify = (QualityIdentify)1,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    });
                 context.SaveChanges();
             }
 
@@ -2143,9 +2273,8 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
-
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1) //TESTING PROCUREMENT
-                        //QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24)
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1), //TESTING PROCUREMENT
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24)
                     },
                     new NCR
                     {
@@ -2157,8 +2286,8 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 2),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 25),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 25),
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 2) //TESTING PROCUREMENT
-                        //QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25)
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 2), //TESTING PROCUREMENT
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25)
                     },
 					new NCR
 					{
@@ -2169,8 +2298,8 @@ namespace Haver_Niagara.Data
 						NCR_Stage = (NCRStage)3, //Procurement
 						Part = context.Parts.FirstOrDefault(p => p.ID == 3),
 						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 26),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 26)
-						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26)
+						Operation = context.Operations.FirstOrDefault(p => p.ID == 26),
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26)
 					},
 					new NCR
 					{
@@ -2181,8 +2310,8 @@ namespace Haver_Niagara.Data
 						NCR_Stage = (NCRStage)3, //Procurement
 						Part = context.Parts.FirstOrDefault(p => p.ID == 4),
 						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 27),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 27)
-						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 27)
+						Operation = context.Operations.FirstOrDefault(p => p.ID == 27),
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 27)
 					},
 					new NCR
 					{
@@ -2193,8 +2322,8 @@ namespace Haver_Niagara.Data
 						NCR_Stage = (NCRStage)3, //Procurement
 						Part = context.Parts.FirstOrDefault(p => p.ID == 5),
 						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 28),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 28)
-						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 28)
+						Operation = context.Operations.FirstOrDefault(p => p.ID == 28),
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 28)
 					},
 					new NCR
 					{
@@ -2204,9 +2333,9 @@ namespace Haver_Niagara.Data
 						NCR_Status = true,
 						NCR_Stage = (NCRStage)2, //Operations
 						Part = context.Parts.FirstOrDefault(p => p.ID == 6),
-						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 29)
-						//Operation = context.Operations.FirstOrDefault(p => p.ID == 29),
-						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 29)
+						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 29),
+						Operation = context.Operations.FirstOrDefault(p => p.ID == 29),
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 29)
 					},
 					new NCR
 					{
@@ -2217,9 +2346,9 @@ namespace Haver_Niagara.Data
 						NCR_Stage = (NCRStage)2, //Operations
 						Part = context.Parts.FirstOrDefault(p => p.ID == 7),
 						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 30),
-						//Operation = context.Operations.FirstOrDefault(p => p.ID == 30),
-						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 30)
-					},
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 30),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 30)
+                    },
 					new NCR
 					{
 						ID = 31,
@@ -2228,10 +2357,10 @@ namespace Haver_Niagara.Data
 						NCR_Status = true,
 						NCR_Stage = (NCRStage)2, //Operations
 						Part = context.Parts.FirstOrDefault(p => p.ID == 31),
-						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 31)
-						//Operation = context.Operations.FirstOrDefault(p => p.ID == 31),
-						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 31)
-					},
+						Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 31),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 31),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 31)
+                    },
 					new NCR
 					{
 						ID = 32,
@@ -2239,11 +2368,11 @@ namespace Haver_Niagara.Data
 						NCR_Date = DateTime.Parse("2024-03-03"),
 						NCR_Status = true,
 						NCR_Stage = (NCRStage)1, //Engineering
-						Part = context.Parts.FirstOrDefault(p => p.ID == 32)
-						//Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 32),
-						//Operation = context.Operations.FirstOrDefault(p => p.ID == 32),
-						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 32)
-					},
+						Part = context.Parts.FirstOrDefault(p => p.ID == 32),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 32),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 32),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 32)
+                    },
 					new NCR
 					{
 						ID = 33,
@@ -2251,11 +2380,11 @@ namespace Haver_Niagara.Data
 						NCR_Date = DateTime.Parse("2024-03-05"),
 						NCR_Status = true,
 						NCR_Stage = (NCRStage)1, //Engineering
-						Part = context.Parts.FirstOrDefault(p => p.ID == 33)
-						//Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 33),
-						//Operation = context.Operations.FirstOrDefault(p => p.ID == 33),
-						//QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 33)
-					},
+						Part = context.Parts.FirstOrDefault(p => p.ID == 33),
+                        Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 33),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 33),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 33)
+                    },
 					new NCR
 					{
 						ID = 34,

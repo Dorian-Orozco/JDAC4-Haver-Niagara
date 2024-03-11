@@ -784,20 +784,20 @@
                         <div class="col-sm-6 pt-3 border">
                             <div class="d-flex ms-1 mb-2">
                                 <span class="ms-3">
-                                    @Html.CheckBoxFor(model => model.Procurement.SuppReturnCompletedSAP, new { @checked = Model.Procurement != null && !Model.Procurement.SuppReturnCompletedSAP })
+                                    @Html.CheckBoxFor(model => model.Procurement.SuppReturnCompletedSAP)
                                 </span>
                                 <span class="ms-3">@Html.DisplayNameFor(model => model.Procurement.SuppReturnCompletedSAP)</span>
                             </div>
                             <div class="d-flex ms-1 mb-2">
                                 <span class="ms-3">
-                                    @Html.CheckBoxFor(model => model.Procurement.ExpectSuppCredit, new { @checked = Model.Procurement != null && !Model.Procurement.ExpectSuppCredit })
+                                    @Html.CheckBoxFor(model => model.Procurement.ExpectSuppCredit)
                                 </span>
                                 <span class="ms-3">@Html.DisplayNameFor(model => model.Procurement.ExpectSuppCredit)</span>
 
                             </div>
                             <div class="d-flex ms-1 mb-2">
                                 <span class="ms-3">
-                                    @Html.CheckBoxFor(model => model.Procurement.BillSupplier, new { @checked = Model.Procurement != null && !Model.Procurement.BillSupplier })
+                                    @Html.CheckBoxFor(model => model.Procurement.BillSupplier)
                                 </span>
                                 <span class="ms-3">@Html.DisplayNameFor(model => model.Procurement.BillSupplier)</span>
                             </div>
