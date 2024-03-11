@@ -284,6 +284,10 @@ namespace Haver_Niagara.Controllers
                     }
                     if (qualityInspection != null)
                     {
+                        if(existingNCR.QualityInspection == null)
+                        {
+                            existingNCR.QualityInspection = new QualityInspection();
+                        }
                         existingNCR.QualityInspection.Name = qualityInspection.Name;
                         existingNCR.QualityInspection.Date = qualityInspection.Date;
                         existingNCR.QualityInspection.Department = qualityInspection.Department;
@@ -296,6 +300,10 @@ namespace Haver_Niagara.Controllers
                     }
                     if (engineering != null)
                     {
+                        if(existingNCR.Engineering == null)
+                        {
+                            existingNCR.Engineering = new Engineering();
+                        }
                         existingNCR.Engineering.Name = engineering.Name;
                         existingNCR.Engineering.Date = engineering.Date;
                         existingNCR.Engineering.CustomerNotify = engineering.CustomerNotify;
@@ -308,6 +316,10 @@ namespace Haver_Niagara.Controllers
                     }
                     if (operation != null)
                     {
+                        if(existingNCR.Operation == null)
+                        {
+                            existingNCR.Operation = new Operation();
+                        }
                         existingNCR.Operation.Name = operation.Name;
                         existingNCR.Operation.OperationDate = operation.OperationDate;
                         existingNCR.Operation.OperationDecision = operation.OperationDecision;

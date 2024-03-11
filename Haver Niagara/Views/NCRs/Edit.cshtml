@@ -226,6 +226,7 @@
                                     @Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ItemMarked, @class = "me-2" })
                                     <label>No</label>
                                 </div>
+                                <span asp-validation-for="QualityInspection.ItemMarked" class="text-danger"></span>
                             </dd>
                         </dl>
                     </div>
