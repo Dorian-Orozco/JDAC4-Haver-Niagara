@@ -69,34 +69,48 @@
                     <div class="card card-body bg-light mb-2 d-flex">
 
 
-                        <div class="row">
-                            <div class="form-group col-sm-1 me-2">
-                                <label class="control-label">Status:</label>
-                                <div>
-                                    @Html.DropDownList("SelectedStatus", new List<SelectListItem>
-                                    {
-                                    new SelectListItem { Text = "Active", Value = "true" },
-                                    new SelectListItem { Text = "Closed", Value = "false" }
-                                    })
+                        <div class="row ms-1">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">Status:</label>
+                                    <div>
+                                        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
+                                        {
+                                        new SelectListItem { Text = "Active", Value = "true" },
+                                        new SelectListItem { Text = "Closed", Value = "false" }
+                                        }, new { @class = "form-control" })
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group col-sm">
-                                <label class="control-label" for="SelectedDate">Date Created:</label>
-                                <input type="date" id="SelectedDate" name="SelectedDate">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Date Created:</label>
+                                    <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
+                                </div>
                             </div>
-                            <div class="form-group col-sm">
-                                <label class="control-label">Supplier:</label>
-                                @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier")
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Supplier:</label>
+                                    @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
+                                </div>
                             </div>
-                            <div class="form-group col-sm">
-                                <label class="control-label">Part Number:</label>
-                                @Html.TextBox("SearchString")
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">Part Number:</label>
+                                    @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                                </div>
                             </div>
-                            <div class="form-group col-sm align-self-sm-end">
-                                <input type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary" />
-                                <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
+                            <div class="col-sm-auto ms-2 mt-4">
+                                <div class="form-group">
+                                    <button type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary me-2">Filter</button>
+                                    <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
+                                </div>
                             </div>
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div>
