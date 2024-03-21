@@ -18,6 +18,31 @@ namespace Haver_Niagara.Data
             context.Database.EnsureCreated();
             //context.Database.Migrate();
 
+            if(!context.Employees.Any())
+            {
+                context.Employees.AddRange(
+                    new Employee
+                    {
+                        FirstName = "Gregory",
+                        LastName = "House",
+                        Email = "admin@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Fred",
+                        LastName = "Flintstone",
+                        Email = "super@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Betty",
+                        LastName = "Rubble",
+                        Email = "user@outlook.com"
+                    });
+                context.SaveChanges();
+            }
+
+
             if (!context.Defects.Any())
             {
                 var defects = new List<Defect>

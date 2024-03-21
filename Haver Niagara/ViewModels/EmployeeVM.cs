@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Haver_Niagara.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Haver_Niagara.Models
+namespace Haver_Niagara.ViewModels
 {
+    /// <summary>
+    /// Leave out propeties that the Employee should not have access to change.
+    /// </summary>
     [ModelMetadataType(typeof(EmployeeMetaData))]
-    public class Employee : Auditable
+    public class EmployeeVM
     {
         public int ID { get; set; }
-
-        [Display(Name = "Employee")]
         public string FullName
         {
             get
@@ -16,7 +18,6 @@ namespace Haver_Niagara.Models
                 return FirstName + " " + LastName;
             }
         }
-
         public string FormalName
         {
             get
@@ -24,7 +25,6 @@ namespace Haver_Niagara.Models
                 return LastName + ", " + FirstName;
             }
         }
-
         public string PhoneNumber
         {
             get
@@ -39,26 +39,11 @@ namespace Haver_Niagara.Models
                 }
             }
         }
-
-
         public string FirstName { get; set; }
-
-     
         public string LastName { get; set; }
-
-   
         public string Phone { get; set; }
 
-        //[Required(ErrorMessage = "Perscriber status required.")] //
-        //public bool Prescriber { get; set; }
-
-
-        public EmployeeRole EmployeeRole{ get; set; }
-
-        public string Email { get; set; }
-
-        public bool Active { get; set; } = true;
-
-        public ICollection<Subscription> Subscriptions { get; set; }
+        [Display(Name = "Number Of Push Subscriptions")]
+        public int NumberOfPushSubscriptions { get; set; }
     }
 }

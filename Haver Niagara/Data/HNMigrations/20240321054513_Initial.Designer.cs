@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Haver_Niagara.Data.Migrations
+namespace Haver_Niagara.Data.HNMigrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240309194529_Initial")]
+    [DbContext(typeof(HaverNiagaraDbContext))]
+    [Migration("20240321054513_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -26,10 +26,10 @@ namespace Haver_Niagara.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CARNumber")
+                    b.Property<int?>("CARNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("OperationID")
@@ -40,7 +40,7 @@ namespace Haver_Niagara.Data.Migrations
                     b.HasIndex("OperationID")
                         .IsUnique();
 
-                    b.ToTable("CAR");
+                    b.ToTable("CARs");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Defect", b =>
@@ -57,7 +57,7 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Defect");
+                    b.ToTable("Defects");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.DefectList", b =>
@@ -78,7 +78,60 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasIndex("PartID");
 
-                    b.ToTable("DefectList");
+                    b.ToTable("DefectLists");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Employee", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EmployeeRole")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>
@@ -103,6 +156,7 @@ namespace Haver_Niagara.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("RevisionDate")
@@ -116,7 +170,20 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Engineering");
+                    b.ToTable("Engineerings");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.FileContent", b =>
+                {
+                    b.Property<int>("FileContentID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("FileContentID");
+
+                    b.ToTable("FileContent");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.FollowUp", b =>
@@ -125,7 +192,7 @@ namespace Haver_Niagara.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FollowUpDate")
+                    b.Property<DateTime?>("FollowUpDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FollowUpType")
@@ -139,7 +206,7 @@ namespace Haver_Niagara.Data.Migrations
                     b.HasIndex("OperationID")
                         .IsUnique();
 
-                    b.ToTable("FollowUp");
+                    b.ToTable("FollowUps");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Media", b =>
@@ -171,7 +238,7 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasIndex("PartID");
 
-                    b.ToTable("Media");
+                    b.ToTable("Medias");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.NCR", b =>
@@ -230,7 +297,7 @@ namespace Haver_Niagara.Data.Migrations
                     b.HasIndex("QualityInspectionID")
                         .IsUnique();
 
-                    b.ToTable("NCR");
+                    b.ToTable("NCRs");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Operation", b =>
@@ -259,7 +326,7 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Operation");
+                    b.ToTable("Operations");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Part", b =>
@@ -269,9 +336,11 @@ namespace Haver_Niagara.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("PartNumber")
@@ -302,7 +371,7 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Part");
+                    b.ToTable("Parts");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Procurement", b =>
@@ -311,7 +380,7 @@ namespace Haver_Niagara.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AccountNumber")
+                    b.Property<int?>("AccountNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("BillSupplier")
@@ -329,7 +398,7 @@ namespace Haver_Niagara.Data.Migrations
                     b.Property<bool>("ExpectSuppCredit")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RMANumber")
+                    b.Property<int?>("RMANumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("ReturnRejected")
@@ -343,7 +412,7 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Procurement");
+                    b.ToTable("Procurements");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.QualityInspection", b =>
@@ -371,6 +440,7 @@ namespace Haver_Niagara.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("QualityIdentify")
@@ -381,7 +451,35 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("QualityInspection");
+                    b.ToTable("QualityInspections");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Subscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EmployeeID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PushAuth")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PushEndpoint")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PushP256DH")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeID");
+
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>
@@ -395,203 +493,26 @@ namespace Haver_Niagara.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Supplier");
+                    b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("Haver_Niagara.Models.UploadedFile", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ClaimType")
+                    b.Property<string>("FileName")
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ClaimValue")
+                    b.Property<string>("MimeType")
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.HasKey("ID");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UploadedFiles");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.CAR", b =>
@@ -620,6 +541,17 @@ namespace Haver_Niagara.Data.Migrations
                     b.Navigation("Defect");
 
                     b.Navigation("Part");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.FileContent", b =>
+                {
+                    b.HasOne("Haver_Niagara.Models.UploadedFile", "UploadedFile")
+                        .WithOne("FileContent")
+                        .HasForeignKey("Haver_Niagara.Models.FileContent", "FileContentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UploadedFile");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.FollowUp", b =>
@@ -686,60 +618,25 @@ namespace Haver_Niagara.Data.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Haver_Niagara.Models.Subscription", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
+                    b.HasOne("Haver_Niagara.Models.Employee", "Employee")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("EmployeeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Defect", b =>
                 {
                     b.Navigation("DefectLists");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Employee", b =>
+                {
+                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>
@@ -778,6 +675,11 @@ namespace Haver_Niagara.Data.Migrations
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>
                 {
                     b.Navigation("Parts");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.UploadedFile", b =>
+                {
+                    b.Navigation("FileContent");
                 });
 #pragma warning restore 612, 618
         }
