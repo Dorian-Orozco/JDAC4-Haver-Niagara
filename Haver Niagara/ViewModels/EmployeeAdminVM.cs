@@ -12,7 +12,7 @@ namespace Haver_Niagara.ViewModels
     {
         public string Email { get; set; }
         //public bool Prescriber { get; set; } //can be replaced with something like, can this employee..create a pocurement? t/f..
-        public EmployeeRole EmployeeRole{ get; set; }
+        //public EmployeeRole EmployeeRole{ get; set; }
         public bool Active { get; set; }
 
         [Display(Name = "Roles")]

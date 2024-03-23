@@ -35,7 +35,7 @@ namespace Haver_Niagara.Controllers
                 .Select(e => new EmployeeAdminVM
                 {
                     Email = e.Email,
-                    EmployeeRole = e.EmployeeRole,
+                    //EmployeeRole = e.EmployeeRole,
                     Active = e.Active,
                     ID = e.ID,
                     FirstName = e.FirstName,
@@ -101,7 +101,7 @@ namespace Haver_Niagara.Controllers
             EmployeeAdminVM employeeAdminVM = new EmployeeAdminVM
             {
                 Email = employee.Email,
-                EmployeeRole = employee.EmployeeRole,
+                //EmployeeRole = employee.EmployeeRole,
                 Active = employee.Active,
                 ID = employee.ID,
                 FirstName = employee.FirstName,
@@ -128,7 +128,7 @@ namespace Haver_Niagara.Controllers
                 .Select(e => new EmployeeAdminVM
                 {
                     Email = e.Email,
-                    EmployeeRole = e.EmployeeRole,
+                    //EmployeeRole = e.EmployeeRole,
                     Active = e.Active,
                     ID = e.ID,
                     FirstName = e.FirstName,
@@ -175,7 +175,7 @@ namespace Haver_Niagara.Controllers
 
             if (await TryUpdateModelAsync<Employee>(employeeToUpdate, "",
                 e => e.FirstName, e => e.LastName, e => e.Phone, e => e.Email,
-                e => e.EmployeeRole, e => e.Active))
+                /*e => e.EmployeeRole, */e => e.Active))
             {
                 try
                 {
@@ -245,7 +245,7 @@ namespace Haver_Niagara.Controllers
             EmployeeAdminVM employeeAdminVM = new EmployeeAdminVM
             {
                 Email = employeeToUpdate.Email,
-                EmployeeRole = employeeToUpdate.EmployeeRole,
+                //EmployeeRole = employeeToUpdate.EmployeeRole,
                 Active = employeeToUpdate.Active,
                 ID = employeeToUpdate.ID,
                 FirstName = employeeToUpdate.FirstName,
