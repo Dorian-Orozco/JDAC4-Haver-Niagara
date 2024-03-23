@@ -69,7 +69,6 @@ builder.Services.AddSingleton<IEmailConfiguration>(builder.Configuration
 //For the Identity System
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
-
 //Email with added methods for production use.
 builder.Services.AddTransient<IMyEmailSender, MyEmailSender>();
 
