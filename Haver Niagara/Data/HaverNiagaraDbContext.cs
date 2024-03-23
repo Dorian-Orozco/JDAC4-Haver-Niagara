@@ -48,6 +48,7 @@ namespace Haver_Niagara.Data
         public DbSet<UploadedFile> UploadedFiles { get; set; }
         public DbSet<QualityInspection> QualityInspections { get; set; }
         public DbSet<Procurement> Procurements { get; set; }
+        public DbSet<QualityInspectionFinal> QualityInspectionFinals { get; set; }//added for last section
 
         //Employee/Subscription
         public DbSet<Employee> Employees { get; set; }
@@ -56,6 +57,10 @@ namespace Haver_Niagara.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //Many to Many Intersection Composite Key for DefectList
+            //modelBuilder.Entity<DefectList>()
+            //    .HasKey(d => new { d.PartID, d.DefectID });
 
         
             modelBuilder.Entity<Operation>()

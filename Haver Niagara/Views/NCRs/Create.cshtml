@@ -606,12 +606,12 @@
                                         <div class="d-flex justify-content-center">
                                             <span class="ms-2 me-5">
                                                 <div class="d-flex">
-                                                    @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, true, new { @class = "me-2" })
+                                                    @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, true, new { @class = "me-2" })
                                                     <label class="me-4">Yes</label>
 
-                                                    @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, false, new { @class = "me-2" })
+                                                    @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, false, new { @class = "me-2" })
                                                     <label>No</label>
-                                                    <span asp-validation-for="QualityInspection.ReInspected" class="text-danger"></span>
+                                                    <span asp-validation-for="QualityInspectionFinal.ReInspected" class="text-danger"></span>
                                                 </div>
                                             </span>
                                         </div>
@@ -645,8 +645,8 @@
                                         </dt>
                                         <dd class="col-sm ms-2">
                                             @* @(Model.QualityInspection?.Name ?? "John Smith") *@
-                                            <input asp-for="QualityInspection.Name" class="form-control" />
-                                            <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
+                                            <input asp-for="QualityInspectionFinal.InspectorName" class="form-control" />
+                                            <span asp-validation-for="QualityInspectionFinal.InspectorName" class="text-danger"></span>
                                         </dd>
                                     </dl>
                                 </div>
@@ -659,8 +659,8 @@
                                         <dd class="col-sm ms-2">
                                             <div class="form-group">
                                                 @* <label asp-for="QualityInspection.Date" class="control-label"></label> *@
-                                                <input asp-for="QualityInspection.Date" type="date" class="form-control" />
-                                                <span asp-validation-for="QualityInspection.Date" class="text-danger"></span>
+                                                <input asp-for="QualityInspectionFinal.InspectorDate" type="date" class="form-control" />
+                                                <span asp-validation-for="QualityInspectionFinal.InspectorDate" class="text-danger"></span>
                                             </div>
                                         </dd>
                                     </dl>
@@ -699,8 +699,8 @@
                                         </dt>
                                         <dd class="col-sm ms-2">
                                             <div class="form-group">
-                                                <input asp-for="QualityInspection.Department" class="form-control" />
-                                                <span asp-validation-for="QualityInspection.Department" class="text-danger"></span>
+                                                <input asp-for="QualityInspectionFinal.Department" class="form-control" />
+                                                <span asp-validation-for="QualityInspectionFinal.Department" class="text-danger"></span>
                                             </div>
                                         </dd>
                                     </dl>
@@ -714,8 +714,8 @@
                                         <dd class="col-sm ms-2">
                                             <div class="form-group">
                                                 @* <label asp-for="QualityInspection.Date" class="control-label"></label> *@
-                                                <input asp-for="QualityInspection.Date" type="date" class="form-control" />
-                                                <span asp-validation-for="QualityInspection.Date" class="text-danger"></span> @* quality department date add different property *@
+                                                <input asp-for="QualityInspectionFinal.DepartmentDate" type="date" class="form-control" />
+                                                <span asp-validation-for="QualityInspectionFinal.DepartmentDate" class="text-danger"></span> @* quality department date add different property *@
                                             </div>
                                         </dd>
                                     </dl>

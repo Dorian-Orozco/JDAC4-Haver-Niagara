@@ -17,7 +17,7 @@ namespace Haver_Niagara.Models
         [Display(Name = "Part Number")]
         public int PartNumber { get; set; }
 
-        [Display(Name = "SAP")]
+        [Display(Name = "SAP")] //SAME AS PART NUMBER?
         [Required(ErrorMessage = "Please Enter Sap Number")]
         public int SAPNumber { get; set; }
 
