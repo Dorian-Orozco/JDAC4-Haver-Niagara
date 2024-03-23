@@ -212,7 +212,7 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
-                    NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation, Procurement procurement,
+                    NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation, Procurement procurement, QualityInspectionFinal qualityInspectionFinal,
                     List<IFormFile> files, List<string> links, int SelectedDefectID, Defect defect)
         {
             nCR.ID = id;
@@ -288,13 +288,13 @@ namespace Haver_Niagara.Controllers
                         }
                         existingNCR.QualityInspection.Name = qualityInspection.Name;
                         existingNCR.QualityInspection.Date = qualityInspection.Date;
-                        existingNCR.QualityInspection.Department = qualityInspection.Department;
-                        existingNCR.QualityInspection.DepartmentDate = qualityInspection.DepartmentDate;
-                        existingNCR.QualityInspection.InspectorName = qualityInspection.InspectorName;
-                        existingNCR.QualityInspection.InspectorDate = qualityInspection.InspectorDate;
-                        existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
-                        existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
                         existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
+                        existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
+                        //existingNCR.QualityInspection.Department = qualityInspection.Department;
+                        //existingNCR.QualityInspection.DepartmentDate = qualityInspection.DepartmentDate;
+                        //existingNCR.QualityInspection.InspectorName = qualityInspection.InspectorName;
+                        //existingNCR.QualityInspection.InspectorDate = qualityInspection.InspectorDate;
+                        //existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
                     }
                     if (engineering != null)
                     {
@@ -422,11 +422,23 @@ namespace Haver_Niagara.Controllers
                             existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
                         }
                     }
-                    
-                    
+                    if (qualityInspectionFinal != null)
+                    {
+                        if (existingNCR.QualityInspectionFinal == null)
+                        {
+                            existingNCR.QualityInspectionFinal = new QualityInspectionFinal();
+                        }
+                        existingNCR.QualityInspectionFinal.Department = qualityInspectionFinal.Department;
+                        existingNCR.QualityInspectionFinal.DepartmentDate = qualityInspectionFinal.DepartmentDate;
+                        existingNCR.QualityInspectionFinal.InspectorName = qualityInspectionFinal.InspectorName;
+                        existingNCR.QualityInspectionFinal.InspectorDate = qualityInspectionFinal.InspectorDate;
+                        existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
+                    }
+
+
                     if (existingNCR.NCR_Status) //If yes the NCR is being kept open
                     {
-                        if (!qualityInspection.ReInspected) //if this is false (no) then redirect to Create
+                        if (!qualityInspectionFinal.ReInspected) //if this is false (no) then redirect to Create
                         {
                             return RedirectToAction("Create", new { oldNCRID = id });
                         }
@@ -435,7 +447,7 @@ namespace Haver_Niagara.Controllers
                     {
                         existingNCR.NCR_Stage = NCRStage.Closed_NCR; //set stage to complete
                         _context.Update(existingNCR); //save changes
-                        if (!qualityInspection.ReInspected)
+                        if (!qualityInspectionFinal.ReInspected)
                         {
                             return RedirectToAction("Create", new { oldNCRID = id });
                         }

@@ -822,14 +822,14 @@
                                 <dd class="mt-2">
                                     <div class="d-flex justify-content-center">
                                         <span class="ms-2 me-5">
-                                            <label asp-for="QualityInspection.ReInspected" class="control-label"></label><br />
+                                            <label asp-for="QualityInspectionFinal.ReInspected" class="control-label"></label><br />
                                             <div class="d-flex">
-                                                @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ReInspected, @class = "me-2" })
+                                                @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, true, new { @checked = Model.QualityInspectionFinal != null && Model.QualityInspectionFinal.ReInspected, @class = "me-2" })
                                                 <label class="me-4">Yes</label>
 
-                                                @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ReInspected, @class = "me-2" })
+                                                @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, false, new { @checked = Model.QualityInspectionFinal != null && !Model.QualityInspectionFinal.ReInspected, @class = "me-2" })
                                                 <label>No</label>
-                                                <span asp-validation-for="QualityInspection.ReInspected" class="text-danger"></span>
+                                                <span asp-validation-for="QualityInspectionFinal.ReInspected" class="text-danger"></span>
                                             </div>
                                         </span>
                                     </div>
@@ -872,8 +872,8 @@
                                         Inspector's Name
                                     </dt>
                                     <dd class="col-sm ms-2">
-                                        <input asp-for="QualityInspection.InspectorName" class="form-control" />
-                                        <span asp-validation-for="QualityInspection.InspectorName" class="text-danger"></span>
+                                        <input asp-for="QualityInspectionFinal.InspectorName" class="form-control" />
+                                        <span asp-validation-for="QualityInspectionFinal.InspectorName" class="text-danger"></span>
                                     </dd>
                                 </dl>
                             </div>
@@ -884,8 +884,8 @@
                                     </dt>
                                     <dd class="col-sm ms-2">
                                         <div class="form-group">
-                                            <input asp-for="QualityInspection.InspectorDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
-                                            <span asp-validation-for="QualityInspection.InspectorDate" class="text-danger"></span>
+                                            <input asp-for="QualityInspectionFinal.InspectorDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                            <span asp-validation-for="QualityInspectionFinal.InspectorDate" class="text-danger"></span>
                                         </div>
                                     </dd>
                                 </dl>
@@ -922,8 +922,8 @@
                                     </dt>
                                     <dd class="col-sm ms-2">
                                         <div class="form-group">
-                                            <input asp-for="QualityInspection.Department" class="form-control" />
-                                            <span asp-validation-for="QualityInspection.Department" class="text-danger"></span>
+                                            <input asp-for="QualityInspectionFinal.Department" class="form-control" />
+                                            <span asp-validation-for="QualityInspectionFinal.Department" class="text-danger"></span>
                                         </div>
                                     </dd>
                                 </dl>
@@ -936,8 +936,8 @@
                                     </dt>
                                     <dd class="col-sm ms-2">
                                         <div class="form-group">
-                                            <input asp-for="QualityInspection.DepartmentDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
-                                            <span asp-validation-for="QualityInspection.DepartmentDate" class="text-danger"></span> @* quality department date add different property *@
+                                            <input asp-for="QualityInspectionFinal.DepartmentDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                            <span asp-validation-for="QualityInspectionFinal.DepartmentDate" class="text-danger"></span> @* quality department date add different property *@
                                         </div>
                                     </dd>
                                 </dl>
