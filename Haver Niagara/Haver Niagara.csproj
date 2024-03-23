@@ -98,7 +98,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
     <Folder Include="View Models\" />
   </ItemGroup>
 

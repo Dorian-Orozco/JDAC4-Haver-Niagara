@@ -68,7 +68,7 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,Phone," +
-            "FirstAid,Prescriber,Email")] Employee employee, string[] selectedRoles)
+            "Email")] Employee employee, string[] selectedRoles)
         {
 
             try
@@ -337,7 +337,9 @@ namespace Haver_Niagara.Controllers
                     EmailConfirmed = true //since we are creating it!
                 };
                 //Create a random password with a default 8 characters
-                string password = MakePassword.Generate();
+                //string password = MakePassword.Generate();
+                //uncomment above to use randomly generated password ^
+                string password = "password";
                 IdentityResult result = _userManager.CreateAsync(user, password).Result;
 
                 if (result.Succeeded)
