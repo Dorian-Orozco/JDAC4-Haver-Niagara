@@ -8,7 +8,7 @@ namespace Haver_Niagara.Models
         QualityRepresentative,
         [Display(Name = "Engineering")] //1
         Engineering,
-        [Display(Name = "Operations")] //2
+        [Display(Name = "Purchasing")] //2
         Purchasing,
         [Display(Name = "Procurement")] //3
         Procurement,
