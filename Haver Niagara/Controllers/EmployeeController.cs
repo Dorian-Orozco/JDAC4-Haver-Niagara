@@ -9,7 +9,7 @@ using Haver_Niagara.Models;
 using Haver_Niagara.Utilities;
 namespace Haver_Niagara.Controllers
 {
-    //[Authorize(Roles = "Admin, Supervisor")]  //Commented out authorization, so dont have to log in everytime app launches
+    [Authorize(Roles = "Admin, Supervisor")]  //Commented out authorization, so dont have to log in everytime app launches
     public class EmployeeController : Controller //didnt inherit from cognizant controller..
     {
         private readonly HaverNiagaraDbContext _context;

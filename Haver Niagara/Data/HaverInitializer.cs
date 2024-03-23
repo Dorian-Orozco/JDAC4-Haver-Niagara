@@ -23,9 +23,10 @@ namespace Haver_Niagara.Data
                 context.Employees.AddRange(
                     new Employee
                     {
-                        FirstName = "Gregory",
-                        LastName = "House",
-                        Email = "admin@outlook.com"
+                        FirstName = "Admin",
+                        LastName = "Powers",
+                        Email = "admin@outlook.com",
+                        Phone = "9053256625"
                     },
                     new Employee
                     {
