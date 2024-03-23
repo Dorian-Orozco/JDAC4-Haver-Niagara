@@ -10,9 +10,11 @@ using Haver_Niagara.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Identity.Client;
 using Microsoft.VisualStudio.Web.CodeGeneration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Haver_Niagara.Controllers
 {
+    [Authorize]
     public class NCRsController : Controller
     {
         private readonly HaverNiagaraDbContext _context;
