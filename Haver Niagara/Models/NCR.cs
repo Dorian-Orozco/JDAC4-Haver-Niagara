@@ -59,6 +59,11 @@ namespace Haver_Niagara.Models
         public NCRStage NCR_Stage { get; set; }
 
         // PART ENTITY //
+        [ForeignKey("Supplier")]
+        public int? SupplierID { get; set; }
+        public Supplier Supplier { get; set; }
+
+        // PART ENTITY //
         [ForeignKey("Part")]
         public int? PartID { get; set; }
         public Part Part { get; set; }

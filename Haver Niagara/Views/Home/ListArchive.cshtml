@@ -51,230 +51,227 @@
         </p>
         } *@
 
-<div class="container rounded shadow bg-white mt-5">
-    <div class="report-container">
 
-        <div class="d-flex">
-            <button onclick="window.location.href = '@Url.Action("List", "Home")'" class="btn-back" title="Go Back">
-                <ion-icon name="arrow-back-circle-outline" class="btn-back-icon"></ion-icon>
-            </button>
-            <h1 class="mt-4 mb-1">
-                <span>Archived Reports</span>
-            </h1>
-        </div>
-        <small class="text-under-heading">NCR Reports that have been closed for 5 or more years.</small>
 
-        <form asp-action="ListArchive" asp-controller="Home" method="get" class="mt-4">
-            <div class="form-horizontal">
-                <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-                    Filter/Search
-                </button><br />
-                <div class="collapse" id="collapseFilter">
-                    <div class="card card-body bg-light mb-2 d-flex">
+<div class="d-flex">
+    <button onclick="window.location.href = '@Url.Action("List", "Home")'" class="btn-back" title="Go Back">
+        <ion-icon name="arrow-back-circle-outline" class="btn-back-icon"></ion-icon>
+    </button>
+    <h1 class="mt-4 mb-1">
+        <span>Archived Reports</span>
+    </h1>
+</div>
+<small class="text-under-heading">NCR Reports that have been closed for 5 or more years.</small>
 
-                        <div class="row ms-5">
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label class="control-label">Date Created:</label>
-                                    <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label class="control-label">Supplier:</label>
-                                    @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label class="control-label">Part Number:</label>
-                                    @Html.TextBox("SearchString", null, new { @class = "form-control" })
-                                </div>
-                            </div>
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-group">
-                                    <button type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary me-2">Filter</button>
-                                    <a href="@Url.Action("ListArchive", "Home")" class="btn btn-outline-dark">Clear</a>
+<form asp-action="ListArchive" asp-controller="Home" method="get" class="mt-4">
+    <div class="form-horizontal">
+        <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Filter/Search
+        </button><br />
+        <div class="collapse" id="collapseFilter">
+            <div class="card card-body bg-light mb-2 d-flex">
 
-                                </div>
-                            </div>
+                <div class="row ms-5">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="control-label">Date Created:</label>
+                            <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
                         </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="control-label">Supplier:</label>
+                            @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="control-label">Part Number:</label>
+                            @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mt-4">
+                        <div class="form-group">
+                            <button type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary me-2">Filter</button>
+                            <a href="@Url.Action("ListArchive", "Home")" class="btn btn-outline-dark">Clear</a>
 
+                        </div>
                     </div>
                 </div>
+
             </div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-center">
-                            <a asp-action="List"
-                               asp-route-sortOrder="@ViewBag.StageSortParam"
-                               asp-route-currentFilter="@ViewBag.CurrentFilter"
-                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                               asp-route-selectedDate="@ViewBag.SelectedDate"
-                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                               asp-route-page="@Model.PageNumber">
-                                Status
-                            </a>
-                        </th>
-                        <th class="text-center">NCR Number</th>
-                        <th class="text-center">
-                            <a asp-action="List"
-                               asp-route-sortOrder="@ViewBag.DateSortParam"
-                               asp-route-currentFilter="@ViewBag.CurrentFilter"
-                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                               asp-route-selectedDate="@ViewBag.SelectedDate"
-                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                               asp-route-page="@Model.PageNumber">
-                                Date Created
-                            </a>
-                        </th>
-                        <th class="text-center">
-                            <a asp-action="List"
-                               asp-route-sortOrder="@ViewBag.POSortParam"
-                               asp-route-currentFilter="@ViewBag.CurrentFilter"
-                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                               asp-route-selectedDate="@ViewBag.SelectedDate"
-                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                               asp-route-page="@Model.PageNumber">
-                                Part Number
-                            </a>
-                        </th>
-                        <th>
-                            <a asp-action="List"
-                               asp-route-sortOrder="@ViewBag.SupplierSortParam"
-                               asp-route-currentFilter="@ViewBag.CurrentFilter"
-                               asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                               asp-route-selectedDate="@ViewBag.SelectedDate"
-                               asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                               asp-route-page="@Model.PageNumber">
-                                Supplier
-                            </a>
-                        </th>
-                        <th>Stage</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {                           //Added some validation, will remove later.
-                        <tr>
-                            <td class="text-center">
-                                @if (!item.NCR_Status)
-                                {
-                                    <button class="status-btn closed" title="Closed"></button>
-                                }
-                                else
-                                {
-                                    <button class="status-btn active" title="Active"></button>
-                                }
-                            </td>
-                            @{
-                                int year = DateTime.Now.Year;
-                            }
-                            <td class="text-center">@item.FormattedID</td>
-                            <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
-                            <td class="text-center">@(item.Part?.PartNumber.ToString() ?? "Part Number Not Found")</td>
-                            <td>@(item.Part?.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
-                            <td><p class="stage" id="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
-                            <td class="text-center">
-                                <div>
-                                    <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
-                                        <ion-icon name="eye"></ion-icon>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    <a asp-action="List"
+                       asp-route-sortOrder="@ViewBag.StageSortParam"
+                       asp-route-currentFilter="@ViewBag.CurrentFilter"
+                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                       asp-route-selectedDate="@ViewBag.SelectedDate"
+                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                       asp-route-page="@Model.PageNumber">
+                        Status
+                    </a>
+                </th>
+                <th class="text-center">NCR Number</th>
+                <th class="text-center">
+                    <a asp-action="List"
+                       asp-route-sortOrder="@ViewBag.DateSortParam"
+                       asp-route-currentFilter="@ViewBag.CurrentFilter"
+                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                       asp-route-selectedDate="@ViewBag.SelectedDate"
+                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                       asp-route-page="@Model.PageNumber">
+                        Date Created
+                    </a>
+                </th>
+                <th class="text-center">
+                    <a asp-action="List"
+                       asp-route-sortOrder="@ViewBag.POSortParam"
+                       asp-route-currentFilter="@ViewBag.CurrentFilter"
+                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                       asp-route-selectedDate="@ViewBag.SelectedDate"
+                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                       asp-route-page="@Model.PageNumber">
+                        Part Number
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="List"
+                       asp-route-sortOrder="@ViewBag.SupplierSortParam"
+                       asp-route-currentFilter="@ViewBag.CurrentFilter"
+                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                       asp-route-selectedDate="@ViewBag.SelectedDate"
+                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                       asp-route-page="@Model.PageNumber">
+                        Supplier
+                    </a>
+                </th>
+                <th>Stage</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {                           //Added some validation, will remove later.
+                <tr>
+                    <td class="text-center">
+                        @if (!item.NCR_Status)
+                        {
+                            <button class="status-btn closed" title="Closed"></button>
+                        }
+                        else
+                        {
+                            <button class="status-btn active" title="Active"></button>
+                        }
+                    </td>
+                    @{
+                        int year = DateTime.Now.Year;
                     }
-                </tbody>
-            </table>
-            <br />
-
-            @* PAGING NAV BAR *@
-            @{
-                var prevDisabled = !Model.HasPreviousPage ? "disabled='disabled'" : "";
-                var nextDisabled = !Model.HasNextPage ? "disabled='disabled'" : "";
+                    <td class="text-center">@item.FormattedID</td>
+                    <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
+                    <td class="text-center">@(item.Part?.PartNumber.ToString() ?? "Part Number Not Found")</td>
+                    <td>@(item.Part?.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
+                    <td><p class="stage" id="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
+                    <td class="text-center">
+                        <div>
+                            <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
+                                <ion-icon name="eye"></ion-icon>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
             }
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center pagination-sm" style="margin:20px 0">
-                    <li class="page-item">
-                        <button type="submit" name="page" value="1" @prevDisabled class="btn page-link">
-                            <span aria-hidden="true">&lArr;</span>&nbsp;First
-                        </button>
-                    </li>
-                    <li class="page-item">
-                        <button type="submit" name="page" @prevDisabled value="@(Model.PageNumber - 1)" class="btn page-link">
-                            <span aria-hidden="true">&larr;</span>&nbsp;Previous
-                        </button>
-                    </li>
-                    <li class="page-item active">
-                        <button type="button" disabled="disabled" class="btn page-link">
-                            Page @Model.PageNumber of @Model.PageCount
-                        </button>
-                    </li>
-                    <li class="page-item">
-                        <button type="submit" name="page" @nextDisabled value="@(Model.PageNumber + 1)" class="btn page-link">
-                            Next&nbsp;<span aria-hidden="true">&rarr;</span>
-                        </button>
-                    </li>
-                    <li class="page-item">
-                        <button type="submit" name="page" @nextDisabled value="@Model.PageCount" class="btn page-link">
-                            Last&nbsp;<span aria-hidden="true">&rArr;</span>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
+        </tbody>
+    </table>
+    <br />
 
-        </form>
+    @* PAGING NAV BAR *@
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled='disabled'" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled='disabled'" : "";
+    }
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center pagination-sm" style="margin:20px 0">
+            <li class="page-item">
+                <button type="submit" name="page" value="1" @prevDisabled class="btn page-link">
+                    <span aria-hidden="true">&lArr;</span>&nbsp;First
+                </button>
+            </li>
+            <li class="page-item">
+                <button type="submit" name="page" @prevDisabled value="@(Model.PageNumber - 1)" class="btn page-link">
+                    <span aria-hidden="true">&larr;</span>&nbsp;Previous
+                </button>
+            </li>
+            <li class="page-item active">
+                <button type="button" disabled="disabled" class="btn page-link">
+                    Page @Model.PageNumber of @Model.PageCount
+                </button>
+            </li>
+            <li class="page-item">
+                <button type="submit" name="page" @nextDisabled value="@(Model.PageNumber + 1)" class="btn page-link">
+                    Next&nbsp;<span aria-hidden="true">&rarr;</span>
+                </button>
+            </li>
+            <li class="page-item">
+                <button type="submit" name="page" @nextDisabled value="@Model.PageCount" class="btn page-link">
+                    Last&nbsp;<span aria-hidden="true">&rArr;</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
 
-        @*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+</form>
+
+@*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
         @Html.PagedListPager(Model, page => Url.Action("List",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })) *@
-    </div>
 
-    @section scripts {
-        <script>
-            $(document).ready(function () {
-                // Select all elements with the class "stage"
-                $('.stage').each(function () {
-                    // Get the text content of the element
-                    var stage = $(this).text().trim();
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Select all elements with the class "stage"
+            $('.stage').each(function () {
+                // Get the text content of the element
+                var stage = $(this).text().trim();
 
-                    // Remove existing classes
-                    $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
+                // Remove existing classes
+                $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
 
-                    // Depending on the stage, change the color
-                    switch (stage) {
-                        case "Engineering":
-                            $(this).addClass('stage-eng2');
-                            // $(this).css('color', 'red');
-                            break;
-                        case "Operations":
-                            $(this).addClass('stage-oper3');
-                            // $(this).css('color', 'blue');
-                            break;
-                        case "Procurement":
-                            $(this).addClass('stage-procure4');
-                            // $(this).css('color', 'green');
-                            break;
-                        case "Quality Rep":
-                            $(this).addClass('stage-qual5');
-                            // $(this).css('color', 'green');
-                            break;
-                        // Add more cases as needed for other stages
-                        case "Complete":
-                            $(this).addClass('stage-complete');
-                            break;
-                        default:
-                            // Default class if stage not matched
-                            $(this).addClass('stage');
-                        // Default color if stage not matched
-                        // $(this).css('color', 'black');
-                    }
-                });
+                // Depending on the stage, change the color
+                switch (stage) {
+                    case "Engineering":
+                        $(this).addClass('stage-eng2');
+                        // $(this).css('color', 'red');
+                        break;
+                    case "Operations":
+                        $(this).addClass('stage-oper3');
+                        // $(this).css('color', 'blue');
+                        break;
+                    case "Procurement":
+                        $(this).addClass('stage-procure4');
+                        // $(this).css('color', 'green');
+                        break;
+                    case "Quality Rep":
+                        $(this).addClass('stage-qual5');
+                        // $(this).css('color', 'green');
+                        break;
+                    // Add more cases as needed for other stages
+                    case "Complete":
+                        $(this).addClass('stage-complete');
+                        break;
+                    default:
+                        // Default class if stage not matched
+                        $(this).addClass('stage');
+                    // Default color if stage not matched
+                    // $(this).css('color', 'black');
+                }
             });
-        </script>
-    }
+        });
+    </script>
+}
 
-</div>

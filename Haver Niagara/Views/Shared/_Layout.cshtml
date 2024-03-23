@@ -24,13 +24,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="List">NCR Log</a>
-                        </li> 
-@*                         @if (User.IsInRole("Admin"))
+                        </li>
+                        @* TEST CONTROLLER *@
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="NCReport" asp-action="Index">NCReports</a>
+                        </li>
+                        @*                         @if (User.IsInRole("Admin"))
                         { *@
-                      @*       <li><hr class="dropdown-divider" /></li> *@
-                        <li class ="nav-item">
+                        @*       <li><hr class="dropdown-divider" /></li> *@
+                        <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Employee" asp-action="Index">Maintain Employees</a>
                         </li>
                         @* } *@
@@ -40,16 +44,20 @@
             </div>
         </nav>
     </header>
-    <div class="">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <div class="container shadow bg-white mt-5 list-container">
+        <div class="report-container">
+            <div class="">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
 
-   @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Haver_Niagara - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+    </div>
+    @* <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2024 - Haver_Niagara - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
     </footer>*@
 
     @*script for importing icons from https://ionic.io/ionicons*@
