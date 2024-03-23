@@ -26,8 +26,12 @@
                         </li>
                          <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="List">NCR Log</a>
-                        </li> 
-@*                         @if (User.IsInRole("Admin"))
+                        </li>
+                        @* TEST CONTROLLER *@
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="NCReport" asp-action="Index">NCReports</a>
+                        </li>
+                        @*                         @if (User.IsInRole("Admin"))
                         { *@
                       @*       <li><hr class="dropdown-divider" /></li> *@
                         <li class ="nav-item">

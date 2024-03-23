@@ -29,8 +29,8 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Engineering)
                 .Include(n => n.Operation)
                 .Include(n => n.QualityInspection)
-                .Include(n => n.Part)
-                    .ThenInclude(n => n.Medias);
+                .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
+                .Include(n => n.Part).ThenInclude(n => n.Medias);
             return View(await haverNiagaraDbContext.ToListAsync());
         }
 

@@ -58,6 +58,10 @@ namespace Haver_Niagara.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            //Many to Many Intersection Composite Key for DefectList
+            //modelBuilder.Entity<DefectList>()
+            //    .HasKey(d => new { d.PartID, d.DefectID });
+
         
             modelBuilder.Entity<Operation>()
                 .Property(n => n.ID)
