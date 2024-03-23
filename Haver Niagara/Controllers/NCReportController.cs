@@ -20,9 +20,18 @@ namespace Haver_Niagara.Controllers
         }
 
         // GET: NCReport
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? SupplierID, NCRStage Stage)
         {
-            var haverNiagaraDbContext = _context.NCRs.Include(n => n.Engineering).Include(n => n.Operation).Include(n => n.Part).Include(n => n.Procurement).Include(n => n.QualityInspection).Include(n => n.QualityInspectionFinal).Include(n => n.Supplier);
+            PopulateDropDownLists();
+
+            var haverNiagaraDbContext = _context
+                .NCRs
+                .Include(n => n.Engineering)
+                .Include(n => n.Operation)
+                .Include(n => n.Part).Include(n => n.Procurement)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Supplier);
             return View(await haverNiagaraDbContext.ToListAsync());
         }
 
@@ -199,6 +208,24 @@ namespace Haver_Niagara.Controllers
         private bool NCRExists(int id)
         {
           return _context.NCRs.Any(e => e.ID == id);
+        }
+
+        private SelectList SupplierSelectList(int? selectedId)
+        {
+            return new SelectList(_context.Suppliers
+                .OrderBy(s => s.Name), "ID", "Name", selectedId);
+        }
+
+        private SelectList StageSelectList(string selected)
+        {
+            return new SelectList(_context.NCRs
+                .OrderBy(s => s.NCR_Stage),"Name", selected);
+        }
+
+        private void PopulateDropDownLists(NCR ncr = null)
+        {
+            ViewData["SupplierID"] = SupplierSelectList(ncr?.SupplierID);
+            ViewData["Stage"] = StageSelectList(ncr?.NCR_Stage.ToString());
         }
     }
 }

@@ -5,48 +5,47 @@
     ViewData["Title"] = "Report";
 }
 
-<div class="container list-container shadow mt-5 bg-white">
-    <div class="report-container">
-        @* h1 *@
-        <dl>
-            <dt class="text-muted">
-                @* Should show previous ncr number if one is linked *@
-                @{
-                    var OldNCRNumber_id = ViewBag.OldNCRID != null ? $"Previous NCR No. {DateTime.UtcNow.Year}-{ViewBag.OldNCRID.ToString().PadLeft(3, '0')}" : "";
-                }
-                <span class="m2-2">
-                    @OldNCRNumber_id
-                </span>
-            </dt>
-        </dl>
-        <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
-            <dl class="d-flex">
-                <dt>
-                    @Html.DisplayNameFor(model => model.FormattedID)
-                </dt>
-                <dd class="ms-2">
-                    @Html.DisplayFor(model => model.FormattedID)
-                </dd>
-            </dl>
-            <dl class="d-flex">
-                <dt>
-                    <label asp-for="NCR_Date" class="control-label"></label>
-                </dt>
-                <dd class="ms-2">
-                    <input asp-for="NCR_Date" class="form-control" type="date" disabled />
-                    <span asp-validation-for="NCR_Date" class="text-danger"></span>
-                </dd>
-            </dl>
+
+@* h1 *@
+<dl>
+    <dt class="text-muted">
+        @* Should show previous ncr number if one is linked *@
+        @{
+            var OldNCRNumber_id = ViewBag.OldNCRID != null ? $"Previous NCR No. {DateTime.UtcNow.Year}-{ViewBag.OldNCRID.ToString().PadLeft(3, '0')}" : "";
+        }
+        <span class="m2-2">
+            @OldNCRNumber_id
+        </span>
+    </dt>
+</dl>
+<div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
+    <dl class="d-flex">
+        <dt>
+            @Html.DisplayNameFor(model => model.FormattedID)
+        </dt>
+        <dd class="ms-2">
+            @Html.DisplayFor(model => model.FormattedID)
+        </dd>
+    </dl>
+    <dl class="d-flex">
+        <dt>
+            <label asp-for="NCR_Date" class="control-label"></label>
+        </dt>
+        <dd class="ms-2">
+            <input asp-for="NCR_Date" class="form-control" type="date" disabled />
+            <span asp-validation-for="NCR_Date" class="text-danger"></span>
+        </dd>
+    </dl>
+</div>
+<div class="d-flex justify-content-start text-muted mb-3">
+    @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage))) //working!
+    {
+        <div class="form-check form-check-inline">
+            <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
+            <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
         </div>
-        <div class="d-flex justify-content-start text-muted mb-3">
-            @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage))) //working!
-            {
-                <div class="form-check form-check-inline">
-                    <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
-                    <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
-                </div>
-            }
-        </div>
+    }
+</div>
 
         <form class="" asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -968,17 +967,16 @@
                 
 
 
-            <div class="d-flex justify-content-between mt-3">
-                <div class="mt-2">
-                    <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
-                </div>
-                <div class="mt-2">
-                    <input type="submit" value="Save Report" class="btn btn-primary" />
-                </div>
-            </div>
-        </form>
+    <div class="d-flex justify-content-between mt-3">
+        <div class="mt-2">
+            <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
+        </div>
+        <div class="mt-2">
+            <input type="submit" value="Save Report" class="btn btn-primary" />
+        </div>
     </div>
-</div>
+</form>
+
 
 
 
@@ -1134,18 +1132,18 @@
             if ($(this).val() === "True") {
                 $('input[name="Procurement.DisposeOnSite"]').prop('required', true);
             }
-            else{
-                    // Clear inputs if "Yes" is selected
-                    // Clear RMANumber
-                    $('#RMANumber').val('');
-                    // Clear CarrierName
-                    $('#CarrierName').val('');
-                    // Clear CarrierPhone
-                    $('#CarrierPhone').val('');
-                    // Clear AccountNumber
-                    $('#AccountNumber').val('');
-                    // Clear DisposeOnSite
-                    $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
+            else {
+                // Clear inputs if "Yes" is selected
+                // Clear RMANumber
+                $('#RMANumber').val('');
+                // Clear CarrierName
+                $('#CarrierName').val('');
+                // Clear CarrierPhone
+                $('#CarrierPhone').val('');
+                // Clear AccountNumber
+                $('#AccountNumber').val('');
+                // Clear DisposeOnSite
+                $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
             }
         });
     });

@@ -68,8 +68,8 @@
             <div class="card card-body bg-light mb-2 d-flex">
 
 
-                <div class="row ms-1">
-                    <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm">
                         <div class="form-group">
                             <label class="control-label">Status:</label>
                             <div>
@@ -81,27 +81,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label class="control-label">Stage:</label>
+                            <div>
+                                @Html.DropDownList("ncrStage", (IEnumerable<SelectListItem>)ViewBag.NCRStageList, "Select Stage", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
                         <div class="form-group">
                             <label class="control-label">Date Created:</label>
                             <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                </div>
+                <div class="row mt-2 mb-2">
+
+                    <div class="col-sm">
                         <div class="form-group">
                             <label class="control-label">Supplier:</label>
                             @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm">
                         <div class="form-group">
-                            <label class="control-label">Part Number:</label>
+                            <label class="control-label">Part Number or NCR #:</label>
                             @Html.TextBox("SearchString", null, new { @class = "form-control" })
                         </div>
                     </div>
-                    <div class="col-sm-auto ms-2 mt-4">
+                    <div class="col-sm-auto mt-4">
                         <div class="form-group">
-                            <button type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary me-2">Filter</button>
+                            <button type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2">Search</button>
                             <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
                         </div>
                     </div>
@@ -277,7 +288,7 @@
                         $(this).addClass('stage-eng2');
                         // $(this).css('color', 'red');
                         break;
-                    case "Operations":
+                    case "Purchasing":
                         $(this).addClass('stage-oper3');
                         // $(this).css('color', 'blue');
                         break;
