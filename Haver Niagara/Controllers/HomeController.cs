@@ -92,11 +92,21 @@ namespace Haver_Niagara.Controllers
             {
                 searchString = searchString.ToLower();
 
+                // Split the searchString to potentially match the "YYYY-NNN" format
+                var parts = searchString.Split('-');
+                int yearPart, idPart;
+
                 ncrs = ncrs.Where(x =>
                     x.NCR_Date.ToString().ToLower().Contains(searchString) ||
                     x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
                     x.ID.ToString().ToLower().Contains(searchString) ||
-                    x.Part.Supplier.Name.ToLower().Contains(searchString)
+                    x.Part.Supplier.Name.ToLower().Contains(searchString) ||
+                    (parts.Length == 2 &&
+                     int.TryParse(parts[0], out yearPart) &&
+                     int.TryParse(parts[1], out idPart) &&
+                     x.NCR_Date.Year == yearPart &&
+                     x.ID == idPart) // New condition for matching year and ID separately
+
                 );
             }
 
