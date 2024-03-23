@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Web.Mvc.Html;
 using X.PagedList;
 
 namespace Haver_Niagara.Controllers
@@ -23,7 +26,7 @@ namespace Haver_Niagara.Controllers
             _context = context;
         }
 
-        public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter)
+        public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter, NCRStage? ncrStage)
         {
             // Sorting Functionality
             ViewBag.POSortParam = sortOrder == "ProductNum_Asc" ? "ProductNum_Desc" : "ProductNum_Asc";
@@ -55,7 +58,7 @@ namespace Haver_Niagara.Controllers
                 .ToList();
 
             var ncrs = _context.NCRs
-                .Where(p => p.IsArchived == false) 
+                .Where(p => p.IsArchived == false)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part.DefectLists)
@@ -77,6 +80,12 @@ namespace Haver_Niagara.Controllers
                 ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value);
             }
             ViewBag.SelectedStatus = selectedStatus;
+
+            // Apply NCRStage filter if selected
+            if (ncrStage.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.NCR_Stage == ncrStage.Value);
+            }
 
             // Search Box
             if (!String.IsNullOrEmpty(searchString))
@@ -157,6 +166,16 @@ namespace Haver_Niagara.Controllers
                 .ToList();
 
             ViewBag.SupplierList = new SelectList(allSuppliers, selectedSupplier);
+
+            // Dropdown for NCRStages with specific stages and their display names
+            var stagesToInclude = new[]
+            {
+                NCRStage.Engineering,
+                NCRStage.Purchasing,
+                NCRStage.Procurement,
+                NCRStage.QualityRepresentative_Final
+            };
+            ViewBag.NCRStageList = ToSelectList(stagesToInclude);
 
             return View(pagedNCRs);
         }
@@ -305,18 +324,18 @@ namespace Haver_Niagara.Controllers
         }
 
         // For Dashboard
-		public async Task<IActionResult> Index()
-		{
-			var ncrs = await _context.NCRs
-				.Include(n => n.Part)
-					.ThenInclude(p => p.Supplier)
-				.Where(n => n.NCR_Status == true)
-				.OrderBy(n => n.NCR_Date)
-				.Take(5)
-				.ToListAsync();
+        public async Task<IActionResult> Index()
+        {
+            var ncrs = await _context.NCRs
+                .Include(n => n.Part)
+                    .ThenInclude(p => p.Supplier)
+                .Where(n => n.NCR_Status == true)
+                .OrderBy(n => n.NCR_Date)
+                .Take(5)
+                .ToListAsync();
 
-			return View(ncrs);
-		}
+            return View(ncrs);
+        }
 
         public async Task<IActionResult> GetOpenNCRCount()
         {
@@ -334,6 +353,27 @@ namespace Haver_Niagara.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private string GetDisplayName(Enum enumValue)
+        {
+            return enumValue.GetType()
+                            .GetMember(enumValue.ToString())
+                            .First()
+                            .GetCustomAttribute<DisplayAttribute>()
+                            ?.GetName() ?? enumValue.ToString();
+        }
+
+        private SelectList ToSelectList<TEnum>(params TEnum[] filter) where TEnum : struct, Enum, IConvertible
+        {
+            var values = (filter == null || !filter.Any()) ? Enum.GetValues(typeof(TEnum)).Cast<Enum>() : filter.Cast<Enum>();
+            var items = values.Select(value => new SelectListItem
+            {
+                Text = GetDisplayName(value),
+                Value = value.ToString()
+            }).ToList();
+
+            return new SelectList(items, "Value", "Text");
         }
     }
 }
