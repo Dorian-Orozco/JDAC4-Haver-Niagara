@@ -53,7 +53,8 @@ namespace Haver_Niagara.Models
         //public bool Prescriber { get; set; }
 
 
-        public EmployeeRole EmployeeRole{ get; set; }
+        //Enumeration for basic roles
+        //public EmployeeRole EmployeeRole{ get; set; }
 
         public string Email { get; set; }
 
