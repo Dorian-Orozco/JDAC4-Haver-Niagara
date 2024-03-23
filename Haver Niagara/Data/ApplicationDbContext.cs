@@ -14,7 +14,7 @@ namespace Haver_Niagara.Data
         }
        
 
-        public DbSet<Haver_Niagara.Models.NCR> NCR { get; set; } = default!;
+      
 
        
     }

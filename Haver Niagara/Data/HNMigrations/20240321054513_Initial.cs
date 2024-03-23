@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Haver_Niagara.Data.Migrations
+namespace Haver_Niagara.Data.HNMigrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -12,46 +12,7 @@ namespace Haver_Niagara.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetRoles",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Defect",
+                name: "Defects",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -61,16 +22,38 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Defect", x => x.ID);
+                    table.PrimaryKey("PK_Defects", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Engineering",
+                name: "Employees",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
+                    EmployeeRole = table.Column<int>(type: "INTEGER", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Active = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Engineerings",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CustomerNotify = table.Column<bool>(type: "INTEGER", nullable: false),
                     DrawUpdate = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -82,11 +65,11 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Engineering", x => x.ID);
+                    table.PrimaryKey("PK_Engineerings", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Operation",
+                name: "Operations",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -100,20 +83,20 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Operation", x => x.ID);
+                    table.PrimaryKey("PK_Operations", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Procurement",
+                name: "Procurements",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ReturnRejected = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RMANumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    RMANumber = table.Column<int>(type: "INTEGER", nullable: true),
                     CarrierName = table.Column<string>(type: "TEXT", nullable: true),
                     CarrierPhone = table.Column<string>(type: "TEXT", nullable: true),
-                    AccountNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    AccountNumber = table.Column<int>(type: "INTEGER", nullable: true),
                     DisposeOnSite = table.Column<bool>(type: "INTEGER", nullable: false),
                     ToReceiveDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     SuppReturnCompletedSAP = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -122,16 +105,16 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Procurement", x => x.ID);
+                    table.PrimaryKey("PK_Procurements", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "QualityInspection",
+                name: "QualityInspections",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     InspectorName = table.Column<string>(type: "TEXT", nullable: true),
                     InspectorDate = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -143,11 +126,11 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QualityInspection", x => x.ID);
+                    table.PrimaryKey("PK_QualityInspections", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Supplier",
+                name: "Suppliers",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -156,162 +139,92 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Supplier", x => x.ID);
+                    table.PrimaryKey("PK_Suppliers", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Value = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CAR",
+                name: "UploadedFiles",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CARNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FileName = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    MimeType = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadedFiles", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subscriptions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PushEndpoint = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
+                    PushP256DH = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
+                    PushAuth = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
+                    EmployeeID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_Employees_EmployeeID",
+                        column: x => x.EmployeeID,
+                        principalTable: "Employees",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CARs",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CARNumber = table.Column<int>(type: "INTEGER", nullable: true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: true),
                     OperationID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CAR", x => x.ID);
+                    table.PrimaryKey("PK_CARs", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_CAR_Operation_OperationID",
+                        name: "FK_CARs_Operations_OperationID",
                         column: x => x.OperationID,
-                        principalTable: "Operation",
+                        principalTable: "Operations",
                         principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
-                name: "FollowUp",
+                name: "FollowUps",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FollowUpDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FollowUpDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     FollowUpType = table.Column<string>(type: "TEXT", nullable: true),
                     OperationID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FollowUp", x => x.ID);
+                    table.PrimaryKey("PK_FollowUps", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_FollowUp_Operation_OperationID",
+                        name: "FK_FollowUps_Operations_OperationID",
                         column: x => x.OperationID,
-                        principalTable: "Operation",
+                        principalTable: "Operations",
                         principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Part",
+                name: "Parts",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     PartNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     SAPNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     PurchaseNumber = table.Column<long>(type: "INTEGER", nullable: false),
@@ -319,22 +232,40 @@ namespace Haver_Niagara.Data.Migrations
                     ProductNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityRecieved = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityDefect = table.Column<int>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     SupplierID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Part", x => x.ID);
+                    table.PrimaryKey("PK_Parts", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Part_Supplier_SupplierID",
+                        name: "FK_Parts_Suppliers_SupplierID",
                         column: x => x.SupplierID,
-                        principalTable: "Supplier",
+                        principalTable: "Suppliers",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DefectList",
+                name: "FileContent",
+                columns: table => new
+                {
+                    FileContentID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileContent", x => x.FileContentID);
+                    table.ForeignKey(
+                        name: "FK_FileContent_UploadedFiles_FileContentID",
+                        column: x => x.FileContentID,
+                        principalTable: "UploadedFiles",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DefectLists",
                 columns: table => new
                 {
                     DefectListID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -344,23 +275,23 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DefectList", x => x.DefectListID);
+                    table.PrimaryKey("PK_DefectLists", x => x.DefectListID);
                     table.ForeignKey(
-                        name: "FK_DefectList_Defect_DefectID",
+                        name: "FK_DefectLists_Defects_DefectID",
                         column: x => x.DefectID,
-                        principalTable: "Defect",
+                        principalTable: "Defects",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DefectList_Part_PartID",
+                        name: "FK_DefectLists_Parts_PartID",
                         column: x => x.PartID,
-                        principalTable: "Part",
+                        principalTable: "Parts",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Media",
+                name: "Medias",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -374,17 +305,17 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Media", x => x.ID);
+                    table.PrimaryKey("PK_Medias", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Media_Part_PartID",
+                        name: "FK_Medias_Parts_PartID",
                         column: x => x.PartID,
-                        principalTable: "Part",
+                        principalTable: "Parts",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "NCR",
+                name: "NCRs",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -403,193 +334,158 @@ namespace Haver_Niagara.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NCR", x => x.ID);
+                    table.PrimaryKey("PK_NCRs", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_NCR_Engineering_EngineeringID",
+                        name: "FK_NCRs_Engineerings_EngineeringID",
                         column: x => x.EngineeringID,
-                        principalTable: "Engineering",
+                        principalTable: "Engineerings",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_NCR_Operation_OperationID",
+                        name: "FK_NCRs_Operations_OperationID",
                         column: x => x.OperationID,
-                        principalTable: "Operation",
+                        principalTable: "Operations",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_NCR_Part_PartID",
+                        name: "FK_NCRs_Parts_PartID",
                         column: x => x.PartID,
-                        principalTable: "Part",
+                        principalTable: "Parts",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_NCR_Procurement_ProcurementID",
+                        name: "FK_NCRs_Procurements_ProcurementID",
                         column: x => x.ProcurementID,
-                        principalTable: "Procurement",
+                        principalTable: "Procurements",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_NCR_QualityInspection_QualityInspectionID",
+                        name: "FK_NCRs_QualityInspections_QualityInspectionID",
                         column: x => x.QualityInspectionID,
-                        principalTable: "QualityInspection",
+                        principalTable: "QualityInspections",
                         principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetRoleClaims_RoleId",
-                table: "AspNetRoleClaims",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "RoleNameIndex",
-                table: "AspNetRoles",
-                column: "NormalizedName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserClaims_UserId",
-                table: "AspNetUserClaims",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserLogins_UserId",
-                table: "AspNetUserLogins",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId",
-                table: "AspNetUserRoles",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AspNetUsers",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CAR_OperationID",
-                table: "CAR",
+                name: "IX_CARs_OperationID",
+                table: "CARs",
                 column: "OperationID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DefectList_DefectID",
-                table: "DefectList",
+                name: "IX_DefectLists_DefectID",
+                table: "DefectLists",
                 column: "DefectID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DefectList_PartID",
-                table: "DefectList",
+                name: "IX_DefectLists_PartID",
+                table: "DefectLists",
                 column: "PartID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FollowUp_OperationID",
-                table: "FollowUp",
+                name: "IX_Employees_Email",
+                table: "Employees",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FollowUps_OperationID",
+                table: "FollowUps",
                 column: "OperationID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Media_PartID",
-                table: "Media",
+                name: "IX_Medias_PartID",
+                table: "Medias",
                 column: "PartID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NCR_EngineeringID",
-                table: "NCR",
+                name: "IX_NCRs_EngineeringID",
+                table: "NCRs",
                 column: "EngineeringID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_NCR_OperationID",
-                table: "NCR",
+                name: "IX_NCRs_OperationID",
+                table: "NCRs",
                 column: "OperationID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_NCR_PartID",
-                table: "NCR",
+                name: "IX_NCRs_PartID",
+                table: "NCRs",
                 column: "PartID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_NCR_ProcurementID",
-                table: "NCR",
+                name: "IX_NCRs_ProcurementID",
+                table: "NCRs",
                 column: "ProcurementID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_NCR_QualityInspectionID",
-                table: "NCR",
+                name: "IX_NCRs_QualityInspectionID",
+                table: "NCRs",
                 column: "QualityInspectionID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Part_SupplierID",
-                table: "Part",
+                name: "IX_Parts_SupplierID",
+                table: "Parts",
                 column: "SupplierID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriptions_EmployeeID",
+                table: "Subscriptions",
+                column: "EmployeeID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
+                name: "CARs");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
+                name: "DefectLists");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
+                name: "FileContent");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
+                name: "FollowUps");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
+                name: "Medias");
 
             migrationBuilder.DropTable(
-                name: "CAR");
+                name: "NCRs");
 
             migrationBuilder.DropTable(
-                name: "DefectList");
+                name: "Subscriptions");
 
             migrationBuilder.DropTable(
-                name: "FollowUp");
+                name: "Defects");
 
             migrationBuilder.DropTable(
-                name: "Media");
+                name: "UploadedFiles");
 
             migrationBuilder.DropTable(
-                name: "NCR");
+                name: "Engineerings");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Operations");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Parts");
 
             migrationBuilder.DropTable(
-                name: "Defect");
+                name: "Procurements");
 
             migrationBuilder.DropTable(
-                name: "Engineering");
+                name: "QualityInspections");
 
             migrationBuilder.DropTable(
-                name: "Operation");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Part");
-
-            migrationBuilder.DropTable(
-                name: "Procurement");
-
-            migrationBuilder.DropTable(
-                name: "QualityInspection");
-
-            migrationBuilder.DropTable(
-                name: "Supplier");
+                name: "Suppliers");
         }
     }
 }

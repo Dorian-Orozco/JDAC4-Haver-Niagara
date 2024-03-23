@@ -1,26 +1,64 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Haver_Niagara.Models
 {
-    public class Employee
+    [ModelMetadataType(typeof(EmployeeMetaData))]
+    public class Employee : Auditable
     {
         public int ID { get; set; }
 
-        [Display(Name = "First Name")]
+        [Display(Name = "Employee")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
+        public string FormalName
+        {
+            get
+            {
+                return LastName + ", " + FirstName;
+            }
+        }
+
+        public string PhoneNumber
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(Phone))
+                {
+                    return "";
+                }
+                else
+                {
+                    return "(" + Phone.Substring(0, 3) + ") " + Phone.Substring(3, 3) + "-" + Phone.Substring(6, 4);
+                }
+            }
+        }
+
+
         public string FirstName { get; set; }
 
-        [Display(Name = "Last Name")]
+     
         public string LastName { get; set; }
 
-        [Display(Name ="Full Name")]
-        public string FullName => FirstName + " " + LastName;
+   
+        public string Phone { get; set; }
 
-        public string Role { get; set; }
+        //[Required(ErrorMessage = "Perscriber status required.")] //
+        //public bool Prescriber { get; set; }
+
+
+        public EmployeeRole EmployeeRole{ get; set; }
 
         public string Email { get; set; }
 
-        //One to One with NCR? 
-        //public int NCRId { get; set; }
-        //public NCR NCR { get; set; }
+        public bool Active { get; set; } = true;
+
+        public ICollection<Subscription> Subscriptions { get; set; }
     }
 }

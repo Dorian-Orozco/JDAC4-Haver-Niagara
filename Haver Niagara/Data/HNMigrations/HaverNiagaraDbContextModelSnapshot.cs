@@ -78,6 +78,59 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.ToTable("DefectLists");
                 });
 
+            modelBuilder.Entity("Haver_Niagara.Models.Employee", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EmployeeRole")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>
                 {
                     b.Property<int>("ID")
@@ -251,7 +304,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("OperationCar")
@@ -370,7 +422,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Department")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DepartmentDate")
@@ -380,7 +431,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("InspectorName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("ItemMarked")
@@ -399,6 +449,34 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.ToTable("QualityInspections");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Subscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EmployeeID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PushAuth")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PushEndpoint")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PushP256DH")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeID");
+
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>
@@ -537,9 +615,25 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("Supplier");
                 });
 
+            modelBuilder.Entity("Haver_Niagara.Models.Subscription", b =>
+                {
+                    b.HasOne("Haver_Niagara.Models.Employee", "Employee")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("Haver_Niagara.Models.Defect", b =>
                 {
                     b.Navigation("DefectLists");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.Employee", b =>
+                {
+                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Engineering", b =>

@@ -18,6 +18,56 @@ namespace Haver_Niagara.Data
             context.Database.EnsureCreated();
             //context.Database.Migrate();
 
+            if(!context.Employees.Any())
+            {
+                context.Employees.AddRange(
+                    new Employee
+                    {
+                        FirstName = "Admin",
+                        LastName = "Powers",
+                        Email = "admin@outlook.com",
+                        Phone = "9053256625"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Fred",
+                        LastName = "Flintstone",
+                        Email = "super@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Betty",
+                        LastName = "Rubble",
+                        Email = "user@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Alex",
+                        LastName = "Baxter",
+                        Email = "qualityrepresentative@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Adi",
+                        LastName = "Sinha",
+                        Email = "engineer@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "John",
+                        LastName = "Opper",
+                        Email = "operations@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Purs",
+                        LastName = "Chaser",
+                        Email = "procurement@outlook.com"
+                    });
+                context.SaveChanges();
+            }
+
+
             if (!context.Defects.Any())
             {
                 var defects = new List<Defect>
