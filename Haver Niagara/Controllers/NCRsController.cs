@@ -316,7 +316,7 @@ namespace Haver_Niagara.Controllers
                         //Compliments AJAX code that checks for NCR status //only 2 inputs to not mess up existing ncrs
                         if (!string.IsNullOrEmpty(engineering.Name) && engineering.Date != DateTime.MinValue && engineering.EngineeringDisposition.ToString() != null)
                         {
-                            existingNCR.NCR_Stage = NCRStage.Purchasing;
+                            existingNCR.NCR_Stage = NCRStage.Operations;
                         }
 
                     }

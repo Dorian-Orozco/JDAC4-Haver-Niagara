@@ -28,6 +28,8 @@ namespace Haver_Niagara.Controllers
 
         public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter, NCRStage? ncrStage)
         {
+            ViewBag.FormattedIDSortParam = sortOrder == "FormattedID_Asc" ? "FormattedID_Desc" : "FormattedID_Asc";
+            ViewBag.NCRStageSortParam = sortOrder == "NCRStage_Asc" ? "NCRStage_Desc" : "NCRStage_Asc";
             // Sorting Functionality
             ViewBag.POSortParam = sortOrder == "ProductNum_Asc" ? "ProductNum_Desc" : "ProductNum_Asc";
             ViewBag.SupplierSortParam = sortOrder == "Supplier_Asc" ? "Supplier_Desc" : "Supplier_Asc";
@@ -124,6 +126,19 @@ namespace Haver_Niagara.Controllers
             IOrderedQueryable<NCR> sortedNCRs;
             switch (sortOrder)
             {
+                case "FormattedID_Asc":
+                    sortedNCRs = ncrs.OrderBy(x => x.NCR_Date.Year).ThenBy(x => x.ID);
+                    break;
+                case "FormattedID_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(x => x.NCR_Date.Year).ThenByDescending(x => x.ID);
+                    break;
+                case "NCRStage_Asc":
+                    sortedNCRs = ncrs.OrderBy(x => x.NCR_Stage);
+                    break;
+                case "NCRStage_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(x => x.NCR_Stage);
+                    break;
+                // Existing sort cases
                 case "ProductNum_Desc":
                     sortedNCRs = ncrs.OrderByDescending(b => b.Part.ProductNumber);
                     break;
@@ -181,7 +196,7 @@ namespace Haver_Niagara.Controllers
             var stagesToInclude = new[]
             {
                 NCRStage.Engineering,
-                NCRStage.Purchasing,
+                NCRStage.Operations,
                 NCRStage.Procurement,
                 NCRStage.QualityRepresentative_Final
             };

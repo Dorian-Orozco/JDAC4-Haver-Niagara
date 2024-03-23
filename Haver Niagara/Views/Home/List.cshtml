@@ -139,7 +139,17 @@
                     Status
                     </a> *@
                 </th>
-                <th class="text-center">NCR Number</th>
+                <th class="text-center">
+                    <a asp-action="List"
+                       asp-route-sortOrder="@ViewBag.FormattedIDSortParam"
+                       asp-route-currentFilter="@ViewBag.CurrentFilter"
+                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                       asp-route-selectedDate="@ViewBag.SelectedDate"
+                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                       asp-route-page="@Model.PageNumber">
+                        NCR Number
+                    </a>
+                </th>
                 <th class="text-center">
                     <a asp-action="List"
                        asp-route-sortOrder="@ViewBag.DateSortParam"
@@ -173,7 +183,17 @@
                         Supplier
                     </a>
                 </th>
-                <th>Stage</th>
+                <th>
+                    <a asp-action="List"
+                       asp-route-sortOrder="@ViewBag.NCRStageSortParam"
+                       asp-route-currentFilter="@ViewBag.CurrentFilter"
+                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                       asp-route-selectedDate="@ViewBag.SelectedDate"
+                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                       asp-route-page="@Model.PageNumber">
+                        Stage
+                    </a>
+                </th>
                 <th class="text-center"></th>
             </tr>
         </thead>
@@ -288,7 +308,7 @@
                         $(this).addClass('stage-eng2');
                         // $(this).css('color', 'red');
                         break;
-                    case "Purchasing":
+                    case "Operations":
                         $(this).addClass('stage-oper3');
                         // $(this).css('color', 'blue');
                         break;
