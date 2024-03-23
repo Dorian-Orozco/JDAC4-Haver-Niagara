@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Haver_Niagara.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin, Supervisor")]  //Commented out authorization, so dont have to log in everytime app launches
     public class UserRoleController : Controller
     {
         private readonly ApplicationDbContext _context;
