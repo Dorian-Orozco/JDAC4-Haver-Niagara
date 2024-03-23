@@ -4,101 +4,98 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container  shadow bg-white mt-5 list-container">
-    <div class="report-container">
 
-        <h1>Index</h1>
 
-        <p>
-            <a asp-action="Create">Create New</a>
-        </p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NCR_Status)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NCR_Date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FormattedID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Part.PartNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Supplier)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NCR_Stage)
-                    </th>
-  @*                   <th>
-                        @Html.DisplayNameFor(model => model.Operation)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Engineering)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.QualityInspection)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Procurement)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.QualityInspectionFinal)
-                    </th> *@
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NCR_Status)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NCR_Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FormattedID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Part.SAPNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Supplier.Name)
-                        </td>
-                  
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NCR_Stage)
-                        </td>
-            @*             <td>
-                            @Html.DisplayFor(modelItem => item.Operation.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Engineering.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.QualityInspection.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Procurement.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.QualityInspectionFinal.ID)
-                        </td> *@
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<h1>Index</h1>
 
-    </div>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NCR_Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NCR_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormattedID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Part.PartNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NCR_Stage)
+            </th>
+            @*                   <th>
+            @Html.DisplayNameFor(model => model.Operation)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Engineering)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.QualityInspection)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Procurement)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.QualityInspectionFinal)
+            </th> *@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.NCR_Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NCR_Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormattedID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Part.SAPNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.NCR_Stage)
+                </td>
+                @*             <td>
+            @Html.DisplayFor(modelItem => item.Operation.ID)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Engineering.Name)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.QualityInspection.Name)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Procurement.ID)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.QualityInspectionFinal.ID)
+            </td> *@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
