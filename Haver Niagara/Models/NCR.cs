@@ -83,6 +83,11 @@ namespace Haver_Niagara.Models
         public int? ProcurementID { get; set; }
         public Procurement Procurement { get; set; }
 
+        // QUALITY FINAL //
+        [ForeignKey("QualityInspectionFinal")]
+        public int? QualityInspectionFinalID { get; set; }
+        public QualityInspectionFinal QualityInspectionFinal { get; set; }
+
         // DEFAULT CONSTRUCTOR //
         public NCR()
         {

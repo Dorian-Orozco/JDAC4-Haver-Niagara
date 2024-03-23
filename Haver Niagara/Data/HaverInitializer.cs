@@ -1671,329 +1671,202 @@ namespace Haver_Niagara.Data
                         ID = 1,
                         Name = "Diego Fiery",
                         Date = DateTime.Parse("2010-01-01"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2010-01-01"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2010-01-01")
-
-
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 2,
                         Name = "John Doe",
                         Date = DateTime.Parse("2011-04-15"),
-                        ItemMarked = true,
-                        ReInspected = true,
                         QualityIdentify = (QualityIdentify)2,
-                        Department = "Department 2",
-                        DepartmentDate = DateTime.Parse("2011-04-15"),
-                        InspectorName = "Billy Bam",
-                        InspectorDate = DateTime.Parse("2011-04-15")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 3,
                         Name = "Sam Jordan",
                         Date = DateTime.Parse("2013-08-22"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 3",
-                        DepartmentDate = DateTime.Parse("2013-08-22"),
-                        InspectorName = "April Apple",
-                        InspectorDate = DateTime.Parse("2013-08-22")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 4,
                         Name = "Gregy Frog",
                         Date = DateTime.Parse("2014-12-07"),
-                        ItemMarked = false,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)2,
-                        Department = "Department 4",
-                        DepartmentDate = DateTime.Parse("2014-12-07"),
-                        InspectorName = "Abigail Week",
-                        InspectorDate = DateTime.Parse("2014-12-07")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 5,
                         Name = "Pillow Man",
                         Date = DateTime.Parse("2015-06-30"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 6,
                         Name = "Jorge Jeez",
                         Date = DateTime.Parse("2016-09-14"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 7,
                         Name = "Hunt Con",
                         Date = DateTime.Parse("2017-11-25"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 8,
                         Name = "Rise Saint",
                         Date = DateTime.Parse("2018-03-09"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 9,
                         Name = "Sunday Smith",
                         Date = DateTime.Parse("2019-05-18"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 10,
                         Name = "Prin Char",
                         Date = DateTime.Parse("2020-08-02"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 11,
                         Name = "Lei Ter",
                         Date = DateTime.Parse("2021-10-11"),
-                        ItemMarked = true,
-                        ReInspected = true,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 12,
                         Name = "Diego Fiery",
                         Date = DateTime.Parse("2022-02-26"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-
-
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 13,
                         Name = "John Doe",
                         Date = DateTime.Parse("2022-06-17"),
-                        ItemMarked = true,
-                        ReInspected = true,
                         QualityIdentify = (QualityIdentify)2,
-                        Department = "Department 2",
-                        DepartmentDate = DateTime.Parse("2022-06-17"),
-                        InspectorName = "Billy Bam",
-                        InspectorDate = DateTime.Parse("2022-06-17")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 14,
                         Name = "Sam Jordan",
                         Date = DateTime.Parse("2022-12-07"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 3",
-                        DepartmentDate = DateTime.Parse("2022-12-07"),
-                        InspectorName = "April Apple",
-                        InspectorDate = DateTime.Parse("2022-12-07")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 15,
                         Name = "Gregy Frog",
                         Date = DateTime.Parse("2022-12-10"),
-                        ItemMarked = false,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)2,
-                        Department = "Department 4",
-                        DepartmentDate = DateTime.Parse("2022-12-10"),
-                        InspectorName = "Abigail Week",
-                        InspectorDate = DateTime.Parse("2022-12-10")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 16,
                         Name = "Pillow Man",
                         Date = DateTime.Parse("2023-03-24"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 17,
                         Name = "Jorge Jeez",
                         Date = DateTime.Parse("2023-07-09"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 18,
                         Name = "Hunt Con",
                         Date = DateTime.Parse("2023-10-20"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 19,
                         Name = "Rise Saint",
                         Date = DateTime.Parse("2023-11-02"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 20,
                         Name = "Sunday Smith",
                         Date = DateTime.Parse("2023-12-15"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 21,
                         Name = "Prin Char",
                         Date = DateTime.Parse("2024-01-01"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 22,
                         Name = "Lei Ter",
                         Date = DateTime.Parse("2024-01-10"),
-                        ItemMarked = true,
-                        ReInspected = true,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 23,
                         Name = "Pillow Man",
                         Date = DateTime.Parse("2024-01-15"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
+                    // FIRST NCR IN LIST //
+
                     new QualityInspection
                     {
                         ID = 24, // FIRST NCR IN LIST //
                         Name = "Jorge Jeez",
-                        Date = DateTime.Parse("2024-01-25"),
-                        ItemMarked = true,
                         QualityIdentify = (QualityIdentify)0,
-                        ReInspected = true, //last section for quality inspection
-                        Department = "Department 2",
-                        DepartmentDate = DateTime.Parse("2022-06-17"),
-                        InspectorName = "Billy Bam",
-                        InspectorDate = DateTime.Parse("2022-06-17"),
+                        Date = DateTime.Parse("2024-01-25"),
+                        ItemMarked = true
                     },
                     new QualityInspection
                     {
                         ID = 25,
                         Name = "Rise Saint",
                         Date = DateTime.Parse("2024-02-02"),
-                        ItemMarked = true,
-                        ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        ItemMarked = true
                     },
 
 					new QualityInspection
@@ -2001,126 +1874,403 @@ namespace Haver_Niagara.Data
 						ID = 26,
 						Name = "Pillow Man",
 						Date = DateTime.Parse("2024-02-08"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 27,
 						Name = "Jorge Jeez",
 						Date = DateTime.Parse("2024-02-12"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 28,
 						Name = "Hunt Con",
 						Date = DateTime.Parse("2024-02-18"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 29,
 						Name = "Rise Saint",
 						Date = DateTime.Parse("2024-02-21"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 30,
 						Name = "Sunday Smith",
 						Date = DateTime.Parse("2024-02-29"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 31,
 						Name = "Pillow Man",
 						Date = DateTime.Parse("2024-03-01"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 32,
 						Name = "Jorge Jeez",
 						Date = DateTime.Parse("2024-03-03"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 33,
 						Name = "Hunt Con",
 						Date = DateTime.Parse("2024-03-05"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 34,
 						Name = "Rise Saint",
 						Date = DateTime.Parse("2024-03-06"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+						ItemMarked = true
                     },
 					new QualityInspection
 					{
 						ID = 35,
 						Name = "Sunday Smith",
 						Date = DateTime.Parse("2024-03-08"),
-						ItemMarked = true,
-						ReInspected = false,
                         QualityIdentify = (QualityIdentify)1,
+						ItemMarked = true
+                    });
+                context.SaveChanges();
+            }
+
+            // LAST SECTION OF REPORT FOR QUALITY INSPECTION //
+
+            if (!context.QualityInspectionFinals.Any())
+            {
+                context.QualityInspectionFinals.AddRange(
+                    new QualityInspectionFinal
+                    {
+                        ID = 1,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2010-01-01"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2010-01-01")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 2,
+                        ReInspected = true,
+                        Department = "Department 2",
+                        DepartmentDate = DateTime.Parse("2011-04-15"),
+                        InspectorName = "Billy Bam",
+                        InspectorDate = DateTime.Parse("2011-04-15")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 3,
+                        ReInspected = true,
+                        Department = "Department 3",
+                        DepartmentDate = DateTime.Parse("2013-08-22"),
+                        InspectorName = "April Apple",
+                        InspectorDate = DateTime.Parse("2013-08-22")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 4,
+                        ReInspected = true,
+                        Department = "Department 4",
+                        DepartmentDate = DateTime.Parse("2014-12-07"),
+                        InspectorName = "Abigail Week",
+                        InspectorDate = DateTime.Parse("2014-12-07")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 5,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 6,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 7,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 8,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 9,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 10,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 11,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 12,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 13,
+                        ReInspected = true,
+                        Department = "Department 2",
+                        DepartmentDate = DateTime.Parse("2022-06-17"),
+                        InspectorName = "Billy Bam",
+                        InspectorDate = DateTime.Parse("2022-06-17")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 14,
+                        ReInspected = true,
+                        Department = "Department 3",
+                        DepartmentDate = DateTime.Parse("2022-12-07"),
+                        InspectorName = "April Apple",
+                        InspectorDate = DateTime.Parse("2022-12-07")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 15,
+                        ReInspected = true,
+                        Department = "Department 4",
+                        DepartmentDate = DateTime.Parse("2022-12-10"),
+                        InspectorName = "Abigail Week",
+                        InspectorDate = DateTime.Parse("2022-12-10")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 16,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 17,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 18,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 19,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 20,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 21,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 22,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 23,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+
+                    // FIRST NCR IN LIST //
+
+                    new QualityInspectionFinal
+                    {
+                        ID = 24, 
+                        ReInspected = true, 
+                        Department = "Department 2",
+                        DepartmentDate = DateTime.Parse("2022-06-17"),
+                        InspectorName = "Billy Bam",
+                        InspectorDate = DateTime.Parse("2022-06-17"),
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 25,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+
+                    new QualityInspectionFinal
+                    {
+                        ID = 26,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 27,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 28,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 29,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 30,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 31,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 32,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 33,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 34,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        InspectorName = "Johnny Jam",
+                        InspectorDate = DateTime.Parse("2022-02-26")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 35,
+                        ReInspected = true,
                         Department = "Department 1",
                         DepartmentDate = DateTime.Parse("2022-02-26"),
                         InspectorName = "Johnny Jam",

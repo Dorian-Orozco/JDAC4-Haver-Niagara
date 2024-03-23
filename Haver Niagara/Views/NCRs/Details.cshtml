@@ -716,12 +716,12 @@
                                     <span class="ms-2 me-5">
                                         @* <label asp-for="QualityInspection.ReInspected" class="control-label"></label><br /> *@
                                         <div class="d-flex">
-                                            @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ReInspected, @disabled = "disabled", @class = "me-2" })
+                                            @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, true, new { @checked = Model.QualityInspectionFinal != null && Model.QualityInspectionFinal.ReInspected, @disabled = "disabled", @class = "me-2" })
                                             <label class="me-4">Yes</label>
 
-                                            @Html.RadioButtonFor(model => model.QualityInspection.ReInspected, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ReInspected, @disabled = "disabled", @class = "me-2" })
+                                            @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, false, new { @checked = Model.QualityInspectionFinal != null && !Model.QualityInspectionFinal.ReInspected, @disabled = "disabled", @class = "me-2" })
                                             <label>No</label>
-                                            <span asp-validation-for="QualityInspection.ReInspected" class="text-danger"></span>
+                                            <span asp-validation-for="QualityInspectionFinal.ReInspected" class="text-danger"></span>
                                         </div>
                                     </span>
                                 </div>
@@ -790,7 +790,7 @@
                                     @* @Html.DisplayNameFor(model => model.InspectName) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @Html.DisplayFor(model => model.QualityInspection.InspectorName)
+                                    @Html.DisplayFor(model => model.QualityInspectionFinal.InspectorName)
                                 </dd>
                             </dl>
 
@@ -801,7 +801,7 @@
                                     Date
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @Html.DisplayFor(model => model.QualityInspection.InspectorDate)
+                                    @Html.DisplayFor(model => model.QualityInspectionFinal.InspectorDate)
                                 </dd>
                             </dl>
                         </div>
@@ -837,7 +837,7 @@
                                 </dt>
                                 <dd class="col-sm ms-2">
 
-                                    @Html.DisplayFor(model => model.QualityInspection.Department)
+                                    @Html.DisplayFor(model => model.QualityInspectionFinal.Department)
                             </dl>
                         </div>
                         <div class="row">
@@ -847,7 +847,7 @@
                                     @* @Html.DisplayNameFor(model => model.InspectDate) *@
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    @Html.DisplayFor(model => model.QualityInspection.DepartmentDate)
+                                    @Html.DisplayFor(model => model.QualityInspectionFinal.DepartmentDate)
                                 </dd>
                             </dl>
                         </div>
