@@ -80,7 +80,6 @@ namespace Haver_Niagara.Controllers
 
 
         // GET: NCRs/Create
-
         public IActionResult Create(int? oldNCRID)
         {
 
@@ -109,7 +108,6 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]              //oldNCRID is passed through in edit controller
-
         ///QualityInspection qualityInspection, Engineering engineering,
         //    Operation operation, Procurement procurement,
         public async Task<IActionResult> Create(int? oldNCRID,[Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID")]
@@ -206,11 +204,11 @@ namespace Haver_Niagara.Controllers
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             return View(nCR);
         }
+
+
         // POST: NCRs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
@@ -535,6 +533,34 @@ namespace Haver_Niagara.Controllers
         }
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
 
+        //Create methods that return each SelectList separately and one method to put them all into ViewData
+        //This approach allows for AJAX requests to refresh DDL Data at a later date 
+        //https://www.youtube.com/watch?v=JnOKiME3guQ&list=PL16MVmKNvI0JTGdka0_MykIhKX1S-gfli&index=69
+        //14:19
+        private SelectList SupplierSelectList(int? selectedId)
+        {
+            return new SelectList(_context.Suppliers
+                .OrderBy(s => s.Name), "ID", "Name", selectedId);
+        }
+
+        //private SelectList DefectSelectList(int? selectedId)
+        //{
+        //    return new SelectList(_context.DefectLists
+        //        .OrderBy(s => s.DefectID), "ID", "Name", selectedId);
+        //}
+
+        private void PopulateDropDownLists(NCR ncr = null)
+        {
+            ViewData["SupplierID"] = SupplierSelectList(ncr?.SupplierID);
+            //ViewData["DefectListID"] = DefectSelectList(ncr?.Part.DefectLists);
+        }
+
+        //add JsonResult GetSuppliers to return a new copy of the SelectList for SupplierID
+        [HttpGet]
+        public JsonResult GetSuppliers(int? id)
+        {
+            return Json(SupplierSelectList(id));
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

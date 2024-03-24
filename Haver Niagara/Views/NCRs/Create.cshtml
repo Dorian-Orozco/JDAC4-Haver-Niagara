@@ -5,9 +5,7 @@
     ViewData["Title"] = "Create";
 }
 
-
-<div class="container list-container shadow mt-5 bg-white">
-    <div class="report-container">
+<partial name="_addSupplierModal" />
 @* h1 *@
 <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
     <dl class="d-flex">
@@ -67,12 +65,23 @@
                 <dl>
                     <dt>Supplier:</dt>
                     <dd>
+                        @*   <div class="form-group mt-1">
+                        <label asp-for="Part.SupplierID" class="control-label"></label>
+                        <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
+                        <option value="">Select a Supplier</option>
+                        </select>
+                        <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
+                        </div> *@
                         <div class="form-group mt-1">
-                            @* <label asp-for="Part.SupplierID" class="control-label"></label> *@
-                            <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
-                                <option value="">Select a Supplier</option>
-                            </select>
-                            <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
+                            <label asp-for="SupplierID" class="control-label"></label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary" id="nowAddSupplier" data-bs-toggle="modal" data-bs-target="#addSupplierModal" type="button">&#x2795;</button>
+                                </div>
+                                <select asp-for="SupplierID" class="form-control" asp-items="ViewBag.SupplierID">
+                                    <option value="">Select Supplier</option>
+                                </select>
+                            </div>
                         </div>
                     </dd>
                 </dl>
@@ -745,6 +754,71 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+     @* QUICKLY ADD OPTION TO SUPPLIER SELECT DROP DOWN LIST *@
+
+     <script src="~/js/refreshDDL.js"></script>
+
+    <script type="text/javascript">
+        $('#submitSupplierCreate').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createSupplierForm');
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#addSupplierModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = []; 
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                          errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidaitonSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                          var errorMessage = errorMessages[i];
+                          var li = document.createElement("li");
+                          li.innerHTML = errorMessage;
+                          ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+        $('#addSupplierModal').on('hide.bs.modal', function () {
+            document.getElementById("createSupplierForm").reset();//to clear the data in the popup form
+            ClearErrors();
+            var selectedOption = $('#SupplierID').val();//Return to the current selected value
+            refreshDDL('SupplierID', '/NCRs/GetSuppliers/' + selectedOption, false, null, true, 'None', true);
+        });
+        function ClearErrors() {
+            //Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+              ul.removeChild(ul.firstChild);
+            }
+        }
+    </script>
+
     <script>
         document.getElementById("cancel-button").addEventListener("click", function (event) {
             if (!confirm("Are you sure you want to cancel?")) {

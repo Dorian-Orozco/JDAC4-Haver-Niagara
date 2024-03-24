@@ -62,7 +62,7 @@ namespace Haver_Niagara.Data
             //modelBuilder.Entity<DefectList>()
             //    .HasKey(d => new { d.PartID, d.DefectID });
 
-        
+
             modelBuilder.Entity<Operation>()
                 .Property(n => n.ID)
                 .ValueGeneratedOnAdd();
