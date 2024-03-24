@@ -9,10 +9,9 @@ namespace Haver_Niagara.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public string Name { get; set; }
 
-        [Display(Name = "Description of Defect")]
-        public string Description { get; set; }
+        [Required(ErrorMessage = "You cannot leave the name of the defect blank")]
+        public string Name { get; set; }
         public ICollection<DefectList> DefectLists { get; set; } = new HashSet<DefectList>();
 
 

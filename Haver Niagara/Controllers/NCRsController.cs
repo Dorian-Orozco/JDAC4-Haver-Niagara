@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Haver_Niagara.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class NCRsController : Controller
     {
         private readonly HaverNiagaraDbContext _context;
@@ -87,7 +87,7 @@ namespace Haver_Niagara.Controllers
         public IActionResult Create(int? oldNCRID)
         {
 
-            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
 
 
             ///Populate list of defects
@@ -165,7 +165,7 @@ namespace Haver_Niagara.Controllers
                 }                                                   //there it creates them into new objects and associates them
                 return RedirectToAction("List", "Home");            //to that part => ncr. 
             }
-            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name"); 
             return View(nCR);
         }
@@ -203,7 +203,7 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
             ///Populate list of defects
-            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             return View(nCR);
@@ -476,7 +476,7 @@ namespace Haver_Niagara.Controllers
             }
             //Populate viewbag for list of suppliers
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
-            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Description");
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID", nCR.EngineeringID);
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
@@ -544,19 +544,33 @@ namespace Haver_Niagara.Controllers
         private SelectList SupplierSelectList(int? selectedId)
         {
             return new SelectList(_context.Suppliers
-                .OrderBy(s => s.Name), "ID", "Name", selectedId);
+                .OrderBy(s => s.Name), "ID", "Name", selectedId);       //retrieves suppliers and orders them by their name?
         }
 
-        //private SelectList DefectSelectList(int? selectedId)
-        //{
-        //    return new SelectList(_context.DefectLists
-        //        .OrderBy(s => s.DefectID), "ID", "Name", selectedId);
-        //}
+        private SelectList DefectSelectList(int? selectedDefectID)
+        {
+            return new SelectList(_context.Defects
+                .OrderBy(s => s.Name), "ID", "Name", selectedDefectID);
+        }
 
         private void PopulateDropDownLists(NCR ncr = null)
         {
+            //Sets the view data for supplierID from the method which retrieves it
             ViewData["SupplierID"] = SupplierSelectList(ncr?.SupplierID);
-            //ViewData["DefectListID"] = DefectSelectList(ncr?.Part.DefectLists);
+
+            //check to see if it exists 
+            if(ncr.Part != null && ncr.Part.DefectLists != null)
+            {
+                var defectID = ncr.Part.DefectLists.Select(dl => dl.DefectID);
+
+                //Pass the defect IDS..
+                ViewData["DefectID"] = DefectSelectList(defectID.FirstOrDefault());
+            }
+            else
+            {
+                //if null then didnt work
+                ViewData["DefectID"] = DefectSelectList(null);
+            }
         }
 
         //add JsonResult GetSuppliers to return a new copy of the SelectList for SupplierID
@@ -564,6 +578,12 @@ namespace Haver_Niagara.Controllers
         public JsonResult GetSuppliers(int? id)
         {
             return Json(SupplierSelectList(id));
+        }
+
+        [HttpGet]
+        public JsonResult GetDefects(int? id)
+        {
+            return Json(DefectSelectList(id));
         }
 
         [HttpPost]

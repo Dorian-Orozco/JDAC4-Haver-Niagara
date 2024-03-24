@@ -17,8 +17,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,7 +145,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -402,9 +401,21 @@ namespace Haver_Niagara.Data.HNMigrations
                 column: "PartID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Defects_Name",
+                table: "Defects",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employees_Email",
                 table: "Employees",
                 column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_Phone",
+                table: "Employees",
+                column: "Phone",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -468,6 +479,12 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "IX_Subscriptions_EmployeeID",
                 table: "Subscriptions",
                 column: "EmployeeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_Name",
+                table: "Suppliers",
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />

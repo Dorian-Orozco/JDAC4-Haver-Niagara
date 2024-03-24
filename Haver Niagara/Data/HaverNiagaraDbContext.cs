@@ -92,6 +92,21 @@ namespace Haver_Niagara.Data
                 .HasIndex(a => new { a.Email })
                 .IsUnique();
 
+            //Unique Constraint for Phone Number 
+            modelBuilder.Entity<Employee>()
+                .HasIndex(a => new { a.Phone})
+                .IsUnique();
+
+            //Unique Constraint for Defect Name
+            modelBuilder.Entity<Defect>()
+                .HasIndex(a => new { a.Name})
+                .IsUnique();
+
+            //Unique Constraint for Supplier Name
+            modelBuilder.Entity<Supplier>()
+                .HasIndex(a => new { a.Name})
+                .IsUnique();
+
         }
 
         //Added from Step10-Auditable.Txt

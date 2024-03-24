@@ -6,7 +6,7 @@
 }
 
 <partial name="_addSupplierModal" />
-
+<partial name="_addDefectModal" />
 @* h1 *@
 <dl>
     <dt class="text-muted">
@@ -211,13 +211,15 @@
                         </dt>
                         <dd class="mt-1">
                             <div class="form-group">
-
-                                @* <label for="defectID">Select Defect:</label> *@
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" id="nowAddDefect" data-bs-toggle="modal" data-bs-target="#addDefectModal" type="button">&#x2795;</button>
+                                    </div>
                                 <select id="defectID" name="SelectedDefectID" class="form-control">
                                     <option value="">--Select Defect--</option>
                                     @foreach (var defect in ViewBag.DefectList)
                                     {
-                                        if (Model.Part != null && Model.Part.DefectLists != null && Model.Part.DefectLists.Any(defectL => defectL.Defect.Description == defect.Text))
+                                        if (Model.Part != null && Model.Part.DefectLists != null && Model.Part.DefectLists.Any(defectL => defectL.Defect.Name == defect.Text))
                                         {
                                             <option value="@defect.Value" selected>@defect.Text</option>
                                         }
@@ -227,6 +229,7 @@
                                         }
                                     }
                                 </select>
+                            </div>
                                 <span class="text-danger"></span>
                             </div>
                         </dd>
@@ -1061,6 +1064,66 @@
         }
     </script>
 
+    @* Defect Modal / Form Javascript *@
+    <script type="text/javascript">
+        $('#submitDefectCreate').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createDefectForm');
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#addDefectModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = [];
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                            errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidaitonSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                            var errorMessage = errorMessages[i];
+                            var li = document.createElement("li");
+                            li.innerHTML = errorMessage;
+                            ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+        $('#addDefectModal').on('hide.bs.modal', function () {
+            document.getElementById("createDefectForm").reset();//to clear the data in the popup form
+            ClearErrors();
+            var selectedOption = $('#DefectID').val();//Return to the current selected value
+            refreshDDL('defectID', '/NCRs/GetDefects/' + selectedOption, false, null, true, 'None', true);
+        });
+        function ClearErrors() {
+            //Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
+        <script>
 
 
     <script>

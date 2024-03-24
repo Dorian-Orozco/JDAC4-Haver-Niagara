@@ -15,6 +15,7 @@ namespace Haver_Niagara.Data
                 //Create the database if it does not exist and apply the Migration
                 context.Database.Migrate();
 
+                //DO NOT HAVE ENSURE DELETED OR ANYTHING LIKE THAT
                 //Create Roles
                 var RoleManager = applicationBuilder.ApplicationServices.CreateScope()
                     .ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
