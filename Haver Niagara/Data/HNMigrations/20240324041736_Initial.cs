@@ -31,11 +31,10 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Phone = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
-                    EmployeeRole = table.Column<int>(type: "INTEGER", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
                     Active = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
@@ -109,20 +108,32 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "QualityInspectionFinals",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ReInspected = table.Column<bool>(type: "INTEGER", nullable: false),
+                    InspectorName = table.Column<string>(type: "TEXT", nullable: true),
+                    InspectorDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Department = table.Column<string>(type: "TEXT", nullable: true),
+                    DepartmentDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QualityInspectionFinals", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "QualityInspections",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    InspectorName = table.Column<string>(type: "TEXT", nullable: true),
-                    InspectorDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Department = table.Column<string>(type: "TEXT", nullable: true),
-                    DepartmentDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    QualityIdentify = table.Column<int>(type: "INTEGER", nullable: false),
                     ItemMarked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ReInspected = table.Column<bool>(type: "INTEGER", nullable: false),
-                    QualityIdentify = table.Column<int>(type: "INTEGER", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -326,11 +337,13 @@ namespace Haver_Niagara.Data.HNMigrations
                     OldNCRID = table.Column<int>(type: "INTEGER", nullable: true),
                     IsArchived = table.Column<bool>(type: "INTEGER", nullable: true),
                     NCR_Stage = table.Column<int>(type: "INTEGER", nullable: false),
+                    SupplierID = table.Column<int>(type: "INTEGER", nullable: true),
                     PartID = table.Column<int>(type: "INTEGER", nullable: true),
                     OperationID = table.Column<int>(type: "INTEGER", nullable: true),
                     EngineeringID = table.Column<int>(type: "INTEGER", nullable: true),
                     QualityInspectionID = table.Column<int>(type: "INTEGER", nullable: true),
-                    ProcurementID = table.Column<int>(type: "INTEGER", nullable: true)
+                    ProcurementID = table.Column<int>(type: "INTEGER", nullable: true),
+                    QualityInspectionFinalID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -356,9 +369,19 @@ namespace Haver_Niagara.Data.HNMigrations
                         principalTable: "Procurements",
                         principalColumn: "ID");
                     table.ForeignKey(
+                        name: "FK_NCRs_QualityInspectionFinals_QualityInspectionFinalID",
+                        column: x => x.QualityInspectionFinalID,
+                        principalTable: "QualityInspectionFinals",
+                        principalColumn: "ID");
+                    table.ForeignKey(
                         name: "FK_NCRs_QualityInspections_QualityInspectionID",
                         column: x => x.QualityInspectionID,
                         principalTable: "QualityInspections",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_NCRs_Suppliers_SupplierID",
+                        column: x => x.SupplierID,
+                        principalTable: "Suppliers",
                         principalColumn: "ID");
                 });
 
@@ -420,10 +443,21 @@ namespace Haver_Niagara.Data.HNMigrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_NCRs_QualityInspectionFinalID",
+                table: "NCRs",
+                column: "QualityInspectionFinalID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_NCRs_QualityInspectionID",
                 table: "NCRs",
                 column: "QualityInspectionID",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NCRs_SupplierID",
+                table: "NCRs",
+                column: "SupplierID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Parts_SupplierID",
@@ -477,6 +511,9 @@ namespace Haver_Niagara.Data.HNMigrations
 
             migrationBuilder.DropTable(
                 name: "Procurements");
+
+            migrationBuilder.DropTable(
+                name: "QualityInspectionFinals");
 
             migrationBuilder.DropTable(
                 name: "QualityInspections");
