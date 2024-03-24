@@ -15,7 +15,7 @@ namespace Haver_Niagara.Models
         [StringLength(512)]
         public string PushAuth { get; set; }
 
-        [Required(ErrorMessage = "You must select the Staff Member.")]
+        [Required(ErrorMessage = "You must select the Employee.")]
         [Display(Name = "Employee")]
         public int EmployeeID { get; set; }
         public Employee Employee { get; set; }

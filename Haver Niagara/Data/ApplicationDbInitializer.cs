@@ -150,6 +150,23 @@ namespace Haver_Niagara.Data
                         userManager.AddToRoleAsync(user, "Operations").Wait();
                     }
                 }
+                //dorians push notifs test
+                if (userManager.FindByEmailAsync("dorianCodeDemo@outlook.com").Result == null)
+                {
+                    IdentityUser user = new IdentityUser
+                    {
+                        UserName = "dorianCodeDemo@outlook.com",
+                        Email = "dorianCodeDemo@outlook.com",
+                        EmailConfirmed = true
+                    };
+
+                    IdentityResult result = userManager.CreateAsync(user, "password").Result;
+
+                    if (result.Succeeded)
+                    {
+                        userManager.AddToRoleAsync(user, "Admin").Wait();
+                    }
+                }
             }
             catch (Exception ex)
             {

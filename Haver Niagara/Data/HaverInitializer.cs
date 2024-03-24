@@ -63,6 +63,13 @@ namespace Haver_Niagara.Data
                         FirstName = "Purs",
                         LastName = "Chaser",
                         Email = "procurement@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Dorian",
+                        LastName = "Orozco",
+                        Email = "dorianCodeDemo@outlook.com",
+                        Phone = "9058882211"
                     });
                 context.SaveChanges();
             }
