@@ -11,6 +11,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Identity.Client;
 using Microsoft.VisualStudio.Web.CodeGeneration;
 using Microsoft.AspNetCore.Authorization;
+using IronPdf.Extensions.Mvc.Core;
+using IronPdf.Rendering;
+using Microsoft.AspNetCore.Http;
 
 namespace Haver_Niagara.Controllers
 {
@@ -18,10 +21,18 @@ namespace Haver_Niagara.Controllers
     public class NCRsController : Controller
     {
         private readonly HaverNiagaraDbContext _context;
+        //Print PDF
+        private readonly ILogger<HomeController> _logger;
+        private readonly IRazorViewRenderer _viewRenderService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public NCRsController(HaverNiagaraDbContext context)
+        public NCRsController(HaverNiagaraDbContext context, ILogger<HomeController> logger, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            //Print PDF
+            _logger = logger;
+            _viewRenderService = viewRenderService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: NCRs
@@ -63,19 +74,32 @@ namespace Haver_Niagara.Controllers
             
             //Seed Data, not ALL records have defects associated. 
             //For instance NCR #24 is not PART ID 24, therefore in the seed data
-        
 
             if(nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
             {
                 ViewBag.NewNCRID = nCR.NewNCRID;
             }
 
-
-
             if (nCR == null)
             {
                 return NotFound();
             }
+
+            //Print Details View to PDF
+            if (_httpContextAccessor.HttpContext.Request.Method == HttpMethod.Post.Method)
+            {
+                ChromePdfRenderer renderer = new ChromePdfRenderer();
+
+                // Choose screen or print CSS media
+                renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
+
+                // Render View to PDF document
+                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/NCRs/Details.cshtml", nCR);
+                Response.Headers.Add("Content-Disposition", "inline");
+                // Output PDF document
+                return File(pdf.BinaryData, "application/pdf", "NCR Log.pdf");
+            }
+
 
             return View(nCR);
         }

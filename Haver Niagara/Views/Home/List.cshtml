@@ -2,8 +2,6 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
-
-
 ﻿@{
     ViewBag.Title = "NCR List";
 }
@@ -12,6 +10,7 @@
     h1 {
         font-size: 38px;
         font-weight: 600;
+        color: #1C335E;
     }
 
     h2 {
@@ -29,35 +28,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-@* @using (Html.BeginForm("List", "Home", FormMethod.Get))
-        {
-        <p>
-        Filter By Part No. @Html.TextBox("SearchString")
-        Filter By Supplier:
-        @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier")
-        </p>
-        <p>
-        Filter By Status:
-        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
-        {
-        // new SelectListItem { Text = "Active", Value = "true" },
-        new SelectListItem { Text = "Closed", Value = "false" },
-        new SelectListItem { Text = "Active", Value = "", Selected = true }
-        })
-        <label for="SelectedDate">Filter By Date:</label>
-        <input type="date" id="SelectedDate" name="SelectedDate">
-        <input type="submit" value="Search" />
-        <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-secondary">Clear Filters</a>
-        </p>
-        } *@
-
-
-
 <div class="d-flex justify-content-between">
-    <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
-    <p>
-        <a asp-controller="NCRs" asp-action="Create" class="btn btn-outline-primary p-3">Create NCR Report <ion-icon name="document-outline" class="create-btn-icon"></ion-icon></a>
-    </p>
+    <div>
+        <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
+    </div>
+    <div class="d-flex">
+        <div class="me-3">
+            @using (Html.BeginForm("NCRs", "Home", FormMethod.Post, new { @class = "form-class" }))
+            {
+                <button type="submit" class="btn btn-outline-primary p-2">
+                    <ion-icon name="document-outline" class="create-btn-icon"></ion-icon>
+                    <span class="me-1">Print PDF</span>
+
+                </button>
+            }
+        </div>
+        <div>
+            <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
+                <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
+                <span class="me-1">Create Report</span>
+            </a>
+        </div>
+    </div>
 </div>
 <form asp-action="List" asp-controller="Home" method="get">
     <div class="form-horizontal">
