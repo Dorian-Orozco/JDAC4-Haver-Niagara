@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240321054513_Initial")]
+    [Migration("20240324041736_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.17");
 
             modelBuilder.Entity("Haver_Niagara.Models.CAR", b =>
                 {
@@ -98,25 +98,15 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EmployeeRole")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdatedBy")
@@ -277,7 +267,13 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int?>("ProcurementID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("QualityInspectionFinalID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("QualityInspectionID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("SupplierID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
@@ -294,8 +290,13 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasIndex("ProcurementID")
                         .IsUnique();
 
+                    b.HasIndex("QualityInspectionFinalID")
+                        .IsUnique();
+
                     b.HasIndex("QualityInspectionID")
                         .IsUnique();
+
+                    b.HasIndex("SupplierID");
 
                     b.ToTable("NCRs");
                 });
@@ -424,6 +425,27 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("ItemMarked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("QualityIdentify")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("QualityInspections");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.QualityInspectionFinal", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Department")
                         .HasColumnType("TEXT");
 
@@ -436,22 +458,12 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("InspectorName")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("ItemMarked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("QualityIdentify")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("ReInspected")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
 
-                    b.ToTable("QualityInspections");
+                    b.ToTable("QualityInspectionFinals");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Subscription", b =>
@@ -592,9 +604,17 @@ namespace Haver_Niagara.Data.HNMigrations
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "ProcurementID");
 
+                    b.HasOne("Haver_Niagara.Models.QualityInspectionFinal", "QualityInspectionFinal")
+                        .WithOne("NCR")
+                        .HasForeignKey("Haver_Niagara.Models.NCR", "QualityInspectionFinalID");
+
                     b.HasOne("Haver_Niagara.Models.QualityInspection", "QualityInspection")
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "QualityInspectionID");
+
+                    b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierID");
 
                     b.Navigation("Engineering");
 
@@ -605,6 +625,10 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("Procurement");
 
                     b.Navigation("QualityInspection");
+
+                    b.Navigation("QualityInspectionFinal");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Part", b =>
@@ -668,6 +692,11 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.QualityInspection", b =>
+                {
+                    b.Navigation("NCR");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.QualityInspectionFinal", b =>
                 {
                     b.Navigation("NCR");
                 });

@@ -60,6 +60,10 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.CAR)
                     .Include(n=>n.Procurement)
                 .FirstOrDefaultAsync(m => m.ID == id);
+            
+            //Seed Data, not ALL records have defects associated. 
+            //For instance NCR #24 is not PART ID 24, therefore in the seed data
+        
 
             if(nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
             {
