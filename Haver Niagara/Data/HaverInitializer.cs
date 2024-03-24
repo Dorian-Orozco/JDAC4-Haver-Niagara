@@ -163,6 +163,10 @@ namespace Haver_Niagara.Data
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 1, DefectID = 1},
+                    }
                 },
                 new Part
                 {
@@ -175,7 +179,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 2, DefectID = 2},
+                    }
                 },
                 new Part
                 {
@@ -188,7 +196,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 3, DefectID = 3},
+                    }
                 },
                 new Part
                 {
@@ -466,7 +478,8 @@ namespace Haver_Niagara.Data
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
-                        new DefectList {DefectID = 1, PartID = 24}
+                        new DefectList {PartID = 24, DefectID = 1}
+
                     }
                 },
                 new Part
@@ -2839,21 +2852,21 @@ namespace Haver_Niagara.Data
                     new DefectList { DefectID = 9, PartID = 9 },
                     new DefectList { DefectID = 10, PartID = 10 },
                     new DefectList { DefectID = 11, PartID = 11 },
-                    new DefectList { DefectID = 11, PartID = 12 },
-                    new DefectList { DefectID = 11, PartID = 13 },
-                    new DefectList { DefectID = 11, PartID = 14 },
-                    new DefectList { DefectID = 11, PartID = 15 },
-                    new DefectList { DefectID = 11, PartID = 16 },
-                    new DefectList { DefectID = 11, PartID = 17 },
-                    new DefectList { DefectID = 11, PartID = 18 },
-                    new DefectList { DefectID = 11, PartID = 19 },
-                    new DefectList { DefectID = 11, PartID = 20 },
-                    new DefectList { DefectID = 11, PartID = 21 },
-                    new DefectList { DefectID = 11, PartID = 22 },
-                    new DefectList { DefectID = 11, PartID = 23 },
-                    new DefectList { DefectID = 11, PartID = 24 },
-                    new DefectList { DefectID = 11, PartID = 25 },
-                    new DefectList { DefectID = 11, PartID = 26 },
+                    new DefectList { DefectID = 12, PartID = 12 },
+                    new DefectList { DefectID = 13, PartID = 13 },
+                    new DefectList { DefectID = 14, PartID = 14 },
+                    new DefectList { DefectID = 15, PartID = 15 },
+                    new DefectList { DefectID = 16, PartID = 16 },
+                    new DefectList { DefectID = 17, PartID = 17 },
+                    new DefectList { DefectID = 18, PartID = 18 },
+                    new DefectList { DefectID = 19, PartID = 19 },
+                    new DefectList { DefectID = 20, PartID = 20 },
+                    new DefectList { DefectID = 21, PartID = 21 },
+                    new DefectList { DefectID = 22, PartID = 22 },
+                    new DefectList { DefectID = 23, PartID = 23 },
+                    new DefectList { DefectID = 24, PartID = 24 },
+                    new DefectList { DefectID = 23, PartID = 25 },
+                    new DefectList { DefectID = 23, PartID = 26 },
                     new DefectList { DefectID = 11, PartID = 27 },
                     new DefectList { DefectID = 11, PartID = 28 },
                     new DefectList { DefectID = 11, PartID = 29 },
@@ -2863,8 +2876,8 @@ namespace Haver_Niagara.Data
                     new DefectList { DefectID = 11, PartID = 33 },
                     new DefectList { DefectID = 11, PartID = 34 },
                     new DefectList { DefectID = 11, PartID = 35 }
-
                 );
+                
                 context.SaveChanges();
             }
 
