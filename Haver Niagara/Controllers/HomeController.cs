@@ -1,10 +1,13 @@
 ﻿using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Haver_Niagara.Utilities;
+using IronPdf.Extensions.Mvc.Core; //for pdf generator
+using IronPdf.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Globalization;
@@ -13,6 +16,7 @@ using System.Reflection;
 using System.Web.Mvc.Html;
 using X.PagedList;
 
+
 namespace Haver_Niagara.Controllers
 {
     public class HomeController : Controller
@@ -20,14 +24,69 @@ namespace Haver_Niagara.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly HaverNiagaraDbContext _context; // allows for db access
 
-        public HomeController(ILogger<HomeController> logger, HaverNiagaraDbContext context)
+        //for pdf converter
+        private readonly IRazorViewRenderer _viewRenderService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        // CONSTRUCTOR //
+        public HomeController(ILogger<HomeController> logger, HaverNiagaraDbContext context, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _context = context;
+            //for pdf converter
+            _viewRenderService = viewRenderService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
+        // NCR LIST PDF USING RAZOR VIEW NCRs.cshtml in Home Controller
+        public async Task<IActionResult> NCRs(int? page)
+        {
+            var ncrs = _context.NCRs
+             .Where(p => p.IsArchived == false && p.NCR_Status == true) //active ncrs that have not been archived
+             .Include(p => p.Part)
+             .ThenInclude(s => s.Supplier)
+             .Include(p => p.Part.DefectLists)
+             .ThenInclude(d => d.Defect)
+             .AsQueryable();
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            // Convert the query to a paged list
+            var pagedNCRs = await ncrs.ToPagedListAsync(pageNumber, pageSize);
+
+            if (_httpContextAccessor.HttpContext.Request.Method == HttpMethod.Post.Method)
+            {
+                ChromePdfRenderer renderer = new ChromePdfRenderer();
+
+                renderer.RenderingOptions.MarginTop = 10;
+                renderer.RenderingOptions.MarginLeft = 10;
+                renderer.RenderingOptions.MarginRight = 10;
+                renderer.RenderingOptions.MarginBottom = 10;
+
+                // Choose screen or print CSS media
+                renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
+
+                // Render View to PDF document
+                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/Home/NCRs.cshtml", pagedNCRs);
+                Response.Headers.Add("Content-Disposition", "inline");
+                // Output PDF document
+                return File(pdf.BinaryData, "application/pdf", "NCR Log.pdf");
+            }
+            return View(pagedNCRs);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        // MAIN NCR LOG //
         public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter, NCRStage? ncrStage)
         {
+            ViewBag.FormattedIDSortParam = sortOrder == "FormattedID_Asc" ? "FormattedID_Desc" : "FormattedID_Asc";
+            ViewBag.NCRStageSortParam = sortOrder == "NCRStage_Asc" ? "NCRStage_Desc" : "NCRStage_Asc";
             // Sorting Functionality
             ViewBag.POSortParam = sortOrder == "ProductNum_Asc" ? "ProductNum_Desc" : "ProductNum_Asc";
             ViewBag.SupplierSortParam = sortOrder == "Supplier_Asc" ? "Supplier_Desc" : "Supplier_Asc";
@@ -124,6 +183,19 @@ namespace Haver_Niagara.Controllers
             IOrderedQueryable<NCR> sortedNCRs;
             switch (sortOrder)
             {
+                case "FormattedID_Asc":
+                    sortedNCRs = ncrs.OrderBy(x => x.NCR_Date.Year).ThenBy(x => x.ID);
+                    break;
+                case "FormattedID_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(x => x.NCR_Date.Year).ThenByDescending(x => x.ID);
+                    break;
+                case "NCRStage_Asc":
+                    sortedNCRs = ncrs.OrderBy(x => x.NCR_Stage);
+                    break;
+                case "NCRStage_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(x => x.NCR_Stage);
+                    break;
+                // Existing sort cases
                 case "ProductNum_Desc":
                     sortedNCRs = ncrs.OrderByDescending(b => b.Part.ProductNumber);
                     break;
@@ -181,7 +253,7 @@ namespace Haver_Niagara.Controllers
             var stagesToInclude = new[]
             {
                 NCRStage.Engineering,
-                NCRStage.Purchasing,
+                NCRStage.Operations,
                 NCRStage.Procurement,
                 NCRStage.QualityRepresentative_Final
             };
@@ -190,6 +262,7 @@ namespace Haver_Niagara.Controllers
             return View(pagedNCRs);
         }
 
+        // ARCHIVED NCR LOG //
         public IActionResult ListArchive(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter)
         {
             // Sorting Functionality
@@ -360,10 +433,10 @@ namespace Haver_Niagara.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
 
         private string GetDisplayName(Enum enumValue)
         {
