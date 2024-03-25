@@ -63,7 +63,7 @@ namespace Haver_Niagara.Controllers
                 {
                     _context.Add(supplier);
                     await _context.SaveChangesAsync();
-                    return Redirect(ViewData["returnURL"].ToString());
+                    return Json(new { success = true });
                 }
             }
             catch(DbUpdateException dex)

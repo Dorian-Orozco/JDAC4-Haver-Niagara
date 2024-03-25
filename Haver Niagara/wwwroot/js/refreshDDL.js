@@ -16,7 +16,7 @@ function refreshDDL(ddl_ID, URI, showNoDataMsg, noDataMsg, addDefault, defaultTe
                 theDDL.empty();
                 if (addDefault) {
                     if (defaultText == null || jQuery.isEmptyObject(defaultText)) {
-                        defaultText = 'Select'
+                        defaultText = 'Select Supplier'
                     };
                     theDDL.append($('<option/>', {
                         value: "",

@@ -21,9 +21,10 @@ namespace Haver_Niagara.Controllers
         }
 
         // GET: Defects
-        public async Task<IActionResult> Index()
+        public async Task <IActionResult> Index()
         {
-              return View(await _context.Defects.ToListAsync());
+            return View(await _context.Defects.ToListAsync());
+
         }
 
         // GET: Defects/Details/5
@@ -63,7 +64,7 @@ namespace Haver_Niagara.Controllers
                 {
                     _context.Add(defect);
                     await _context.SaveChangesAsync();
-                    //return Redirect(ViewData["returnURL"].ToString());
+                    return Json(new { success = true });
                 }
             }
             catch (DbUpdateException dex)
@@ -128,7 +129,7 @@ namespace Haver_Niagara.Controllers
                 {
                     _context.Update(defect);
                     await _context.SaveChangesAsync();
-                    return Redirect(ViewData["returnURL"].ToString());
+                    //return Redirect(ViewData["returnURL"].ToString());
                 }
                 catch (DbUpdateConcurrencyException)
                 {
