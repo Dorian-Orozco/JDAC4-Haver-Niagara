@@ -1607,7 +1607,7 @@ namespace Haver_Niagara.Data
                 context.SaveChanges();
             }
 
-            // PROCUREMENT
+            // PROCUREMENT NCRs 1- 23 needed bc they are complete
 
             if (!context.Procurements.Any())
             {
@@ -1621,7 +1621,7 @@ namespace Haver_Niagara.Data
                         CarrierPhone = "123-456-7890",
                         AccountNumber = 987654321,
                         //DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
-                        ToReceiveDate = DateTime.Parse("2024-03-09"),
+                        ToReceiveDate = DateTime.Parse("2010-01-01"),
                         SuppReturnCompletedSAP = true,
                         ExpectSuppCredit = true,
                         BillSupplier = false
@@ -1632,7 +1632,7 @@ namespace Haver_Niagara.Data
                         ID = 2,
                         ReturnRejected = false,
                         DisposeOnSite = true,
-                        ToReceiveDate = DateTime.Parse("2024-03-10"),
+                        ToReceiveDate = DateTime.Parse("2011-04-15"),
                         SuppReturnCompletedSAP = false,
                         ExpectSuppCredit = false,
                         BillSupplier = true
@@ -1647,7 +1647,7 @@ namespace Haver_Niagara.Data
                         CarrierPhone = "320-456-7890",
                         AccountNumber = 421654321,
                         DisposeOnSite = true, 
-                        ToReceiveDate = DateTime.Parse("2017-01-09"),
+                        ToReceiveDate = DateTime.Parse("2013-08-22"),
                         SuppReturnCompletedSAP = true,
                         ExpectSuppCredit = true,
                         BillSupplier = false
@@ -1661,7 +1661,48 @@ namespace Haver_Niagara.Data
                         CarrierPhone = "123-456-7890",
                         AccountNumber = 987654321,
                         //DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
-                        ToReceiveDate = DateTime.Parse("2011-04-20"),
+                        ToReceiveDate = DateTime.Parse("2014-12-07"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 5,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        //DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
+                        ToReceiveDate = DateTime.Parse("2015-06-30"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+					new Procurement
+					{
+						ID = 6,
+						ReturnRejected = true,
+						RMANumber = 14245,
+						CarrierName = "Carrier B",
+						CarrierPhone = "320-456-7890",
+						AccountNumber = 421654321,
+						DisposeOnSite = true,
+						ToReceiveDate = DateTime.Parse("2016-09-14"),
+						SuppReturnCompletedSAP = true,
+						ExpectSuppCredit = true,
+						BillSupplier = false
+					},
+					new Procurement
+                    {
+                        ID = 7,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        ToReceiveDate = DateTime.Parse("2017-11-25"),
                         SuppReturnCompletedSAP = true,
                         ExpectSuppCredit = true,
                         BillSupplier = false
@@ -2576,13 +2617,15 @@ namespace Haver_Niagara.Data
 
                         NCR_Date = DateTime.Parse("2024-01-15"),
                         NCR_Status = false,
-                        NCR_Stage = (NCRStage)5,
+                        NCR_Stage = (NCRStage)5, // Complete
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                         Part = context.Parts.FirstOrDefault(p => p.ID == 23),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 23),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 23),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 23)
-                    },
+						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1), 
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 23),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p=>p.ID == 6)
+					},
 
                     new NCR
                     {
@@ -2595,9 +2638,8 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1), //TESTING PROCUREMENT
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24),
-                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p=>p.ID == 6)
                     },
                     new NCR
                     {
@@ -2703,7 +2745,7 @@ namespace Haver_Niagara.Data
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
 						Part = context.Parts.FirstOrDefault(p => p.ID == 32),
                         //Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 32),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 32),
+                        //Operation = context.Operations.FirstOrDefault(p => p.ID == 32),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 32)
                     },
 					new NCR
@@ -2716,7 +2758,7 @@ namespace Haver_Niagara.Data
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
 						Part = context.Parts.FirstOrDefault(p => p.ID == 33),
                         //Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 33),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 33),
+                        //Operation = context.Operations.FirstOrDefault(p => p.ID == 33),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 33)
                     },
 					new NCR
@@ -2725,11 +2767,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-03-06"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)1,
-                        Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
+						NCR_Stage = (NCRStage)1,  // Engineering Stage
+						Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
 						Part = context.Parts.FirstOrDefault(p => p.ID == 34),
                         //Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 34),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 34),
+                        //Operation = context.Operations.FirstOrDefault(p => p.ID == 34),
 						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 34)
 					},
 					new NCR
@@ -2738,11 +2780,11 @@ namespace Haver_Niagara.Data
 
 						NCR_Date = DateTime.Parse("2024-03-08"),
 						NCR_Status = true,
-						NCR_Stage = (NCRStage)1,
+						NCR_Stage = (NCRStage)1, // Engineering Stage
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
 						Part = context.Parts.FirstOrDefault(p => p.ID == 35),
                         //Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 35),
-                        Operation = context.Operations.FirstOrDefault(p => p.ID == 35),
+                        //Operation = context.Operations.FirstOrDefault(p => p.ID == 35),
 						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 35)
 					});
                 context.SaveChanges();
