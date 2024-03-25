@@ -1,12 +1,17 @@
 using Haver_Niagara.Data;
 using Haver_Niagara.Utilities;
 using Haver_Niagara.ViewModels;
+using IronPdf.Extensions.Mvc.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//IRON PDF LICENSE FREE TRIAL
+License.LicenseKey = "IRONSUITE.DAWAN1.NCSTUDENTS.NIAGARACOLLEGE.CA.19983-E2436A3390-GUKXO-Y6D22O2WS4M6-FNPQMAV7UEUH-45YA4UQZKEFD-IWRMLNAPXJFD-YTM5TTW22GCR-JM4MZWBUGGED-UDGDTV-T3TTNI6KTTOMEA-DEPLOYMENT.TRIAL-VSMLVI.TRIAL.EXPIRES.23.APR.2024";
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -60,11 +65,14 @@ builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
+
+// Register IRazorViewRenderer here
+builder.Services.AddSingleton<IRazorViewRenderer, RazorViewRenderer>();
 
 //For email service configuration
 builder.Services.AddSingleton<IEmailConfiguration>(builder.Configuration
     .GetSection("EmailConfiguration").Get<EmailConfiguration>());
-
 
 //For the Identity System
 builder.Services.AddTransient<IEmailSender, EmailSender>();
