@@ -193,14 +193,14 @@
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" id="nowAddDefect" data-bs-toggle="modal" data-bs-target="#addDefectModal" type="button">&#x2795;</button>
                                 </div>
-                            <select id="defectID" name="SelectedDefectID" class="form-control" required>
-                                <option value="0">Select a Defect</option>
-                                @foreach (var defect in ViewBag.DefectList)
-                                {
-                                    <option value="@defect.Value">@defect.Text</option>
-                                }
-                            </select>
-                        </div>
+                                <select id="defectID" name="SelectedDefectID" class="form-control" required>
+                                    <option value="0">Select a Defect</option>
+                                    @foreach (var defect in ViewBag.DefectList)
+                                    {
+                                        <option value="@defect.Value">@defect.Text</option>
+                                    }
+                                </select>
+                            </div>
                             <span class="text-danger"></span>
                         </div>
                     </dd>
@@ -748,10 +748,11 @@
 
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
-     @* QUICKLY ADD OPTION TO SUPPLIER SELECT DROP DOWN LIST *@
-     <script src="~/js/refreshDDL.js"></script>
+    @* QUICKLY ADD OPTION TO SUPPLIER SELECT DROP DOWN LIST *@
+    <script src="~/js/refreshDDL.js"></script>
     <script type="text/javascript">
         $('#submitSupplierCreate').click(function (event) {
             event.preventDefault();
@@ -766,7 +767,7 @@
                         $('#addSupplierModal').modal('hide');
                     },
                     error: function (xhr) { //Note: xhr is the XMLHttpRequest
-                        var errorMessages = []; 
+                        var errorMessages = [];
                         switch (xhr.status) {
                             case 401:
                                 errorMessages.push("You must be logged in first.");
@@ -782,15 +783,15 @@
                         //This checks if there are any elements with some content
                         //and if not then it provides a default feedback message.
                         if (!errorMessages.some((str) => str !== "")) {
-                          errorMessages.push("Error: Unable to complete operation");
+                            errorMessages.push("Error: Unable to complete operation");
                         }
                         //Put the messages in the ErrorList ul contained in the 'ValidaitonSummary' div.
                         var ul = document.getElementById("ErrorList");
                         for (var i = 0; i < errorMessages.length; i++) {
-                          var errorMessage = errorMessages[i];
-                          var li = document.createElement("li");
-                          li.innerHTML = errorMessage;
-                          ul.appendChild(li);
+                            var errorMessage = errorMessages[i];
+                            var li = document.createElement("li");
+                            li.innerHTML = errorMessage;
+                            ul.appendChild(li);
                         }
                     }
                 });
@@ -807,7 +808,7 @@
             //Empty out the list of validation errors if there are any
             var ul = document.getElementById("ErrorList");
             while (ul.firstChild) {
-              ul.removeChild(ul.firstChild);
+                ul.removeChild(ul.firstChild);
             }
         }
     </script>
@@ -870,14 +871,14 @@
                 ul.removeChild(ul.firstChild);
             }
         }
-    <script>
-        document.getElementById("cancel-button").addEventListener("click", function (event) {
-            if (!confirm("Are you sure you want to cancel?")) {
-                event.preventDefault();
-            }
-        });
+        <script>
+            document.getElementById("cancel-button").addEventListener("click", function (event) {
+                if (!confirm("Are you sure you want to cancel?")) {
+                    event.preventDefault();
+                }
+            });
     </script>
-    }
+}
 
 
 

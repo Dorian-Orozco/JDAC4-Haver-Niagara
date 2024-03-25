@@ -90,7 +90,7 @@
                         <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
                         </div> *@
                             <div class="form-group mt-1">
-                                <label asp-for="SupplierID" class="control-label"></label>
+                                <label asp-for="Supplier" class="control-label"></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-secondary" id="nowAddSupplier" data-bs-toggle="modal" data-bs-target="#addSupplierModal" type="button">&#x2795;</button>
@@ -100,6 +100,17 @@
                                     </select>
                                 </div>
                             </div>
+                         @*    <div class="form-group mt-1">
+                                <label asp-for="Part.SupplierID" class="control-label"></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" id="nowAddSupplier" data-bs-toggle="modal" data-bs-target="#addSupplierModal" type="button">&#x2795;</button>
+                                    </div>
+                                    <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
+                                        <option value="">Select Supplier</option>
+                                    </select>
+                                </div>
+                            </div> *@
                         </dd>
                     </dl>
                 </div>
@@ -1053,7 +1064,7 @@
             document.getElementById("createSupplierForm").reset();//to clear the data in the popup form
             ClearErrors();
             var selectedOption = $('#SupplierID').val();//Return to the current selected value
-            refreshDDL('SupplierID', '/Patient/GetSuppliers/' + selectedOption, false, null, true, 'None', true);
+            refreshDDL('SupplierID', '/NCRs/GetSuppliers/' + selectedOption, false, null, true, 'None', true);
         });
         function ClearErrors() {
             //Empty out the list of validation errors if there are any

@@ -56,6 +56,7 @@ namespace Haver_Niagara.Controllers
             }
 
             var nCR = await _context.NCRs
+                .Include(n=> n.Supplier)
                 .Include(n => n.Engineering)
                 .Include(n => n.QualityInspection)
                 .Include(n => n.Part)
@@ -201,6 +202,7 @@ namespace Haver_Niagara.Controllers
 
             //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
+                .Include(n=> n.Supplier)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Medias)
                 .Include(n => n.Part)
@@ -222,10 +224,14 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
+
             ///Populate list of defects
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "Name");
+
             return View(nCR);
         }
 

@@ -288,6 +288,7 @@ namespace Haver_Niagara.Controllers
 
             var originalNCRs = _context.NCRs
                 .Where(p => p.IsArchived == true)
+                .Include(p=> p.Supplier)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part.DefectLists)
@@ -296,6 +297,7 @@ namespace Haver_Niagara.Controllers
 
             var ncrs = _context.NCRs
                 .Where(p => p.IsArchived == true)
+                .Include(p => p.Supplier)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part.DefectLists)
@@ -410,6 +412,7 @@ namespace Haver_Niagara.Controllers
         public async Task<IActionResult> Index()
         {
             var ncrs = await _context.NCRs
+                .Include(n=>n.Supplier)
                 .Include(n => n.Part)
                     .ThenInclude(p => p.Supplier)
                 .Where(n => n.NCR_Status == true)

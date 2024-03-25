@@ -74,16 +74,7 @@
                         Supplier Name
                     </dt>
                     <dd class="mt-1">
-                        @* If there is values, then display it, else display error *@
-                        @if (Model.Part != null && Model.Part.Supplier != null)
-                        {
-                            @Model.Part.Supplier.Name
-                            ;
-                        }
-                        else
-                        {
-                            <span>Supplier Not Assigned</span>
-                        }
+                        @Html.DisplayFor(model => model.Supplier.Name)
                     </dd>
                 </dl>
             </div>

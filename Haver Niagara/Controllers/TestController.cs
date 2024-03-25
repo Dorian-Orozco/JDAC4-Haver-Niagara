@@ -10,11 +10,11 @@ using Haver_Niagara.Models;
 
 namespace Haver_Niagara.Controllers
 {
-    public class NCReportController : Controller
+    public class TestController : Controller
     {
         private readonly HaverNiagaraDbContext _context;
 
-        public NCReportController(HaverNiagaraDbContext context)
+        public TestController(HaverNiagaraDbContext context)
         {
             _context = context;
         }
