@@ -89,13 +89,9 @@ namespace Haver_Niagara.Controllers
 
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
 
-
-            ///Populate list of defects
-            //ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
-
             // Populate supplier dropdown list
-            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
-
+            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name"); //added this change so suppliers load in properly when first creating, it should not affect anything
+                                                                                    //try removing it if it does
 
             //Passes in the OLD NCRID
             ViewBag.OldNCRID = oldNCRID;
