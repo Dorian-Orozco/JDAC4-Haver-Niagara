@@ -178,8 +178,11 @@ namespace Haver_Niagara.Controllers
                 //Images function to save
                 if (files != null && files.Count > 0)               //checks for multiple images/files
                 {                                                   //sends to function where they are updated
-                    await OnPostUploadAsync(files, nCR.ID, links);  //through the current Ncr Id, it gets the part ID and from
-                }                                                   //there it creates them into new objects and associates them
+                    await OnPostUploadAsync(files, nCR.ID, links);  
+                }
+                TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here To View: {nCR.FormattedID}</a>";
+
+
                 return RedirectToAction("List", "Home");            //to that part => ncr. 
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
@@ -350,8 +353,6 @@ namespace Haver_Niagara.Controllers
                                 Console.WriteLine("Inner Exception: " + innerException.Message);
                                 innerException = innerException.InnerException;
                             }
-
-                            // Handle the exception appropriately
                         }
 
                     }
@@ -538,6 +539,7 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
+                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
                 return RedirectToAction("List", "Home");
             }
             //Populate viewbag for list of suppliers
