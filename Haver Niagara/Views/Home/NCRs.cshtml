@@ -5,13 +5,14 @@
 }
 
 @{
-    Layout = null;
+    // Layout = null;
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 @* PRINT TO PDF DOCUMENT *@
 
-<h1>Non-Conformance Log</h1>
+<h1 class="container mt-4">Non-Conformance Log</h1>
 
-<table class="table">
+<table class="table container">
     <thead>
         <tr>
             <th>
@@ -45,7 +46,7 @@
                     @Html.DisplayFor(modelItem => item.Part.SAPNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Supplier.Name)
+                    @Html.DisplayFor(modelItem => item.Part.Supplier.Name)
                 </td>
 
                 <td>

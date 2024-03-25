@@ -71,37 +71,37 @@
         <div class="collapse" id="collapseFilter">
             <div class="card card-body bg-light mb-2 d-flex">
 
-                <div class="row ms-5">
-                    <div class="col-sm-3">
+                <div class="row mt-2 mb-2">
+                    <div class="col-sm">
                         <div class="form-group">
                             <label class="control-label">Date Created:</label>
                             <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
                         </div>
                     </div>
-                    <div class="col-sm-3">
+
+                    <div class="col-sm">
                         <div class="form-group">
                             <label class="control-label">Supplier:</label>
                             @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm">
                         <div class="form-group">
-                            <label class="control-label">Part Number:</label>
+                            <label class="control-label">Part Number or NCR #:</label>
                             @Html.TextBox("SearchString", null, new { @class = "form-control" })
                         </div>
                     </div>
-                    <div class="col-sm-3 mt-4">
+                    <div class="col-sm-auto mt-4">
                         <div class="form-group">
-                            <button type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary me-2">Filter</button>
-                            <a href="@Url.Action("ListArchive", "Home")" class="btn btn-outline-dark">Clear</a>
-
+                            <button type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2">Search</button>
+                            <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+
     <table class="table table-hover">
         <thead>
             <tr>
