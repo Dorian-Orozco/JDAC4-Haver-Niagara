@@ -146,7 +146,7 @@ namespace Haver_Niagara.Data
                 context.SaveChanges();
             }
 
-            // PARTS: ONE FOR EA. NCR
+            // PARTS: ONE FOR EA. 
 
             if (!context.Parts.Any())
             {
@@ -660,7 +660,7 @@ namespace Haver_Niagara.Data
                 byte[] faultyPrint = File.ReadAllBytes("TemporaryImages/tube.jpg");
                 byte[] tube = File.ReadAllBytes("TemporaryImages/faultyPrint.jpg");
 
-                //To have an NCR with multiple pictures assigned, simply create a new media
+                //To have an .ncr with multiple pictures assigned, simply create a new media
                 //And Under Part, set it to the same ID, (see the first 2)..
 
                 context.Medias.AddRange(
@@ -2596,7 +2596,8 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1), //TESTING PROCUREMENT
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24)
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p=>p.ID == 6)
                     },
                     new NCR
                     {
@@ -2610,7 +2611,8 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 25),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 25),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 2), //TESTING PROCUREMENT
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25)
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
                     },
 					new NCR
 					{
