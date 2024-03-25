@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240324041736_Initial")]
+    [Migration("20240324234107_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -49,13 +49,14 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Defects");
                 });
@@ -119,6 +120,9 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
                         .IsUnique();
 
                     b.ToTable("Employees");
@@ -501,9 +505,13 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Suppliers");
                 });

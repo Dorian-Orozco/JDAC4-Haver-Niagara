@@ -62,7 +62,7 @@ namespace Haver_Niagara.Data
             //modelBuilder.Entity<DefectList>()
             //    .HasKey(d => new { d.PartID, d.DefectID });
 
-        
+
             modelBuilder.Entity<Operation>()
                 .Property(n => n.ID)
                 .ValueGeneratedOnAdd();
@@ -90,6 +90,21 @@ namespace Haver_Niagara.Data
             //Unique Constraint for Email Addresses
             modelBuilder.Entity<Employee>()
                 .HasIndex(a => new { a.Email })
+                .IsUnique();
+
+            //Unique Constraint for Phone Number 
+            modelBuilder.Entity<Employee>()
+                .HasIndex(a => new { a.Phone})
+                .IsUnique();
+
+            //Unique Constraint for Defect Name
+            modelBuilder.Entity<Defect>()
+                .HasIndex(a => new { a.Name})
+                .IsUnique();
+
+            //Unique Constraint for Supplier Name
+            modelBuilder.Entity<Supplier>()
+                .HasIndex(a => new { a.Name})
                 .IsUnique();
 
         }

@@ -46,13 +46,14 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Defects");
                 });
@@ -116,6 +117,9 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
                         .IsUnique();
 
                     b.ToTable("Employees");
@@ -498,9 +502,13 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Suppliers");
                 });
