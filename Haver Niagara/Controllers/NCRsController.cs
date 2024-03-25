@@ -59,6 +59,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n=> n.Supplier)
                 .Include(n => n.Engineering)
                 .Include(n => n.QualityInspection)
+                .Include(n=>n.QualityInspectionFinal)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Supplier)
                 .Include(n => n.Part)
@@ -211,6 +212,7 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.DefectLists)
                         .ThenInclude(n => n.Defect)
                 .Include(n => n.QualityInspection)
+                .Include(n=>n.QualityInspectionFinal)
                 .Include(n => n.Engineering)
                 .Include(n => n.Operation)
                     .ThenInclude(n => n.CAR)
@@ -243,7 +245,7 @@ namespace Haver_Niagara.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
                     NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation, Procurement procurement, QualityInspectionFinal qualityInspectionFinal,
-                    List<IFormFile> files, List<string> links, int SelectedDefectID, Defect defect)
+                    List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
             nCR.ID = id;
             if (id != nCR.ID)
@@ -263,6 +265,7 @@ namespace Haver_Niagara.Controllers
                             .ThenInclude(n => n.DefectLists)
                                 .ThenInclude(n => n.Defect)
                         .Include(n => n.QualityInspection)
+                        .Include(n=>n.QualityInspectionFinal)
                         .Include(n => n.Engineering)
                         .Include(n => n.Operation)
                             .ThenInclude(n => n.FollowUp)
@@ -304,7 +307,7 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.Description = part.Description;
                         existingNCR.Part.SupplierID = part.SupplierID;
                         existingNCR.Part.DefectLists.Clear(); //removed existing defect 
-                        if (SelectedDefectID != 0)  //id is passed through and assigned
+                        if (SelectedDefectID != 0)
                         {
                             var newDefectList = new DefectList { PartID = existingNCR.Part.ID, DefectID = SelectedDefectID };
                             existingNCR.Part.DefectLists.Add(newDefectList);
@@ -582,7 +585,7 @@ namespace Haver_Niagara.Controllers
         private void PopulateDropDownLists(NCR ncr = null)
         {
             //Sets the view data for supplierID from the method which retrieves it
-            ViewData["SupplierID"] = SupplierSelectList(ncr?.SupplierID);
+            ViewData["SupplierID"] = SupplierSelectList(ncr?.NCRSupplierID);
 
             //check to see if it exists 
             if(ncr.Part != null && ncr.Part.DefectLists != null)

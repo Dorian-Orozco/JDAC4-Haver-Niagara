@@ -2596,7 +2596,8 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1), //TESTING PROCUREMENT
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24)
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p=>p.ID == 6)
                     },
                     new NCR
                     {
@@ -2610,7 +2611,8 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 25),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 25),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 2), //TESTING PROCUREMENT
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25)
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
                     },
 					new NCR
 					{
@@ -2623,8 +2625,9 @@ namespace Haver_Niagara.Data
 						Part = context.Parts.FirstOrDefault(p => p.ID == 3),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 26),
 						Operation = context.Operations.FirstOrDefault(p => p.ID == 26),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26)
-					},
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 8)
+                    },
 					new NCR
 					{
 						ID = 27,

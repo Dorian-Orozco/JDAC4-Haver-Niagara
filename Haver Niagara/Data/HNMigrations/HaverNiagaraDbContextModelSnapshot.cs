@@ -244,6 +244,9 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<bool?>("IsArchived")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("NCRSupplierID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("NCR_Date")
                         .HasColumnType("TEXT");
 
@@ -274,13 +277,12 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int?>("QualityInspectionID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("SupplierID")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("ID");
 
                     b.HasIndex("EngineeringID")
                         .IsUnique();
+
+                    b.HasIndex("NCRSupplierID");
 
                     b.HasIndex("OperationID")
                         .IsUnique();
@@ -296,8 +298,6 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasIndex("QualityInspectionID")
                         .IsUnique();
-
-                    b.HasIndex("SupplierID");
 
                     b.ToTable("NCRs");
                 });
@@ -597,6 +597,10 @@ namespace Haver_Niagara.Data.HNMigrations
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "EngineeringID");
 
+                    b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("NCRSupplierID");
+
                     b.HasOne("Haver_Niagara.Models.Operation", "Operation")
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "OperationID");
@@ -616,10 +620,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasOne("Haver_Niagara.Models.QualityInspection", "QualityInspection")
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "QualityInspectionID");
-
-                    b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierID");
 
                     b.Navigation("Engineering");
 

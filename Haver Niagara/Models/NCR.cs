@@ -60,8 +60,8 @@ namespace Haver_Niagara.Models
 
         // PART ENTITY //
         [ForeignKey("Supplier")]
-        public int? SupplierID { get; set; }
-        public Supplier Supplier { get; set; }
+        public int? NCRSupplierID { get; set; }
+        public Supplier? Supplier { get; set; }
 
         // PART ENTITY //
         [ForeignKey("Part")]
