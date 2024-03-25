@@ -1,329 +1,323 @@
 ﻿@model IEnumerable<Haver_Niagara.Models.NCR>
 
 ﻿@{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
+
+@* layout with no container *@
+@* @{
+	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+} *@
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-	h1 {
-		font-size: 38px;
-		font-weight: 600;
-	}
+    h1 {
+        font-size: 38px;
+        font-weight: 600;
+    }
 
-	h2 {
-		font-size: 18px;
-		font-weight: 600;
-	}
+    h2 {
+        font-size: 18px;
+        font-weight: 600;
+    }
 
-	h3 {
-		font-size: 100px;
-		font-weight: 600;
-	}
+    h3 {
+        font-size: 100px;
+        font-weight: 600;
+    }
 
-	.body {
-		color: #0C2340;
-		font-family: Montserrat, sans-serif;
-	}
+    .body {
+        color: #0C2340;
+        font-family: Montserrat, sans-serif;
+    }
 
-	.button-container {
-		display: flex;
-		justify-content: flex-end;
-		margin-top: 1rem;
-	}
+    .button-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+    }
 
-	.button {
-		background-color: #0d6efd;
-		border: none;
-		border-radius: 5px;
-		color: white;
-		font-weight: 700;
-		height: 45px;
-		margin-left: 1rem;
-		padding: 10px;
-		text-align: center;
-		width: 138px;
-	}
+    .button {
+        background-color: #0d6efd;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-weight: 700;
+        height: 45px;
+        margin-left: 1rem;
+        padding: 10px;
+        text-align: center;
+        width: 138px;
+    }
 
-	.card {
-		background-color: white;
-		border-radius: 10px;
-		box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-		flex-basis: 32%;
-		padding: 1rem;
-	}
+    .card-row {
+        padding: 0 20px;
+    }
 
-	.card-content {
-		align-items: center;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		justify-content: center;
-	}
+    .card {
+        background-color: #E7E7E7;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        flex-basis: 32%;
+        padding: 1rem;
+    }
 
-	.dashboard-container {
-		background-color: #E7E7E7;
-		border-radius: 20px;
-		margin: 0 auto;
-		max-width: 1000px;
-		padding: 2rem;
-		width: 100%;
-	}
+    .card-content {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+    }
 
-	.dashboard-row {
-		align-items: center;
-		display: flex;
-		justify-content: space-between;
-		margin-bottom: 1rem;
-	}
+    .dashboard-bg {
+        background-color: #E7E7E7;
+    }
 
-	.disclaimer-txt {
-		font-size: 12px;
-		text-align: right;
-		margin-left: 23rem;
-	}
+    .dashboard-container {
+        background-color: #E7E7E7;
+        border-radius: 20px;
+        margin: 0 auto;
+        max-width: 1000px;
+        padding: 2rem;
+        width: 100%;
+    }
 
-	.filter-container {
-		display: flex;
-		flex-basis: 28%;
-		flex-direction: column;
-		margin-right: 1rem;
-	}
+    .dashboard-row {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
 
-	.page-title {
-		flex-basis: 50%;
-		text-align: left;
-	}
+    .disclaimer-txt {
+        font-size: 12px;
+        text-align: right;
+        margin-left: 23rem;
+    }
 
-	.search-button {
-		align-self: flex-end;
-		background-color: #0d6efd;
-		border: none;
-		border-radius: 5px;
-		color: white;
-		flex-basis: 20%;
-		font-weight: 700;
-		height: 45px;
-		width: 138px;
-	}
+    .filter-container {
+        display: flex;
+        flex-basis: 28%;
+        flex-direction: column;
+        margin-right: 1rem;
+    }
 
-	table {
-		border-collapse: collapse;
-		width: 100%;
-	}
+    .page-title {
+        flex-basis: 50%;
+        text-align: left;
+    }
 
-	th, td {
-		border: 1px solid #dddddd;
-		font-size: 12px;
-		padding: 12px;
-		text-align: left;
-	}
+    .search-button {
+        align-self: flex-end;
+        background-color: #0d6efd;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        flex-basis: 20%;
+        font-weight: 700;
+        height: 45px;
+        width: 138px;
+    }
 
-	th {
-		background-color: #0d6efd;
-		color: white;
-	}
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-	tr:nth-child(even) {
-		background-color: #f2f2f2
-	}
+    th, td {
+        border: 1px solid #dddddd;
+        font-size: 12px;
+        padding: 12px;
+        text-align: left;
+    }
 
-	.wide-card {
-		align-items: flex-start;
-		background-color: white;
-		border-radius: 5px;
-		box-shadow: 0 2px 5px rgba(0,p,0,0.1);
-		display: flex;
-		flex-basis: 100%;
-		flex-direction: column;
-		padding: 1rem;
-	}
+    th {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+
+    .wide-card {
+        align-items: flex-start;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,p,0,0.1);
+        display: flex;
+        flex-basis: 100%;
+        flex-direction: column;
+        padding: 1rem;
+    }
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-<div class="dashboard-container container mt-5">
-	<div class="dashboard-row">
-		<h1 class="page-title">NCR Dashboard</h1>
-	</div>
+<div class="mt-2">
+    <div class="dashboard-row d-flex">
+        <h1 class="page-title">NCR Dashboard</h1>
+        <div>
+            <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
+                <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
+                <span class="me-1">Create Report</span>
+            </a>
+        </div>
+    </div>
 
-	@*     <div class="dashboard-row">
-	<div class="filter-container">
-	<label for="dateFilter">Select a Month:</label>
-	<input type="month" id="dateFilter">
-	</div>
+    <div class="dashboard-row card-row">
+        <div class="card border-primary border">
+            <a asp-controller="Home" asp-action="List">
+                <div class="card-content">
+                    <h2>Current Active</h2>
+                    <h3 id="openNCRCount"></h3>
+                    <p>This year</p>
+                </div>
+            </a>
+        </div>
 
-	<div class="filter-container">
-	<label for="status">Status:</label>
-	<select id="status">
-	<option value="all">Any Status</option>
-	<option value="option1">Open</option>
-	<option value="option2">Closed</option>
-	</select>
-	</div>
+        <div class="card">
+            <div class="card-content">
+                <h2>Current Closed</h2>
+                <h3 id="closedNCRCount"></h3>
+                <p>This year</p>
+            </div>
+        </div>
 
-	<div class="filter-container">
-	<label for="awaitStage">Stage:</label>
-	<select id="awaitStage">
-	<option value="all">Any Stage:</option>
-	<option value="option1">Quality</option>
-	<option value="option2">Engineering</option>
-	<option value="option3">Purchasing</option>
-	</select>
-	</div>
+        <div class="card">
+            <div class="card-content">
+                <h2>NCR's in Engineering Stage</h2>
+                <h3>5</h3>
+                <p>Currently</p>
+            </div>
+        </div>
+    </div>
 
-	<button class="search-button">Search</button>
-	</div>
-	*@
-	<div class="dashboard-row">
-		<div class="card">
-			<div class="card-content">
-				<h2>Total Open NCR's</h2>
-				<h3 id="openNCRCount"></h3>
-				<p>This year</p>
-			</div>
-		</div>
+    <div class="dashboard-row">
+        <div class="wide-card">
+            <h2>Active NCR Reports (Most Urgent)</h2>
 
-		<div class="card">
-			<div class="card-content">
-				<h2>Total Closed NCR's</h2>
-				<h3 id="closedNCRCount"></h3>
-				<p>This year</p>
-			</div>
-		</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>NCR Number</th>
+                        <th>Date Created</th>
+                        <th>Part Number</th>
+                        <th>Supplier</th>
+                        <th>Stage</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-		<div class="card">
-			<div class="card-content">
-				<h2>NCR's in Engineering Stage</h2>
-				<h3>5</h3>
-				<p>Currently</p>
-			</div>
-		</div>
-	</div>
+                @* Table Contents *@
+                <tbody>
+                    @foreach (var item in Model)
+                    {                           //Added some validation, will remove later.
+                        <tr>
+                            <td class="text-center">
+                                @if (!item.NCR_Status)
+                                {
+                                    <button class="status-btn closed" title="Closed"></button>
+                                }
+                                else
+                                {
+                                    <button class="status-btn active" title="Active"></button>
+                                }
+                            </td>
+                            @{
+                                int year = DateTime.Now.Year;
+                            }
+                            <td class="text-center">@item.FormattedID</td>
+                            <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
+                            <td class="text-center">@(item.Part != null ? item.Part.ProductNumber.ToString() : "Product number not found.")</td>
+                            <td>@(item.Part != null && item.Part.Supplier != null ? item.Part.Supplier.Name : "Supplier name not found.")</td>
+                            <td><p class="stage border" id="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
+                            <td class="text-center">
+                                <div>
+                                    <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
+                                        <ion-icon name="eye"></ion-icon>
+                                    </a>
+                                    <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
+                                        <ion-icon name="create"></ion-icon>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-	<div class="dashboard-row">
-		<div class="wide-card">
-			<h2>Preview of Open NCR's</h2>
-
-			<table>
-				<thead>
-					<tr>
-						<th>Status</th>
-						<th>NCR Number</th>
-						<th>Date Created</th>
-						<th>Part Number</th>
-						<th>Supplier</th>
-						<th>Stage</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-
-				@* Table Contents *@
-				<tbody>
-					@foreach (var item in Model)
-					{                           //Added some validation, will remove later.
-						<tr>
-							<td class="text-center">
-								@if (!item.NCR_Status)
-								{
-									<button class="status-btn closed" title="Closed"></button>
-								}
-								else
-								{
-									<button class="status-btn active" title="Active"></button>
-								}
-							</td>
-							@{
-								int year = DateTime.Now.Year;
-							}
-							<td class="text-center">@item.FormattedID</td>
-							<td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
-							<td class="text-center">@(item.Part != null ? item.Part.ProductNumber.ToString() : "Product number not found.")</td>
-							<td>@(item.Part != null && item.Part.Supplier != null ? item.Part.Supplier.Name : "Supplier name not found.")</td>
-							<td><p class="stage border" id="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
-							<td class="text-center">
-								<div>
-									<a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
-										<ion-icon name="eye"></ion-icon>
-									</a>
-									<a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
-										<ion-icon name="create"></ion-icon>
-									</a>
-								</div>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-
-			<div class="button-container">
-				<a asp-controller="Home" asp-action="List" class="button">View All</a>
-				<a asp-controller="NCRs" asp-action="Create" class="button">Create New</a>
-				<p class="disclaimer-txt">(Displaying the oldest 5 open NCRs)</p>
-			</div>
-		</div>
-	</div>
+            <div class="d-flex">
+                @* <a asp-controller="Home" asp-action="List" class="button">View All</a> *@
+                @* <a asp-controller="NCRs" asp-action="Create" class="button">Create New</a> *@
+                @* <p class="disclaimer-txt">(Displaying the oldest 5 open NCRs)</p> *@
+            </div>
+        </div>
+    </div>
 </div> @* container div *@
 
 <script>
-	$(document).ready(function () {
-		fetch('/Home/GetOpenNCRCount')
-			.then(response => response.json())
-			.then(data => {
-				$('#openNCRCount').text(data.count);
-			});
+    $(document).ready(function () {
+        fetch('/Home/GetOpenNCRCount')
+            .then(response => response.json())
+            .then(data => {
+                $('#openNCRCount').text(data.count);
+            });
 
-		fetch('/Home/GetClosedNCRCount')
-			.then(response => response.json())
-			.then(data => {
-				$('#closedNCRCount').text(data.count);
-			});
-	});
+        fetch('/Home/GetClosedNCRCount')
+            .then(response => response.json())
+            .then(data => {
+                $('#closedNCRCount').text(data.count);
+            });
+    });
 </script>
 
 @section scripts {
-	<script>
-		$(document).ready(function () {
-			// Select all elements with the class "stage"
-			$('.stage').each(function () {
-				// Get the text content of the element
-				var stage = $(this).text().trim();
+    <script>
+        $(document).ready(function () {
+            // Select all elements with the class "stage"
+            $('.stage').each(function () {
+                // Get the text content of the element
+                var stage = $(this).text().trim();
 
-				// Remove existing classes
-				$(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
+                // Remove existing classes
+                $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
 
-				// Depending on the stage, change the color
-				switch (stage) {
-					case "Engineering":
-						$(this).addClass('stage-eng2');
-						// $(this).css('color', 'red');
-						break;
-					case "Operations":
-						$(this).addClass('stage-oper3');
-						// $(this).css('color', 'blue');
-						break;
-					case "Procurement":
-						$(this).addClass('stage-procure4');
-						// $(this).css('color', 'green');
-						break;
-					case "Quality Rep":
-						$(this).addClass('stage-qual5');
-						// $(this).css('color', 'green');
-						break;
-					// Add more cases as needed for other stages
-					case "Complete":
-						$(this).addClass('stage-complete');
-						break;
-					default:
-						// Default class if stage not matched
-						$(this).addClass('stage');
-					// Default color if stage not matched
-					// $(this).css('color', 'black');
-				}
-			});
-		});
-	</script>
+                // Depending on the stage, change the color
+                switch (stage) {
+                    case "Engineering":
+                        $(this).addClass('stage-eng2');
+                        // $(this).css('color', 'red');
+                        break;
+                    case "Operations":
+                        $(this).addClass('stage-oper3');
+                        // $(this).css('color', 'blue');
+                        break;
+                    case "Procurement":
+                        $(this).addClass('stage-procure4');
+                        // $(this).css('color', 'green');
+                        break;
+                    case "Quality Rep":
+                        $(this).addClass('stage-qual5');
+                        // $(this).css('color', 'green');
+                        break;
+                    // Add more cases as needed for other stages
+                    case "Complete":
+                        $(this).addClass('stage-complete');
+                        break;
+                    default:
+                        // Default class if stage not matched
+                        $(this).addClass('stage');
+                    // Default color if stage not matched
+                    // $(this).css('color', 'black');
+                }
+            });
+        });
+    </script>
 }
