@@ -98,14 +98,14 @@ namespace Haver_Niagara.Data
                 .IsUnique();
 
             ////Unique Constraint for Defect Name
-            //modelBuilder.Entity<Defect>()
-            //    .HasIndex(a => new { a.Name})
-            //    .IsUnique();
+            modelBuilder.Entity<Defect>()
+                .HasIndex(a => new { a.Name })
+                .IsUnique();
 
-            ////Unique Constraint for Supplier Name
-            //modelBuilder.Entity<Supplier>()
-            //    .HasIndex(a => new { a.Name})
-            //    .IsUnique();
+            //Unique Constraint for Supplier Name
+            modelBuilder.Entity<Supplier>()
+                .HasIndex(a => new { a.Name })
+                .IsUnique();
 
         }
 

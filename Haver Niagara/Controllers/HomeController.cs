@@ -15,10 +15,12 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Mvc.Html;
 using X.PagedList;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Haver_Niagara.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

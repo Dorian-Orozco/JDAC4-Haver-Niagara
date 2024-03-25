@@ -129,7 +129,6 @@ namespace Haver_Niagara.Controllers
                 {
                     _context.Update(defect);
                     await _context.SaveChangesAsync();
-                    //return Redirect(ViewData["returnURL"].ToString());
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -167,7 +166,7 @@ namespace Haver_Niagara.Controllers
                     }
                     return BadRequest(errorMessage);
                 }
-                return Redirect(ViewData["returnURL"].ToString());
+                return RedirectToAction(nameof(Index));
             }
             return View(defect);
         }

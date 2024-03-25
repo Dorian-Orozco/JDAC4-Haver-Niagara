@@ -90,12 +90,11 @@
                         <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
                         </div> *@
                             <div class="form-group mt-1">
-                                <label asp-for="Supplier" class="control-label"></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-secondary" id="nowAddSupplier" data-bs-toggle="modal" data-bs-target="#addSupplierModal" type="button">&#x2795;</button>
                                     </div>
-                                    <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.SupplierID">
+                                    <select asp-for="NCRSupplierID" class="form-control" asp-items="ViewBag.SupplierID">
                                         <option value="">Select Supplier</option>
                                     </select>
                                 </div>
@@ -241,7 +240,7 @@
                                     }
                                 </select>
                             </div>
-                                <span class="text-danger"></span>
+                                <span class="text-danger" ></span>
                             </div>
                         </dd>
                     </dl>
@@ -1029,7 +1028,7 @@
                         $('#addSupplierModal').modal('hide');
                     },
                     error: function (xhr) { //Note: xhr is the XMLHttpRequest
-                        var errorMessages = []; 
+                        var errorMessages = [];
                         switch (xhr.status) {
                             case 401:
                                 errorMessages.push("You must be logged in first.");
@@ -1045,15 +1044,15 @@
                         //This checks if there are any elements with some content
                         //and if not then it provides a default feedback message.
                         if (!errorMessages.some((str) => str !== "")) {
-                          errorMessages.push("Error: Unable to complete operation");
+                            errorMessages.push("Error: Unable to complete operation");
                         }
                         //Put the messages in the ErrorList ul contained in the 'ValidaitonSummary' div.
                         var ul = document.getElementById("ErrorList");
                         for (var i = 0; i < errorMessages.length; i++) {
-                          var errorMessage = errorMessages[i];
-                          var li = document.createElement("li");
-                          li.innerHTML = errorMessage;
-                          ul.appendChild(li);
+                            var errorMessage = errorMessages[i];
+                            var li = document.createElement("li");
+                            li.innerHTML = errorMessage;
+                            ul.appendChild(li);
                         }
                     }
                 });
@@ -1063,14 +1062,14 @@
         $('#addSupplierModal').on('hide.bs.modal', function () {
             document.getElementById("createSupplierForm").reset();//to clear the data in the popup form
             ClearErrors();
-            var selectedOption = $('#SupplierID').val();//Return to the current selected value
-            refreshDDL('SupplierID', '/NCRs/GetSuppliers/' + selectedOption, false, null, true, 'None', true);
+            var selectedOption = $('#NCRSupplierID').val();//Return to the current selected value
+            refreshDDL('NCRSupplierID', '/NCRs/GetSuppliers/' + selectedOption, false, null, true, null, true);
         });
         function ClearErrors() {
             //Empty out the list of validation errors if there are any
             var ul = document.getElementById("ErrorList");
             while (ul.firstChild) {
-              ul.removeChild(ul.firstChild);
+                ul.removeChild(ul.firstChild);
             }
         }
     </script>
