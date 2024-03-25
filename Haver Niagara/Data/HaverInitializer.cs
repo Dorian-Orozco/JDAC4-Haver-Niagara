@@ -32,7 +32,8 @@ namespace Haver_Niagara.Data
                     {
                         FirstName = "Fred",
                         LastName = "Flintstone",
-                        Email = "super@outlook.com"
+                        Email = "super@outlook.com",
+                        Phone = "4552212293"
                     },
                     new Employee
                     {
@@ -44,19 +45,22 @@ namespace Haver_Niagara.Data
                     {
                         FirstName = "Alex",
                         LastName = "Baxter",
-                        Email = "qualityrepresentative@outlook.com"
+                        Email = "qualityrepresentative@outlook.com",
+                        Phone = "1234567070"
                     },
                     new Employee
                     {
                         FirstName = "Adi",
                         LastName = "Sinha",
-                        Email = "engineer@outlook.com"
+                        Email = "engineer@outlook.com",
+                        Phone = "9012223434"
                     },
                     new Employee
                     {
                         FirstName = "John",
                         LastName = "Opper",
-                        Email = "operations@outlook.com"
+                        Email = "operations@outlook.com",
+                        Phone = "2893435666"
                     },
                     new Employee
                     {

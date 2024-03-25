@@ -51,6 +51,39 @@
         </div>
     </div>
 </div>
+@* Success Created MSg *@
+@{
+    var createsuccessMsg = TempData["CreateSuccessMsg"] as string;
+    var editsuccessMsg = TempData["EditSuccessMsg"] as string;
+}
+@if (!string.IsNullOrEmpty(createsuccessMsg))
+{
+
+    <div class="toastCreate align-items-center justify-content-center" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+        <div class="toastCreate-header">
+            <strong class="me-auto">Successfully Created NCR</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toastCreate" aria-label="Close"></button>
+        </div>
+        <div class="toastCreate-body">
+            @Html.Raw(createsuccessMsg)
+        </div>
+    </div>
+}
+@if (!string.IsNullOrEmpty(editsuccessMsg))
+{
+
+    <div class="toastEdit align-items-center justify-content-center" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+        <div class="toastEdit-header">
+            <strong class="me-auto">Successfully Edited NCR</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toastEdit" aria-label="Close"></button>
+        </div>
+        <div class="toastEdit-body">
+            @Html.Raw(editsuccessMsg)
+        </div>
+    </div>
+}
+
+
 <form asp-action="List" asp-controller="Home" method="get">
     <div class="form-horizontal">
         <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
@@ -273,7 +306,6 @@
             </li>
         </ul>
     </nav>
-
 </form>
 
 @*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
@@ -324,5 +356,22 @@
                 }
             });
         });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.toastCreate').toast('show');
+        });
+
+        setTimeout(function () {
+            $('.toastCreate').toast('hide');
+        }, 12000);
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.toastEdit').toast('show')
+        });
+        setTimeout(function () {
+            $('.toastEdit').toast('hide');
+        }, 12000);
     </script>
 }
