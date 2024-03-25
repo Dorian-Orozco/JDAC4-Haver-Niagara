@@ -801,7 +801,7 @@
             document.getElementById("createSupplierForm").reset();//to clear the data in the popup form
             ClearErrors();
             var selectedOption = $('#SupplierID').val();//Return to the current selected value
-            refreshDDL('SupplierID', '/NCRs/GetSuppliers/' + selectedOption, false, null, true, 'None', true);
+            refreshDDL('SupplierID', '/NCRs/GetSuppliers/' + selectedOption, false, null, true, null, true);
         });
         function ClearErrors() {
             //Empty out the list of validation errors if there are any
@@ -811,7 +811,7 @@
             }
         }
     </script>
-    @* Defect Modal / Form Javascript *@
+    @* Defect Modal / Form Javascript/////////// *@
     <script type="text/javascript">
         $('#submitDefectCreate').click(function (event) {
             event.preventDefault();
@@ -860,8 +860,8 @@
         $('#addDefectModal').on('hide.bs.modal', function () {
             document.getElementById("createDefectForm").reset();//to clear the data in the popup form
             ClearErrors();
-            var selectedOption = $('#DefectID').val();//Return to the current selected value
-            refreshDDL('defectID', '/NCRs/GetDefects/' + selectedOption, false, null, true, 'None', true);
+            var selectedOption = $('#defectID').val();//Return to the current selected value
+            refreshDDL('defectID', '/NCRs/GetDefects/' + selectedOption, false, null, true, null, true);
         });
         function ClearErrors() {
             //Empty out the list of validation errors if there are any
