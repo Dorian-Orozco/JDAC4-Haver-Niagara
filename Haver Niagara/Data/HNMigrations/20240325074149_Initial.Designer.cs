@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240325062956_Initial")]
+    [Migration("20240325074149_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -55,9 +55,6 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Defects");
                 });
 
@@ -67,7 +64,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("DefectID")
+                    b.Property<int?>("DefectID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PartID")
@@ -510,9 +507,6 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Suppliers");
                 });
 
@@ -548,9 +542,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Defect", "Defect")
                         .WithMany("DefectLists")
-                        .HasForeignKey("DefectID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DefectID");
 
                     b.HasOne("Haver_Niagara.Models.Part", "Part")
                         .WithMany("DefectLists")

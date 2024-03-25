@@ -289,7 +289,8 @@ namespace Haver_Niagara.Controllers
 
                     //Stores the ID Automatically
                     _context.Update(existingNCR);   //added for safe measures..if other edit properties break try removing this!
-                    //Updating Part Properties
+                                                    //Updating Part Properties
+
                     if (part != null)
                     {
                         if(existingNCR.Part == null)
@@ -305,13 +306,53 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.QuantityRecieved = part.QuantityRecieved;
                         existingNCR.Part.QuantityDefect = part.QuantityDefect;
                         existingNCR.Part.Description = part.Description;
-                        existingNCR.Part.SupplierID = part.SupplierID;
+                        existingNCR.Part.SupplierID = part.SupplierID; //crashes after saving changes because of this line
+                        await _context.SaveChangesAsync();
                         existingNCR.Part.DefectLists.Clear(); //removed existing defect 
-                        if (SelectedDefectID != 0)
+                        try
                         {
-                            var newDefectList = new DefectList { PartID = existingNCR.Part.ID, DefectID = SelectedDefectID };
-                            existingNCR.Part.DefectLists.Add(newDefectList);
+
+
+                            if (SelectedDefectID != 0)
+                            {
+                                // Find the selected Defect from the database
+                                Defect selectedDefect = await _context.Defects.FindAsync(SelectedDefectID);
+
+                                if (selectedDefect != null)
+                                {
+                                    // Create a new DefectList instance
+                                    var newDefectList = new DefectList
+                                    {
+                                        PartID = existingNCR.Part.ID,
+                                        DefectID = selectedDefect.ID
+                                    };
+
+                                    _context.DefectLists.Add(newDefectList);
+
+                                    // Save changes to the database
+                                    await _context.SaveChangesAsync();
+
+                                    // Add the new DefectList to the Part's DefectLists collection
+                                    existingNCR.Part.DefectLists.Add(newDefectList);
+                                }
+                            }
                         }
+                        catch (Exception ex)
+                        {
+                            // Log the exception or print it to the console for debugging purposes
+                            Console.WriteLine(ex.Message);
+
+                            // Check for inner exceptions
+                            Exception innerException = ex.InnerException;
+                            while (innerException != null)
+                            {
+                                Console.WriteLine("Inner Exception: " + innerException.Message);
+                                innerException = innerException.InnerException;
+                            }
+
+                            // Handle the exception appropriately
+                        }
+
                     }
                     if (qualityInspection != null)
                     {
@@ -323,11 +364,6 @@ namespace Haver_Niagara.Controllers
                         existingNCR.QualityInspection.Date = qualityInspection.Date;
                         existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
                         existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
-                        //existingNCR.QualityInspection.Department = qualityInspection.Department;
-                        //existingNCR.QualityInspection.DepartmentDate = qualityInspection.DepartmentDate;
-                        //existingNCR.QualityInspection.InspectorName = qualityInspection.InspectorName;
-                        //existingNCR.QualityInspection.InspectorDate = qualityInspection.InspectorDate;
-                        //existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
                     }
                     if (engineering != null)
                     {

@@ -280,7 +280,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     DefectListID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    DefectID = table.Column<int>(type: "INTEGER", nullable: false),
+                    DefectID = table.Column<int>(type: "INTEGER", nullable: true),
                     PartID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -290,8 +290,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_DefectLists_Defects_DefectID",
                         column: x => x.DefectID,
                         principalTable: "Defects",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_DefectLists_Parts_PartID",
                         column: x => x.PartID,
@@ -401,12 +400,6 @@ namespace Haver_Niagara.Data.HNMigrations
                 column: "PartID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Defects_Name",
-                table: "Defects",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Employees_Email",
                 table: "Employees",
                 column: "Email",
@@ -479,12 +472,6 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "IX_Subscriptions_EmployeeID",
                 table: "Subscriptions",
                 column: "EmployeeID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Suppliers_Name",
-                table: "Suppliers",
-                column: "Name",
-                unique: true);
         }
 
         /// <inheritdoc />

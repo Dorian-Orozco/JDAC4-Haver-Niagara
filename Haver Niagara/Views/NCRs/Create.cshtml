@@ -66,12 +66,12 @@
                     <dt>Supplier:</dt>
                     <dd>
                         <div class="form-group mt-1">
-                            <label asp-for="NCRSupplierID" class="control-label"></label>
+                            <label asp-for="Part.SupplierID" class="control-label"></label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" id="nowAddSupplier" data-bs-toggle="modal" data-bs-target="#addSupplierModal" type="button">&#x2795;</button>
                                 </div>
-                                <select asp-for="NCRSupplierID" class="form-control" asp-items="ViewBag.SupplierID">
+                                <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.SupplierID">
                                     <option value="">Select Supplier</option>
                                 </select>
                             </div>

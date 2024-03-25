@@ -52,9 +52,6 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Defects");
                 });
 
@@ -64,7 +61,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("DefectID")
+                    b.Property<int?>("DefectID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PartID")
@@ -507,9 +504,6 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Suppliers");
                 });
 
@@ -545,9 +539,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Defect", "Defect")
                         .WithMany("DefectLists")
-                        .HasForeignKey("DefectID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DefectID");
 
                     b.HasOne("Haver_Niagara.Models.Part", "Part")
                         .WithMany("DefectLists")
