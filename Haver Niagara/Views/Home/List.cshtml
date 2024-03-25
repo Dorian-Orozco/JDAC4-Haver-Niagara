@@ -242,7 +242,7 @@
                     <td class="text-center">@item.FormattedID</td>
                     <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
                     <td class="text-center">@(item.Part?.ProductNumber.ToString() ?? "Product Number Not Found")</td>
-                    <td>@(item.Part?.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
+                    <td>@(item.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
                     <td><p class="stage border" id="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
                     <td class="text-center">
                         <div>
