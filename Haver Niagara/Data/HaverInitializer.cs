@@ -2316,63 +2316,63 @@ namespace Haver_Niagara.Data
                         ID = 5,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2015-06-30"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2015-06-30")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 6,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2016-09-14"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2016-09-14")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 7,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2017-11-25"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2017-11-25")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 8,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2018-03-09"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2018-03-09")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 9,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2019-05-18"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2019-05-18")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 10,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2020-08-02"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2020-08-02")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 11,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2021-10-11"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2021-10-11")
                     },
                     new QualityInspectionFinal
                     {
@@ -2415,185 +2415,185 @@ namespace Haver_Niagara.Data
                         ID = 16,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2023-03-24"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2023-03-24")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 17,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2023-07-09"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2023-07-09")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 18,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2023-10-20"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2023-10-20")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 19,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2023-11-02"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2023-11-02")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 20,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2023-12-15"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2023-12-15")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 21,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2024-01-01"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2024-01-01")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 22,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2024-01-10"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2024-01-10")
                     },
                     new QualityInspectionFinal
                     {
                         ID = 23,
                         ReInspected = true,
                         Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
+                        DepartmentDate = DateTime.Parse("2024-01-15"),
                         InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
+                        InspectorDate = DateTime.Parse("2024-01-15")
                     },
 
                     // FIRST NCR IN LIST //
 
-                    new QualityInspectionFinal
-                    {
-                        ID = 24, 
-                        ReInspected = true, 
-                        Department = "Department 2",
-                        DepartmentDate = DateTime.Parse("2022-06-17"),
-                        InspectorName = "Billy Bam",
-                        InspectorDate = DateTime.Parse("2022-06-17"),
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 25,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 24, 
+                    //    ReInspected = true, 
+                    //    Department = "Department 2",
+                    //    DepartmentDate = DateTime.Parse("2022-06-17"),
+                    //    InspectorName = "Billy Bam",
+                    //    InspectorDate = DateTime.Parse("2022-06-17"),
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 25,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
 
-                    new QualityInspectionFinal
-                    {
-                        ID = 26,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 27,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 28,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 29,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 30,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 31,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 32,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 33,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 34,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    },
-                    new QualityInspectionFinal
-                    {
-                        ID = 35,
-                        ReInspected = true,
-                        Department = "Department 1",
-                        DepartmentDate = DateTime.Parse("2022-02-26"),
-                        InspectorName = "Johnny Jam",
-                        InspectorDate = DateTime.Parse("2022-02-26")
-                    });
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 26,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 27,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 28,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 29,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 30,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 31,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 32,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 33,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 34,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 35,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //});
                 context.SaveChanges();
             }
 
@@ -2614,7 +2614,8 @@ namespace Haver_Niagara.Data
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 1),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1),
 						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 1),
-                    },
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 1)
+					},
                     new NCR
                     {
                         ID = 2,
@@ -2626,8 +2627,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 2),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 2),
-						Procurement = context.Procurements.FirstOrDefault(p=>p.ID == 4)
-                    },
+						Procurement = context.Procurements.FirstOrDefault(p=>p.ID == 4),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 2)
+					},
                     new NCR
                     {
                         ID = 3,
@@ -2640,8 +2642,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 3),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 3),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 3),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 3)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 3),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 3)
+					},
                     new NCR
                     {
                         ID = 4,
@@ -2653,8 +2656,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 4),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 4),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 4)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 4),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 4)
+					},
                     new NCR
                     {
                         ID = 5,
@@ -2666,8 +2670,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 5),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 5),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 5),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 5)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 5),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 5)
+					},
                     new NCR
                     {
                         ID = 6,
@@ -2679,9 +2684,10 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 6),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 6),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 6)
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 6),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 6)
 
-                    },
+					},
                     new NCR
                     {
                         ID = 7,
@@ -2693,8 +2699,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 7),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 7),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 7),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 7)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 7),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
+					},
                     new NCR
                     {
                         ID = 8,
@@ -2706,8 +2713,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 8),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 8),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 8)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 8),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 8)
+					},
                     new NCR
                     {
                         ID = 9,
@@ -2719,8 +2727,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 9),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 9),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 9),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 9)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 9),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 9)
+					},
                     new NCR
                     {
                         ID = 10,
@@ -2732,8 +2741,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 10),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 10),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 10)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 10),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 10)
+					},
                     new NCR
                     {
                         ID = 11,
@@ -2746,8 +2756,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 11),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 11),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 11),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 11)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 11),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 11)
+					},
                     new NCR
                     {
                         ID = 12,
@@ -2759,8 +2770,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 12),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 12),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 12),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 12)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 12),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 12)
+					},
                     new NCR
                     {
                         ID = 13,
@@ -2772,8 +2784,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 13),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 13),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 13),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 13)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 13),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 13)
+					},
                     new NCR
                     {
                         ID = 14,
@@ -2799,8 +2812,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 15),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 15),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 15),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 15)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 15),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 15)
+					},
                     new NCR
                     {
                         ID = 16,
@@ -2812,8 +2826,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 16),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 16),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 16),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 16)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 16),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 16)
+					},
                     new NCR
                     {
                         ID = 17,
@@ -2825,9 +2840,10 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 17),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 17),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 17),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 17)
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 17),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 17)
 
-                    },
+					},
                     new NCR
                     {
                         ID = 18,
@@ -2839,8 +2855,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 18),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 18),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 18),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 18)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 18),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 18)
+					},
                     new NCR
                     {
                         ID = 19,
@@ -2852,8 +2869,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 19),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 19),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 19),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 19)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 19),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 19)
+					},
                     new NCR
                     {
                         ID = 20,
@@ -2865,8 +2883,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 20),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 20),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 20),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 20)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 20),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 20)
+					},
                     new NCR
                     {
                         ID = 21,
@@ -2878,8 +2897,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 21),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 21),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 21),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 21)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 21),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 21)
+					},
                     new NCR
                     {
                         ID = 22,
@@ -2892,8 +2912,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 22),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 22),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 22),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 22)
-                    },
+						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 22),
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 22)
+					},
                     new NCR
                     {
                         ID = 23,
@@ -2907,7 +2928,7 @@ namespace Haver_Niagara.Data
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 23),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 23), 
 						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 23),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p=>p.ID == 6)
+						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p=>p.ID == 23)
 					},
 
                     new NCR
@@ -2923,7 +2944,7 @@ namespace Haver_Niagara.Data
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 24),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24),
-                    },
+					},
                     new NCR
                     {
                         ID = 25,
@@ -2937,7 +2958,7 @@ namespace Haver_Niagara.Data
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 25),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 25), //TESTING PROCUREMENT
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25),
-                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
+                        //QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
                     },
 					new NCR
 					{
@@ -2952,7 +2973,7 @@ namespace Haver_Niagara.Data
 						Operation = context.Operations.FirstOrDefault(p => p.ID == 26),
 						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 26),
 						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26),
-                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 8)
+                        //QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 8)
                     },
 					new NCR
 					{
