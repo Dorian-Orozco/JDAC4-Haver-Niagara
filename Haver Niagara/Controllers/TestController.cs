@@ -92,7 +92,7 @@ namespace Haver_Niagara.Controllers
             ViewData["ProcurementID"] = new SelectList(_context.Procurements, "ID", "ID", nCR.ProcurementID);
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "Name", nCR.QualityInspectionID);
             ViewData["QualityInspectionFinalID"] = new SelectList(_context.QualityInspectionFinals, "ID", "ID", nCR.QualityInspectionFinalID);
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "ID", nCR.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "ID", nCR.NCRSupplierID);
             return View(nCR);
         }
 
@@ -115,7 +115,7 @@ namespace Haver_Niagara.Controllers
             ViewData["ProcurementID"] = new SelectList(_context.Procurements, "ID", "ID", nCR.ProcurementID);
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "Name", nCR.QualityInspectionID);
             ViewData["QualityInspectionFinalID"] = new SelectList(_context.QualityInspectionFinals, "ID", "ID", nCR.QualityInspectionFinalID);
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "ID", nCR.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "ID", nCR.NCRSupplierID);
             return View(nCR);
         }
 
@@ -157,7 +157,7 @@ namespace Haver_Niagara.Controllers
             ViewData["ProcurementID"] = new SelectList(_context.Procurements, "ID", "ID", nCR.ProcurementID);
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "Name", nCR.QualityInspectionID);
             ViewData["QualityInspectionFinalID"] = new SelectList(_context.QualityInspectionFinals, "ID", "ID", nCR.QualityInspectionFinalID);
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "ID", nCR.SupplierID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "ID", nCR.NCRSupplierID);
             return View(nCR);
         }
 
@@ -224,7 +224,7 @@ namespace Haver_Niagara.Controllers
 
         private void PopulateDropDownLists(NCR ncr = null)
         {
-            ViewData["SupplierID"] = SupplierSelectList(ncr?.SupplierID);
+            ViewData["SupplierID"] = SupplierSelectList(ncr?.NCRSupplierID);
             ViewData["Stage"] = StageSelectList(ncr?.NCR_Stage.ToString());
         }
     }

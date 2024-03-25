@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240324234107_Initial")]
+    [Migration("20240325085810_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -67,7 +67,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("DefectID")
+                    b.Property<int?>("DefectID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PartID")
@@ -247,6 +247,9 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<bool?>("IsArchived")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("NCRSupplierID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("NCR_Date")
                         .HasColumnType("TEXT");
 
@@ -277,13 +280,12 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int?>("QualityInspectionID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("SupplierID")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("ID");
 
                     b.HasIndex("EngineeringID")
                         .IsUnique();
+
+                    b.HasIndex("NCRSupplierID");
 
                     b.HasIndex("OperationID")
                         .IsUnique();
@@ -299,8 +301,6 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasIndex("QualityInspectionID")
                         .IsUnique();
-
-                    b.HasIndex("SupplierID");
 
                     b.ToTable("NCRs");
                 });
@@ -548,9 +548,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Defect", "Defect")
                         .WithMany("DefectLists")
-                        .HasForeignKey("DefectID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DefectID");
 
                     b.HasOne("Haver_Niagara.Models.Part", "Part")
                         .WithMany("DefectLists")
@@ -600,6 +598,10 @@ namespace Haver_Niagara.Data.HNMigrations
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "EngineeringID");
 
+                    b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("NCRSupplierID");
+
                     b.HasOne("Haver_Niagara.Models.Operation", "Operation")
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "OperationID");
@@ -619,10 +621,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasOne("Haver_Niagara.Models.QualityInspection", "QualityInspection")
                         .WithOne("NCR")
                         .HasForeignKey("Haver_Niagara.Models.NCR", "QualityInspectionID");
-
-                    b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierID");
 
                     b.Navigation("Engineering");
 

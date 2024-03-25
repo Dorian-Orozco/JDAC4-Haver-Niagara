@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Haver_Niagara.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class NCRsController : Controller
     {
         private readonly HaverNiagaraDbContext _context;
@@ -59,6 +59,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n=> n.Supplier)
                 .Include(n => n.Engineering)
                 .Include(n => n.QualityInspection)
+                .Include(n=>n.QualityInspectionFinal)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Supplier)
                 .Include(n => n.Part)
@@ -135,15 +136,16 @@ namespace Haver_Niagara.Controllers
         [ValidateAntiForgeryToken]              //oldNCRID is passed through in edit controller
         ///QualityInspection qualityInspection, Engineering engineering,
         //    Operation operation, Procurement procurement,
-        public async Task<IActionResult> Create(int? oldNCRID,[Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID")]
+        public async Task<IActionResult> Create(int? oldNCRID,[Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID,NCRSupplierID")]
                 NCR nCR, Part part, QualityInspection qualityInspection,  List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
             if (ModelState.IsValid)
             {
                     _context.Add(part);                         //allows for part id to get an ID from databasee//saves to context
                     _context.Add(qualityInspection);            //allows qualityinspectionID to get ID from database value
+                part.SupplierID = (int)nCR.NCRSupplierID;
 
-                    await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 
                 //Assign the generated IDs to this NCR. this allows the NCR to have part and quality
                 nCR.PartID = part.ID;                  
@@ -172,13 +174,7 @@ namespace Haver_Niagara.Controllers
                         await _context.SaveChangesAsync();
                     }
                 }
-                //var defectList = new DefectList             //creates a new defect list object
-                //{                                           //since it is a junction table it takes a part ID and a defectID
-                //    PartID = part.ID,                       //defect ID is retrieved through an int, which is passed through by a drop down 
-                //    DefectID = defectID
-                //};
-                //_context.Add(defectList);                   //adding to context
-                //await _context.SaveChangesAsync();          //saving changes
+             
                 //Images function to save
                 if (files != null && files.Count > 0)               //checks for multiple images/files
                 {                                                   //sends to function where they are updated
@@ -211,6 +207,7 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.DefectLists)
                         .ThenInclude(n => n.Defect)
                 .Include(n => n.QualityInspection)
+                .Include(n=>n.QualityInspectionFinal)
                 .Include(n => n.Engineering)
                 .Include(n => n.Operation)
                     .ThenInclude(n => n.CAR)
@@ -241,15 +238,17 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
+        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
                     NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation, Procurement procurement, QualityInspectionFinal qualityInspectionFinal,
-                    List<IFormFile> files, List<string> links, int SelectedDefectID, Defect defect)
+                    List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
             nCR.ID = id;
             if (id != nCR.ID)
             {
                 return NotFound();
             }
+
+            
             if (ModelState.IsValid)
             {
                 try
@@ -263,6 +262,7 @@ namespace Haver_Niagara.Controllers
                             .ThenInclude(n => n.DefectLists)
                                 .ThenInclude(n => n.Defect)
                         .Include(n => n.QualityInspection)
+                        .Include(n=>n.QualityInspectionFinal)
                         .Include(n => n.Engineering)
                         .Include(n => n.Operation)
                             .ThenInclude(n => n.FollowUp)
@@ -278,6 +278,7 @@ namespace Haver_Niagara.Controllers
    
                     existingNCR.NCR_Date = nCR.NCR_Date;
                     existingNCR.NCR_Status = nCR.NCR_Status;    //For radio buttons 
+                    existingNCR.NCRSupplierID = nCR.NCRSupplierID;
 
                     if(existingNCR.OldNCRID != null)
                     {
@@ -286,7 +287,8 @@ namespace Haver_Niagara.Controllers
 
                     //Stores the ID Automatically
                     _context.Update(existingNCR);   //added for safe measures..if other edit properties break try removing this!
-                    //Updating Part Properties
+                                                    //Updating Part Properties
+
                     if (part != null)
                     {
                         if(existingNCR.Part == null)
@@ -302,13 +304,56 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.QuantityRecieved = part.QuantityRecieved;
                         existingNCR.Part.QuantityDefect = part.QuantityDefect;
                         existingNCR.Part.Description = part.Description;
-                        existingNCR.Part.SupplierID = part.SupplierID;
+                        existingNCR.Part.SupplierID = (int)existingNCR.NCRSupplierID;
+
+                        //int? selectedNCRSupplierID = existingNCR.NCRSupplierID;
+                        //part.SupplierID = (int)selectedNCRSupplierID;
+
+                        //existingNCR.Part.SupplierID = part.SupplierID; //crashes after saving changes because of this line
+                        await _context.SaveChangesAsync();
                         existingNCR.Part.DefectLists.Clear(); //removed existing defect 
-                        if (SelectedDefectID != 0)  //id is passed through and assigned
+                        try
                         {
-                            var newDefectList = new DefectList { PartID = existingNCR.Part.ID, DefectID = SelectedDefectID };
-                            existingNCR.Part.DefectLists.Add(newDefectList);
+                            if (SelectedDefectID != 0)
+                            {
+                                // Find the selected Defect from the database
+                                Defect selectedDefect = await _context.Defects.FindAsync(SelectedDefectID);
+
+                                if (selectedDefect != null)
+                                {
+                                    // Create a new DefectList instance
+                                    var newDefectList = new DefectList
+                                    {
+                                        PartID = existingNCR.Part.ID,
+                                        DefectID = selectedDefect.ID
+                                    };
+
+                                    _context.DefectLists.Add(newDefectList);
+
+                                    // Save changes to the database
+                                    await _context.SaveChangesAsync();
+
+                                    // Add the new DefectList to the Part's DefectLists collection
+                                    existingNCR.Part.DefectLists.Add(newDefectList);
+                                }
+                            }
                         }
+                        catch (Exception ex)
+                        {
+                            // Log the exception or print it to the console for debugging purposes
+                            Console.WriteLine(ex.Message);
+
+                            // Check for inner exceptions
+                            Exception innerException = ex.InnerException;
+                            while (innerException != null)
+                            {
+                                Console.WriteLine("Inner Exception: " + innerException.Message);
+                                innerException = innerException.InnerException;
+                            }
+
+                            // Handle the exception appropriately
+                        }
+
                     }
                     if (qualityInspection != null)
                     {
@@ -320,11 +365,6 @@ namespace Haver_Niagara.Controllers
                         existingNCR.QualityInspection.Date = qualityInspection.Date;
                         existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
                         existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
-                        //existingNCR.QualityInspection.Department = qualityInspection.Department;
-                        //existingNCR.QualityInspection.DepartmentDate = qualityInspection.DepartmentDate;
-                        //existingNCR.QualityInspection.InspectorName = qualityInspection.InspectorName;
-                        //existingNCR.QualityInspection.InspectorDate = qualityInspection.InspectorDate;
-                        //existingNCR.QualityInspection.ReInspected = qualityInspection.ReInspected;
                     }
                     if (engineering != null)
                     {
@@ -582,7 +622,7 @@ namespace Haver_Niagara.Controllers
         private void PopulateDropDownLists(NCR ncr = null)
         {
             //Sets the view data for supplierID from the method which retrieves it
-            ViewData["SupplierID"] = SupplierSelectList(ncr?.SupplierID);
+            ViewData["SupplierID"] = SupplierSelectList(ncr?.NCRSupplierID);
 
             //check to see if it exists 
             if(ncr.Part != null && ncr.Part.DefectLists != null)
