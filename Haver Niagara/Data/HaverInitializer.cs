@@ -2485,120 +2485,123 @@ namespace Haver_Niagara.Data
                         DepartmentDate = DateTime.Parse("2024-01-15"),
                         InspectorName = "Johnny Jam",
                         InspectorDate = DateTime.Parse("2024-01-15")
-                    }
+					});
 
-                    // FIRST NCR IN LIST //
+				#region Uneeded Quality Inspec Final Seed Data for NCR 24 - 35
 
-                //new QualityInspectionFinal
-                //{
-                //    ID = 24, 
-                //    ReInspected = true, 
-                //    Department = "Department 2",
-                //    DepartmentDate = DateTime.Parse("2022-06-17"),
-                //    InspectorName = "Billy Bam",
-                //    InspectorDate = DateTime.Parse("2022-06-17"),
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 25,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
+				// FIRST NCR IN LIST //
 
-                //new QualityInspectionFinal
-                //{
-                //    ID = 26,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 27,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 28,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 29,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 30,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 31,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 32,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 33,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 34,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 35,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                    );
-            context.SaveChanges();
+				//new QualityInspectionFinal
+				//{
+				//    ID = 24, 
+				//    ReInspected = true, 
+				//    Department = "Department 2",
+				//    DepartmentDate = DateTime.Parse("2022-06-17"),
+				//    InspectorName = "Billy Bam",
+				//    InspectorDate = DateTime.Parse("2022-06-17"),
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 25,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+
+				//new QualityInspectionFinal
+				//{
+				//    ID = 26,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 27,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 28,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 29,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 30,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 31,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 32,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 33,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 34,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				//},
+				//new QualityInspectionFinal
+				//{
+				//    ID = 35,
+				//    ReInspected = true,
+				//    Department = "Department 1",
+				//    DepartmentDate = DateTime.Parse("2022-02-26"),
+				//    InspectorName = "Johnny Jam",
+				//    InspectorDate = DateTime.Parse("2022-02-26")
+				#endregion
+
+				context.SaveChanges();
             }
 
             // ACTUAL NCRS: MAKE SURE DATES ARE CORRECT AND MAKE SENSE
