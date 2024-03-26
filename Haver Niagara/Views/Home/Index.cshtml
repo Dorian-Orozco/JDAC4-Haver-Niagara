@@ -16,6 +16,7 @@
     h1 {
         font-size: 38px;
         font-weight: 600;
+        color: #1C335E;
     }
 
     h2 {
@@ -27,6 +28,22 @@
         font-size: 100px;
         font-weight: 600;
     }
+
+    a, a:hover {
+        color: inherit;
+    }
+
+    .activeCard {
+        border-color: #0073e6;
+        /* color: #0073e6; */
+        color: rgb(0, 115, 230);
+        transition: 0.1s ease-in-out all;
+    }
+
+        .activeCard:hover {
+            color: rgb(0, 91, 184);
+            border-color: rgb(0, 91, 184);
+        }
 
     .body {
         color: #0C2340;
@@ -57,7 +74,7 @@
     }
 
     .card {
-        background-color: #E7E7E7;
+        /* background-color: #E7E7E7; */
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         flex-basis: 32%;
@@ -71,6 +88,17 @@
         height: 100%;
         justify-content: center;
     }
+
+    .closedCard {
+        border-color: #b51963;
+        color: #b51963;
+        transition: 0.1s ease-in-out all;
+    }
+
+        .closedCard:hover {
+            border-color: #90134f;
+            color: #90134f;
+        }
 
     .dashboard-bg {
         background-color: #E7E7E7;
@@ -122,6 +150,17 @@
         width: 138px;
     }
 
+    .stageCard {
+        border-color: rgb(0, 191, 178);
+        color: rgb(0, 191, 178);
+        transition: 0.1s ease-in-out all;
+    }
+
+        .stageCard:hover {
+            border-color: rgb(0, 143, 134); /* Darker shade */
+            color: rgb(0, 143, 134); /* Darker shade */
+        }
+
     table {
         border-collapse: collapse;
         width: 100%;
@@ -159,9 +198,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-<div class="mt-2">
-    <div class="dashboard-row d-flex">
-        <h1 class="page-title">NCR Dashboard</h1>
+<div>
+
+    <div class="d-flex justify-content-between">
+        <div class="d-flex mt-4 mb-4">
+            <h1 class="">NCR Dashboard</h1>
+            <div class="">
+                <select name="stage" id="stage" class="form-select mt-2 ms-3">
+                    <option value="Engineering" selected>Engineering</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Procurement">Procurement</option>
+                    <option value="Quality">Quality Rep</option>
+                </select>
+            </div>
+        </div>
         <div>
             <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
                 <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
@@ -171,7 +221,8 @@
     </div>
 
     <div class="dashboard-row card-row">
-        <div class="card border-primary border">
+
+        <div class="card activeCard">
             <a asp-controller="Home" asp-action="List">
                 <div class="card-content">
                     <h2>Current Active</h2>
@@ -181,21 +232,38 @@
             </a>
         </div>
 
-        <div class="card">
-            <div class="card-content">
-                <h2>Current Closed</h2>
-                <h3 id="closedNCRCount"></h3>
-                <p>This year</p>
-            </div>
+        <div class="card stageCard">
+            <a id="dynamicStageLink" asp-controller="Home" asp-action="List"
+               asp-route-SelectedStatus=""
+               asp-route-ncrStage=""
+               asp-route-SelectedDate=""
+               asp-route-SelectedSupplier=""
+               asp-route-SearchString=""
+               asp-route-actionButton="Filter">
+                <div class="card-content">
+                    <h2><span id="stageName"></span> Stage</h2>
+                    <h3 id="stageCount"></h3>
+                    <p>Currently</p>
+                </div>
+            </a>
         </div>
 
-        <div class="card">
-            <div class="card-content">
-                <h2>NCR's in Engineering Stage</h2>
-                <h3>5</h3>
-                <p>Currently</p>
-            </div>
+        <div class="card closedCard">
+            <a asp-controller="Home" asp-action="List"
+               asp-route-SelectedStatus="false"
+               asp-route-ncrStage=""
+               asp-route-SelectedDate=""
+               asp-route-SelectedSupplier=""
+               asp-route-SearchString=""
+               asp-route-actionButton="Filter">
+                <div class="card-content">
+                    <h2>Current Closed</h2>
+                    <h3 id="closedNCRCount"></h3>
+                    <p>This year</p>
+                </div>
+            </a>
         </div>
+
     </div>
 
     <div class="dashboard-row">
@@ -260,25 +328,63 @@
             </div>
         </div>
     </div>
+
 </div> @* container div *@
 
-<script>
-    $(document).ready(function () {
-        fetch('/Home/GetOpenNCRCount')
-            .then(response => response.json())
-            .then(data => {
-                $('#openNCRCount').text(data.count);
-            });
-
-        fetch('/Home/GetClosedNCRCount')
-            .then(response => response.json())
-            .then(data => {
-                $('#closedNCRCount').text(data.count);
-            });
-    });
-</script>
 
 @section scripts {
+    <script>
+        $(document).ready(function () {
+            fetch('/Home/GetOpenNCRCount')
+                .then(response => response.json())
+                .then(data => {
+                    $('#openNCRCount').text(data.count);
+                });
+
+            fetch('/Home/GetClosedNCRCount')
+                .then(response => response.json())
+                .then(data => {
+                    $('#closedNCRCount').text(data.count);
+                });
+
+            // Function to fetch stage-specific counts
+            function fetchStageCount() {
+                const stageSelect = $('#stage'); // id for drop down select list
+                const stageSelectValue = stageSelect.val(); // Get the selected stage value
+
+                const stageSelectText = stageSelect.find("option:selected").text(); // Get the selected stage text
+                //const selectedStage = (stageSelectValue).text();
+
+                // Update the stageName span with the selected stage's text
+                $('#stageName').text(stageSelectText);
+
+                // Declare newHref outside the if-else scope
+                let newHref;
+                if (stageSelectText == "Quality Rep") {
+                    newHref = `/Home/List?SelectedStatus=true&ncrStage=QualityRepresentative_Final&SelectedDate=&SelectedSupplier=&SearchString=&actionButton=Filter`;
+                } else {
+                    newHref = `/Home/List?SelectedStatus=true&ncrStage=${stageSelectText}&SelectedDate=&SelectedSupplier=&SearchString=&actionButton=Filter`;
+                }
+
+                // Update only the targeted link's `href` attribute
+                $('#dynamicStageLink').attr('href', newHref);
+
+                fetch(`/Home/Get${stageSelectValue}StageCount`) // Use template literal to insert the value
+                    .then(response => response.json())
+                    .then(data => {
+                        $('#stageCount').text(data.count);
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+
+            // Fetch the initial stage count when the page loads
+            fetchStageCount();
+
+            // Add an event listener for changes to the stage selection
+            $('#stage').change(fetchStageCount);
+        });
+    </script>
+
     <script>
         $(document).ready(function () {
             // Select all elements with the class "stage"
