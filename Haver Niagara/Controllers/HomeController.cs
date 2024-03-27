@@ -451,6 +451,8 @@ namespace Haver_Niagara.Controllers
             return RedirectToAction("List");
         }
 
+        #region Dashboard
+
         // For Dashboard
         public async Task<IActionResult> Index()
         {
@@ -501,6 +503,8 @@ namespace Haver_Niagara.Controllers
             var qualityStage = await _context.NCRs.CountAsync(n => n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year && n.NCR_Stage == NCRStage.QualityRepresentative_Final);
             return Json(new { count = qualityStage });
         }
+
+        #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
