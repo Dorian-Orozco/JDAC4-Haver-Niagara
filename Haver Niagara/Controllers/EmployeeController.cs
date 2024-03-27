@@ -35,12 +35,11 @@ namespace Haver_Niagara.Controllers
                 .Select(e => new EmployeeAdminVM
                 {
                     Email = e.Email,
-                    //EmployeeRole = e.EmployeeRole,
                     Active = e.Active,
                     ID = e.ID,
                     FirstName = e.FirstName,
                     LastName = e.LastName,
-                    Phone = e.Phone,
+                    //Phone = e.Phone,
                     NumberOfPushSubscriptions = e.Subscriptions.Count
                 }).ToListAsync();
             foreach (var e in employees)
@@ -67,7 +66,7 @@ namespace Haver_Niagara.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Phone," +
+        public async Task<IActionResult> Create([Bind("FirstName,LastName," + //Phone commented out
             "Email")] Employee employee, string[] selectedRoles)
         {
 
@@ -105,8 +104,8 @@ namespace Haver_Niagara.Controllers
                 Active = employee.Active,
                 ID = employee.ID,
                 FirstName = employee.FirstName,
-                LastName = employee.LastName,
-                Phone = employee.Phone
+                LastName = employee.LastName
+                //Phone = employee.Phone
             };
             foreach (var role in selectedRoles)
             {
@@ -132,8 +131,8 @@ namespace Haver_Niagara.Controllers
                     Active = e.Active,
                     ID = e.ID,
                     FirstName = e.FirstName,
-                    LastName = e.LastName,
-                    Phone = e.Phone
+                    LastName = e.LastName
+                    //Phone = e.Phone
                 }).FirstOrDefaultAsync();
 
             if (employee == null)
@@ -174,7 +173,7 @@ namespace Haver_Niagara.Controllers
 
 
             if (await TryUpdateModelAsync<Employee>(employeeToUpdate, "",
-                e => e.FirstName, e => e.LastName, e => e.Phone, e => e.Email,
+                e => e.FirstName, e => e.LastName, /*e => e.Phone,*/ e => e.Email,
                 /*e => e.EmployeeRole, */e => e.Active))
             {
                 try
@@ -249,8 +248,8 @@ namespace Haver_Niagara.Controllers
                 Active = employeeToUpdate.Active,
                 ID = employeeToUpdate.ID,
                 FirstName = employeeToUpdate.FirstName,
-                LastName = employeeToUpdate.LastName,
-                Phone = employeeToUpdate.Phone
+                LastName = employeeToUpdate.LastName
+                //Phone = employeeToUpdate.Phone
             };
             foreach (var role in selectedRoles)
             {

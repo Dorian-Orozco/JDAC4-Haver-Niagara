@@ -32,7 +32,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .Annotation("Sqlite:Autoincrement", true),
                     FirstName = table.Column<string>(type: "TEXT", nullable: true),
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    Phone = table.Column<string>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     Active = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedBy = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -409,12 +408,6 @@ namespace Haver_Niagara.Data.HNMigrations
                 name: "IX_Employees_Email",
                 table: "Employees",
                 column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_Phone",
-                table: "Employees",
-                column: "Phone",
                 unique: true);
 
             migrationBuilder.CreateIndex(

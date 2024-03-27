@@ -104,9 +104,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -117,9 +114,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("Phone")
                         .IsUnique();
 
                     b.ToTable("Employees");

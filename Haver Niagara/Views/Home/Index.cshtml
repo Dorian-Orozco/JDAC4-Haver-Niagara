@@ -162,12 +162,24 @@
 <div class="mt-2">
     <div class="dashboard-row d-flex">
         <h1 class="page-title">NCR Dashboard</h1>
-        <div>
-            <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
-                <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
-                <span class="me-1">Create Report</span>
-            </a>
-        </div>
+        @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
+            {
+            <div>
+                <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
+                    <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
+                    <span class="me-1">Create Report</span>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div>
+                <a asp-controller="Home" asp-action="List" class="btn btn-primary p-2">
+                   @*  <ion-icon name="add-circle-outline" class="vie-btn-icon"></ion-icon> *@
+                    <span class="me-1">View NCRs</span>
+                </a>
+            </div>
+        }
     </div>
 
     <div class="dashboard-row card-row">

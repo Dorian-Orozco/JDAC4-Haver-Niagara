@@ -25,15 +25,13 @@ namespace Haver_Niagara.Data
                     {
                         FirstName = "Admin",
                         LastName = "Powers",
-                        Email = "admin@outlook.com",
-                        Phone = "9053256625"
+                        Email = "admin@outlook.com"
                     },
                     new Employee
                     {
                         FirstName = "Fred",
                         LastName = "Flintstone",
-                        Email = "super@outlook.com",
-                        Phone = "4552212293"
+                        Email = "super@outlook.com"
                     },
                     new Employee
                     {
@@ -45,22 +43,19 @@ namespace Haver_Niagara.Data
                     {
                         FirstName = "Alex",
                         LastName = "Baxter",
-                        Email = "qualityrepresentative@outlook.com",
-                        Phone = "1234567070"
+                        Email = "qualityrepresentative@outlook.com"
                     },
                     new Employee
                     {
                         FirstName = "Adi",
                         LastName = "Sinha",
-                        Email = "engineer@outlook.com",
-                        Phone = "9012223434"
+                        Email = "engineer@outlook.com"
                     },
                     new Employee
                     {
                         FirstName = "John",
                         LastName = "Opper",
-                        Email = "operations@outlook.com",
-                        Phone = "2893435666"
+                        Email = "operations@outlook.com"
                     },
                     new Employee
                     {
@@ -2601,6 +2596,60 @@ namespace Haver_Niagara.Data
                         DepartmentDate = DateTime.Parse("2024-01-15"),
                         InspectorName = "Johnny Jam",
                         InspectorDate = DateTime.Parse("2024-01-15")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 24,
+                        ReInspected = true,
+                        Department = "Department 2",
+                        DepartmentDate = DateTime.Parse("2024-01-15"),
+                        InspectorName = "James Jam",
+                        InspectorDate = DateTime.Parse("2024-01-15")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 25,
+                        ReInspected = true,
+                        Department = "Department 3",
+                        DepartmentDate = DateTime.Parse("2024-01-15"),
+                        InspectorName = "Rogan City",
+                        InspectorDate = DateTime.Parse("2024-01-15")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 26,
+                        ReInspected = true,
+                        Department = "Department 4",
+                        DepartmentDate = DateTime.Parse("2024-01-15"),
+                        InspectorName = "Clark Man",
+                        InspectorDate = DateTime.Parse("2024-01-15")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 27,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2024-01-15"),
+                        InspectorName = "Cark San",
+                        InspectorDate = DateTime.Parse("2024-01-15")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 28,
+                        ReInspected = true,
+                        Department = "Department 1",
+                        DepartmentDate = DateTime.Parse("2024-01-15"),
+                        InspectorName = "Tesco Lad",
+                        InspectorDate = DateTime.Parse("2024-01-15")
+                    },
+                    new QualityInspectionFinal
+                    {
+                        ID = 29,
+                        ReInspected = true,
+                        Department = "Department 2",
+                        DepartmentDate = DateTime.Parse("2024-01-15"),
+                        InspectorName = "George Gee",
+                        InspectorDate = DateTime.Parse("2024-01-15")
                     }
 
                     // FIRST NCR IN LIST //
@@ -3057,13 +3106,13 @@ namespace Haver_Niagara.Data
 
                         NCR_Date = DateTime.Parse("2024-01-25"),
                         NCR_Status = true,
-                        NCR_Stage = (NCRStage)4, //QualityRep
+                        NCR_Stage = (NCRStage)4, //QualityRepFinal
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                         Part = context.Parts.FirstOrDefault(p => p.ID == 1),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 24),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24), 
                     },
                     new NCR
                     {
@@ -3078,7 +3127,7 @@ namespace Haver_Niagara.Data
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 25),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 25), //TESTING PROCUREMENT
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25),
-                        //QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
+                       
                     },
                     new NCR
                     {
