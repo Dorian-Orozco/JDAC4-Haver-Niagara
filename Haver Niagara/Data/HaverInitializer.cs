@@ -18,7 +18,7 @@ namespace Haver_Niagara.Data
             context.Database.EnsureCreated();
             //context.Database.Migrate();
 
-            if(!context.Employees.Any())
+            if (!context.Employees.Any())
             {
                 context.Employees.AddRange(
                     new Employee
@@ -217,7 +217,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 3),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 4, DefectID = 4},
+                    }
                 },
                 new Part
                 {
@@ -230,7 +234,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 5, DefectID = 5},
+                    }
                 },
                 new Part
                 {
@@ -243,7 +251,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 6, DefectID = 6},
+                    }
                 },
                 new Part
                 {
@@ -256,7 +268,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 7, DefectID = 7},
+                    }
                 },
                 new Part
                 {
@@ -270,7 +286,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 8, DefectID = 8},
+                    }
                 },
                 new Part
                 {
@@ -283,7 +303,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 9, DefectID = 9},
+                    }
                 },
                 new Part
                 {
@@ -296,7 +320,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 10, DefectID = 10},
+                    }
                 },
                 new Part
                 {
@@ -309,7 +337,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 11, DefectID = 11},
+                    }
                 },
                 new Part
                 {
@@ -323,6 +355,10 @@ namespace Haver_Niagara.Data
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 12, DefectID = 12},
+                    }
                 },
                 new Part
                 {
@@ -335,7 +371,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 13, DefectID = 13},
+                    }
                 },
                 new Part
                 {
@@ -348,7 +388,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 14, DefectID = 14},
+                    }
                 },
                 new Part
                 {
@@ -361,7 +405,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 3),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 15, DefectID = 15},
+                    }
                 },
                 new Part
                 {
@@ -374,7 +422,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 16, DefectID = 16},
+                    }
                 },
                 new Part
                 {
@@ -387,7 +439,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 17, DefectID = 17},
+                    }
                 },
                 new Part
                 {
@@ -400,7 +456,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 18, DefectID = 18},
+                    }
                 },
                 new Part
                 {
@@ -413,7 +473,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 19, DefectID = 19},
+                    }
                 },
                 new Part
                 {
@@ -426,7 +490,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 20, DefectID = 20},
+                    }
                 },
                 new Part
                 {
@@ -439,7 +507,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 21, DefectID = 21},
+                    }
                 },
                 new Part
                 {
@@ -452,7 +524,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 22, DefectID = 22},
+                    }
                 },
                 new Part
                 {
@@ -465,7 +541,11 @@ namespace Haver_Niagara.Data
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                     SAPNumber = 207956254,
                     PurchaseNumber = 4500730930,
-                    SalesOrder = "Stock"
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 23, DefectID = 23},
+                    }
                 },
                 new Part
                 {
@@ -482,7 +562,7 @@ namespace Haver_Niagara.Data
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
-                        new DefectList {PartID = 24, DefectID = 1}
+                        new DefectList {PartID = 24, DefectID = 24}
 
                     }
                 },
@@ -504,148 +584,184 @@ namespace Haver_Niagara.Data
                         new DefectList {DefectID = 2, PartID = 25}
                     }
                 },
-				new Part
-				{
-					ID = 26,
-					Name = "Nuts",
+                new Part
+                {
+                    ID = 26,
+                    Name = "Nuts",
                     PartNumber = 29111323,
                     ProductNumber = 209031293,
-					QuantityRecieved = 200,
-					QuantityDefect = 100,
-					Description = "Nuts for repairs",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock",
+                    QuantityRecieved = 200,
+                    QuantityDefect = 100,
+                    Description = "Nuts for repairs",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
                         new DefectList {DefectID = 3, PartID = 26}
                     }
                 },
-				new Part
-				{
-					ID = 27,
-					Name = "Screws",
+                new Part
+                {
+                    ID = 27,
+                    Name = "Screws",
                     PartNumber = 26833212,
                     ProductNumber = 209031296,
-					QuantityRecieved = 200,
-					QuantityDefect = 10,
-					Description = "Screws for repairs.",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				},
-				new Part
-				{
-					ID = 28,
-					Name = "Rivets",
+                    QuantityRecieved = 200,
+                    QuantityDefect = 10,
+                    Description = "Screws for repairs.",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 27, DefectID = 1},
+                    }
+                },
+                new Part
+                {
+                    ID = 28,
+                    Name = "Rivets",
                     PartNumber = 12873211,
                     ProductNumber = 209031299,
-					QuantityRecieved = 100,
-					QuantityDefect = 40,
-					Description = "Rivets for repairs",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				},
-				new Part
-				{
-					ID = 29,
-					Name = "Washers",
+                    QuantityRecieved = 100,
+                    QuantityDefect = 40,
+                    Description = "Rivets for repairs",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 28, DefectID = 2},
+                    }
+                },
+                new Part
+                {
+                    ID = 29,
+                    Name = "Washers",
                     PartNumber = 13853231,
                     ProductNumber = 244110399,
-					QuantityRecieved = 50,
-					QuantityDefect = 1,
-					Description = "Washers for repairs",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				},
-				new Part
-				{
-					ID = 30,
-					Name = "Anchors",
+                    QuantityRecieved = 50,
+                    QuantityDefect = 1,
+                    Description = "Washers for repairs",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 29, DefectID = 3},
+                    }
+                },
+                new Part
+                {
+                    ID = 30,
+                    Name = "Anchors",
                     PartNumber = 35873222,
                     ProductNumber = 204231293,
-					QuantityRecieved = 10,
-					QuantityDefect = 1,
-					Description = "Anchors for repairs",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				},
-				new Part
-				{
-					ID = 31,
-					Name = "Nails",
+                    QuantityRecieved = 10,
+                    QuantityDefect = 1,
+                    Description = "Anchors for repairs",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 30, DefectID = 4},
+                    }
+                },
+                new Part
+                {
+                    ID = 31,
+                    Name = "Nails",
                     PartNumber = 67422111,
                     ProductNumber = 212031293,
-					QuantityRecieved = 200,
-					QuantityDefect = 54,
-					Description = "Nails for repairs",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				},
-				new Part
-				{
-					ID = 32,
-					Name = "Clips",
+                    QuantityRecieved = 200,
+                    QuantityDefect = 54,
+                    Description = "Nails for repairs",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 31, DefectID = 5},
+                    }
+                },
+                new Part
+                {
+                    ID = 32,
+                    Name = "Clips",
                     PartNumber = 33263892,
 
                     ProductNumber = 219031293,
-					QuantityRecieved = 200,
-					QuantityDefect = 29,
-					Description = "Clips for repairs",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				},
-				new Part
-				{
-					ID = 33,
-					Name = "Anchors",
-					ProductNumber = 204231293,
-					QuantityRecieved = 10,
-					QuantityDefect = 1,
-					Description = "Anchors for repairs",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				},
-				new Part
-				{
-					ID = 34,
-					Name = "Screws",
-					ProductNumber = 209031296,
-					QuantityRecieved = 200,
-					QuantityDefect = 10,
-					Description = "Screws for repairs.",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				},
-				new Part
-				{
-					ID = 35,
-					Name = "Wires",
-					ProductNumber = 206547333,
-					QuantityRecieved = 10,
-					QuantityDefect = 10,
-					Description = "Replacement wires",
-					Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
-					SAPNumber = 207956254,
-					PurchaseNumber = 4500730930,
-					SalesOrder = "Stock"
-				});
+                    QuantityRecieved = 200,
+                    QuantityDefect = 29,
+                    Description = "Clips for repairs",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 32, DefectID = 6},
+                    }
+                },
+                new Part
+                {
+                    ID = 33,
+                    Name = "Anchors",
+                    ProductNumber = 204231293,
+                    QuantityRecieved = 10,
+                    QuantityDefect = 1,
+                    Description = "Anchors for repairs",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 33, DefectID = 7},
+                    }
+                },
+                new Part
+                {
+                    ID = 34,
+                    Name = "Screws",
+                    ProductNumber = 209031296,
+                    QuantityRecieved = 200,
+                    QuantityDefect = 10,
+                    Description = "Screws for repairs.",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 34, DefectID = 8},
+                    }
+                },
+                new Part
+                {
+                    ID = 35,
+                    Name = "Wires",
+                    ProductNumber = 206547333,
+                    QuantityRecieved = 10,
+                    QuantityDefect = 10,
+                    Description = "Replacement wires",
+                    Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
+                    SAPNumber = 207956254,
+                    PurchaseNumber = 4500730930,
+                    SalesOrder = "Stock",
+                    DefectLists = new List<DefectList>
+                    {
+                        new DefectList {PartID = 35, DefectID = 9},
+                    }
+                });
                 context.SaveChanges();
             }
 
@@ -753,7 +869,7 @@ namespace Haver_Niagara.Data
                         Description = "Poor Finish",
                         MimeType = "image/jpg",
                         Links = "C:\\Users\\Alex\\Dropbox\\ncr_2017-001-1.mp4",
-                        Part = context.Parts.FirstOrDefault(p =>p.ID == 24)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 24)
                     },
                     new Media
                     {
@@ -768,7 +884,7 @@ namespace Haver_Niagara.Data
                         Description = "Bad Paint Finish",
                         MimeType = "image/jpg",
                         Links = "C:\\Users\\Jacob\\Dropbox\\ncr_2011-002-1.mp4",
-                        Part = context.Parts.FirstOrDefault(p=>p.ID == 25)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 25)
                     },
                     new Media
                     {
@@ -777,7 +893,7 @@ namespace Haver_Niagara.Data
                         Description = "Bad Paint Finish",
                         MimeType = "image/jpg",
                         Links = "C:\\Users\\Jacob\\Dropbox\\ncr_2011-002-2.mp4",
-                        Part = context.Parts.FirstOrDefault(p=>p.ID == 25)
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 25)
                     }
                     );
                 context.SaveChanges();
@@ -1039,106 +1155,106 @@ namespace Haver_Niagara.Data
                     OperationCar = true,
                     OperationFollowUp = true,
                 },
-				new Operation
-				{
-					ID = 26,
-					Name = "Alex Baxter",
-					OperationDate = DateTime.Parse("2024-02-08"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "N/A",
-					OperationCar = true,
-					OperationFollowUp = true,
-				},
-				new Operation
-				{
-					ID = 27,
-					Name = "Sam Smith",
-					OperationDate = DateTime.Parse("2024-02-12"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "N/A",
-					OperationCar = true,
-					OperationFollowUp = false,
-				},
-				new Operation
-				{
-					ID = 28,
-					Name = "Alex Baxter",
-					OperationDate = DateTime.Parse("2024-02-18"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "N/A",
-					OperationCar = true,
-					OperationFollowUp = false,
-				},
-				new Operation
-				{
-					ID = 29,
-					Name = "Jame Scot",
-					OperationDate = DateTime.Parse("2024-02-21"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "N/A",
-					OperationCar = false,
-					OperationFollowUp = false,
-				},
-				new Operation
-				{
-					ID = 30,
-					Name = "Matt Turner",
-					OperationDate = DateTime.Parse("2024-02-29"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "N/A",
-					OperationCar = true,
-					OperationFollowUp = true,
-				},
-				new Operation
-				{
-					ID = 31,
-					Name = "Matt Turner",
-					OperationDate = DateTime.Parse("2024-03-01"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "N/A",
-					OperationCar = true,
-					OperationFollowUp = false,
-				},
-				new Operation
-				{
-					ID = 32,
-					Name = "James Jones",
-					OperationDate = DateTime.Parse("2024-03-03"),
-					OperationDecision = (OperationDecision)4,
-					OperationNotes = "N/A",
-					OperationCar = false,
-					OperationFollowUp = false,
-				},
-				new Operation
-				{
-					ID = 33,
-					Name = "Sam Smith",
-					OperationDate = DateTime.Parse("2024-03-05"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "Repaint required",
-					OperationCar = true,
-					OperationFollowUp = false,
-				},
-				new Operation
-				{
-					ID = 34,
-					Name = "Alex Baxter",
-					OperationDate = DateTime.Parse("2024-03-06"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "N/A",
-					OperationCar = true,
-					OperationFollowUp = false,
-				},
-				new Operation
-				{
-					ID = 35,
-					Name = "Alex Baxter",
-					OperationDate = DateTime.Parse("2024-03-08"),
-					OperationDecision = (OperationDecision)2,
-					OperationNotes = "N/A",
-					OperationCar = true,
-					OperationFollowUp = false,
-				});
+                new Operation
+                {
+                    ID = 26,
+                    Name = "Alex Baxter",
+                    OperationDate = DateTime.Parse("2024-02-08"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
+                    OperationFollowUp = true,
+                },
+                new Operation
+                {
+                    ID = 27,
+                    Name = "Sam Smith",
+                    OperationDate = DateTime.Parse("2024-02-12"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 28,
+                    Name = "Alex Baxter",
+                    OperationDate = DateTime.Parse("2024-02-18"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 29,
+                    Name = "Jame Scot",
+                    OperationDate = DateTime.Parse("2024-02-21"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = false,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 30,
+                    Name = "Matt Turner",
+                    OperationDate = DateTime.Parse("2024-02-29"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
+                    OperationFollowUp = true,
+                },
+                new Operation
+                {
+                    ID = 31,
+                    Name = "Matt Turner",
+                    OperationDate = DateTime.Parse("2024-03-01"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 32,
+                    Name = "James Jones",
+                    OperationDate = DateTime.Parse("2024-03-03"),
+                    OperationDecision = (OperationDecision)4,
+                    OperationNotes = "N/A",
+                    OperationCar = false,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 33,
+                    Name = "Sam Smith",
+                    OperationDate = DateTime.Parse("2024-03-05"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "Repaint required",
+                    OperationCar = true,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 34,
+                    Name = "Alex Baxter",
+                    OperationDate = DateTime.Parse("2024-03-06"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
+                    OperationFollowUp = false,
+                },
+                new Operation
+                {
+                    ID = 35,
+                    Name = "Alex Baxter",
+                    OperationDate = DateTime.Parse("2024-03-08"),
+                    OperationDecision = (OperationDecision)2,
+                    OperationNotes = "N/A",
+                    OperationCar = true,
+                    OperationFollowUp = false,
+                });
 
                 context.SaveChanges();
             }
@@ -1476,138 +1592,138 @@ namespace Haver_Niagara.Data
                     EngineeringDisposition = (EngineeringDisposition)3,
 
                 },
-				new Engineering
-				{
-					ID = 26,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering recommended a redesign of the structural support to enhance stability",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-02-08"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-02-08"),
-					EngineeringDisposition = (EngineeringDisposition)3,
-				},
-				new Engineering
-				{
-					ID = 27,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering advised increasing the thickness of the material to meet safety standards.",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-02-12"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-02-12"),
-					EngineeringDisposition = (EngineeringDisposition)3,
-				},
-				new Engineering
-				{
-					ID = 28,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering proposed integrating a new feature to enhance product functionality.",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-02-18"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-02-18"),
-					EngineeringDisposition = (EngineeringDisposition)3,
-				},
-				new Engineering
-				{
-					ID = 29,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "N/A",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-02-21"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-02-21"),
-					EngineeringDisposition = (EngineeringDisposition)3,
-				},
-				new Engineering
-				{
-					ID = 30,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering identified a potential flaw in the design and suggested a modification",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-02-29"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-02-29"),
-					EngineeringDisposition = (EngineeringDisposition)3,
-				},
-				new Engineering
-				{
-					ID = 31,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering conducted a feasibility study for implementing a cost-saving measure",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-03-01"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-03-01"),
-					EngineeringDisposition = (EngineeringDisposition)3,
-				},
-				new Engineering
-				{
-					ID = 32,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering insisted on creating a new way to solve this problem.",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-03-03"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-03-03"),
-					EngineeringDisposition = (EngineeringDisposition)3,
+                new Engineering
+                {
+                    ID = 26,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering recommended a redesign of the structural support to enhance stability",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-02-08"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-02-08"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 27,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering advised increasing the thickness of the material to meet safety standards.",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-02-12"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-02-12"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 28,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering proposed integrating a new feature to enhance product functionality.",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-02-18"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-02-18"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 29,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "N/A",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-02-21"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-02-21"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 30,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering identified a potential flaw in the design and suggested a modification",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-02-29"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-02-29"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 31,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering conducted a feasibility study for implementing a cost-saving measure",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-03-01"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-03-01"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 32,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering insisted on creating a new way to solve this problem.",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-03-03"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-03-03"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
 
-				},
-				new Engineering
-				{
-					ID = 33,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering identified a potential flaw in the design and suggested a modification",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-03-05"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-03-05"),
-					EngineeringDisposition = (EngineeringDisposition)3,
-				},
-				new Engineering
-				{
-					ID = 34,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering conducted a feasibility study for implementing a cost-saving measure",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-03-06"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-03-06"),
-					EngineeringDisposition = (EngineeringDisposition)3,
-				},
-				new Engineering
-				{
-					ID = 35,
-					CustomerNotify = true,
-					DrawUpdate = false,
-					DispositionNotes = "Engineering insisted on creating a new way to solve this problem.",
-					RevisionOriginal = 09854,
-					RevisionUpdated = 23465,
-					RevisionDate = DateTime.Parse("2024-03-08"),
-					Name = "Luke Miller",
-					Date = DateTime.Parse("2024-03-08"),
-					EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 33,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering identified a potential flaw in the design and suggested a modification",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-03-05"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-03-05"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 34,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering conducted a feasibility study for implementing a cost-saving measure",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-03-06"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-03-06"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
+                },
+                new Engineering
+                {
+                    ID = 35,
+                    CustomerNotify = true,
+                    DrawUpdate = false,
+                    DispositionNotes = "Engineering insisted on creating a new way to solve this problem.",
+                    RevisionOriginal = 09854,
+                    RevisionUpdated = 23465,
+                    RevisionDate = DateTime.Parse("2024-03-08"),
+                    Name = "Luke Miller",
+                    Date = DateTime.Parse("2024-03-08"),
+                    EngineeringDisposition = (EngineeringDisposition)3,
 
-				});
+                });
                 context.SaveChanges();
             }
 
@@ -1650,7 +1766,7 @@ namespace Haver_Niagara.Data
                         CarrierName = "Carrier B",
                         CarrierPhone = "320-456-7890",
                         AccountNumber = 421654321,
-                        DisposeOnSite = true, 
+                        DisposeOnSite = true,
                         ToReceiveDate = DateTime.Parse("2013-08-22"),
                         SuppReturnCompletedSAP = true,
                         ExpectSuppCredit = true,
@@ -1684,21 +1800,21 @@ namespace Haver_Niagara.Data
                         ExpectSuppCredit = true,
                         BillSupplier = false
                     },
-					new Procurement
-					{
-						ID = 6,
-						ReturnRejected = true,
-						RMANumber = 14245,
-						CarrierName = "Carrier B",
-						CarrierPhone = "320-456-7890",
-						AccountNumber = 421654321,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2016-09-14"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
+                    new Procurement
+                    {
+                        ID = 6,
+                        ReturnRejected = true,
+                        RMANumber = 14245,
+                        CarrierName = "Carrier B",
+                        CarrierPhone = "320-456-7890",
+                        AccountNumber = 421654321,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2016-09-14"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
                     {
                         ID = 7,
                         ReturnRejected = true,
@@ -1711,270 +1827,270 @@ namespace Haver_Niagara.Data
                         ExpectSuppCredit = true,
                         BillSupplier = false
                     },
-					new Procurement
-					{
-						ID = 8,
-						ReturnRejected = false,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2018-03-09"),
-						SuppReturnCompletedSAP = false,
-						ExpectSuppCredit = false,
-						BillSupplier = true
-					},
-					new Procurement
-					{
-						ID = 9,
-						ReturnRejected = true,
-						RMANumber = 14245,
-						CarrierName = "Carrier B",
-						CarrierPhone = "320-456-7890",
-						AccountNumber = 421654321,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2019-05-18"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 10,
-						ReturnRejected = false,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2020-08-02"),
-						SuppReturnCompletedSAP = false,
-						ExpectSuppCredit = false,
-						BillSupplier = true
-					},
-					new Procurement
-					{
-						ID = 11,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						ToReceiveDate = DateTime.Parse("2021-10-11"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 12,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						ToReceiveDate = DateTime.Parse("2022-02-26"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 13,
-						ReturnRejected = false,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2022-06-17"),
-						SuppReturnCompletedSAP = false,
-						ExpectSuppCredit = false,
-						BillSupplier = true
-					},
-					new Procurement
-					{
-						ID = 14,
-						ReturnRejected = true,
-						RMANumber = 14245,
-						CarrierName = "Carrier B",
-						CarrierPhone = "320-456-7890",
-						AccountNumber = 421654321,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2022-12-07"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 15,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						//DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
-						ToReceiveDate = DateTime.Parse("2022-12-10"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 16,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						ToReceiveDate = DateTime.Parse("2023-03-24"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 17,
-						ReturnRejected = true,
-						RMANumber = 14245,
-						CarrierName = "Carrier B",
-						CarrierPhone = "320-456-7890",
-						AccountNumber = 421654321,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2023-07-09"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 18,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						ToReceiveDate = DateTime.Parse("2023-10-20"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 19,
-						ReturnRejected = false,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2023-11-02"),
-						SuppReturnCompletedSAP = false,
-						ExpectSuppCredit = false,
-						BillSupplier = true
-					},
-					new Procurement
-					{
-						ID = 20,
-						ReturnRejected = true,
-						RMANumber = 14245,
-						CarrierName = "Carrier B",
-						CarrierPhone = "320-456-7890",
-						AccountNumber = 421654321,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2023-12-15"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 21,
-						ReturnRejected = false,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2024-01-01"),
-						SuppReturnCompletedSAP = false,
-						ExpectSuppCredit = false,
-						BillSupplier = true
-					},
-					new Procurement
-					{
-						ID = 22,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						ToReceiveDate = DateTime.Parse("2024-01-10"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 23,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						ToReceiveDate = DateTime.Parse("2024-01-15"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 24,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						//DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
-						ToReceiveDate = DateTime.Parse("2024-01-25"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 25,
-						ReturnRejected = false,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2024-02-02"),
-						SuppReturnCompletedSAP = false,
-						ExpectSuppCredit = false,
-						BillSupplier = true
-					},
-					new Procurement
-					{
-						ID = 26,
-						ReturnRejected = true,
-						RMANumber = 14245,
-						CarrierName = "Carrier B",
-						CarrierPhone = "320-456-7890",
-						AccountNumber = 421654321,
-						DisposeOnSite = true,
-						ToReceiveDate = DateTime.Parse("2024-02-08"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 27,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						//DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
-						ToReceiveDate = DateTime.Parse("2024-02-12"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					},
-					new Procurement
-					{
-						ID = 28,
-						ReturnRejected = true,
-						RMANumber = 12345,
-						CarrierName = "Carrier A",
-						CarrierPhone = "123-456-7890",
-						AccountNumber = 987654321,
-						//DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
-						ToReceiveDate = DateTime.Parse("2024-02-18"),
-						SuppReturnCompletedSAP = true,
-						ExpectSuppCredit = true,
-						BillSupplier = false
-					});
+                    new Procurement
+                    {
+                        ID = 8,
+                        ReturnRejected = false,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2018-03-09"),
+                        SuppReturnCompletedSAP = false,
+                        ExpectSuppCredit = false,
+                        BillSupplier = true
+                    },
+                    new Procurement
+                    {
+                        ID = 9,
+                        ReturnRejected = true,
+                        RMANumber = 14245,
+                        CarrierName = "Carrier B",
+                        CarrierPhone = "320-456-7890",
+                        AccountNumber = 421654321,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2019-05-18"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 10,
+                        ReturnRejected = false,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2020-08-02"),
+                        SuppReturnCompletedSAP = false,
+                        ExpectSuppCredit = false,
+                        BillSupplier = true
+                    },
+                    new Procurement
+                    {
+                        ID = 11,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        ToReceiveDate = DateTime.Parse("2021-10-11"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 12,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        ToReceiveDate = DateTime.Parse("2022-02-26"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 13,
+                        ReturnRejected = false,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2022-06-17"),
+                        SuppReturnCompletedSAP = false,
+                        ExpectSuppCredit = false,
+                        BillSupplier = true
+                    },
+                    new Procurement
+                    {
+                        ID = 14,
+                        ReturnRejected = true,
+                        RMANumber = 14245,
+                        CarrierName = "Carrier B",
+                        CarrierPhone = "320-456-7890",
+                        AccountNumber = 421654321,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2022-12-07"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 15,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        //DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
+                        ToReceiveDate = DateTime.Parse("2022-12-10"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 16,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        ToReceiveDate = DateTime.Parse("2023-03-24"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 17,
+                        ReturnRejected = true,
+                        RMANumber = 14245,
+                        CarrierName = "Carrier B",
+                        CarrierPhone = "320-456-7890",
+                        AccountNumber = 421654321,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2023-07-09"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 18,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        ToReceiveDate = DateTime.Parse("2023-10-20"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 19,
+                        ReturnRejected = false,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2023-11-02"),
+                        SuppReturnCompletedSAP = false,
+                        ExpectSuppCredit = false,
+                        BillSupplier = true
+                    },
+                    new Procurement
+                    {
+                        ID = 20,
+                        ReturnRejected = true,
+                        RMANumber = 14245,
+                        CarrierName = "Carrier B",
+                        CarrierPhone = "320-456-7890",
+                        AccountNumber = 421654321,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2023-12-15"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 21,
+                        ReturnRejected = false,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2024-01-01"),
+                        SuppReturnCompletedSAP = false,
+                        ExpectSuppCredit = false,
+                        BillSupplier = true
+                    },
+                    new Procurement
+                    {
+                        ID = 22,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        ToReceiveDate = DateTime.Parse("2024-01-10"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 23,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        ToReceiveDate = DateTime.Parse("2024-01-15"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 24,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        //DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
+                        ToReceiveDate = DateTime.Parse("2024-01-25"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 25,
+                        ReturnRejected = false,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2024-02-02"),
+                        SuppReturnCompletedSAP = false,
+                        ExpectSuppCredit = false,
+                        BillSupplier = true
+                    },
+                    new Procurement
+                    {
+                        ID = 26,
+                        ReturnRejected = true,
+                        RMANumber = 14245,
+                        CarrierName = "Carrier B",
+                        CarrierPhone = "320-456-7890",
+                        AccountNumber = 421654321,
+                        DisposeOnSite = true,
+                        ToReceiveDate = DateTime.Parse("2024-02-08"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 27,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        //DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
+                        ToReceiveDate = DateTime.Parse("2024-02-12"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    },
+                    new Procurement
+                    {
+                        ID = 28,
+                        ReturnRejected = true,
+                        RMANumber = 12345,
+                        CarrierName = "Carrier A",
+                        CarrierPhone = "123-456-7890",
+                        AccountNumber = 987654321,
+                        //DisposeOnSite = false, //THIS IS NULL IF RETURN REJECTED = TRUE
+                        ToReceiveDate = DateTime.Parse("2024-02-18"),
+                        SuppReturnCompletedSAP = true,
+                        ExpectSuppCredit = true,
+                        BillSupplier = false
+                    });
                 context.SaveChanges();
             }
             // Add more procurement instances as needed
@@ -2191,85 +2307,85 @@ namespace Haver_Niagara.Data
                         ItemMarked = true
                     },
 
-					new QualityInspection
-					{
-						ID = 26,
-						Name = "Pillow Man",
-						Date = DateTime.Parse("2024-02-08"),
+                    new QualityInspection
+                    {
+                        ID = 26,
+                        Name = "Pillow Man",
+                        Date = DateTime.Parse("2024-02-08"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 27,
-						Name = "Jorge Jeez",
-						Date = DateTime.Parse("2024-02-12"),
+                    new QualityInspection
+                    {
+                        ID = 27,
+                        Name = "Jorge Jeez",
+                        Date = DateTime.Parse("2024-02-12"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 28,
-						Name = "Hunt Con",
-						Date = DateTime.Parse("2024-02-18"),
+                    new QualityInspection
+                    {
+                        ID = 28,
+                        Name = "Hunt Con",
+                        Date = DateTime.Parse("2024-02-18"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 29,
-						Name = "Rise Saint",
-						Date = DateTime.Parse("2024-02-21"),
+                    new QualityInspection
+                    {
+                        ID = 29,
+                        Name = "Rise Saint",
+                        Date = DateTime.Parse("2024-02-21"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 30,
-						Name = "Sunday Smith",
-						Date = DateTime.Parse("2024-02-29"),
+                    new QualityInspection
+                    {
+                        ID = 30,
+                        Name = "Sunday Smith",
+                        Date = DateTime.Parse("2024-02-29"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 31,
-						Name = "Pillow Man",
-						Date = DateTime.Parse("2024-03-01"),
+                    new QualityInspection
+                    {
+                        ID = 31,
+                        Name = "Pillow Man",
+                        Date = DateTime.Parse("2024-03-01"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 32,
-						Name = "Jorge Jeez",
-						Date = DateTime.Parse("2024-03-03"),
+                    new QualityInspection
+                    {
+                        ID = 32,
+                        Name = "Jorge Jeez",
+                        Date = DateTime.Parse("2024-03-03"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 33,
-						Name = "Hunt Con",
-						Date = DateTime.Parse("2024-03-05"),
+                    new QualityInspection
+                    {
+                        ID = 33,
+                        Name = "Hunt Con",
+                        Date = DateTime.Parse("2024-03-05"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 34,
-						Name = "Rise Saint",
-						Date = DateTime.Parse("2024-03-06"),
+                    new QualityInspection
+                    {
+                        ID = 34,
+                        Name = "Rise Saint",
+                        Date = DateTime.Parse("2024-03-06"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     },
-					new QualityInspection
-					{
-						ID = 35,
-						Name = "Sunday Smith",
-						Date = DateTime.Parse("2024-03-08"),
+                    new QualityInspection
+                    {
+                        ID = 35,
+                        Name = "Sunday Smith",
+                        Date = DateTime.Parse("2024-03-08"),
                         QualityIdentify = (QualityIdentify)1,
-						ItemMarked = true
+                        ItemMarked = true
                     });
                 context.SaveChanges();
             }
@@ -2489,116 +2605,116 @@ namespace Haver_Niagara.Data
 
                     // FIRST NCR IN LIST //
 
-                //new QualityInspectionFinal
-                //{
-                //    ID = 24, 
-                //    ReInspected = true, 
-                //    Department = "Department 2",
-                //    DepartmentDate = DateTime.Parse("2022-06-17"),
-                //    InspectorName = "Billy Bam",
-                //    InspectorDate = DateTime.Parse("2022-06-17"),
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 25,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 24, 
+                    //    ReInspected = true, 
+                    //    Department = "Department 2",
+                    //    DepartmentDate = DateTime.Parse("2022-06-17"),
+                    //    InspectorName = "Billy Bam",
+                    //    InspectorDate = DateTime.Parse("2022-06-17"),
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 25,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
 
-                //new QualityInspectionFinal
-                //{
-                //    ID = 26,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 27,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 28,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 29,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 30,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 31,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 32,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 33,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 34,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
-                //},
-                //new QualityInspectionFinal
-                //{
-                //    ID = 35,
-                //    ReInspected = true,
-                //    Department = "Department 1",
-                //    DepartmentDate = DateTime.Parse("2022-02-26"),
-                //    InspectorName = "Johnny Jam",
-                //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 26,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 27,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 28,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 29,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 30,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 31,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 32,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 33,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 34,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
+                    //},
+                    //new QualityInspectionFinal
+                    //{
+                    //    ID = 35,
+                    //    ReInspected = true,
+                    //    Department = "Department 1",
+                    //    DepartmentDate = DateTime.Parse("2022-02-26"),
+                    //    InspectorName = "Johnny Jam",
+                    //    InspectorDate = DateTime.Parse("2022-02-26")
                     );
-            context.SaveChanges();
+                context.SaveChanges();
             }
 
             // ACTUAL NCRS: MAKE SURE DATES ARE CORRECT AND MAKE SENSE
@@ -2616,10 +2732,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 24),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 1),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 1),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 1),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 1)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 1),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 1),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 1)
+                    },
                     new NCR
                     {
                         ID = 2,
@@ -2631,9 +2747,9 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 2),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 2),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 2),
-						Procurement = context.Procurements.FirstOrDefault(p=>p.ID == 4),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 2)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 4),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 2)
+                    },
                     new NCR
                     {
                         ID = 3,
@@ -2645,10 +2761,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 26),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 3),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 3),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 3),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 3),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 3)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 3),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 3),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 3)
+                    },
                     new NCR
                     {
                         ID = 4,
@@ -2659,10 +2775,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 27),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 4),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 4),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 4),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 4),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 4)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 4),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 4),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 4)
+                    },
                     new NCR
                     {
                         ID = 5,
@@ -2673,10 +2789,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 28),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 5),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 5),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 5),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 5),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 5)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 5),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 5),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 5)
+                    },
                     new NCR
                     {
                         ID = 6,
@@ -2687,11 +2803,11 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 29),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 6),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 6),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 6),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 6),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 6)
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 6),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 6),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 6)
 
-					},
+                    },
                     new NCR
                     {
                         ID = 7,
@@ -2702,10 +2818,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 30),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 7),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 7),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 7),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 7),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 7),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 7),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
+                    },
                     new NCR
                     {
                         ID = 8,
@@ -2716,10 +2832,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 8),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 8),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 8),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 8),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 8),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 8)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 8),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 8),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 8)
+                    },
                     new NCR
                     {
                         ID = 9,
@@ -2730,10 +2846,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 9),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 9),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 9),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 9),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 9),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 9)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 9),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 9),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 9)
+                    },
                     new NCR
                     {
                         ID = 10,
@@ -2744,10 +2860,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 10),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 10),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 10),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 10),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 10),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 10)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 10),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 10),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 10)
+                    },
                     new NCR
                     {
                         ID = 11,
@@ -2759,10 +2875,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 11),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 11),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 11),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 11),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 11),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 11)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 11),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 11),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 11)
+                    },
                     new NCR
                     {
                         ID = 12,
@@ -2773,10 +2889,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 12),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 12),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 12),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 12),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 12),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 12)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 12),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 12),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 12)
+                    },
                     new NCR
                     {
                         ID = 13,
@@ -2787,10 +2903,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 13),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 13),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 13),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 13),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 13),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 13)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 13),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 13),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 13)
+                    },
                     new NCR
                     {
                         ID = 14,
@@ -2801,8 +2917,8 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 14),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 14),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 14),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 14),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 14), //Re-inspected Acceptable = No
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 14),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 14), //Re-inspected Acceptable = No
                         NewNCRID = 15 // New NCR is the next one generated
                     },
                     new NCR
@@ -2815,10 +2931,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 15),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 15),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 15),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 15),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 15),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 15)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 15),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 15),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 15)
+                    },
                     new NCR
                     {
                         ID = 16,
@@ -2829,10 +2945,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 16),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 16),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 16),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 16),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 16),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 16)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 16),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 16),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 16)
+                    },
                     new NCR
                     {
                         ID = 17,
@@ -2843,11 +2959,11 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 17),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 17),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 17),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 17),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 17),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 17)
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 17),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 17),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 17)
 
-					},
+                    },
                     new NCR
                     {
                         ID = 18,
@@ -2858,10 +2974,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 18),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 18),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 18),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 18),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 18),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 18)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 18),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 18),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 18)
+                    },
                     new NCR
                     {
                         ID = 19,
@@ -2872,10 +2988,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 19),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 19),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 19),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 19),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 19),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 19)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 19),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 19),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 19)
+                    },
                     new NCR
                     {
                         ID = 20,
@@ -2886,10 +3002,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 20),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 20),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 20),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 20),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 20),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 20)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 20),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 20),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 20)
+                    },
                     new NCR
                     {
                         ID = 21,
@@ -2900,10 +3016,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 21),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 21),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 21),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 21),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 21),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 21)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 21),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 21),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 21)
+                    },
                     new NCR
                     {
                         ID = 22,
@@ -2915,10 +3031,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 22),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 22),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 22),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 22),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 22),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 22)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 22),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 22),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 22)
+                    },
                     new NCR
                     {
                         ID = 23,
@@ -2930,10 +3046,10 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 23),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 23),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 23),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 23), 
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 23),
-						QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p=>p.ID == 23)
-					},
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 23),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 23),
+                        QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 23)
+                    },
 
                     new NCR
                     {
@@ -2948,7 +3064,7 @@ namespace Haver_Niagara.Data
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 24),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24),
-					},
+                    },
                     new NCR
                     {
                         ID = 25,
@@ -2964,140 +3080,140 @@ namespace Haver_Niagara.Data
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25),
                         //QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 7)
                     },
-					new NCR
-					{
-						ID = 26,
+                    new NCR
+                    {
+                        ID = 26,
 
-						NCR_Date = DateTime.Parse("2024-02-08"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)3, //Procurement
+                        NCR_Date = DateTime.Parse("2024-02-08"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)3, //Procurement
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 3),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 3),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 26),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 26),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 26),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26),
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 26),
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 26),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26),
                         //QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 8)
                     },
-					new NCR
-					{
-						ID = 27,
+                    new NCR
+                    {
+                        ID = 27,
 
-						NCR_Date = DateTime.Parse("2024-02-12"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)3, //Procurement
+                        NCR_Date = DateTime.Parse("2024-02-12"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)3, //Procurement
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 4),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 4),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 27),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 27),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 27),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 27)
-					},
-					new NCR
-					{
-						ID = 28,
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 27),
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 27),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 27)
+                    },
+                    new NCR
+                    {
+                        ID = 28,
 
-						NCR_Date = DateTime.Parse("2024-02-18"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)3, //Procurement
+                        NCR_Date = DateTime.Parse("2024-02-18"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)3, //Procurement
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 5),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 5),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 28),
-						Operation = context.Operations.FirstOrDefault(p => p.ID == 28),
-						Procurement = context.Procurements.FirstOrDefault(p => p.ID == 28),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 28)
-					},
-					new NCR
-					{
-						ID = 29,
+                        Operation = context.Operations.FirstOrDefault(p => p.ID == 28),
+                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 28),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 28)
+                    },
+                    new NCR
+                    {
+                        ID = 29,
 
-						NCR_Date = DateTime.Parse("2024-02-21"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)2, //Operations
+                        NCR_Date = DateTime.Parse("2024-02-21"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2, //Operations
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 6),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 6),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 29),
-						//Operation = context.Operations.FirstOrDefault(p => p.ID == 29),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 29)
-					},
-					new NCR
-					{
-						ID = 30,
+                        //Operation = context.Operations.FirstOrDefault(p => p.ID == 29),
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 29)
+                    },
+                    new NCR
+                    {
+                        ID = 30,
 
-						NCR_Date = DateTime.Parse("2024-02-29"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)2, //Operations
+                        NCR_Date = DateTime.Parse("2024-02-29"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2, //Operations
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 7),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 7),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 30),
                         //Operation = context.Operations.FirstOrDefault(p => p.ID == 30),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 30)
                     },
-					new NCR
-					{
-						ID = 31,
+                    new NCR
+                    {
+                        ID = 31,
 
-						NCR_Date = DateTime.Parse("2024-03-01"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)2, //Operations
+                        NCR_Date = DateTime.Parse("2024-03-01"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)2, //Operations
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 31),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 31),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 31),
                         //Operation = context.Operations.FirstOrDefault(p => p.ID == 31),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 31)
                     },
-					new NCR
-					{
-						ID = 32,
+                    new NCR
+                    {
+                        ID = 32,
 
-						NCR_Date = DateTime.Parse("2024-03-03"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)1, //Engineering
+                        NCR_Date = DateTime.Parse("2024-03-03"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1, //Engineering
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 32),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 32),
                         //Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 32),
                         //Operation = context.Operations.FirstOrDefault(p => p.ID == 32),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 32)
                     },
-					new NCR
-					{
-						ID = 33,
+                    new NCR
+                    {
+                        ID = 33,
 
-						NCR_Date = DateTime.Parse("2024-03-05"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)1, //Engineering
+                        NCR_Date = DateTime.Parse("2024-03-05"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1, //Engineering
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 33),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 33),
                         //Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 33),
                         //Operation = context.Operations.FirstOrDefault(p => p.ID == 33),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 33)
                     },
-					new NCR
-					{
-						ID = 34,
+                    new NCR
+                    {
+                        ID = 34,
 
-						NCR_Date = DateTime.Parse("2024-03-06"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)1,  // Engineering Stage
-						Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 34),
+                        NCR_Date = DateTime.Parse("2024-03-06"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1,  // Engineering Stage
+                        Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 34),
                         //Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 34),
                         //Operation = context.Operations.FirstOrDefault(p => p.ID == 34),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 34)
-					},
-					new NCR
-					{
-						ID = 35,
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 34)
+                    },
+                    new NCR
+                    {
+                        ID = 35,
 
-						NCR_Date = DateTime.Parse("2024-03-08"),
-						NCR_Status = true,
-						NCR_Stage = (NCRStage)1, // Engineering Stage
+                        NCR_Date = DateTime.Parse("2024-03-08"),
+                        NCR_Status = true,
+                        NCR_Stage = (NCRStage)1, // Engineering Stage
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
-						Part = context.Parts.FirstOrDefault(p => p.ID == 35),
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 35),
                         //Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 35),
                         //Operation = context.Operations.FirstOrDefault(p => p.ID == 35),
-						QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 35)
-					});
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 35)
+                    });
                 context.SaveChanges();
             }
 
@@ -3233,7 +3349,7 @@ namespace Haver_Niagara.Data
                     new DefectList { DefectID = 11, PartID = 34 },
                     new DefectList { DefectID = 11, PartID = 35 }
                 );
-                
+
                 context.SaveChanges();
             }
 

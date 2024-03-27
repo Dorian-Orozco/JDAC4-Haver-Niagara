@@ -5,8 +5,8 @@
 }
 
 @{
-    // Layout = null;
-    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    Layout = null;
+    // Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 @* PRINT TO PDF DOCUMENT *@
 
@@ -46,7 +46,7 @@
                     @Html.DisplayFor(modelItem => item.Part.SAPNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Part.Supplier.Name)
+                    @Html.DisplayFor(modelItem => item.Supplier.Name)
                 </td>
 
                 <td>
