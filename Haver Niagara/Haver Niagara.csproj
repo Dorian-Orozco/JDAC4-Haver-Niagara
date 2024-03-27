@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="View Models\**" />
+    <Content Remove="View Models\**" />
+    <EmbeddedResource Remove="View Models\**" />
+    <None Remove="View Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\NCRs\Create.cshtml" />
     <None Include="Views\NCRs\Delete.cshtml" />
     <None Include="Views\NCRs\Details.cshtml" />
@@ -97,10 +104,6 @@
     <None Update="TemporaryImages\tube.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="View Models\" />
   </ItemGroup>
 
 </Project>
