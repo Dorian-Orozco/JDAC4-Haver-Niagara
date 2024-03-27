@@ -128,13 +128,13 @@ namespace Haver_Niagara.Areas.Identity.Pages.Account
                 {
                     var emp = _context.Employees.Where(e => e.Email == Input.Email).FirstOrDefault();
                     CookieHelper.CookieSet(HttpContext, "userName", emp.FullName, 3200);
-                    if (String.IsNullOrEmpty(emp.Phone))
-                    {
-                        //Emergency Contact? Address? CAn add more things and tell them to finish something (nagging)
-                        //Nag to complete the profile?
-                        TempData["message"] = "Please enter the phone number.";
-                        returnUrl = "~/EmployeeAccount/Edit";
-                    }
+                    //if (String.IsNullOrEmpty(emp.Phone))
+                    //{
+                    //    //Emergency Contact? Address? CAn add more things and tell them to finish something (nagging)
+                    //    //Nag to complete the profile?
+                    //    TempData["message"] = "Please enter the phone number.";
+                    //    returnUrl = "~/EmployeeAccount/Edit";
+                    //}
 
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);

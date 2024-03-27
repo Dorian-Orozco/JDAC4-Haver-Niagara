@@ -25,20 +25,20 @@ namespace Haver_Niagara.Models
             }
         }
 
-        public string PhoneNumber
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(Phone))
-                {
-                    return "";
-                }
-                else
-                {
-                    return "(" + Phone.Substring(0, 3) + ") " + Phone.Substring(3, 3) + "-" + Phone.Substring(6, 4);
-                }
-            }
-        }
+        //public string PhoneNumber
+        //{
+        //    get
+        //    {
+        //        if (String.IsNullOrEmpty(Phone))
+        //        {
+        //            return "";
+        //        }
+        //        else
+        //        {
+        //            return "(" + Phone.Substring(0, 3) + ") " + Phone.Substring(3, 3) + "-" + Phone.Substring(6, 4);
+        //        }
+        //    }
+        //}
 
 
         public string FirstName { get; set; }
@@ -47,7 +47,7 @@ namespace Haver_Niagara.Models
         public string LastName { get; set; }
 
    
-        public string Phone { get; set; }
+        //public string? Phone { get; set; }
 
         //[Required(ErrorMessage = "Perscriber status required.")] //
         //public bool Prescriber { get; set; }

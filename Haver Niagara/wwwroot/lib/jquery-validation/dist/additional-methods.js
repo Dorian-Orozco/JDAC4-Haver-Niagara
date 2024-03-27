@@ -959,8 +959,10 @@ $.validator.addMethod( "mobileNL", function( value, element ) {
 	return this.optional( element ) || /^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)6((\s|\s?\-\s?)?[0-9]){8}$/.test( value );
 }, "Please specify a valid mobile number." );
 
-$.validator.addMethod( "mobileRU", function( phone_number, element ) {
-	var ruPhone_number = phone_number.replace( /\(|\)|\s+|-/g, "" );
+$.validator.addMethod( "mobileRU", function( 
+	_number, element ) {
+	var ru
+	_number = phone_number.replace(/\(|\)|\s+|-/g, "");
 	return this.optional( element ) || ruPhone_number.length > 9 && /^((\+7|7|8)+([0-9]){10})$/.test( ruPhone_number );
 }, "Please specify a valid mobile number." );
 

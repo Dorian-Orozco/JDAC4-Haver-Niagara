@@ -44,10 +44,23 @@
             }
         </div>
         <div>
-            <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
+            @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
+            {
+                <div>
+                    <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
+                        <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
+                        <span class="me-1">Create Report</span>
+                    </a>
+                </div>
+            }
+            else
+            {
+
+            }
+@*             <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
                 <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
                 <span class="me-1">Create Report</span>
-            </a>
+            </a> *@
         </div>
     </div>
 </div>

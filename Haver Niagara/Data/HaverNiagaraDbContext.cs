@@ -92,10 +92,10 @@ namespace Haver_Niagara.Data
                 .HasIndex(a => new { a.Email })
                 .IsUnique();
 
-            //Unique Constraint for Phone Number 
-            modelBuilder.Entity<Employee>()
-                .HasIndex(a => new { a.Phone})
-                .IsUnique();
+            ////Unique Constraint for Phone Number 
+            //modelBuilder.Entity<Employee>()
+            //    .HasIndex(a => new { a.Phone})
+            //    .IsUnique();
 
             ////Unique Constraint for Defect Name
             modelBuilder.Entity<Defect>()

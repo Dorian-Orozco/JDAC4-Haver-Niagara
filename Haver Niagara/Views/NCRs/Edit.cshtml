@@ -849,144 +849,147 @@
 
         @if (User.IsInRole("Admin") || User.IsInRole("Quality Representative"))
         {
-
-            @* Quality Inspector Section *@
-            <div class="section section-qual">
-                <div class="row border m-1 p-2 ps-3 fs-6 section-header">5/ Quality Representative</div>
-                @* row 13 *@
-                <div class="row m-1 border">
-                    <div class="col-sm-3 pt-3 ps-3 d-flex justify-content-start">
-                        <dl>
-                            <dt>
-                                Re-Inspected Acceptable?
-                                @*@Html.DisplayNameFor(model => model.NCRClosed) *@
-                            </dt>
-                            <dd class="mt-2">
-                                <div class="d-flex justify-content-center">
-                                    <span class="ms-2 me-5">
-                                        <label asp-for="QualityInspectionFinal.ReInspected" class="control-label"></label><br />
-                                        <div class="d-flex">
-                                            @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, true, new { @checked = Model.QualityInspectionFinal != null && Model.QualityInspectionFinal.ReInspected, @class = "me-2" })
-                                            <label class="me-4">Yes</label>
-
-                                            @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, false, new { @checked = Model.QualityInspectionFinal != null && !Model.QualityInspectionFinal.ReInspected, @class = "me-2" })
-                                            <label>No</label>
-                                            <span asp-validation-for="QualityInspectionFinal.ReInspected" class="text-danger"></span>
-                                        </div>
-                                    </span>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="col-sm-3 pt-2">
-                        <small class="fw-light">
-                        </small>
-                        <div class="row">
+            @if(Model.NCR_Stage == NCRStage.QualityRepresentative_Final)
+            {
+                @* Quality Inspector Section *@
+                <div class="section section-qual">
+                    <div class="row border m-1 p-2 ps-3 fs-6 section-header">5/ Quality Representative</div>
+                    @* row 13 *@
+                    <div class="row m-1 border">
+                        <div class="col-sm-3 pt-3 ps-3 d-flex justify-content-start">
                             <dl>
-                                <dt class="mt-2 col-sm fw-normal">
+                                <dt>
+                                    Re-Inspected Acceptable?
+                                    @*@Html.DisplayNameFor(model => model.NCRClosed) *@
+                                </dt>
+                                <dd class="mt-2">
+                                    <div class="d-flex justify-content-center">
+                                        <span class="ms-2 me-5">
+                                            <label asp-for="QualityInspectionFinal.ReInspected" class="control-label"></label><br />
+                                            <div class="d-flex">
+                                                @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, true, new { @checked = Model.QualityInspectionFinal != null && Model.QualityInspectionFinal.ReInspected, @class = "me-2" })
+                                                <label class="me-4">Yes</label>
+
+                                                @Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, false, new { @checked = Model.QualityInspectionFinal != null && !Model.QualityInspectionFinal.ReInspected, @class = "me-2" })
+                                                <label>No</label>
+                                                <span asp-validation-for="QualityInspectionFinal.ReInspected" class="text-danger"></span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-3 pt-2">
+                            <small class="fw-light">
+                            </small>
+                            <div class="row">
+                                <dl>
+                                    <dt class="mt-2 col-sm fw-normal">
+                                        @{
+                                            if (Model.OldNCRID != null || Model.NewNCRID != null)
+                                            {
+                                                //if the old ncr id has an old ncr id value then we know it must be a preivous ncr number, else it must be new
+                                                string ncrLabel = Model.OldNCRID != null ? "Previous NCR Number" : "New NCR Number";
+                                                @ncrLabel
+                                            }
+                                        }
+                                    </dt>
                                     @{
                                         if (Model.OldNCRID != null || Model.NewNCRID != null)
                                         {
-                                            //if the old ncr id has an old ncr id value then we know it must be a preivous ncr number, else it must be new
-                                            string ncrLabel = Model.OldNCRID != null ? "Previous NCR Number" : "New NCR Number";
-                                            @ncrLabel
+                                            //again if has value, show old value formatted, else show new value formatted.
+                                            string formattedNCRID = Model.OldNCRID != null ? $"{DateTime.UtcNow.Year}-{Model.OldNCRID.ToString().PadLeft(3, '0')}"
+                                            : $"{DateTime.UtcNow.Year}-{Model.NewNCRID.ToString().PadLeft(3, '0')}";
+                                            <dd class="m2-2">
+                                                @formattedNCRID
+                                            </dd>
                                         }
                                     }
-                                </dt>
-                                @{
-                                    if (Model.OldNCRID != null || Model.NewNCRID != null)
-                                    {
-                                        //again if has value, show old value formatted, else show new value formatted.
-                                        string formattedNCRID = Model.OldNCRID != null ? $"{DateTime.UtcNow.Year}-{Model.OldNCRID.ToString().PadLeft(3, '0')}"
-                                        : $"{DateTime.UtcNow.Year}-{Model.NewNCRID.ToString().PadLeft(3, '0')}";
-                                        <dd class="m2-2">
-                                            @formattedNCRID
-                                        </dd>
-                                    }
-                                }
-                            </dl>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 border pt-3 ps-3">
+                            <div class="row">
+                                <dl class="d-flex m-0">
+                                    <dt class="col-sm">
+                                        Inspector's Name
+                                    </dt>
+                                    <dd class="col-sm ms-2">
+                                        <input asp-for="QualityInspectionFinal.InspectorName" class="form-control" />
+                                        <span asp-validation-for="QualityInspectionFinal.InspectorName" class="text-danger"></span>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="row">
+                                <dl class="d-flex">
+                                    <dt class="col-sm">
+                                        Date
+                                    </dt>
+                                    <dd class="col-sm ms-2">
+                                        <div class="form-group">
+                                            <input asp-for="QualityInspectionFinal.InspectorDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                            <span asp-validation-for="QualityInspectionFinal.InspectorDate" class="text-danger"></span>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 border pt-3 ps-3">
-                        <div class="row">
-                            <dl class="d-flex m-0">
-                                <dt class="col-sm">
-                                    Inspector's Name
+
+                    @* row 14 *@
+                    <div class="row m-1 border">
+                        <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
+                            <dl>
+                                <dt>
+                                    Keep NCR Open?
                                 </dt>
-                                <dd class="col-sm ms-2">
-                                    <input asp-for="QualityInspectionFinal.InspectorName" class="form-control" />
-                                    <span asp-validation-for="QualityInspectionFinal.InspectorName" class="text-danger"></span>
-                                </dd>
-                            </dl>
-                        </div>
-                        <div class="row">
-                            <dl class="d-flex">
-                                <dt class="col-sm">
-                                    Date
-                                </dt>
-                                <dd class="col-sm ms-2">
-                                    <div class="form-group">
-                                        <input asp-for="QualityInspectionFinal.InspectorDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
-                                        <span asp-validation-for="QualityInspectionFinal.InspectorDate" class="text-danger"></span>
+                                <dd class="mt-2">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="d-flex">
+                                            @Html.RadioButtonFor(model => model.NCR_Status, true, new { @checked = Model != null && Model.NCR_Status, @class = "me-2" })
+                                            <label class="me-4">Yes</label>
+
+                                            @Html.RadioButtonFor(model => model.NCR_Status, false, new { @checked = Model != null && !Model.NCR_Status, @class = "me-2" })
+                                            <label>No</label>
+                                            <span asp-validation-for="NCR_Status" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </dd>
                             </dl>
+                        </div>
+                        <div class="col-sm-6 border pt-3 ps-3">
+                            <div class="row">
+                                <dl class="d-flex m-0">
+                                    <dt class="col-sm">
+                                        Quality Department
+                                    </dt>
+                                    <dd class="col-sm ms-2">
+                                        <div class="form-group">
+                                            <input asp-for="QualityInspectionFinal.Department" class="form-control" />
+                                            <span asp-validation-for="QualityInspectionFinal.Department" class="text-danger"></span>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="row">
+                                <dl class="d-flex">
+                                    <dt class="col-sm">
+                                        Date
+                                        @* @Html.DisplayNameFor(model => model.InspectDate) *@
+                                    </dt>
+                                    <dd class="col-sm ms-2">
+                                        <div class="form-group">
+                                            <input asp-for="QualityInspectionFinal.DepartmentDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                            <span asp-validation-for="QualityInspectionFinal.DepartmentDate" class="text-danger"></span> @* quality department date add different property *@
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                @* row 14 *@
-                <div class="row m-1 border">
-                    <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
-                        <dl>
-                            <dt>
-                                Keep NCR Open?
-                            </dt>
-                            <dd class="mt-2">
-                                <div class="d-flex justify-content-center">
-                                    <div class="d-flex">
-                                        @Html.RadioButtonFor(model => model.NCR_Status, true, new { @checked = Model != null && Model.NCR_Status, @class = "me-2" })
-                                        <label class="me-4">Yes</label>
-
-                                        @Html.RadioButtonFor(model => model.NCR_Status, false, new { @checked = Model != null && !Model.NCR_Status, @class = "me-2" })
-                                        <label>No</label>
-                                        <span asp-validation-for="NCR_Status" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="col-sm-6 border pt-3 ps-3">
-                        <div class="row">
-                            <dl class="d-flex m-0">
-                                <dt class="col-sm">
-                                    Quality Department
-                                </dt>
-                                <dd class="col-sm ms-2">
-                                    <div class="form-group">
-                                        <input asp-for="QualityInspectionFinal.Department" class="form-control" />
-                                        <span asp-validation-for="QualityInspectionFinal.Department" class="text-danger"></span>
-                                    </div>
-                                </dd>
-                            </dl>
-                        </div>
-                        <div class="row">
-                            <dl class="d-flex">
-                                <dt class="col-sm">
-                                    Date
-                                    @* @Html.DisplayNameFor(model => model.InspectDate) *@
-                                </dt>
-                                <dd class="col-sm ms-2">
-                                    <div class="form-group">
-                                        <input asp-for="QualityInspectionFinal.DepartmentDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
-                                        <span asp-validation-for="QualityInspectionFinal.DepartmentDate" class="text-danger"></span> @* quality department date add different property *@
-                                    </div>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
+         
         }
     </div>
 

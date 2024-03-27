@@ -212,6 +212,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.QualityInspection)
                 .Include(n=>n.QualityInspectionFinal)
                 .Include(n => n.Engineering)
+
                 .Include(n => n.Operation)
                     .ThenInclude(n => n.CAR)
                 .Include(n => n.Operation)
@@ -309,9 +310,7 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.Description = part.Description;
                         existingNCR.Part.SupplierID = (int)existingNCR.NCRSupplierID;
 
-                        //int? selectedNCRSupplierID = existingNCR.NCRSupplierID;
-                        //part.SupplierID = (int)selectedNCRSupplierID;
-
+            
                         //existingNCR.Part.SupplierID = part.SupplierID; //crashes after saving changes because of this line
                         await _context.SaveChangesAsync();
                         existingNCR.Part.DefectLists.Clear(); //removed existing defect 
@@ -332,8 +331,6 @@ namespace Haver_Niagara.Controllers
                                     };
 
                                     _context.DefectLists.Add(newDefectList);
-
-                                    // Save changes to the database
                                     await _context.SaveChangesAsync();
 
                                     // Add the new DefectList to the Part's DefectLists collection
@@ -488,7 +485,7 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Procurement.ExpectSuppCredit = procurement.ExpectSuppCredit;
                         existingNCR.Procurement.BillSupplier = procurement.BillSupplier;
 
-                        if (procurement.ReturnRejected == true) //have to fill it out.
+                        if (procurement.ReturnRejected == true || procurement.ReturnRejected == false)//as long as its checked then change it
                         {
                             existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
                         }
@@ -507,6 +504,7 @@ namespace Haver_Niagara.Controllers
                     }
 
 
+
                     if (existingNCR.NCR_Status) //If yes the NCR is being kept open
                     {
                         if (!qualityInspectionFinal.ReInspected) //if this is false (no) then redirect to Create
@@ -523,8 +521,6 @@ namespace Haver_Niagara.Controllers
                             return RedirectToAction("Create", new { oldNCRID = id });
                         }
                     }
-
-                    //_context.Attach(existingNCR).State = EntityState.Modified;  //Attaches the NCR entity back to context 
                     await OnPostUploadAsync(files, nCR.ID, links);
                     await _context.SaveChangesAsync();
                 }

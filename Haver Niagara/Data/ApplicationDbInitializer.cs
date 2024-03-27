@@ -69,19 +69,6 @@ namespace Haver_Niagara.Data
                         userManager.AddToRoleAsync(user, "Supervisor").Wait();
                     }
                 }
-                //Regular account which probably wont be needed
-                if (userManager.FindByEmailAsync("user@outlook.com").Result == null)
-                {
-                    IdentityUser user = new IdentityUser
-                    {
-                        UserName = "user@outlook.com",
-                        Email = "user@outlook.com",
-                        EmailConfirmed = true
-                    };
-
-                    IdentityResult result = userManager.CreateAsync(user, "password").Result;
-                    //Not in any role
-                }
                 //Quality Representative Stuff
                 if (userManager.FindByEmailAsync("qualityrepresentative@outlook.com").Result == null)
                 {
