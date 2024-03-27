@@ -162,123 +162,130 @@
             </div>
         </div>
     </div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th class="text-center">
-                    Status
-                    @*       <a asp-action="List"
-                    asp-route-sortOrder="@ViewBag.StageSortParam"
-                    asp-route-currentFilter="@ViewBag.CurrentFilter"
-                    asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                    asp-route-selectedDate="@ViewBag.SelectedDate"
-                    asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                    asp-route-page="@Model.PageNumber">
-                    Status
-                    </a> *@
-                </th>
-                <th class="text-center">
-                    <a asp-action="List"
-                       asp-route-sortOrder="@ViewBag.FormattedIDSortParam"
-                       asp-route-currentFilter="@ViewBag.CurrentFilter"
-                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                       asp-route-selectedDate="@ViewBag.SelectedDate"
-                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                       asp-route-page="@Model.PageNumber">
-                        NCR Number
-                    </a>
-                </th>
-                <th class="text-center">
-                    <a asp-action="List"
-                       asp-route-sortOrder="@ViewBag.DateSortParam"
-                       asp-route-currentFilter="@ViewBag.CurrentFilter"
-                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                       asp-route-selectedDate="@ViewBag.SelectedDate"
-                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                       asp-route-page="@Model.PageNumber">
-                        Date Created
-                    </a>
-                </th>
-                <th class="text-center">
-                    <a asp-action="List"
-                       asp-route-sortOrder="@ViewBag.POSortParam"
-                       asp-route-currentFilter="@ViewBag.CurrentFilter"
-                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                       asp-route-selectedDate="@ViewBag.SelectedDate"
-                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                       asp-route-page="@Model.PageNumber">
-                        Part Number
-                    </a>
-                </th>
-                <th>
-                    <a asp-action="List"
-                       asp-route-sortOrder="@ViewBag.SupplierSortParam"
-                       asp-route-currentFilter="@ViewBag.CurrentFilter"
-                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                       asp-route-selectedDate="@ViewBag.SelectedDate"
-                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                       asp-route-page="@Model.PageNumber">
-                        Supplier
-                    </a>
-                </th>
-                <th>
-                    <a asp-action="List"
-                       asp-route-sortOrder="@ViewBag.NCRStageSortParam"
-                       asp-route-currentFilter="@ViewBag.CurrentFilter"
-                       asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                       asp-route-selectedDate="@ViewBag.SelectedDate"
-                       asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                       asp-route-page="@Model.PageNumber">
-                        Stage
-                    </a>
-                </th>
-                <th class="text-center"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {                           //Added some validation, will remove later.
+    <div class="table-responsive">
+
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td class="text-center">
-                        @if (!item.NCR_Status)
-                        {
-                            <button class="status-btn closed" title="Closed"></button>
-                        }
-                        else
-                        {
-                            <button class="status-btn active" title="Active"></button>
-                        }
-                    </td>
-                    @{
-                        int year = DateTime.Now.Year;
-                    }
-                    <td class="text-center">@item.FormattedID</td>
-                    <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
-                    <td class="text-center">@(item.Part?.ProductNumber.ToString() ?? "Product Number Not Found")</td>
-                    <td>@(item.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
-                    <td><p class="stage border" id="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
-                    <td class="text-center">
-                        <div>
-                            <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
-                                <ion-icon name="eye"></ion-icon>
-                            </a>
+                    <th class="text-center">
+                        Status
+                        @*       <a asp-action="List"
+                        asp-route-sortOrder="@ViewBag.StageSortParam"
+                        asp-route-currentFilter="@ViewBag.CurrentFilter"
+                        asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                        asp-route-selectedDate="@ViewBag.SelectedDate"
+                        asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                        asp-route-page="@Model.PageNumber">
+                        Status
+                        </a> *@
+                    </th>
+                    <th class="text-center">
+                        <a asp-action="List"
+                           asp-route-sortOrder="@ViewBag.FormattedIDSortParam"
+                           asp-route-currentFilter="@ViewBag.CurrentFilter"
+                           asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                           asp-route-selectedDate="@ViewBag.SelectedDate"
+                           asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                           asp-route-page="@Model.PageNumber">
+                            NCR Number
+                        </a>
+                    </th>
+                    <th class="text-center">
+                        <a asp-action="List"
+                           asp-route-sortOrder="@ViewBag.DateSortParam"
+                           asp-route-currentFilter="@ViewBag.CurrentFilter"
+                           asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                           asp-route-selectedDate="@ViewBag.SelectedDate"
+                           asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                           asp-route-page="@Model.PageNumber">
+                            Date Created
+                        </a>
+                    </th>
+                    <th class="text-center">
+                        <a asp-action="List"
+                           asp-route-sortOrder="@ViewBag.POSortParam"
+                           asp-route-currentFilter="@ViewBag.CurrentFilter"
+                           asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                           asp-route-selectedDate="@ViewBag.SelectedDate"
+                           asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                           asp-route-page="@Model.PageNumber">
+                            Part Number
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="List"
+                           asp-route-sortOrder="@ViewBag.SupplierSortParam"
+                           asp-route-currentFilter="@ViewBag.CurrentFilter"
+                           asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                           asp-route-selectedDate="@ViewBag.SelectedDate"
+                           asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                           asp-route-page="@Model.PageNumber">
+                            Supplier
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="List"
+                           asp-route-sortOrder="@ViewBag.NCRStageSortParam"
+                           asp-route-currentFilter="@ViewBag.CurrentFilter"
+                           asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
+                           asp-route-selectedDate="@ViewBag.SelectedDate"
+                           asp-route-selectedStatus="@ViewBag.SelectedStatus"
+                           asp-route-page="@Model.PageNumber">
+                            Stage
+                        </a>
+                    </th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {                           //Added some validation, will remove later.
+                    <tr>
+                        <td class="text-center">
                             @if (!item.NCR_Status)
                             {
-                                @* edit button dissappears if ncr is closed *@
-                                <a></a>
+                                <button class="status-btn closed" title="Closed"></button>
                             }
                             else
                             {
-                                <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
-                                    <ion-icon name="create"></ion-icon>
-                                </a>
+                                <button class="status-btn active" title="Active"></button>
                             }
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                        </td>
+                        @{
+                            int year = DateTime.Now.Year;
+                        }
+                        <td class="text-center">@item.FormattedID</td>
+                        <td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
+                        <td class="text-center">@(item.Part?.ProductNumber.ToString() ?? "Product Number Not Found")</td>
+                        <td>@(item.Supplier.Name.ToString() ?? "Supplier Name Not Found")</td>
+                        <td><p class="stage border" id="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
+                        <td class="text-center">
+                            <div>
+                                <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn me-1" title="View NCR report">
+                                    <ion-icon name="eye"></ion-icon>
+                                </a>
+                                @if (item.NCR_Status)
+                                {
+                                    <!-- edit button appears if ncr is not closed -->
+                                    <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
+                                        <ion-icon name="create"></ion-icon>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <!-- Download Report button appears if ncr is closed -->
+                                    <a asp-action="DetailsPdf" asp-route-id="@item.ID" class="view-btn" title="Download NCR report">
+                                        <ion-icon name="download"></ion-icon>
+                                    </a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
     <div class="d-flex justify-content-end">
         <a asp-controller="Home" asp-action="ListArchive" class="btn archive-btn">Archive <ion-icon name="archive" class="archive-btn-icon ms-1"></ion-icon></a>
     </div>

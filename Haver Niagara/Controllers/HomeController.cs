@@ -451,6 +451,8 @@ namespace Haver_Niagara.Controllers
             return RedirectToAction("List");
         }
 
+        #region Dashboard
+
         // For Dashboard
         public async Task<IActionResult> Index()
         {
@@ -477,6 +479,32 @@ namespace Haver_Niagara.Controllers
             var closedNCRCount = await _context.NCRs.CountAsync(n => !n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year);
             return Json(new { count = closedNCRCount });
         }
+
+        public async Task<IActionResult> GetEngineeringStageCount()
+        {
+            var engineerStage = await _context.NCRs.CountAsync(n => n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year && n.NCR_Stage == NCRStage.Engineering);
+            return Json(new { count = engineerStage });
+        }
+
+        public async Task<IActionResult> GetOperationsStageCount()
+        {
+            var operationsStage = await _context.NCRs.CountAsync(n => n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year && n.NCR_Stage == NCRStage.Operations);
+            return Json(new { count = operationsStage });
+        }
+
+        public async Task<IActionResult> GetProcurementStageCount()
+        {
+            var procurementStage = await _context.NCRs.CountAsync(n => n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year && n.NCR_Stage == NCRStage.Procurement);
+            return Json(new { count = procurementStage });
+        }
+
+        public async Task<IActionResult> GetQualityStageCount()
+        {
+            var qualityStage = await _context.NCRs.CountAsync(n => n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year && n.NCR_Stage == NCRStage.QualityRepresentative_Final);
+            return Json(new { count = qualityStage });
+        }
+
+        #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
