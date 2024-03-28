@@ -202,14 +202,62 @@
     <div class="d-flex justify-content-between">
         <div class="d-flex mt-4 mb-4">
             <h1 class="">NCR Dashboard</h1>
-            <div class="">
-                <select name="stage" id="stage" class="form-select mt-2 ms-3">
-                    <option value="Engineering" selected>Engineering</option>
-                    <option value="Operations">Operations</option>
-                    <option value="Procurement">Procurement</option>
-                    <option value="Quality">Quality Rep</option>
-                </select>
-            </div>
+            <!--If Admin, show drop down for selecting stage of NCR Report-->
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="">
+                    <select name="stage" id="stage" class="form-select mt-2 ms-3">
+                        <option value="Engineering" selected>Engineering</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Procurement">Procurement</option>
+                        <option value="Quality">Quality Rep</option>
+                    </select>
+                </div>
+            }
+            @if (User.IsInRole("Quality Representative"))
+            {
+                <div class="d-none">
+                    <select name="stage" id="stage" class="form-select mt-2 ms-3">
+                        <option value="Engineering">Engineering</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Procurement">Procurement</option>
+                        <option value="Quality" selected>Quality Rep</option>
+                    </select>
+                </div>
+            }
+            @if (User.IsInRole("Engineer"))
+            {
+                <div class="d-none">
+                    <select name="stage" id="stage" class="form-select mt-2 ms-3">
+                        <option value="Engineering" selected> Engineering</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Procurement">Procurement</option>
+                        <option value="Quality">Quality Rep</option>
+                    </select>
+                </div>
+            }
+            @if (User.IsInRole("Procurement"))
+            {
+                <div class="d-none">
+                    <select name="stage" id="stage" class="form-select mt-2 ms-3">
+                        <option value="Engineering"> Engineering</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Procurement" selected>Procurement</option>
+                        <option value="Quality">Quality Rep</option>
+                    </select>
+                </div>
+            }
+            @if (User.IsInRole("Operations"))
+            {
+                <div class="d-none">
+                    <select name="stage" id="stage" class="form-select mt-2 ms-3">
+                        <option value="Engineering"> Engineering</option>
+                        <option value="Operations" selected>Operations</option>
+                        <option value="Procurement">Procurement</option>
+                        <option value="Quality">Quality Rep</option>
+                    </select>
+                </div>
+            }
         </div>
         @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
         {
