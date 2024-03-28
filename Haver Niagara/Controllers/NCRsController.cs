@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using IronPdf.Extensions.Mvc.Core;
 using IronPdf.Rendering;
 using Microsoft.AspNetCore.Http;
+using X.PagedList;
 
 namespace Haver_Niagara.Controllers
 {
@@ -33,6 +34,55 @@ namespace Haver_Niagara.Controllers
             _logger = logger;
             _viewRenderService = viewRenderService;
             _httpContextAccessor = httpContextAccessor;
+        }
+
+        // Print PDF Details View
+        public async Task<IActionResult> DetailsPrint(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.Engineering)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Medias)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.DefectLists)
+                    .ThenInclude(n => n.Defect)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.FollowUp)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.CAR)
+                    .Include(n => n.Procurement)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            //Print Details View to PDF
+            if (_httpContextAccessor.HttpContext.Request.Method == HttpMethod.Post.Method)
+            {
+                ChromePdfRenderer renderer = new ChromePdfRenderer();
+
+                // Choose screen or print CSS media
+                renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
+
+                // Render View to PDF document
+                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/NCRs/DetailsPrint.cshtml", nCR);
+
+                // Use the FormattedID property to generate the file name
+                string fileName = $"NCR_{nCR.FormattedID}.pdf";
+
+                Response.Headers.Add("Content-Disposition", "inline");
+                // Output PDF document
+                return File(pdf.BinaryData, "application/pdf", fileName);
+            }
+
+            return View(nCR);
         }
 
         // GET: NCRs
@@ -86,22 +136,6 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-
-            //Print Details View to PDF
-            if (_httpContextAccessor.HttpContext.Request.Method == HttpMethod.Post.Method)
-            {
-                ChromePdfRenderer renderer = new ChromePdfRenderer();
-
-                // Choose screen or print CSS media
-                renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
-
-                // Render View to PDF document
-                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/NCRs/Details.cshtml", nCR);
-                Response.Headers.Add("Content-Disposition", "inline");
-                // Output PDF document
-                return File(pdf.BinaryData, "application/pdf", "NCR Log.pdf");
-            }
-
 
             return View(nCR);
         }
