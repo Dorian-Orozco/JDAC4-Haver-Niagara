@@ -143,6 +143,7 @@ namespace Haver_Niagara.Controllers
                 // Populate supplier dropdown list
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name",SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name",nCR.NCRSupplierID);
+                ViewBag.SelectedDefectID = SelectedDefectID;
                 return View(nCR);
             }
             if (ModelState.IsValid)
@@ -187,7 +188,6 @@ namespace Haver_Niagara.Controllers
                 return RedirectToAction("List", "Home");           
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
-            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name"); 
             return View(nCR);
         }
 
