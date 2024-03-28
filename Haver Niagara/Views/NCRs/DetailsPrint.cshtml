@@ -2,8 +2,10 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutPdf.cshtml";
+    ViewData["Title"] = @Model.FormattedID;
 }
 
+<!--Import Tailwind CSS Library-->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <h1>NCR# @Model.FormattedID</h1>
