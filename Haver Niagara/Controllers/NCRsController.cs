@@ -78,9 +78,8 @@ namespace Haver_Niagara.Controllers
                 renderer.RenderingOptions.MarginRight = 10;
                 renderer.RenderingOptions.MarginBottom = 10;
 
-                //Timeout and RenderDelay options
-                //renderer.RenderingOptions.Timeout = 90; // seconds (default is 60)
-                //renderer.RenderingOptions.WaitFor.RenderDelay(30000); // milliseconds
+                // Choose screen or print CSS media
+                //renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
 
                 //render pdf doc based on html string from razor view
                 using var pdfDocument = renderer.RenderHtmlAsPdf(html);
@@ -88,20 +87,11 @@ namespace Haver_Niagara.Controllers
                 //// Use the FormattedID property to generate the file name
                 string fileName = $"NCR_{nCR.FormattedID}.pdf";
 
+                //Response.Headers.Add("Content-Disposition", "inline");
+
                 //output pdf
                 return File(pdfDocument.BinaryData, "application/pdf", fileName);
 
-                //return Results.File(pdfDocument.BinaryData, "application/pdf", "ncr.pdf");
-
-                //// Choose screen or print CSS media
-                //renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
-
-                //// Render View to PDF document
-                //PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/NCRs/DetailsPrint.cshtml", nCR);
-
-                //Response.Headers.Add("Content-Disposition", "inline");
-                //// Output PDF document
-                //return File(pdf.BinaryData, "application/pdf", fileName);
             }
 
             return View(nCR);
