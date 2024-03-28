@@ -8,11 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Haver_Niagara.CustomController;
 
 namespace Haver_Niagara.Controllers
 {
-    public class SupplierController : Controller
-    {
+    public class SupplierController : LookupsController
+	{
         private readonly HaverNiagaraDbContext _context;
 
         public SupplierController(HaverNiagaraDbContext context)
@@ -21,27 +22,9 @@ namespace Haver_Niagara.Controllers
         }
 
         // GET: Supplier
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-              return View(await _context.Suppliers.ToListAsync());
-        }
-
-        // GET: Supplier/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Suppliers == null)
-            {
-                return NotFound();
-            }
-
-            var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (supplier == null)
-            {
-                return NotFound();
-            }
-
-            return View(supplier);
+            return Redirect(ViewData["returnURL"].ToString());
         }
 
         // GET: Supplier/Create
@@ -63,7 +46,7 @@ namespace Haver_Niagara.Controllers
                 {
                     _context.Add(supplier);
                     await _context.SaveChangesAsync();
-                    return Json(new { success = true });
+                    return Redirect(ViewData["returnURL"].ToString());
                 }
             }
             catch(DbUpdateException dex)

@@ -72,12 +72,6 @@ a {
     cursor: default;
 }
 
-.active {
-    /*background-color: #20DE10;*/
-    background-color: #0073e6;
-    /*background-color: rgb(0, 191, 178)*/
-}
-
 .closed {
     /*background-color: #DC3220;*/
     background-color: #b51963;
@@ -180,4 +174,10 @@ a {
 
 .text-under-heading {
     margin-left: 60px;
+}
+
+#SupplierPanel p {
+
+    background-color: white;
+
 }
