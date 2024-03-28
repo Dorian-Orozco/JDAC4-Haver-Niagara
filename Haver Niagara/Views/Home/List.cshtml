@@ -33,17 +33,20 @@
         <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
     </div>
     <div class="d-flex">
-        @* print ncr log button *@
-        <div class="me-3">
-            @using (Html.BeginForm("NCRs", "Home", FormMethod.Post, new { @class = "form-class" }))
-            {
-                <button type="submit" class="btn btn-outline-primary p-2">
-                    <ion-icon name="document-outline" class="create-btn-icon"></ion-icon>
-                    <span class="me-1">Print PDF</span>
+        @if ((ViewBag.SelectedStatus == null) || (ViewBag.SelectedStatus == true))
+        {
+            @* print ncr log button *@
+            <div class="me-3">
+                @using (Html.BeginForm("NCRs", "Home", FormMethod.Post, new { @class = "form-class" }))
+                {
+                    <button type="submit" class="btn btn-outline-primary p-2">
+                        <ion-icon name="document-outline" class="create-btn-icon"></ion-icon>
+                        <span class="me-1">NCR Log</span>
 
-                </button>
-            }
-        </div>
+                    </button>
+                }
+            </div>
+         } 
         <div>
             @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
             {
