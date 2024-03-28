@@ -189,16 +189,23 @@ namespace Haver_Niagara.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]              //oldNCRID is passed through in edit controller
-        ///QualityInspection qualityInspection, Engineering engineering,
-        //    Operation operation, Procurement procurement,
+        [ValidateAntiForgeryToken]              
+     
         public async Task<IActionResult> Create(int? oldNCRID,[Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID,NCRSupplierID")]
-                NCR nCR, Part part, QualityInspection qualityInspection,  List<IFormFile> files, List<string> links, int SelectedDefectID)
+                NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
+            if (!ModelState.IsValid)
+            {
+                // Populate supplier dropdown list
+                ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name",SelectedDefectID);
+                ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name",nCR.NCRSupplierID);
+                ViewBag.SelectedDefectID = SelectedDefectID;
+                return View(nCR);
+            }
             if (ModelState.IsValid)
             {
-                    _context.Add(part);                         //allows for part id to get an ID from databasee//saves to context
-                    _context.Add(qualityInspection);            //allows qualityinspectionID to get ID from database value
+                _context.Add(part);                         
+                _context.Add(qualityInspection);          
                 part.SupplierID = (int)nCR.NCRSupplierID;
 
                 await _context.SaveChangesAsync();
@@ -214,35 +221,29 @@ namespace Haver_Niagara.Controllers
                     PartID = part.ID,                      
                     DefectID = SelectedDefectID
                 };
-                _context.Add(defectList);                   //adding to context
-                //await _context.SaveChangesAsync();          //saving changes
-                //Add the NCR to the context
+                _context.Add(defectList);               
                 _context.Add(nCR);
                 await _context.SaveChangesAsync();
-                //If theres a value, find that old table to assign it the newly generated ID
+
                 if (oldNCRID != null)
-                {   //get the record that had the "old id"
+                {   
                     var oldNCR = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == oldNCRID);
                     if (oldNCR != null)
                     {
-                        oldNCR.NewNCRID = nCR.ID; //set the old ncr's new ncr id == current id
+                        oldNCR.NewNCRID = nCR.ID; 
                         _context.Update(oldNCR);
                         await _context.SaveChangesAsync();
                     }
                 }
-             
                 //Images function to save
-                if (files != null && files.Count > 0)               //checks for multiple images/files
-                {                                                   //sends to function where they are updated
+                if (files != null && files.Count > 0)             
+                {                                                  
                     await OnPostUploadAsync(files, nCR.ID, links);  
                 }
                 TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here To View: {nCR.FormattedID}</a>";
-
-
-                return RedirectToAction("List", "Home");            //to that part => ncr. 
+                return RedirectToAction("List", "Home");           
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
-            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name"); 
             return View(nCR);
         }
 
@@ -253,8 +254,6 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-
-
             //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
                 .Include(n=> n.Supplier)
@@ -276,19 +275,14 @@ namespace Haver_Niagara.Controllers
                     .Include(p=>p.Procurement)
                 .FirstOrDefaultAsync(n => n.ID == id);
 
-
             if (nCR == null)
             {
                 return NotFound();
             }
-
-            ///Populate list of defects
+            //Populate list of defects and suppliers
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
-            // Populate supplier dropdown list
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
-
             ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "Name");
-
             return View(nCR);
         }
 
@@ -308,7 +302,7 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
-            
+
             if (ModelState.IsValid)
             {
                 try

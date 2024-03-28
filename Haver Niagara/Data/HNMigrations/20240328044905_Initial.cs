@@ -334,7 +334,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     OldNCRID = table.Column<int>(type: "INTEGER", nullable: true),
                     IsArchived = table.Column<bool>(type: "INTEGER", nullable: true),
                     NCR_Stage = table.Column<int>(type: "INTEGER", nullable: false),
-                    NCRSupplierID = table.Column<int>(type: "INTEGER", nullable: true),
+                    NCRSupplierID = table.Column<int>(type: "INTEGER", nullable: false),
                     PartID = table.Column<int>(type: "INTEGER", nullable: true),
                     OperationID = table.Column<int>(type: "INTEGER", nullable: true),
                     EngineeringID = table.Column<int>(type: "INTEGER", nullable: true),
@@ -379,7 +379,8 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_NCRs_Suppliers_NCRSupplierID",
                         column: x => x.NCRSupplierID,
                         principalTable: "Suppliers",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

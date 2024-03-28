@@ -238,7 +238,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<bool?>("IsArchived")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("NCRSupplierID")
+                    b.Property<int>("NCRSupplierID")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("NCR_Date")
@@ -591,7 +591,9 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
                         .WithMany()
-                        .HasForeignKey("NCRSupplierID");
+                        .HasForeignKey("NCRSupplierID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Haver_Niagara.Models.Operation", "Operation")
                         .WithOne("NCR")

@@ -12,7 +12,7 @@ namespace Haver_Niagara.Models
         [Display(Name ="NCR No.")]
         public string FormattedID
         {
-            get
+            get 
             {
                 return $"{NCR_Date.Year}-{ID.ToString().PadLeft(3, '0')}";
             }
@@ -60,7 +60,9 @@ namespace Haver_Niagara.Models
 
         // PART ENTITY //
         [ForeignKey("Supplier")]
-        public int? NCRSupplierID { get; set; }
+        [Display(Name = "Select Supplier")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "Please select a Value")]
+        public int NCRSupplierID { get; set; }
         public Supplier? Supplier { get; set; }
 
         // PART ENTITY //
