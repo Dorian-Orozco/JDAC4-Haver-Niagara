@@ -270,12 +270,23 @@
                                     <ion-icon name="eye"></ion-icon>
                                 </a>
 
+
                                 @if (item.NCR_Status)
                                 {
-                                    <!-- edit button appears if ncr is not closed -->
-                                    <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                        <ion-icon name="create"></ion-icon>
-                                    </a>
+                                    //Setting Up Different Edit Actions Depending on Who's Signed in.
+                                    if (User.IsInRole("Admin")) // Focus on fixing indivial edits for parts of the form, and then focus on fixing admin
+                                    {
+                                        <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                            <ion-icon name="create"></ion-icon>
+                                        </a>
+                                    }
+                                    if(User.IsInRole("Quality Representative"))
+                                    {
+                                        <a href="@Url.Action("QualityRepresentativeEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                            <ion-icon name="create"></ion-icon>
+                                        </a>
+                                    }
+        
                                 }
                                 else
                                 {

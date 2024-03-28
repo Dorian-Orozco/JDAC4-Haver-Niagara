@@ -62,7 +62,7 @@ namespace Haver_Niagara.Models
         public bool ReInspected { get; set; }
 
         [Display(Name = "Inspector's Name")]
-        //[Required(ErrorMessage = "Inspector Name Required")] //added
+        [Required(ErrorMessage = "Inspector Name Required")] //added
         public string InspectorName { get; set; }
 
         [Display(Name = "Inspected Date")]
@@ -72,7 +72,7 @@ namespace Haver_Niagara.Models
         public DateTime InspectorDate { get; set; }
 
         [Display(Name = "Quality Department")]
-        //[Required(ErrorMessage = "Quality Department Required")] //added
+        [Required(ErrorMessage = "Quality Department Required")] //added
         public string Department { get; set; }
 
         [Display(Name = "Department Date")]

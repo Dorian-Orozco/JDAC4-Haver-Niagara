@@ -161,20 +161,15 @@ namespace Haver_Niagara.Controllers
 
             return View(nCR);
         }
-        ///new method in controller to archive an ncr
-
-
 
         // GET: NCRs/Create
         public IActionResult Create(int? oldNCRID)
         {
-
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
 
             // Populate supplier dropdown list
-            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name"); //added this change so suppliers load in properly when first creating, it should not affect anything
-                                                                                    //try removing it if it does
-
+            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name"); 
+                                                                                   
             //Passes in the OLD NCRID
             ViewBag.OldNCRID = oldNCRID;
 
@@ -247,6 +242,9 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+      
+        
+        
         // GET: NCRs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -598,11 +596,215 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        ////Create New NCR Edit Post
-        //private IActionResult CreateNewNCR(int originalNCRid) //Redirects to the create page
-        //{                                                   //and passes along the oldNCRID from the ncr that called it
-        //    return RedirectToAction("Create", new { oldNCRID = originalNCRid});
-        //}
+
+
+
+
+        ///Quality Representative Edit GET:
+        public async Task<IActionResult> QualityRepresentativeEdit(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+                return NotFound();
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part).ThenInclude(n => n.Supplier)
+                .Include(n => n.Part).ThenInclude(n => n.Medias)
+                .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
+                .Include(n => n.Operation).ThenInclude(n => n.FollowUp)
+                .Include(n => n.Operation).ThenInclude(n => n.CAR)
+                .Include(n => n.Procurement)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (nCR == null)
+                return NotFound();
+
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+            //ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "Name");
+            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name");
+            return View(nCR);
+        }
+
+        ///Quality Representative Edit : POST 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> QualityRepresentativeEdit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")] 
+                          NCR nCR, Part part, QualityInspection qualityInspection, QualityInspectionFinal qualityInspectionFinal,
+                          List<IFormFile> files, List<string> links, int SelectedDefectID)
+        {
+            nCR.ID = id;
+            if (id != nCR.ID)
+                return NotFound();
+
+            if (!ModelState.IsValid) //If it posts back here and its incorrect, give them back the data (ddls so they arent unsaved)
+            {
+                // Populate supplier dropdown list
+                ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
+                ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
+                ViewBag.SelectedDefectID = SelectedDefectID;
+                return View(nCR);
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var existingNCR = await _context.NCRs
+                        .Include(n => n.Part).ThenInclude(n => n.Medias)
+                        .Include(n => n.Part).ThenInclude(n => n.Supplier)
+                        .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
+                        .Include(n => n.QualityInspection)
+                        .Include(n => n.QualityInspectionFinal)
+                        .Include(n => n.Engineering)
+                        .FirstOrDefaultAsync(n => n.ID == id);
+
+                    if (existingNCR == null)
+                        return NotFound();
+
+                    existingNCR.NCR_Date = nCR.NCR_Date;
+                    existingNCR.NCR_Status = nCR.NCR_Status;    
+                    existingNCR.NCRSupplierID = nCR.NCRSupplierID;
+
+                    if (existingNCR.OldNCRID != null)
+                        existingNCR.OldNCRID = nCR.ID;
+
+                    //Stores the ID Automatically
+                    _context.Update(existingNCR);   
+                                                   
+                    if (part != null)
+                    {
+                        if (existingNCR.Part == null)
+                        {
+                            existingNCR.Part = new Part();
+                        }
+                        existingNCR.Part.Name = part.Name;
+                        existingNCR.Part.PartNumber = part.PartNumber;
+                        existingNCR.Part.SAPNumber = part.SAPNumber;
+                        existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
+                        existingNCR.Part.SalesOrder = part.SalesOrder;
+                        existingNCR.Part.ProductNumber = part.ProductNumber;
+                        existingNCR.Part.QuantityRecieved = part.QuantityRecieved;
+                        existingNCR.Part.QuantityDefect = part.QuantityDefect;
+                        existingNCR.Part.Description = part.Description;
+                        existingNCR.Part.SupplierID = (int)existingNCR.NCRSupplierID;
+      
+                        await _context.SaveChangesAsync();
+                        existingNCR.Part.DefectLists.Clear();  
+                        try
+                        {
+                            if (SelectedDefectID != 0)
+                            {
+                                // Find the selected Defect from the database
+                                Defect selectedDefect = await _context.Defects.FindAsync(SelectedDefectID);
+                                if (selectedDefect != null)
+                                {
+                                    var newDefectList = new DefectList
+                                    {
+                                        PartID = existingNCR.Part.ID,
+                                        DefectID = selectedDefect.ID
+                                    };
+                                    _context.DefectLists.Add(newDefectList);
+                                    await _context.SaveChangesAsync();
+                                    existingNCR.Part.DefectLists.Add(newDefectList);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            // Check for inner exceptions
+                            Exception innerException = ex.InnerException;
+                            while (innerException != null)
+                            {
+                                Console.WriteLine("Inner Exception: " + innerException.Message);
+                                innerException = innerException.InnerException;
+                            }
+                        }
+
+                    }
+                    if (qualityInspection != null)
+                        if (existingNCR.QualityInspection == null)
+                            existingNCR.QualityInspection = new QualityInspection();
+
+                        existingNCR.QualityInspection.Name = qualityInspection.Name;
+                        existingNCR.QualityInspection.Date = qualityInspection.Date;
+                        existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
+                        existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
+
+
+                    //So if the NCR being edited is on the Quality Representative stage, allow it to be updated with information
+                    if (existingNCR.NCR_Stage == NCRStage.QualityRepresentative_Final)
+                        if (qualityInspectionFinal != null)
+                            if (existingNCR.QualityInspectionFinal == null)
+                            {
+                                existingNCR.QualityInspectionFinal = new QualityInspectionFinal();
+                            }
+                            existingNCR.QualityInspectionFinal.Department = qualityInspectionFinal.Department;
+                            existingNCR.QualityInspectionFinal.DepartmentDate = qualityInspectionFinal.DepartmentDate;
+                            existingNCR.QualityInspectionFinal.InspectorName = qualityInspectionFinal.InspectorName;
+                            existingNCR.QualityInspectionFinal.InspectorDate = qualityInspectionFinal.InspectorDate;
+                            existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
+                    
+                    //If the NCR is being kept open 
+                    if (existingNCR.NCR_Status) 
+                        if (!qualityInspectionFinal.ReInspected)   //And re-inspect was not acceptable then redirect and create an NCR with an Old ID attached to it
+                            return RedirectToAction("Create", new { oldNCRID = id });
+
+                    if (!existingNCR.NCR_Status) //if no, dont keep ncr open
+                    {
+                        existingNCR.NCR_Stage = NCRStage.Closed_NCR; //set stage to complete
+                        _context.Update(existingNCR); 
+                        if (!qualityInspectionFinal.ReInspected)
+                            return RedirectToAction("Create", new { oldNCRID = id });
+                    }
+                    await OnPostUploadAsync(files, nCR.ID, links);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NCRExists(nCR.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                return RedirectToAction("List", "Home");
+            }
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
+            ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
+            ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
+            return View(nCR);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         // GET: NCRs/Delete/5
