@@ -1,0 +1,169 @@
+﻿@model Haver_Niagara.Models.NCR
+
+@{
+    // Layout = null;
+    Layout = "~/Views/Shared/_LayoutPdf.cshtml";
+}
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+@* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> *@
+@* <script src="https://cdn.tailwindcss.com"></script> *@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DetailsPrint</title>
+    <style>
+        .test{
+            border: 5px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="min-w-7xl flex flex-col bg-gray-200 space-y-4 p-10 test">
+        <h1 class="text-2xl font-semibold">NCR #@Model.FormattedID</h1>
+
+        <p>Created date: @Model.NCR_Date.ToString("dd/MM/yyyy")</p>
+        <p>Today: @DateTime.Now.ToString("dd/MM/yyyy")</p>
+
+        <div class="flex justify-between space-x-4">
+            <div class="bg-gray-100 rounded-lg flex flex-col space-y-1 p-4 w-1/2">
+                <p class="font-medium">Seller:</p>
+                <p>CompanyName</p>
+                <p>Street</p>
+                <p>City</p>
+                <p>State</p>
+                <p>Email</p>
+            </div>
+            <div class="bg-gray-100 rounded-lg flex flex-col space-y-1 p-4 w-1/2">
+                <p class="font-medium">Bill to:</p>
+                <p>CompanyName</p>
+                <p>Street</p>
+                <p>City</p>
+                <p>State</p>
+                <p>Email</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col bg-white rounded-lg p-4 space-y-2">
+            <h2 class="text-xl font-medium">Items:</h2>
+            <div class="">
+                <div class="flex space-x-4 font-medium">
+                    <p class="w-10">#</p>
+                    <p class="w-52">Name</p>
+                    <p class="w-20">Price</p>
+                    <p class="w-20">Quantity</p>
+                </div>
+
+             
+                    <div class="flex space-x-4">
+                        <p class="w-10">1</p>
+                        <p class="w-52">Name</p>
+                        <p class="w-20">Price</p>
+                        <p class="w-20">Quantity</p>
+                    </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-end bg-gray-50 space-y-2 p-4 rounded-lg">
+            <p>Subtotal:</p>
+            <p>Total: <span class="font-semibold"></span></p>
+        </div>
+    </div>
+
+@*     <div class="border border-primary">
+        <h4>NCR# @Model.FormattedID</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NCR_Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NCR_Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NCR_Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NCR_Status)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NewNCRID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NewNCRID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.OldNCRID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OldNCRID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsArchived)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsArchived)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NCR_Stage)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NCR_Stage)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Supplier)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Supplier.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Part)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Part.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Operation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Operation.ID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Engineering)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Engineering.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.QualityInspection)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.QualityInspection.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Procurement)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Procurement.ID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.QualityInspectionFinal)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.QualityInspectionFinal.Department)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div> *@
+</body>
+</html>
