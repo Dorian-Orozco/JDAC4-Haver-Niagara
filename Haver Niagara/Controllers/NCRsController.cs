@@ -15,6 +15,7 @@ using IronPdf.Extensions.Mvc.Core;
 using IronPdf.Rendering;
 using Microsoft.AspNetCore.Http;
 using X.PagedList;
+using Razor.Templating.Core;
 
 namespace Haver_Niagara.Controllers
 {
@@ -66,24 +67,41 @@ namespace Haver_Niagara.Controllers
             //Print Details View to PDF
             if (_httpContextAccessor.HttpContext.Request.Method == HttpMethod.Post.Method)
             {
+                //create html string from DetailsPrint razor view and data from nCR
+                var html = await RazorTemplateEngine.RenderAsync("Views/NCRs/DetailsPrint.cshtml", nCR);
+
                 ChromePdfRenderer renderer = new ChromePdfRenderer();
 
-                // Choose screen or print CSS media
-                renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
+                //margins
+                renderer.RenderingOptions.MarginTop = 10;
+                renderer.RenderingOptions.MarginLeft = 10;
+                renderer.RenderingOptions.MarginRight = 10;
+                renderer.RenderingOptions.MarginBottom = 10;
 
-                // Render View to PDF document
-                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/NCRs/DetailsPrint.cshtml", nCR);
+                //Timeout and RenderDelay options
+                //renderer.RenderingOptions.Timeout = 90; // seconds (default is 60)
+                //renderer.RenderingOptions.WaitFor.RenderDelay(30000); // milliseconds
 
-                // Example of setting Timeout and RenderDelay options
-                renderer.RenderingOptions.Timeout = 90; // seconds (default is 60)
-                renderer.RenderingOptions.WaitFor.RenderDelay(30000); // milliseconds
+                //render pdf doc based on html string from razor view
+                using var pdfDocument = renderer.RenderHtmlAsPdf(html);
 
-                // Use the FormattedID property to generate the file name
+                //// Use the FormattedID property to generate the file name
                 string fileName = $"NCR_{nCR.FormattedID}.pdf";
 
-                Response.Headers.Add("Content-Disposition", "inline");
-                // Output PDF document
-                return File(pdf.BinaryData, "application/pdf", fileName);
+                //output pdf
+                return File(pdfDocument.BinaryData, "application/pdf", fileName);
+
+                //return Results.File(pdfDocument.BinaryData, "application/pdf", "ncr.pdf");
+
+                //// Choose screen or print CSS media
+                //renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
+
+                //// Render View to PDF document
+                //PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/NCRs/DetailsPrint.cshtml", nCR);
+
+                //Response.Headers.Add("Content-Disposition", "inline");
+                //// Output PDF document
+                //return File(pdf.BinaryData, "application/pdf", fileName);
             }
 
             return View(nCR);
