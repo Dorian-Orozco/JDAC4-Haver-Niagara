@@ -126,6 +126,7 @@
                 </div>
             </div>
         </div>
+
         @* row 2 *@
         <div class="row m-1">
             <div class="col-sm-8 border pt-3 ps-3">
@@ -147,7 +148,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Part.Description" class="control-label"></label>
-                            <input asp-for="Part.Description" class="form-control" />
+                            <textarea asp-for="Part.Description" class="form-control" rows="3" cols="30"></textarea>
                             <span asp-validation-for="Part.Description" class="text-danger"></span>
                         </div>
                     </dd>
@@ -361,7 +362,7 @@
                             <dd class="mt-1">
                                 <div class="d-flex">
                                     @* @Html.DisplayFor(model => model.Engineering.DispositionNotes) *@
-                                    <input asp-for="Engineering.DispositionNotes" class="form-control" />
+                                    <textarea asp-for="Engineering.DispositionNotes" class="form-control" rows="3" cols="30"></textarea>
                                     <span asp-validation-for="Engineering.DispositionNotes" class="text-danger"></span>
                                 </div>
                             </dd>
@@ -490,7 +491,7 @@
                         <div class="row">
                             <dl>
                                 <dd class="col-sm mt-2">
-                                    <input asp-for="Operation.OperationNotes" class="form-control" />
+                                    <textarea asp-for="Operation.OperationNotes" class="form-control" rows="3" cols="30"></textarea>
                                     <span asp-validation-for="Operation.OperationNotes" class="text-danger"></span>
                                 </dd>
                             </dl>
