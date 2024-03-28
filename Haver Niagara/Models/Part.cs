@@ -25,6 +25,7 @@ namespace Haver_Niagara.Models
         public long PurchaseNumber { get; set; }
 
         [Display(Name = "Sales #")]
+       
         public string SalesOrder { get; set; }
 
         [Display(Name = "Prod #")]

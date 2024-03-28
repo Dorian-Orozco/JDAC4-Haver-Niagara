@@ -199,6 +199,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 <div>
+
     <div class="d-flex justify-content-between">
         <div class="d-flex mt-4 mb-4">
             <h1 class="">NCR Dashboard</h1>
@@ -211,24 +212,12 @@
                 </select>
             </div>
         </div>
-       @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
-            {
         <div>
             <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
                 <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
                 <span class="me-1">Create Report</span>
             </a>
         </div>
- }
-        else
-        {
-            <div>
-                <a asp-controller="Home" asp-action="List" class="btn btn-primary p-2">
-                   @*  <ion-icon name="add-circle-outline" class="vie-btn-icon"></ion-icon> *@
-                    <span class="me-1">View NCRs</span>
-                </a>
-            </div>
-        }
     </div>
 
     <div class="dashboard-row card-row">

@@ -1,6 +1,7 @@
 ﻿using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Haver_Niagara.ViewModels;
 
 namespace Haver_Niagara.Data
 {
@@ -106,6 +107,7 @@ namespace Haver_Niagara.Data
             modelBuilder.Entity<Supplier>()
                 .HasIndex(a => new { a.Name })
                 .IsUnique();
+
 
         }
 
