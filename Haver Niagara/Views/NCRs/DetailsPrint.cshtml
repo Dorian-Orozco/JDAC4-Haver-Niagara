@@ -1,7 +1,8 @@
 ﻿@model Haver_Niagara.Models.NCR
 
 @{
-    Layout = null;
+    // Layout = null;
+    Layout = "~/Views/Shared/_LayoutPdf.cshtml";
 }
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
 <body>
 
     <div>
-        <h4>@Html.DisplayFor(model => model.FormattedID)</h4>
+        <h4>NCR# @Html.DisplayFor(model => model.FormattedID)</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">

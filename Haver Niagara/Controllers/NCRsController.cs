@@ -74,6 +74,10 @@ namespace Haver_Niagara.Controllers
                 // Render View to PDF document
                 PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/NCRs/DetailsPrint.cshtml", nCR);
 
+                // Example of setting Timeout and RenderDelay options
+                renderer.RenderingOptions.Timeout = 90; // seconds (default is 60)
+                renderer.RenderingOptions.WaitFor.RenderDelay(30000); // milliseconds
+
                 // Use the FormattedID property to generate the file name
                 string fileName = $"NCR_{nCR.FormattedID}.pdf";
 

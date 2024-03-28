@@ -37,7 +37,7 @@
         {
             @* print ncr log button *@
             <div class="me-3">
-                @using (Html.BeginForm("NCRs", "Home", FormMethod.Post, new { @class = "form-class" }))
+                @using (Html.BeginForm("LogPdf", "Home", FormMethod.Post, new { @class = "form-class" }))
                 {
                     <button type="submit" class="btn btn-outline-primary p-2">
                         <ion-icon name="document-outline" class="create-btn-icon"></ion-icon>

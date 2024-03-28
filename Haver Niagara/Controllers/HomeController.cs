@@ -41,7 +41,7 @@ namespace Haver_Niagara.Controllers
         }
 
         // NCR LIST PDF USING RAZOR VIEW NCRs.cshtml in Home Controller
-        public async Task<IActionResult> NCRs(int? page)
+        public async Task<IActionResult> LogPdf(int? page)
         {
             var ncrs = _context.NCRs
              .Where(p => p.IsArchived == false && p.NCR_Status == true) //active ncrs that have not been archived
@@ -70,7 +70,7 @@ namespace Haver_Niagara.Controllers
                 renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
 
                 // Render View to PDF document
-                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/Home/NCRs.cshtml", pagedNCRs);
+                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/Home/LogPdf.cshtml", pagedNCRs);
                 Response.Headers.Add("Content-Disposition", "inline");
                 // Output PDF document
                 return File(pdf.BinaryData, "application/pdf", "NCR Log.pdf");
