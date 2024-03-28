@@ -8,10 +8,97 @@
 <!--Import Tailwind CSS Library-->
 <script src="https://cdn.tailwindcss.com"></script>
 
+    <style>
+      .report {
+        display: flex;
+        width: 100%;
+        margin: 20px auto;
+        border: 1px solid grey;
+      }
+
+      .container-row-one,
+      .sidebar {
+        padding: 10px;
+      }
+
+      .container-col-one {
+        flex: 80%;
+      }
+
+      .container-row-one {
+        flex: 100%;
+        display: flex;
+        /* flex-direction: column; */
+      }
+
+      .container-col-two {
+        flex: 20%;
+        display: flex;
+        align-items: center; /* Center logo vertically */
+        justify-content: center; /* Center logo horizontally */
+      }
+
+      .row-one,
+      .row-two {
+        display: flex;
+        width: 100%;
+      }
+
+      .company-name,
+      .document-title,
+      .document-number,
+      .title,
+      .page-number,
+      .container-col-two {
+        padding: 5px; /* Just for some spacing */
+        border: 1px solid #ddd; /* Just for visualizing the areas */
+      }
+
+      .company-name,
+      .document-title {
+        flex: 1; /* Split space equally */
+      }
+
+      .footer {
+        display: flex;
+      }
+
+      .document-number,
+      .page-number {
+        flex: 20%;
+      }
+
+      .title {
+        flex: 60%; /* Take the majority of the space */
+      }
+
+      .logo {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Keep aspect ratio */
+        width: 80px;
+      }
+    </style>
+
 <h1>NCR# @Model.FormattedID</h1>
 
-<div class="report">
-    <div>
-
+<div>
+    <div class="report">
+        <div class="container-row-one">
+            <div class="container-col-one">
+                <div class="row-one">
+                    <div class="company-name">Company Name</div>
+                    <div class="document-title">Document Title</div>
+                </div>
+                <div class="row-two">
+                    <div class="document-number">Document #</div>
+                    <div class="title">Title</div>
+                    <div class="page-number">Page #</div>
+                </div>
+            </div>
+            <div class="container-col-two">
+                <img src="~/images/report-logo.png" alt="Logo" class="logo" />
+            </div>
+        </div>
     </div>
 </div>
