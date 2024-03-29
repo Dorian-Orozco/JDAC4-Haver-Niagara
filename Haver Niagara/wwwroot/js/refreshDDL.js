@@ -27,7 +27,7 @@ function refreshDDL(ddl_ID, URI, showNoDataMsg, noDataMsg, addDefault, defaultTe
                     theDDL.append($('<option/>', {
                         value: item.value,
                         text: item.text,
-                        selected: item.selected
+                        selected: item.selected 
                     }));
                 });
                 theDDL.trigger("chosen:updated");

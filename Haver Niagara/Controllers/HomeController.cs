@@ -117,6 +117,8 @@ namespace Haver_Niagara.Controllers
                 .Include(p => p.Part.DefectLists)
                 .ThenInclude(d => d.Defect)
                 .ToList();
+            
+            //Since 
 
             var ncrs = _context.NCRs
                 .Where(p => p.IsArchived == false)
@@ -129,7 +131,12 @@ namespace Haver_Niagara.Controllers
             // Apply filters
             if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
             {
-                ncrs = ncrs.Where(x => x.Part.Supplier.Name == selectedSupplier);
+                var selectedSupplierID = _context.Suppliers //Retrieves the selected ID based on the name
+                    .Where(s => s.Name == selectedSupplier)
+                    .Select(s => s.ID)
+                    .FirstOrDefault();
+                                         //Use NCRSupplierID instead of Part.Name
+                ncrs = ncrs.Where(x => x.NCRSupplierID == selectedSupplierID);
             }
 
             if (!selectedStatus.HasValue)
@@ -144,7 +151,7 @@ namespace Haver_Niagara.Controllers
 
             // Apply NCRStage filter if selected
             if (ncrStage.HasValue)
-            {
+            { 
                 ncrs = ncrs.Where(x => x.NCR_Stage == ncrStage.Value);
             }
 
@@ -311,19 +318,18 @@ namespace Haver_Niagara.Controllers
             // Apply filters
             if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
             {
-                ncrs = ncrs.Where(x => x.Part.Supplier.Name == selectedSupplier);
+                var selectedSupplierID = _context.Suppliers //Retrieves the selected ID based on the name
+                 .Where(s => s.Name == selectedSupplier)
+                 .Select(s => s.ID)
+                 .FirstOrDefault();
+                //Use NCRSupplierID instead of Part.Name
+                ncrs = ncrs.Where(x => x.NCRSupplierID == selectedSupplierID);
             }
 
             if (!selectedStatus.HasValue)
             {
                 ncrs = ncrs.Where(x => x.NCR_Status == false); //archive list shows closed ncr's on default
             }
-            //else if (selectedStatus.HasValue)
-            //{
-            //    ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value);
-            //}
-            //ViewBag.SelectedStatus = selectedStatus;
-
             // Apply NCRStage filter if selected
             if (ncrStage.HasValue)
             {

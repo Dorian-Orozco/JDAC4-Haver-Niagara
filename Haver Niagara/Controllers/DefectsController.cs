@@ -65,6 +65,7 @@ namespace Haver_Niagara.Controllers
                     _context.Add(defect);
                     await _context.SaveChangesAsync();
                     return Json(new { success = true });
+                    //return PartialView("_DefectForm", defect);
                 }
             }
             catch (DbUpdateException dex)

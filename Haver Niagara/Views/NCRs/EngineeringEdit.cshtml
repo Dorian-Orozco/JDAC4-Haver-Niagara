@@ -1,0 +1,235 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model Haver_Niagara.Models.NCR
+
+@{
+    ViewData["Title"] = "Report";
+}
+@* h1 *@
+<dl>
+    <dt class="text-muted">
+        @* Should show previous ncr number if one is linked *@
+        @{
+            var OldNCRNumber_id = ViewBag.OldNCRID != null ? $"Previous NCR No. {DateTime.UtcNow.Year}-{ViewBag.OldNCRID.ToString().PadLeft(3, '0')}" : "";
+        }
+        <span class="m2-2">
+            @OldNCRNumber_id
+        </span>
+    </dt>
+</dl>
+<div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
+    <dl class="d-flex">
+        <dt>
+            @Html.DisplayNameFor(model => model.FormattedID)
+        </dt>
+        <dd class="ms-2">
+            @Html.DisplayFor(model => model.FormattedID)
+        </dd>
+    </dl>
+    <dl class="d-flex">
+        <dt>
+            <label asp-for="NCR_Date" class="control-label"></label>
+        </dt>
+        <dd class="ms-2">
+            <input asp-for="NCR_Date" class="form-control" type="date" disabled />
+            <span asp-validation-for="NCR_Date" class="text-danger"></span>
+        </dd>
+    </dl>
+</div>
+<div class="d-flex justify-content-start text-muted mb-3">
+    @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage))) 
+    {
+        <div class="form-check form-check-inline">
+            <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
+            <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+        </div>
+    }
+</div>
+
+<form class="" asp-action="EngineeringEdit" id="myForm" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+    <div class="form-container">
+        @if (User.IsInRole("Admin") || User.IsInRole("Engineer"))
+        {
+            @* Engineering Section *@
+            <div class="section section-eng">
+                <div class="row border m-1 p-2 ps-3 fs-6 section-header">2/ Engineering</div>
+
+                @* row 7 *@
+                <div class="row m-1 border">
+                    <div class="col-sm-12 pt-3 ps-3 d-flex justify-content-start">
+                        <dl>
+                            <dt>
+                                Review by HBC Engineering <span class="fw-light">(indicate disposition by checking one of the following)</span>
+                            </dt>
+                            <dd class="mt-2">
+                                <div class="d-flex">
+                                    @*          Loops through and gets each enumeration value, then for each display the value and create
+                                radio / label for. Then model check to see if it matches the decision in iteration
+                                and if it does, then use checked property, else nothing *@
+                                    @foreach (var engineerDisposition in Enum.GetValues(typeof(EngineeringDisposition)))
+                                    {
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" asp-for="Engineering.EngineeringDisposition" required class="form-check-input" value="@engineerDisposition" id="@($"engineerDisposition{engineerDisposition}")" />
+                                            @* <label class="form-check-label" for="@($"engineerDisposition{engineerDisposition}")">@engineerDisposition</label> *@
+                                            <label for="@($"engineerDisposition{engineerDisposition}")">@((typeof(EngineeringDisposition).GetMember(engineerDisposition.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
+                                        </div>
+                                    }
+                                    <span class="text-danger" asp-validation-for="Engineering.EngineeringDisposition"></span>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                @* row 8 *@
+                <div class="row m-1 border">
+                    <div class="col-sm-12 pt-3 ps-3 d-flex justify-content-start">
+                        <dl>
+                            <dt>
+                                Does Customer require notification of NCR? <span class="fw-light">(If "Yes" then raise message to customer detailing issues)</span>
+                            </dt>
+                            <dd class="mt-2">
+                                <div class="d-flex">
+                                    @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, true, new { @checked = Model.Engineering != null && Model.Engineering.CustomerNotify, @class = "me-2" })
+                                    <label class="me-4">Yes</label>
+
+                                    @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, @class = "me-2" })
+                                    <label>No</label>
+                                </div>
+                                <span class="text-danger" asp-validation-for="Engineering.CustomerNotify"></span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                @* row 9 *@
+                <div class="row m-1">
+                    <div class="col-sm-12 border pt-3 ps-3">
+                        <dl>
+                            <dt>
+                                Disposition <span class="fw-light">(Sequence of work steps required when "repair" or "rework" indicated)</span>
+                            </dt>
+                            <dd class="mt-1">
+                                <div class="d-flex">
+                                    <textarea asp-for="Engineering.DispositionNotes" class="form-control" rows="3" cols="30"></textarea>
+                                    <span asp-validation-for="Engineering.DispositionNotes" class="text-danger"></span>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                @* row 10 *@
+                <div class="row m-1 border">
+                    <div class="col-sm-6 pt-3 ps-3">
+                        <div class="d-flex justify-content-start">
+                            <dl>
+                                <dt>
+                                    Does the drawing require updating?
+                                </dt>
+                                <dd class="mt-2">
+                                    <div class="d-flex">
+                                        @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, true, new { @checked = Model.Engineering != null && Model.Engineering.DrawUpdate, @class = "me-2" })
+                                        <label class="me-4">Yes</label>
+
+                                        @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, false, new { @checked = Model.Engineering != null && !Model.Engineering.DrawUpdate, @class = "me-2" })
+                                        <label>No</label>
+                                        <span class="text-danger" asp-validation-for="Engineering.DrawUpdate"></span>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="row ms-1 mb-0 d-flex">
+                            <span class="col-sm">
+                                <dl>
+                                    @* Original Revision Number *@
+                                    <dt class="fw-normal">
+                                        <label asp-for="Engineering.RevisionOriginal" class="control-label"></label>
+                                        <input asp-for="Engineering.RevisionOriginal" class="form-control" />
+                                        <span asp-validation-for="Engineering.RevisionOriginal" class="text-danger"></span>
+                                    </dt>
+                                </dl>
+                            </span>
+                            <span class="col-sm">
+                                @* Revision Date *@
+                                <div class="form-group">
+                                    <label asp-for="Engineering.RevisionDate" class="control-label"></label>
+                                    <input asp-for="Engineering.RevisionDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                    <span asp-validation-for="Engineering.RevisionDate" class="text-danger"></span>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="row ms-1 mb-0">
+                            <span class="col-sm">
+                                <dl>
+                                    @* Revision Updated Number *@
+                                    <dt class="fw-normal">
+                                        <div class="form-group">
+                                            <label asp-for="Engineering.RevisionUpdated" class="control-label"></label>
+                                            <input asp-for="Engineering.RevisionUpdated" class="form-control" />
+                                            <span asp-validation-for="Engineering.RevisionUpdated" class="text-danger"></span>
+                                        </div>
+                                    </dt>
+
+                                </dl>
+                            </span>
+                            <span class="col-sm">
+                            </span>
+                        </div>
+                        <div class="row ms-1 mb-0">
+                            <div class="col-sm">
+                                <dl>
+                                </dl>
+                            </div>
+                            <div class="col-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 border pt-3 ps-3">
+                        <div class="row">
+                            <dl class="d-flex m-0">
+                                <dt class="col-sm">
+                                    Engineering's Name                           
+                                </dt>
+                                <dd class="col-sm ms-2">
+                                    <input asp-for="Engineering.Name" class="form-control" />
+                                    <span asp-validation-for="Engineering.Name" class="text-danger"></span>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="row">
+                            <dl class="d-flex">
+                                <dt class="col-sm">
+                                    Date
+                                </dt>
+                                <dd class="col-sm ms-2">
+                                    <div class="form-group">
+                                        <input asp-for="Engineering.Date" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                        <span asp-validation-for="Engineering.Date" class="text-danger"></span>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex justify-content-between mt-3">
+        <div class="mt-2">
+            <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
+        </div>
+        <div class="mt-2">
+            <input type="submit" value="Save Report" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

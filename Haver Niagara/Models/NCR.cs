@@ -101,7 +101,7 @@ namespace Haver_Niagara.Models
             //Sets the NCR_Status to true because its active bc it was just made
             NCR_Status = true; //change back to false if everthing breaks
             //Defaulting when creating an NCR to have the quality representative as the first stage
-            NCR_Stage = NCRStage.Engineering;
+            //NCR_Stage = NCRStage.Procurement;
             //Setting a default of todays date
             NCR_Date = DateTime.Today;
         }

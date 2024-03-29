@@ -303,6 +303,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("OperationCar")
@@ -388,7 +389,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("CarrierPhone")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("DisposeOnSite")
+                    b.Property<bool?>("DisposeOnSite")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("ExpectSuppCredit")
