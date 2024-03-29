@@ -39,8 +39,7 @@ namespace Haver_Niagara.Controllers
                     ID = e.ID,
                     FirstName = e.FirstName,
                     LastName = e.LastName,
-                    //Phone = e.Phone,
-                    NumberOfPushSubscriptions = e.Subscriptions.Count
+                    NumberOfPushSubscriptions = e.Subscriptions.Count()
                 }).ToListAsync();
             foreach (var e in employees)
             {

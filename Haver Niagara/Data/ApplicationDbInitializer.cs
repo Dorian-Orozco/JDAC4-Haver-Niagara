@@ -138,6 +138,24 @@ namespace Haver_Niagara.Data
                         userManager.AddToRoleAsync(user, "Operations").Wait();
                     }
                 }
+
+                //Adding my own email to test
+                if (userManager.FindByEmailAsync("dorozco4@ncstudents.niagaracollege.ca").Result == null)
+                {
+                    IdentityUser user = new IdentityUser
+                    {
+                        UserName = "dorozco4@ncstudents.niagaracollege.ca",
+                        Email = "dorozco4@ncstudents.niagaracollege.ca",
+                        EmailConfirmed = true
+                    };
+
+                    IdentityResult result = userManager.CreateAsync(user, "password").Result;
+
+                    if (result.Succeeded)
+                    {
+                        userManager.AddToRoleAsync(user, "Admin").Wait();
+                    }
+                }
             }
             catch (Exception ex)
             {

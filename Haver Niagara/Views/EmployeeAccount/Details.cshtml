@@ -1,5 +1,6 @@
 ﻿@model Haver_Niagara.ViewModels.EmployeeVM
 
+
 <h2>Viewing Employee Details</h2>
 
 <h3>Account for: @Model.FullName</h3>
@@ -23,12 +24,6 @@
         <dd class="col-sm-6">
             @Html.DisplayFor(model => model.LastName)
         </dd>
-@*         <dt class="col-sm-4">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd> *@
         <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.NumberOfPushSubscriptions)
         </dt>
@@ -38,7 +33,13 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit Account Details</a>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit Account Details</a> |
+    <a asp-action="Push" asp-route-EmployeeID="@Model.ID">Notifications on this Device</a>
 </div>
-
-
+@section Scripts {
+    <script>
+        //Vapid public key.
+        var applicationServerPublicKey = '@ViewBag.PublicKey';
+    </script>
+    <script src="~/js/CheckSubscription.js"></script>
+}

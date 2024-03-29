@@ -46,6 +46,7 @@
     <PackageReference Include="MimeKit" Version="4.4.0" />
     <PackageReference Include="Razor.Templating.Core" Version="1.9.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.7" />
+    <PackageReference Include="WebPush" Version="1.0.12" />
 
     <PackageReference Include="X.PagedList" Version="7.2.0" />
     <PackageReference Include="X.PagedList.Mvc" Version="7.0.0" />

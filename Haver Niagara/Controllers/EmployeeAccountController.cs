@@ -7,6 +7,8 @@ using Haver_Niagara.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Models;
 using Haver_Niagara.Utilities;
+using Humanizer;
+using WebPush;
 
 namespace Haver_Niagara.Controllers
 {
@@ -15,10 +17,12 @@ namespace Haver_Niagara.Controllers
     {
         //Controller that allows an AUTHENTICATED user to maintain their account details
         private readonly HaverNiagaraDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public EmployeeAccountController(HaverNiagaraDbContext context)
+        public EmployeeAccountController(HaverNiagaraDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET: EmployeeAccount
@@ -30,6 +34,11 @@ namespace Haver_Niagara.Controllers
         // GET: EmployeeAccount/Details/5
         public async Task<IActionResult> Details()
         {
+            //Check if we are configured for Push
+            if (String.IsNullOrEmpty(_configuration.GetSection("VapidKeys")["PublicKey"]))
+            {
+                return RedirectToAction("GenerateKeys");
+            }
 
             var employee = await _context.Employees
                .Include(e => e.Subscriptions)
@@ -39,7 +48,6 @@ namespace Haver_Niagara.Controllers
                    ID = e.ID,
                    FirstName = e.FirstName,
                    LastName = e.LastName,
-                   //Phone = e.Phone,
                    NumberOfPushSubscriptions = e.Subscriptions.Count()
                })
                .FirstOrDefaultAsync();
@@ -48,6 +56,7 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
+            ViewBag.PublicKey = _configuration.GetSection("VapidKeys")["PublicKey"];
             return View(employee);
         }
 
@@ -112,6 +121,70 @@ namespace Haver_Niagara.Controllers
                 }
             }
             return View(employeeToUpdate);
+        }
+
+
+
+        // GET: EmployeeAccount/ Create the record of the Push Subscription
+        public IActionResult Push(int EmployeeID)
+        {
+            ViewBag.PublicKey = _configuration.GetSection("VapidKeys")["PublicKey"];
+            ViewData["EmployeeID"] = EmployeeID;
+            return View();
+        }
+
+        // POST: EmployeeAccount/ Create the record of the Push Subscription
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Push([Bind("PushEndpoint,PushP256DH,PushAuth,EmployeeID")] Subscription sub, string btnSubmit)
+        {
+            if (btnSubmit == "Unsubscribe")//Delete the subscription record
+            {
+                try
+                {
+                    var sToRemove = _context.Subscriptions.Where(s => s.PushP256DH == sub.PushP256DH
+                        && s.PushEndpoint == sub.PushEndpoint
+                        && s.PushAuth == sub.PushAuth).FirstOrDefault();
+                    if (sToRemove != null)
+                    {
+                        _context.Subscriptions.Remove(sToRemove);
+                        await _context.SaveChangesAsync();
+                    }
+                    return RedirectToAction(nameof(Details));
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Error: Could not remove the record of the subscription.");
+                }
+            }
+            else//Create the subscription record
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(sub);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Error: Could not create the record of the subscription.");
+                }
+            }
+            ViewData["EmployeeID"] = sub.EmployeeID;
+            return View(sub);
+        }
+
+        public IActionResult GenerateKeys()
+        {
+            var keys = VapidHelper.GenerateVapidKeys();
+            ViewBag.PublicKey = keys.PublicKey;
+            ViewBag.PrivateKey = keys.PrivateKey;
+            return View();
         }
         private void UpdateUserNameCookie(string userName)
         {

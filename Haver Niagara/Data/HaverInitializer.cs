@@ -14,7 +14,7 @@ namespace Haver_Niagara.Data
                 .ServiceProvider.GetRequiredService<HaverNiagaraDbContext>();
 
 
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             //context.Database.Migrate();
 
@@ -62,6 +62,12 @@ namespace Haver_Niagara.Data
                         FirstName = "Purs",
                         LastName = "Chaser",
                         Email = "procurement@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Dorian",
+                        LastName = "Orozco",
+                        Email = "dorozco4@ncstudents.niagaracollege.ca"
                     });
                 context.SaveChanges();
             }
