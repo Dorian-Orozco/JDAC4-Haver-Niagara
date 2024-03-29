@@ -854,7 +854,29 @@
             <a class="btn btn-primary" onclick="window.history.back()">Back To NCR Log</a>
         </div>
         <div class="">
-            <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                }
+                if (User.IsInRole("Quality Representative"))
+                {
+                    <a asp-action="QualityRepresentativeEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                }
+                if (User.IsInRole("Engineer"))
+                {
+                    <a asp-action="EngineeringEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                }
+                if (User.IsInRole("Procurement"))
+                {
+                    <a asp-action="ProcurementEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                }
+                if (User.IsInRole("Operations"))
+                {
+                    <a asp-action="OperationEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                }
+            }
+     
         </div>
     </div>
 </form>

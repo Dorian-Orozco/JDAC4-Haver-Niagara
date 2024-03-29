@@ -390,6 +390,24 @@
                                                 <ion-icon name="create"></ion-icon>
                                             </a>
                                         }
+                                        if (User.IsInRole("Engineer"))
+                                        {
+                                            <a href="@Url.Action("EngineeringEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        }
+                                        if (User.IsInRole("Procurement"))
+                                        {
+                                            <a href="@Url.Action("ProcurementEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        }
+                                        if (User.IsInRole("Operations"))
+                                        {
+                                            <a href="@Url.Action("OperationEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        }
                                     }
                                 </div>
                             </td>
