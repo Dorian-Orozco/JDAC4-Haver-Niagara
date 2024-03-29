@@ -31,9 +31,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-action="DetailsPrint" asp-controller="NCRs" asp-route-id="10">PDF</a>
                         </li>
-                        @*                         @if (User.IsInRole("Admin"))
-                        { *@
-                        @*       <li><hr class="dropdown-divider" /></li> *@
                         @{
                             if (User.IsInRole("Admin"))
                             {
