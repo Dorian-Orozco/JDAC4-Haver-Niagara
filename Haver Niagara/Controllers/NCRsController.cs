@@ -16,7 +16,6 @@ using IronPdf.Rendering;
 using Microsoft.AspNetCore.Http;
 using X.PagedList;
 using Razor.Templating.Core;
-using AspNetCore;
 
 namespace Haver_Niagara.Controllers
 {
@@ -1213,6 +1212,8 @@ namespace Haver_Niagara.Controllers
             {
                 nCR.IsVoid =true;
             }
+
+            _context.NCRs.Update(nCR);
 
             await _context.SaveChangesAsync();
             return RedirectToAction("List", "Home");
