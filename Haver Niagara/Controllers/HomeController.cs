@@ -41,7 +41,7 @@ namespace Haver_Niagara.Controllers
         }
 
         // NCR LIST PDF USING RAZOR VIEW NCRs.cshtml in Home Controller
-        public async Task<IActionResult> NCRs(int? page)
+        public async Task<IActionResult> LogPdf(int? page)
         {
             var ncrs = _context.NCRs
              .Where(p => p.IsArchived == false && p.NCR_Status == true) //active ncrs that have not been archived
@@ -70,7 +70,7 @@ namespace Haver_Niagara.Controllers
                 renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
 
                 // Render View to PDF document
-                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/Home/NCRs.cshtml", pagedNCRs);
+                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/Home/LogPdf.cshtml", pagedNCRs);
                 Response.Headers.Add("Content-Disposition", "inline");
                 // Output PDF document
                 return File(pdf.BinaryData, "application/pdf", "NCR Log.pdf");
@@ -117,6 +117,8 @@ namespace Haver_Niagara.Controllers
                 .Include(p => p.Part.DefectLists)
                 .ThenInclude(d => d.Defect)
                 .ToList();
+            
+            //Since 
 
             var ncrs = _context.NCRs
                 .Where(p => p.IsArchived == false)
@@ -129,7 +131,12 @@ namespace Haver_Niagara.Controllers
             // Apply filters
             if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
             {
-                ncrs = ncrs.Where(x => x.Part.Supplier.Name == selectedSupplier);
+                var selectedSupplierID = _context.Suppliers //Retrieves the selected ID based on the name
+                    .Where(s => s.Name == selectedSupplier)
+                    .Select(s => s.ID)
+                    .FirstOrDefault();
+                                         //Use NCRSupplierID instead of Part.Name
+                ncrs = ncrs.Where(x => x.NCRSupplierID == selectedSupplierID);
             }
 
             if (!selectedStatus.HasValue)
@@ -144,7 +151,7 @@ namespace Haver_Niagara.Controllers
 
             // Apply NCRStage filter if selected
             if (ncrStage.HasValue)
-            {
+            { 
                 ncrs = ncrs.Where(x => x.NCR_Stage == ncrStage.Value);
             }
 
@@ -292,7 +299,7 @@ namespace Haver_Niagara.Controllers
 
             var originalNCRs = _context.NCRs
                 .Where(p => p.IsArchived == true)
-                .Include(p=> p.Supplier)
+                .Include(p => p.Supplier)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part.DefectLists)
@@ -311,19 +318,18 @@ namespace Haver_Niagara.Controllers
             // Apply filters
             if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
             {
-                ncrs = ncrs.Where(x => x.Part.Supplier.Name == selectedSupplier);
+                var selectedSupplierID = _context.Suppliers //Retrieves the selected ID based on the name
+                 .Where(s => s.Name == selectedSupplier)
+                 .Select(s => s.ID)
+                 .FirstOrDefault();
+                //Use NCRSupplierID instead of Part.Name
+                ncrs = ncrs.Where(x => x.NCRSupplierID == selectedSupplierID);
             }
 
             if (!selectedStatus.HasValue)
             {
                 ncrs = ncrs.Where(x => x.NCR_Status == false); //archive list shows closed ncr's on default
             }
-            //else if (selectedStatus.HasValue)
-            //{
-            //    ncrs = ncrs.Where(x => x.NCR_Status == selectedStatus.Value);
-            //}
-            //ViewBag.SelectedStatus = selectedStatus;
-
             // Apply NCRStage filter if selected
             if (ncrStage.HasValue)
             {
@@ -457,7 +463,7 @@ namespace Haver_Niagara.Controllers
         public async Task<IActionResult> Index()
         {
             var ncrs = await _context.NCRs
-                .Include(n=>n.Supplier)
+                .Include(n => n.Supplier)
                 .Include(n => n.Part)
                     .ThenInclude(p => p.Supplier)
                 .Where(n => n.NCR_Status == true)

@@ -1,0 +1,120 @@
+﻿@model Haver_Niagara.Models.NCR
+
+@{
+    Layout = "~/Views/Shared/_LayoutPdf.cshtml";
+    ViewData["Title"] = @Model.FormattedID;
+}
+
+<!--Import Tailwind CSS Library-->
+<script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      .report {
+        display: flex;
+        width: 100%;
+        margin: 20px auto;
+        border: 1px solid black;
+      }
+
+      .container-row-one,
+      .sidebar {
+        padding: 10px;
+      }
+
+      .container-col-one {
+        flex: 80%;
+      }
+
+      .container-row-one {
+        flex: 100%;
+        display: flex;
+        /* flex-direction: column; */
+      }
+
+      .container-col-two {
+        flex: 20%;
+        display: flex;
+        align-items: center; /* Center logo vertically */
+        justify-content: center; /* Center logo horizontally */
+      }
+
+      .row-one {
+          background-color: grey;
+      }
+
+      .row-one,
+      .row-two {
+        display: flex;
+        width: 100%;
+      }
+
+      .company-name {
+          font-family: 'Arial';
+          font-weight: 600;
+      }
+
+    .document-title {
+        font-family: 'Arial';
+        font-weight: 400;
+    }
+
+      .company-name,
+      .document-title,
+      .document-number,
+      .title,
+      .page-number,
+      .container-col-two {
+        padding: 5px; /* Just for some spacing */
+        border: 1px solid #ddd; /* Just for visualizing the areas */
+      }
+
+      .company-name,
+      .document-title {
+        flex: 1; /* Split space equally */
+        display: flex;
+        justify-content: center;
+      }
+
+      .footer {
+        display: flex;
+      }
+
+      .document-number,
+      .page-number {
+        flex: 20%;
+      }
+
+      .title {
+        flex: 60%; /* Take the majority of the space */
+      }
+
+      .logo {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Keep aspect ratio */
+        width: 80px;
+      }
+    </style>
+
+<h1>NCR# @Model.FormattedID</h1>
+
+<div>
+    <div class="report">
+        <div class="container-row-one">
+            <div class="container-col-one">
+                <div class="row-one">
+                    <div class="company-name">Haver & Boecker Canada</div>
+                    <div class="document-title">Internal Process Document</div>
+                </div>
+                <div class="row-two">
+                    <div class="document-number">Document No.</div>
+                    <div class="title">Non-Conformance Report</div>
+                    <div class="page-number">Page:</div>
+                </div>
+            </div>
+            <div class="container-col-two">
+                <img src="@Url.Content("wwwroot/images/report-logo.png")" alt="Logo" class="logo" />
+            </div>
+        </div>
+    </div>
+</div>

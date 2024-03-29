@@ -1,6 +1,7 @@
 ﻿using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Haver_Niagara.ViewModels;
 
 namespace Haver_Niagara.Data
 {
@@ -92,10 +93,10 @@ namespace Haver_Niagara.Data
                 .HasIndex(a => new { a.Email })
                 .IsUnique();
 
-            //Unique Constraint for Phone Number 
-            modelBuilder.Entity<Employee>()
-                .HasIndex(a => new { a.Phone})
-                .IsUnique();
+            ////Unique Constraint for Phone Number 
+            //modelBuilder.Entity<Employee>()
+            //    .HasIndex(a => new { a.Phone})
+            //    .IsUnique();
 
             ////Unique Constraint for Defect Name
             modelBuilder.Entity<Defect>()
@@ -106,6 +107,7 @@ namespace Haver_Niagara.Data
             modelBuilder.Entity<Supplier>()
                 .HasIndex(a => new { a.Name })
                 .IsUnique();
+
 
         }
 

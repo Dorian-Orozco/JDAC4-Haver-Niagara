@@ -39,7 +39,7 @@ namespace Haver_Niagara.Controllers
                    ID = e.ID,
                    FirstName = e.FirstName,
                    LastName = e.LastName,
-                   Phone = e.Phone,
+                   //Phone = e.Phone,
                    NumberOfPushSubscriptions = e.Subscriptions.Count()
                })
                .FirstOrDefaultAsync();
@@ -61,7 +61,7 @@ namespace Haver_Niagara.Controllers
                     ID = e.ID,
                     FirstName = e.FirstName,
                     LastName = e.LastName,
-                    Phone = e.Phone,
+                    //Phone = e.Phone,
                     NumberOfPushSubscriptions = e.Subscriptions.Count()
                 })
                 .FirstOrDefaultAsync();
@@ -85,7 +85,7 @@ namespace Haver_Niagara.Controllers
             //Note: Using TryUpdateModel we do not need to invoke the ViewModel
             //Only allow some properties to be updated
             if (await TryUpdateModelAsync<Employee>(employeeToUpdate, "",
-                c => c.FirstName, c => c.LastName, c => c.Phone))
+                c => c.FirstName, c => c.LastName /*,c => c.Phone*/))
             {
                 try
                 {

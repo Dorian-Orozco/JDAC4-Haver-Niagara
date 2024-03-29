@@ -74,22 +74,57 @@
                         <p>
                             <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                         </p>
-                        @* Comment these out if admin sets up the accounts *@
-                        @*                     <p>
+  @*                       <p>
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                        </p>
+                        </p> *@
                         <p>
                         <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                        </p> *@
-                        @* End Comment *@
+                        </p> 
+                  
                     </div>
                 </form>
             </section>
         </div>
-
+        <button id="autoAdminLogin" class="btn btn-primary">Admin Login</button>
+        <button id="autoQualityRepLogin" class="btn btn-primary">Quality Rep Login</button>
+        <button id="autoEngineerLogin" class="btn btn-primary">Engineer Login</button>
+        <button id="autoOperationLogin" class="btn btn-primary">Operations Login</button>
+        <button id="autoProcurementLogin" class="btn btn-primary">Procurement Login</button>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+<script>
+    //created a script for login. the pain and agony of typing in login credentials got to me. -dorian
+
+    //Finds button by their ID's and has attached event listeners - when clicked, go to a function with login credentials and signs 
+    document.getElementById("autoAdminLogin").addEventListener("click", function () {
+        determineLogin("admin@outlook.com", "password");
+    });
+    document.getElementById("autoQualityRepLogin").addEventListener("click", function () {
+        determineLogin("qualityrepresentative@outlook.com", "password");
+    });
+    document.getElementById("autoEngineerLogin").addEventListener("click", function () {
+        determineLogin("engineer@outlook.com", "password");
+    });
+    document.getElementById("autoOperationLogin").addEventListener("click", function () {
+        determineLogin("operations@outlook.com", "password");
+    });
+    document.getElementById("autoProcurementLogin").addEventListener("click", function () {
+        determineLogin("procurement@outlook.com", "password");
+    });
+
+    function determineLogin(email, password) {
+        var Email = document.getElementById("Input_Email");
+        var Password = document.getElementById("Input_Password");
+
+        //Insert The Infooo
+        Email.value = email;
+        Password.value = password;
+
+        //login / submit the form
+        document.getElementById("account").submit();
+    }
+</script>

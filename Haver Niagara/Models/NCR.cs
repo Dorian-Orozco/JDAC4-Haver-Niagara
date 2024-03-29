@@ -12,7 +12,7 @@ namespace Haver_Niagara.Models
         [Display(Name ="NCR No.")]
         public string FormattedID
         {
-            get
+            get 
             {
                 return $"{NCR_Date.Year}-{ID.ToString().PadLeft(3, '0')}";
             }
@@ -60,7 +60,9 @@ namespace Haver_Niagara.Models
 
         // PART ENTITY //
         [ForeignKey("Supplier")]
-        public int? NCRSupplierID { get; set; }
+        [Display(Name = "Select Supplier")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "Please select a Value")]
+        public int NCRSupplierID { get; set; }
         public Supplier? Supplier { get; set; }
 
         // PART ENTITY //
@@ -99,7 +101,7 @@ namespace Haver_Niagara.Models
             //Sets the NCR_Status to true because its active bc it was just made
             NCR_Status = true; //change back to false if everthing breaks
             //Defaulting when creating an NCR to have the quality representative as the first stage
-            NCR_Stage = NCRStage.Engineering;
+            //NCR_Stage = NCRStage.Procurement;
             //Setting a default of todays date
             NCR_Date = DateTime.Today;
         }

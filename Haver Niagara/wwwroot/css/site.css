@@ -49,12 +49,21 @@ a {
 }
 
 /*eye icon under action column in ncr table*/
-.view-btn {
+.view-btn, .download-btn {
     color: gray;
     font-size: 30px;
     border: none;
     background: transparent;
 }
+
+    .download-btn:hover, .view-btn:hover {
+        color: #0073e6;
+    }
+
+    .download-icon{
+        position: relative;
+        top: -3px;
+    }
 
 /*headers for NCR details view*/
 .section-header {

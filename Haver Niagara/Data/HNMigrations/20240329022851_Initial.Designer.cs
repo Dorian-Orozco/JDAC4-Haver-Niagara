@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240325085810_Initial")]
+    [Migration("20240329022851_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -107,9 +107,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -120,9 +117,6 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("Phone")
                         .IsUnique();
 
                     b.ToTable("Employees");
@@ -247,7 +241,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<bool?>("IsArchived")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("NCRSupplierID")
+                    b.Property<int>("NCRSupplierID")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("NCR_Date")
@@ -312,6 +306,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("OperationCar")
@@ -397,7 +392,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("CarrierPhone")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("DisposeOnSite")
+                    b.Property<bool?>("DisposeOnSite")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("ExpectSuppCredit")
@@ -600,7 +595,9 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
                         .WithMany()
-                        .HasForeignKey("NCRSupplierID");
+                        .HasForeignKey("NCRSupplierID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Haver_Niagara.Models.Operation", "Operation")
                         .WithOne("NCR")
