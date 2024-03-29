@@ -275,19 +275,23 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")] //ids have to be included here and in the edit (hidden but MUST be there so the database gives the right id to right NCR.)
+        public async Task<IActionResult> Edit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")]
                     NCR nCR, Part part, QualityInspection qualityInspection, Engineering engineering, Operation operation, Procurement procurement, QualityInspectionFinal qualityInspectionFinal,
                     List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
-            nCR.ID = id;
-            if (id != nCR.ID)
-            {
-                return NotFound();
-            }
+            //Adding comments in case I don't get it working.
+            nCR.ID = id;                                                //Sets the nCR from the form to have the id of the one that is going to be edited
 
-            var ncrRetrieveStage = _context.NCRs
+            if (id != nCR.ID)       
+                return NotFound();                                     //If it doesn't exist (highly unlikely) then return not found page
+
+            var ncrRetrieveStage = _context.NCRs                       //Retrieving the ncr we are going to edit to save the NCR_Stage so we can prevent it from being overwritten.
                 .FirstOrDefaultAsync(n => n.ID == id);
-            
+
+            if (!ModelState.IsValid)                                   //If the form submission is invalid, do these things, then return it back to the user. (Used to ensure things like ddl are 
+            {
+                //nCR.NCR_Stage = ncrRetrieveStage.;
+            }
            
 
             if (ModelState.IsValid)
