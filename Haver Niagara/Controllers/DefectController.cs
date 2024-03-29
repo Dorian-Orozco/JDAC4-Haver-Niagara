@@ -8,41 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Haver_Niagara.CustomController;
 
 namespace Haver_Niagara.Controllers
 {
-    public class DefectsController : Controller
+    public class DefectController : LookupsController
     {
         private readonly HaverNiagaraDbContext _context;
 
-        public DefectsController(HaverNiagaraDbContext context)
+        public DefectController(HaverNiagaraDbContext context)
         {
             _context = context;
         }
 
         // GET: Defects
-        public async Task <IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Defects.ToListAsync());
-
-        }
-
-        // GET: Defects/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Defects == null)
-            {
-                return NotFound();
-            }
-
-            var defect = await _context.Defects
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (defect == null)
-            {
-                return NotFound();
-            }
-
-            return View(defect);
+            return Redirect(ViewData["returnURL"].ToString());
         }
 
         // GET: Defects/Create
@@ -64,8 +46,7 @@ namespace Haver_Niagara.Controllers
                 {
                     _context.Add(defect);
                     await _context.SaveChangesAsync();
-                    return Json(new { success = true });
-                    //return PartialView("_DefectForm", defect);
+                    return Redirect(ViewData["returnURL"].ToString());
                 }
             }
             catch (DbUpdateException dex)
