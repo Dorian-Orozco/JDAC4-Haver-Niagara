@@ -207,7 +207,7 @@
                                         <button class="btn btn-outline-secondary" id="nowAddDefect" data-bs-toggle="modal" data-bs-target="#addDefectModal" type="button">&#x2795;</button>
                                     </div>
                                     <select id="defectID" name="SelectedDefectID" class="form-control" required>
-                                        <option value="">-- Select Defect --</option>
+                                        <option value="">Select Defect</option>
                                         @foreach (var defect in ViewBag.DefectList)
                                         {
                                             if (Model.Part != null && Model.Part.DefectLists != null && Model.Part.DefectLists.Any(defectL => defectL.Defect.Name == defect.Text))
@@ -259,8 +259,8 @@
                             </dt>
                             <dd class="col-sm ms-2">
                                 <input asp-for="QualityInspection.Name"  required class="form-control" />
-                                <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
                             </dd>
+                            <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
                         </dl>
                     </div>
                     <div class="row">
@@ -392,7 +392,7 @@
                                             {
                                                 //if the old ncr id has an old ncr id value then we know it must be a preivous ncr number, else it must be new
                                                 string ncrLabel = Model.OldNCRID != null ? "Previous NCR Number" : "New NCR Number";
-                                                @ncrLabel
+                                                            @ncrLabel
                                             }
                                         }
                                     </dt>
@@ -402,9 +402,9 @@
                                             //again if has value, show old value formatted, else show new value formatted.
                                             string formattedNCRID = Model.OldNCRID != null ? $"{DateTime.UtcNow.Year}-{Model.OldNCRID.ToString().PadLeft(3, '0')}"
                                             : $"{DateTime.UtcNow.Year}-{Model.NewNCRID.ToString().PadLeft(3, '0')}";
-                                            <dd class="m2-2">
-                                                @formattedNCRID
-                                            </dd>
+                                                        <dd class="m2-2">
+                                                            @formattedNCRID
+                                                        </dd>
                                         }
                                     }
                                 </dl>
@@ -417,7 +417,7 @@
                                         Inspector's Name
                                     </dt>
                                     <dd class="col-sm ms-2">
-                                        <input asp-for="QualityInspectionFinal.InspectorName" class="form-control" />
+                                        <input asp-for="QualityInspectionFinal.InspectorName" required class="form-control" />
                                         <span asp-validation-for="QualityInspectionFinal.InspectorName" class="text-danger"></span>
                                     </dd>
                                 </dl>
@@ -453,8 +453,8 @@
 
                                             @Html.RadioButtonFor(model => model.NCR_Status, false, new { @checked = Model != null && !Model.NCR_Status, @class = "me-2" })
                                             <label>No</label>
-                                            <span asp-validation-for="NCR_Status" class="text-danger"></span>
                                         </div>
+                                        <span asp-validation-for="NCR_Status" class="text-danger"></span>
                                     </div>
                                 </dd>
                             </dl>
@@ -467,7 +467,7 @@
                                     </dt>
                                     <dd class="col-sm ms-2">
                                         <div class="form-group">
-                                            <input asp-for="QualityInspectionFinal.Department" class="form-control" />
+                                            <input asp-for="QualityInspectionFinal.Department"  class="form-control" required/>
                                             <span asp-validation-for="QualityInspectionFinal.Department" class="text-danger"></span>
                                         </div>
                                     </dd>
@@ -494,13 +494,13 @@
         @{  //If it tries to post to the server and its denied, instead of losing defect store it when page (reloads)
             if (!ViewData.ModelState.IsValid)
             {
-                <script>
-                    // JavaScript code to set the selected value of the dropdown list
-                    document.addEventListener("DOMContentLoaded", function () {
-                        var selectedDefectID = @Html.Raw(Json.Serialize(ViewBag.SelectedDefectID));
-                        document.getElementById("defectID").value = selectedDefectID;
-                    });
-                </script>
+                            <script>
+                                // JavaScript code to set the selected value of the dropdown list
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    var selectedDefectID = @Html.Raw(Json.Serialize(ViewBag.SelectedDefectID));
+                                    document.getElementById("defectID").value = selectedDefectID;
+                                });
+                            </script>
             }
         }
         <div class="d-flex justify-content-between mt-3">
@@ -667,6 +667,11 @@
                 ul.removeChild(ul.firstChild);
             }
         }
+
+
     </script>
+
+
+
 
 }

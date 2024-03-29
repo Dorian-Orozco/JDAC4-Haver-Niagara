@@ -184,7 +184,7 @@
                                     <button class="btn btn-outline-secondary" id="nowAddDefect" data-bs-toggle="modal" data-bs-target="#addDefectModal" type="button">&#x2795;</button>
                                 </div>
                                 <select id="defectID" name="SelectedDefectID"  class="form-control" required>
-                                    <option value="">-- Select a Defect --</option>
+                                    <option value="">Select a Defect</option>
                                     @foreach (var defect in ViewBag.DefectList)
                                     {
                                         <option value="@defect.Value">@defect.Text</option>
@@ -408,6 +408,7 @@
         }
     </script>
     @* Defect Modal / Form Javascript/////////// *@
+    <script src="~/js/refreshDDL.js"></script>
     <script type="text/javascript">
         $('#submitDefectCreate').click(function (event) {
             event.preventDefault();

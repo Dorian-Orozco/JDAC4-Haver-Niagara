@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240328044905_Initial")]
+    [Migration("20240329022851_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -306,6 +306,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("OperationCar")
@@ -391,7 +392,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("CarrierPhone")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("DisposeOnSite")
+                    b.Property<bool?>("DisposeOnSite")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("ExpectSuppCredit")
