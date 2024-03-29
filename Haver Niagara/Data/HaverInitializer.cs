@@ -3141,8 +3141,7 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 26),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 26),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 26),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26),
-                        //QualityInspectionFinal = context.QualityInspectionFinals.FirstOrDefault(p => p.ID == 8)
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26)
                     },
                     new NCR
                     {

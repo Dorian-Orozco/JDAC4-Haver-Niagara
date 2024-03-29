@@ -118,10 +118,10 @@ namespace Haver_Niagara.Controllers
             }
 
             var nCR = await _context.NCRs
-                .Include(n=> n.Supplier)
+                .Include(n => n.Supplier)
                 .Include(n => n.Engineering)
                 .Include(n => n.QualityInspection)
-                .Include(n=>n.QualityInspectionFinal)
+                .Include(n => n.QualityInspectionFinal)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Supplier)
                 .Include(n => n.Part)
@@ -133,13 +133,10 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.FollowUp)
                 .Include(n => n.Operation)
                     .ThenInclude(n => n.CAR)
-                    .Include(n=>n.Procurement)
+                    .Include(n => n.Procurement)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            
-            //Seed Data, not ALL records have defects associated. 
-            //For instance NCR #24 is not PART ID 24, therefore in the seed data
 
-            if(nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
+            if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
             {
                 ViewBag.NewNCRID = nCR.NewNCRID;
             }
@@ -151,19 +148,14 @@ namespace Haver_Niagara.Controllers
 
             return View(nCR);
         }
-        ///new method in controller to archive an ncr
-
-
 
         // GET: NCRs/Create
         public IActionResult Create(int? oldNCRID)
         {
-
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
 
             // Populate supplier dropdown list
-            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name"); //added this change so suppliers load in properly when first creating, it should not affect anything
-                                                                                    //try removing it if it does
+            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name");
 
             //Passes in the OLD NCRID
             ViewBag.OldNCRID = oldNCRID;
@@ -179,63 +171,75 @@ namespace Haver_Niagara.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]              
-     
-        public async Task<IActionResult> Create(int? oldNCRID,[Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID,NCRSupplierID")]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Create(int? oldNCRID, [Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID,NCRSupplierID")]
                 NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
             if (!ModelState.IsValid)
             {
                 // Populate supplier dropdown list
-                ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name",SelectedDefectID);
-                ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name",nCR.NCRSupplierID);
+                ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
+                ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
                 return View(nCR);
             }
             if (ModelState.IsValid)
             {
-                _context.Add(part);                         
-                _context.Add(qualityInspection);          
+                _context.Add(part);
+                _context.Add(qualityInspection);
                 part.SupplierID = (int)nCR.NCRSupplierID;
 
                 await _context.SaveChangesAsync();
-                
+
+                //When creating a new record set default of engineering here
+                nCR.NCR_Stage = NCRStage.Engineering;
                 //Assign the generated IDs to this NCR. this allows the NCR to have part and quality
-                nCR.PartID = part.ID;                  
+                nCR.PartID = part.ID;
                 nCR.QualityInspectionID = qualityInspection.ID;
+
+
+
 
                 //Retrieves the old ncr from the GET create. 
                 nCR.OldNCRID = oldNCRID ?? null;
-                var defectList = new DefectList            
-                {                                          
-                    PartID = part.ID,                      
+                var defectList = new DefectList
+                {
+                    PartID = part.ID,
                     DefectID = SelectedDefectID
                 };
-                _context.Add(defectList);               
+                _context.Add(defectList);
                 _context.Add(nCR);
                 await _context.SaveChangesAsync();
 
                 if (oldNCRID != null)
-                {   
+                {
                     var oldNCR = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == oldNCRID);
                     if (oldNCR != null)
                     {
-                        oldNCR.NewNCRID = nCR.ID; 
+                        oldNCR.NewNCRID = nCR.ID;
                         _context.Update(oldNCR);
                         await _context.SaveChangesAsync();
                     }
                 }
                 //Images function to save
-                if (files != null && files.Count > 0)             
-                {                                                  
-                    await OnPostUploadAsync(files, nCR.ID, links);  
+                if (files != null && files.Count > 0)
+                {
+                    await OnPostUploadAsync(files, nCR.ID, links);
                 }
                 TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here To View: {nCR.FormattedID}</a>";
-                return RedirectToAction("List", "Home");           
+
+                //In here, the model state is good meaning everything submitted properly, so once we create the NCR it will send a notification to engineers
+                //As well as an email saying, a new NCR has been created..something IMPLEMENT FIX
+
+                return RedirectToAction("List", "Home");
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             return View(nCR);
         }
+
+
+
 
         // GET: NCRs/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -246,7 +250,7 @@ namespace Haver_Niagara.Controllers
             }
             //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
-                .Include(n=> n.Supplier)
+                .Include(n => n.Supplier)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Medias)
                 .Include(n => n.Part)
@@ -255,14 +259,14 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.DefectLists)
                         .ThenInclude(n => n.Defect)
                 .Include(n => n.QualityInspection)
-                .Include(n=>n.QualityInspectionFinal)
+                .Include(n => n.QualityInspectionFinal)
                 .Include(n => n.Engineering)
 
                 .Include(n => n.Operation)
                     .ThenInclude(n => n.CAR)
                 .Include(n => n.Operation)
                     .ThenInclude(n => n.FollowUp)
-                    .Include(p=>p.Procurement)
+                    .Include(p => p.Procurement)
                 .FirstOrDefaultAsync(n => n.ID == id);
 
             if (nCR == null)
@@ -306,25 +310,25 @@ namespace Haver_Niagara.Controllers
                             .ThenInclude(n => n.DefectLists)
                                 .ThenInclude(n => n.Defect)
                         .Include(n => n.QualityInspection)
-                        .Include(n=>n.QualityInspectionFinal)
+                        .Include(n => n.QualityInspectionFinal)
                         .Include(n => n.Engineering)
                         .Include(n => n.Operation)
                             .ThenInclude(n => n.FollowUp)
                         .Include(n => n.Operation)
                             .ThenInclude(n => n.CAR)
-                            .Include(n=>n.Procurement)
+                            .Include(n => n.Procurement)
                         .FirstOrDefaultAsync(n => n.ID == id);
 
                     if (existingNCR == null)
                     {
                         return NotFound();
                     }
-   
+
                     existingNCR.NCR_Date = nCR.NCR_Date;
                     existingNCR.NCR_Status = nCR.NCR_Status;    //For radio buttons 
                     existingNCR.NCRSupplierID = nCR.NCRSupplierID;
 
-                    if(existingNCR.OldNCRID != null)
+                    if (existingNCR.OldNCRID != null)
                     {
                         existingNCR.OldNCRID = nCR.ID;
                     }
@@ -335,7 +339,7 @@ namespace Haver_Niagara.Controllers
 
                     if (part != null)
                     {
-                        if(existingNCR.Part == null)
+                        if (existingNCR.Part == null)
                         {
                             existingNCR.Part = new Part();
                         }
@@ -350,7 +354,7 @@ namespace Haver_Niagara.Controllers
                         existingNCR.Part.Description = part.Description;
                         existingNCR.Part.SupplierID = (int)existingNCR.NCRSupplierID;
 
-            
+
                         //existingNCR.Part.SupplierID = part.SupplierID; //crashes after saving changes because of this line
                         await _context.SaveChangesAsync();
                         existingNCR.Part.DefectLists.Clear(); //removed existing defect 
@@ -395,7 +399,7 @@ namespace Haver_Niagara.Controllers
                     }
                     if (qualityInspection != null)
                     {
-                        if(existingNCR.QualityInspection == null)
+                        if (existingNCR.QualityInspection == null)
                         {
                             existingNCR.QualityInspection = new QualityInspection();
                         }
@@ -406,7 +410,7 @@ namespace Haver_Niagara.Controllers
                     }
                     if (engineering != null)
                     {
-                        if(existingNCR.Engineering == null)
+                        if (existingNCR.Engineering == null)
                         {
                             existingNCR.Engineering = new Engineering();
                         }
@@ -430,7 +434,7 @@ namespace Haver_Niagara.Controllers
                     }
                     if (operation != null)
                     {
-                        if(existingNCR.Operation == null)
+                        if (existingNCR.Operation == null)
                         {
                             existingNCR.Operation = new Operation();
                         }
@@ -490,19 +494,19 @@ namespace Haver_Niagara.Controllers
                             }
                         }
                         //Checking to see if inputs are filled out(could do more but as long as the name property is filled out it wont affect
-                        if(!string.IsNullOrEmpty(operation.Name) && operation.OperationDate != DateTime.MinValue) //existing ncrs as well as date.
+                        if (!string.IsNullOrEmpty(operation.Name) && operation.OperationDate != DateTime.MinValue) //existing ncrs as well as date.
                         {
                             existingNCR.NCR_Stage = NCRStage.Procurement;
                         }
                     }
-                    if(procurement != null)
+                    if (procurement != null)
                     {
-                        if(existingNCR.Procurement == null)
+                        if (existingNCR.Procurement == null)
                         {
                             existingNCR.Procurement = new Procurement();
                         }
 
-                        if(procurement.ReturnRejected == true)
+                        if (procurement.ReturnRejected == true)
                         {
                             existingNCR.Procurement.ReturnRejected = procurement.ReturnRejected;
                             existingNCR.Procurement.RMANumber = procurement.RMANumber;
@@ -588,15 +592,578 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        ////Create New NCR Edit Post
-        //private IActionResult CreateNewNCR(int originalNCRid) //Redirects to the create page
-        //{                                                   //and passes along the oldNCRID from the ncr that called it
-        //    return RedirectToAction("Create", new { oldNCRID = originalNCRid});
-        //}
 
 
-        // GET: NCRs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        //Stage system, retrieve the part of the ncr that is being edited, use the ncr id and see if there is data filled out after their section NOT BEFORe
+        //because if you create an NCR thats automatically the quality rep stage but once you submit the form it turns into Engineering.
+        //So what if someone goes back to change that NCR quality rep info if engineering data already exists? It will overwrite the stage and mess things up
+        //So Retrieve the NCR, look for associated objects (engineering table, procurement, etc) if engineering exists, stage = procurement, if procurement exists, stage = qual rep final 
+        //if qual rep exists and ncr close selected then stage = complete.
+
+
+        ///Quality Representative Edit : GET
+        public async Task<IActionResult> QualityRepresentativeEdit(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+                return NotFound();
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part).ThenInclude(n => n.Supplier)
+                .Include(n => n.Part).ThenInclude(n => n.Medias)
+                .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (nCR == null)
+                return NotFound();
+
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name");
+            return View(nCR);
+        }
+
+        ///Quality Representative Edit : POST 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> QualityRepresentativeEdit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")]
+                          NCR nCR, Part part, QualityInspection qualityInspection, QualityInspectionFinal qualityInspectionFinal,
+                          List<IFormFile> files, List<string> links, int SelectedDefectID)
+        {
+            nCR.ID = id;
+
+            var ncrStageCheck = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == id); //finding the ncr we are editing then checking the ncr stage
+            if (ncrStageCheck == null) return NotFound();    //if the ncr stage is not in quality rep final, then remove server side validation for inspector
+            //bool isValidationNeeded = ncrStageCheck.NCR_Stage == NCRStage.QualityRepresentative_Final;
+
+
+            if (id != nCR.ID)
+                return NotFound();
+
+            if (!ModelState.IsValid) //If it posts back here and its incorrect, give them back the data (ddls so they arent unsaved)
+            {//But since an NCR_Stage is not declared anywhere, it will use the defualt constructor of engineer if it is null 
+                nCR.NCR_Stage = ncrStageCheck.NCR_Stage; //If they are editing quality rep final, it will keep that stage if posts back. If the ncr is in engineering it will persist
+                // Populate supplier dropdown list              //The ncr stage will get changed in every edit after this. so in engineering, if model state is valid, then at the end change the stage and continue.
+                ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
+                ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
+                ViewBag.SelectedDefectID = SelectedDefectID;
+                return View(nCR);
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var existingNCR = await _context.NCRs
+                        .Include(n => n.Part).ThenInclude(n => n.Medias)
+                        .Include(n => n.Part).ThenInclude(n => n.Supplier)
+                        .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
+                        .Include(n => n.QualityInspection)
+                        .Include(n => n.QualityInspectionFinal)
+                        .Include(n => n.Engineering)
+                        .FirstOrDefaultAsync(n => n.ID == id);
+
+                    if (existingNCR == null)
+                        return NotFound();
+
+                    existingNCR.NCR_Date = nCR.NCR_Date;
+                    existingNCR.NCR_Status = nCR.NCR_Status;
+                    existingNCR.NCRSupplierID = nCR.NCRSupplierID;
+
+                    if (existingNCR.OldNCRID != null)
+                        existingNCR.OldNCRID = nCR.ID;
+
+                    //Stores the ID Automatically
+                    _context.Update(existingNCR);
+
+                    if (part != null)
+                    {
+                        if (existingNCR.Part == null)
+                        {
+                            existingNCR.Part = new Part();
+                        }
+                        existingNCR.Part.Name = part.Name;
+                        existingNCR.Part.PartNumber = part.PartNumber;
+                        existingNCR.Part.SAPNumber = part.SAPNumber;
+                        existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
+                        existingNCR.Part.SalesOrder = part.SalesOrder;
+                        existingNCR.Part.ProductNumber = part.ProductNumber;
+                        existingNCR.Part.QuantityRecieved = part.QuantityRecieved;
+                        existingNCR.Part.QuantityDefect = part.QuantityDefect;
+                        existingNCR.Part.Description = part.Description;
+                        existingNCR.Part.SupplierID = (int)existingNCR.NCRSupplierID;
+
+                        await _context.SaveChangesAsync();
+                        existingNCR.Part.DefectLists.Clear();
+                        try
+                        {
+                            if (SelectedDefectID != 0)
+                            {
+                                // Find the selected Defect from the database
+                                Defect selectedDefect = await _context.Defects.FindAsync(SelectedDefectID);
+                                if (selectedDefect != null)
+                                {
+                                    var newDefectList = new DefectList
+                                    {
+                                        PartID = existingNCR.Part.ID,
+                                        DefectID = selectedDefect.ID
+                                    };
+                                    _context.DefectLists.Add(newDefectList);
+                                    await _context.SaveChangesAsync();
+                                    existingNCR.Part.DefectLists.Add(newDefectList);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            // Check for inner exceptions
+                            Exception innerException = ex.InnerException;
+                            while (innerException != null)
+                            {
+                                Console.WriteLine("Inner Exception: " + innerException.Message);
+                                innerException = innerException.InnerException;
+                            }
+                        }
+
+                    }
+                    if (qualityInspection != null)
+                    {
+                        if (existingNCR.QualityInspection == null)
+                        {
+                            existingNCR.QualityInspection = new QualityInspection();
+                        }
+                        existingNCR.QualityInspection.Name = qualityInspection.Name;
+                        existingNCR.QualityInspection.Date = qualityInspection.Date;
+                        existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
+                        existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
+                    }
+
+                    //So if the NCR being edited is on the Quality Representative stage, allow it to be updated with information
+                    if (existingNCR.NCR_Stage == NCRStage.QualityRepresentative_Final)
+                        if (qualityInspectionFinal != null)
+                        {
+                            if (existingNCR.QualityInspectionFinal == null)
+                            {
+                                existingNCR.QualityInspectionFinal = new QualityInspectionFinal();
+                            }
+                            existingNCR.QualityInspectionFinal.Department = qualityInspectionFinal.Department;
+                            existingNCR.QualityInspectionFinal.DepartmentDate = qualityInspectionFinal.DepartmentDate;
+                            existingNCR.QualityInspectionFinal.InspectorName = qualityInspectionFinal.InspectorName;
+                            existingNCR.QualityInspectionFinal.InspectorDate = qualityInspectionFinal.InspectorDate;
+                            existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
+                        }
+                    //If the NCR is being kept open 
+                    if (existingNCR.NCR_Status)
+                        if (!qualityInspectionFinal.ReInspected)   //And re-inspect was not acceptable then redirect and create an NCR with an Old ID attached to it
+                            return RedirectToAction("Create", new { oldNCRID = id });
+
+                    if (!existingNCR.NCR_Status) //if no, dont keep ncr open
+                    {
+                        existingNCR.NCR_Stage = NCRStage.Closed_NCR; //set stage to complete
+                        _context.Update(existingNCR);
+                        if (!qualityInspectionFinal.ReInspected)
+                            return RedirectToAction("Create", new { oldNCRID = id });
+                    }
+                    await OnPostUploadAsync(files, nCR.ID, links);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NCRExists(nCR.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                return RedirectToAction("List", "Home");
+            }
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
+            ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
+            ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
+            return View(nCR);
+        }
+
+
+
+
+        ///Engineering Edit : GET
+        public async Task<IActionResult> EngineeringEdit(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+            var nCR = await _context.NCRs
+                .Include(n => n.Engineering)
+                .FirstOrDefaultAsync(n=>n.ID == id);
+
+
+
+            if (nCR == null)
+                return NotFound();
+
+
+            return View(nCR);
+        }
+
+        ///Engineering Edit : POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EngineeringEdit(int id, [Bind("OldNCRID")]
+                                                        NCR nCR, Engineering engineering)
+        {
+            nCR.ID = id;
+            if (id != nCR.ID)
+                return NotFound();
+
+            //Gets the NCR that's going to be edited and is used to store the stage
+            var ncrStageCheck = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == id);
+
+            if (!ModelState.IsValid)
+            {
+                //Ensuring the NCR Stage persistent if the form submission goes bad
+                nCR.NCR_Stage = ncrStageCheck.NCR_Stage;
+                return View(nCR);
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var existingNCR = await _context.NCRs
+                        .Include(n => n.Engineering)
+                        .FirstOrDefaultAsync(n => n.ID == id);
+
+                    if (existingNCR == null)
+                        return NotFound();
+
+                    //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
+                    if (ncrStageCheck.NCR_Stage == NCRStage.Engineering) //this would mean that the NCR stage should be sent to the next enum (operations)
+                    {
+                        existingNCR.NCR_Stage = NCRStage.Operations;  //if the ncr was in the engineering stage, since its complete set it to operations
+                    }
+                    if (ncrStageCheck.NCR_Stage != NCRStage.Engineering) //if the ncr stage is not equal to engineering meaning its from a later stage (operations, procurement, final..)
+                        existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
+                    
+                    if (existingNCR.OldNCRID != null)
+                        existingNCR.OldNCRID = nCR.ID;
+
+                    _context.Update(existingNCR);
+
+                    if (engineering != null) //it should never be null but just in case
+                    {   //so since this ncr will probably not have an engineering entity assigned because its fresh off quality rep, create one so we can store the values in the ncr
+                        //This shouldnt affect existing NCRs tho because the if checks to see if theres always properties for it defined.
+                        if (existingNCR.Engineering == null)
+                        {
+                            existingNCR.Engineering = new Engineering();
+                        }                                                   //assigns all the properties input into the existing ncr we are editing
+                        existingNCR.Engineering.Name = engineering.Name;
+                        existingNCR.Engineering.Date = engineering.Date;
+                        existingNCR.Engineering.CustomerNotify = engineering.CustomerNotify;
+                        existingNCR.Engineering.DrawUpdate = engineering.DrawUpdate;
+                        existingNCR.Engineering.DispositionNotes = engineering.DispositionNotes;
+                        existingNCR.Engineering.RevisionOriginal = engineering.RevisionOriginal;
+                        existingNCR.Engineering.RevisionUpdated = engineering.RevisionUpdated;
+                        existingNCR.Engineering.RevisionDate = engineering.RevisionDate;
+                        existingNCR.Engineering.EngineeringDisposition = engineering.EngineeringDisposition;
+                        await _context.SaveChangesAsync();
+                    }
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NCRExists(nCR.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                return RedirectToAction("List", "Home");
+            }
+            return View(nCR);
+        }
+    
+
+
+        ///Operations Edut : GET
+        public async Task<IActionResult> OperationEdit(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+                return NotFound();
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Operation).ThenInclude(n => n.FollowUp)
+                .Include(n => n.Operation).ThenInclude(n => n.CAR)
+                .FirstOrDefaultAsync(n => n.ID == id);
+
+            if (nCR == null)
+                return NotFound();
+
+            if ((int)nCR.NCR_Stage < (int)NCRStage.Operations)
+            {
+
+                TempData["ErrorMessage"] = "You cannot edit this NCR because it is not at the operation stage.";
+                return RedirectToAction("List", "Home"); // Redirect to another page
+            }
+            return View(nCR);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OperationEdit(int id, [Bind("OldNCRID")] NCR nCR, Operation operation) //didnt use followup/car objects because they can be null so just did it in code 
+        {
+            nCR.ID = id;
+            if (id != nCR.ID)
+                return NotFound();
+
+            //Gets the NCR that's going to be edited and is used to store the stage
+            var ncrStageCheck = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == id);
+
+            if (!ModelState.IsValid)
+            {
+                //Ensuring the NCR Stage persistent if the form submission goes bad
+                nCR.NCR_Stage = ncrStageCheck.NCR_Stage;
+                return View(nCR);
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var existingNCR = await _context.NCRs
+                        .Include(n => n.Operation).ThenInclude(n => n.FollowUp)
+                        .Include(n => n.Operation).ThenInclude(n => n.CAR)
+                        .FirstOrDefaultAsync(n => n.ID == id);
+
+                    if (existingNCR == null)
+                        return NotFound();
+
+                    //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
+                    if (ncrStageCheck.NCR_Stage == NCRStage.Operations) //this would mean that the NCR stage should be sent to the next enum (procurement)
+                    {
+                        existingNCR.NCR_Stage = NCRStage.Procurement;  //if the ncr was in the engineering stage, since its complete set it to operations
+                    }
+                    if (ncrStageCheck.NCR_Stage != NCRStage.Operations) //if the ncr stage is not equal to operations meaning its from a later stage ( procurement, final..)
+                        existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
+
+                    if (existingNCR.OldNCRID != null)
+                        existingNCR.OldNCRID = nCR.ID;
+
+                    _context.Update(existingNCR);
+
+                    if (operation != null) //it should never be null but just in case
+                    {   //so since this ncr will probably not have an engineering entity assigned because its fresh off quality rep, create one so we can store the values in the ncr
+                        //This shouldnt affect existing NCRs tho because the if checks to see if theres always properties for it defined.
+                        if (existingNCR.Operation == null)
+                        {
+                            existingNCR.Operation = new Operation();
+                        }                                        //assigns all the properties input into the existing ncr we are editing      
+                        existingNCR.Operation.Name = operation.Name;
+                        existingNCR.Operation.OperationDate = operation.OperationDate;
+                        existingNCR.Operation.OperationDecision = operation.OperationDecision;
+                        existingNCR.Operation.OperationNotes = operation.OperationNotes;
+                        existingNCR.Operation.OperationCar = operation.OperationCar;
+                        existingNCR.Operation.OperationFollowUp = operation.OperationFollowUp;
+                        //Updating Follow Up if Not NUll
+                        if (operation.FollowUp != null) //means that the the user passes back a true/yes for a follow up
+                        {
+                            if (operation.OperationFollowUp) //so if true for follow up
+                            {
+                                //If they choose follow up, and there is no Follow Up Object in the NCR it will crash so we have to assign one
+                                if (existingNCR.Operation.FollowUp == null)
+                                {
+                                    existingNCR.Operation.FollowUp = new FollowUp(); //create new folloow up
+                                }
+                                if (operation.FollowUp.FollowUpDate != DateTime.MinValue) //if date isnt null
+                                {
+                                    existingNCR.Operation.FollowUp.FollowUpDate = operation.FollowUp.FollowUpDate; //assign it
+                                }
+                                if (!string.IsNullOrEmpty(operation.FollowUp.FollowUpType)) //if follow up type is NOT empty
+                                {
+                                    existingNCR.Operation.FollowUp.FollowUpType = operation.FollowUp.FollowUpType; //assign it
+                                }
+                            }
+                            else
+                            {
+                                existingNCR.Operation.FollowUp = null;
+                            }
+                        }
+                        //Updating CAR if user says yes car required
+                        if (operation.CAR != null)
+                        {
+                            if (operation.OperationCar) //yes / no checkbox // if yes do all of these
+                            {
+                                //create and assign new car to existing NCR
+                                if (existingNCR.Operation.CAR == null)
+                                {
+                                    existingNCR.Operation.CAR = new CAR();
+
+                                }
+                                if (operation.CAR.CARNumber != null) //if not null assign
+                                {
+                                    existingNCR.Operation.CAR.CARNumber = operation.CAR.CARNumber;
+                                }
+                                if (operation.CAR.Date != DateTime.MinValue)
+                                {
+                                    existingNCR.Operation.CAR.Date = operation.CAR.Date;
+                                }
+                            }
+                            else //else remove car. 
+                            {
+                                existingNCR.Operation.CAR = null;
+                            }
+                        }
+                        await _context.SaveChangesAsync();
+                    }
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NCRExists(nCR.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                return RedirectToAction("List", "Home");
+            }
+            return View(nCR);
+        }
+
+
+        public async Task<IActionResult> ProcurementEdit(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+                return NotFound();
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Procurement)
+                .FirstOrDefaultAsync(n => n.ID == id);
+
+            if (nCR == null)
+                return NotFound();
+
+            //If the NCR has not finished the previous stage (operation)
+            //deny them from editing 
+            if((int)nCR.NCR_Stage < (int)NCRStage.Procurement)
+            {
+
+                TempData["ErrorMessage"] = "You cannot edit this NCR because it is not at the procurement stage.";
+                return RedirectToAction("List", "Home"); // Redirect to another page
+            }
+
+            return View(nCR);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProcurementEdit(int id, [Bind("OldNCRID")] NCR nCR, Procurement procurement)
+        {
+            nCR.ID = id;
+            if (id != nCR.ID)
+                return NotFound();
+
+            //Gets the NCR that's going to be edited and is used to store the stage
+            var ncrStageCheck = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == id);
+
+            if (!ModelState.IsValid)
+            {
+                //Ensuring the NCR Stage persistent if the form submission goes bad
+                nCR.NCR_Stage = ncrStageCheck.NCR_Stage;
+                return View(nCR);
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var existingNCR = await _context.NCRs
+                        .Include(n => n.Procurement)
+                        .FirstOrDefaultAsync(n => n.ID == id);
+
+                    if (existingNCR == null)
+                        return NotFound();
+
+                    //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
+                    if (ncrStageCheck.NCR_Stage == NCRStage.Procurement) //this would mean that the NCR stage should be sent to the next enum (quality final)
+                        existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
+
+                    if (ncrStageCheck.NCR_Stage != NCRStage.Procurement) //if the ncr stage is not equal to procurement meaning its from a later stage ( , final..)
+                        existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
+
+                    if (existingNCR.OldNCRID != null)
+                        existingNCR.OldNCRID = nCR.ID;
+
+                    _context.Update(existingNCR);
+
+                    if (procurement != null)
+                    {
+                        if (existingNCR.Procurement == null)
+                        {
+                            existingNCR.Procurement = new Procurement();
+                        }
+
+                        if (procurement.ReturnRejected == true)
+                        {
+                            existingNCR.Procurement.ReturnRejected = procurement.ReturnRejected;
+                            existingNCR.Procurement.RMANumber = procurement.RMANumber;
+                            existingNCR.Procurement.CarrierName = procurement.CarrierName;
+                            existingNCR.Procurement.CarrierPhone = procurement.CarrierPhone;
+                            existingNCR.Procurement.AccountNumber = procurement.AccountNumber;
+                            existingNCR.Procurement.DisposeOnSite = procurement.DisposeOnSite;
+                        }
+                        else
+                        {
+                            existingNCR.Procurement.ReturnRejected = false;
+                            existingNCR.Procurement.RMANumber = null;
+                            existingNCR.Procurement.CarrierName = null;
+                            existingNCR.Procurement.CarrierPhone = null;
+                            existingNCR.Procurement.AccountNumber = null;
+                            existingNCR.Procurement.DisposeOnSite = false;
+                        }
+                        existingNCR.Procurement.ToReceiveDate = procurement.ToReceiveDate;
+                        existingNCR.Procurement.SuppReturnCompletedSAP = procurement.SuppReturnCompletedSAP;
+                        existingNCR.Procurement.ExpectSuppCredit = procurement.ExpectSuppCredit;
+                        existingNCR.Procurement.BillSupplier = procurement.BillSupplier;
+                    }
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NCRExists(nCR.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                return RedirectToAction("List", "Home");
+            }
+            return View(nCR);
+
+        }
+
+
+
+
+
+            // GET: NCRs/Delete/5
+            public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.NCRs == null)
             {

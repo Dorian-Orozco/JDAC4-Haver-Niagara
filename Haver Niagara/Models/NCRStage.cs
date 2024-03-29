@@ -2,7 +2,7 @@
 
 namespace Haver_Niagara.Models
 {
-    public enum NCRStage
+    public enum NCRStage    //If you're going to re order these or want to make changes LET ME KNOW (DORIAN) because currently the ncr stage system is RELIANT on the values of each enum value.
     {
         [Display(Name = "Quality Rep")] //0
         QualityRepresentative,

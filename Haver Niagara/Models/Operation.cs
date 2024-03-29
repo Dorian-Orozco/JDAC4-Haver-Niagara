@@ -11,11 +11,11 @@ namespace Haver_Niagara.Models
         public int ID { get; set; }
 
         [Display(Name = "Operation Name")]
-        //[Required(ErrorMessage ="Operation's Name Required")] //Had to remove to make edit work 2024-03-11
+        [Required(ErrorMessage ="Operation's Name Required")] //Had to remove to make edit work 2024-03-11
         public string Name { get; set; }
 
 
-        //[Required(ErrorMessage = "Date is Required")] //Had to remove to make edit work 2024-03-11
+        [Required(ErrorMessage = "Date is Required")] //Had to remove to make edit work 2024-03-11
         [Display(Name = "Operation Date")]
         public DateTime OperationDate { get; set; }
 
@@ -50,12 +50,30 @@ namespace Haver_Niagara.Models
         public Operation()
         {
             OperationDate = DateTime.Today;
-            
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var TodaysDate = DateTime.Today;
+
+            if(OperationCar == true) //If Operation Car Is Set to True
+            {
+                if(string.IsNullOrEmpty(CAR.CARNumber.ToString())) //If the car number is left empty, validate
+                {
+                    yield return new ValidationResult("Car Number Required", new[] { "CAR.CARNumber" });
+                }
+                if(CAR.Date == DateTime.MinValue) //if the date is null
+                {
+                    yield return new ValidationResult("Car Date Required", new[] { "CAR.Date" });
+                }
+            }
+
+            if(OperationFollowUp == true)
+            {
+
+            }
+
+
             if (OperationDate > TodaysDate)
             {
                 yield return new ValidationResult("Date Cannot be in The Future", new[] { "OperationDate"});

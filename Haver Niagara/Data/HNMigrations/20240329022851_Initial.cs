@@ -71,7 +71,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     OperationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     OperationDecision = table.Column<int>(type: "INTEGER", nullable: false),
                     OperationNotes = table.Column<string>(type: "TEXT", nullable: true),
@@ -94,7 +94,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     CarrierName = table.Column<string>(type: "TEXT", nullable: true),
                     CarrierPhone = table.Column<string>(type: "TEXT", nullable: true),
                     AccountNumber = table.Column<int>(type: "INTEGER", nullable: true),
-                    DisposeOnSite = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DisposeOnSite = table.Column<bool>(type: "INTEGER", nullable: true),
                     ToReceiveDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     SuppReturnCompletedSAP = table.Column<bool>(type: "INTEGER", nullable: false),
                     ExpectSuppCredit = table.Column<bool>(type: "INTEGER", nullable: false),

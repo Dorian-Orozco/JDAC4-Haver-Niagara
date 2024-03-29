@@ -72,6 +72,7 @@
 @{
     var createsuccessMsg = TempData["CreateSuccessMsg"] as string;
     var editsuccessMsg = TempData["EditSuccessMsg"] as string;
+    var editErr = TempData["ErrorMessage"] as string;
 }
 @if (!string.IsNullOrEmpty(createsuccessMsg))
 {
@@ -96,6 +97,19 @@
         </div>
         <div class="toastEdit-body">
             @Html.Raw(editsuccessMsg)
+        </div>
+    </div>
+}
+@if (!string.IsNullOrEmpty(editErr))
+{
+
+    <div class="toastEditCheck align-items-center justify-content-center" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+        <div class="toastEditCheck-header">
+            <strong class="me-auto">Heads Up!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toastEditCheck" aria-label="Close"></button>
+        </div>
+        <div class="toastEditCheck-body">
+            @Html.Raw(editErr)
         </div>
     </div>
 }
@@ -270,12 +284,41 @@
                                     <ion-icon name="eye"></ion-icon>
                                 </a>
 
+
                                 @if (item.NCR_Status)
                                 {
-                                    <!-- edit button appears if ncr is not closed -->
-                                    <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                        <ion-icon name="create"></ion-icon>
-                                    </a>
+                                    //Setting Up Different Edit Actions Depending on Who's Signed in.
+                                    if (User.IsInRole("Admin")) // Focus on fixing indivial edits for parts of the form, and then focus on fixing admin
+                                    {
+                                        <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                            <ion-icon name="create"></ion-icon>
+                                        </a>
+                                    }
+                                    if(User.IsInRole("Quality Representative"))
+                                    {
+                                        <a href="@Url.Action("QualityRepresentativeEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                            <ion-icon name="create"></ion-icon>
+                                        </a>
+                                    }
+                                    if (User.IsInRole("Engineer"))
+                                    {
+                                        <a href="@Url.Action("EngineeringEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                            <ion-icon name="create"></ion-icon>
+                                        </a>
+                                    }
+                                    if (User.IsInRole("Operations")) 
+                                    {
+                                        <a href="@Url.Action("OperationEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                            <ion-icon name="create"></ion-icon>
+                                        </a>
+                                    }
+                                    if (User.IsInRole("Procurement")) 
+                                    {
+                                        <a href="@Url.Action("ProcurementEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                            <ion-icon name="create"></ion-icon>
+                                        </a>
+                                    }
+
                                 }
                                 else
                                 {
@@ -402,6 +445,14 @@
         });
         setTimeout(function () {
             $('.toastEdit').toast('hide');
+        }, 12000);
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.toastEditCheck').toast('show')
+        });
+        setTimeout(function () {
+            $('.toastEditCheck').toast('hide');
         }, 12000);
     </script>
 }
