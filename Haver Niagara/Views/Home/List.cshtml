@@ -22,11 +22,24 @@
         font-size: 100px;
         font-weight: 600;
     }
+/* 
+    .form-control {
+        border-color: #FF0000;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+    } */
+
+    .bootstrap-select .btn {
+        color: #333 !important; /* Choose a darker color as needed */
+    }
+
 </style>
 
+<!--Font Montserrat-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<!-- Bootstrap-select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
 <div class="d-flex justify-content-between">
     <div>
@@ -46,7 +59,7 @@
                     </button>
                 }
             </div>
-         } 
+        }
         <div>
             @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
             {
@@ -114,7 +127,6 @@
     </div>
 }
 
-
 <form asp-action="List" asp-controller="Home" method="get">
     <div class="form-horizontal">
         <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
@@ -123,32 +135,31 @@
         <div class="collapse" id="collapseFilter">
             <div class="card card-body bg-light mb-2 d-flex">
 
-
                 <div class="row">
                     <div class="col-sm">
                         <div class="form-group">
-                            <label class="control-label">Status:</label>
+                            <label class="control-label">Status</label>
                             <div>
                                 @Html.DropDownList("SelectedStatus", new List<SelectListItem>
                                 {
                                 new SelectListItem { Text = "Active", Value = "true" },
                                 new SelectListItem { Text = "Closed", Value = "false" }
-                                }, new { @class = "form-control" })
+                                }, new { @class = "form-control border" })
                             </div>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-group">
-                            <label class="control-label">Stage:</label>
+                            <label class="control-label">Stage</label>
                             <div>
-                                @Html.DropDownList("ncrStage", (IEnumerable<SelectListItem>)ViewBag.NCRStageList, "Select Stage", new { @class = "form-control" })
+                                @Html.DropDownList("ncrStage", (IEnumerable<SelectListItem>)ViewBag.NCRStageList, "Select Stage", new { @class = "form-control border" })
                             </div>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-group">
-                            <label class="control-label">Date Created:</label>
-                            <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
+                            <label class="control-label">Date Created</label>
+                            <input type="date" id="SelectedDate" name="SelectedDate" class="form-control border">
                         </div>
                     </div>
                 </div>
@@ -156,14 +167,16 @@
 
                     <div class="col-sm">
                         <div class="form-group">
-                            <label class="control-label">Supplier:</label>
-                            @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
+                            <label class="control-label">Supplier</label>
+                            <div>
+                                @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control selectpicker border", data_live_search = "true", data_style = "btn", data_dropup_auto = "false", id = "ddlSupplier" })
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-group">
-                            <label class="control-label">Part Number or NCR #:</label>
-                            @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                            <label class="control-label">Part Number / NCR Number</label>
+                            @Html.TextBox("SearchString", null, new { @class = "form-control border", placeholder="Enter a part or NCR number" })
                         </div>
                     </div>
                     <div class="col-sm-auto mt-4">
@@ -173,9 +186,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
 
             </div>
         </div>
@@ -187,15 +197,6 @@
                 <tr>
                     <th class="text-center">
                         Status
-                        @*       <a asp-action="List"
-                        asp-route-sortOrder="@ViewBag.StageSortParam"
-                        asp-route-currentFilter="@ViewBag.CurrentFilter"
-                        asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
-                        asp-route-selectedDate="@ViewBag.SelectedDate"
-                        asp-route-selectedStatus="@ViewBag.SelectedStatus"
-                        asp-route-page="@Model.PageNumber">
-                        Status
-                        </a> *@
                     </th>
                     <th class="text-center">
                         <a asp-action="List"
@@ -381,13 +382,20 @@
     </nav>
 </form>
 
-@*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-        @Html.PagedListPager(Model, page => Url.Action("List",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })) *@
-
-
 @section scripts {
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap's JavaScript (ensure you're including Bootstrap's JS or Bundle) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap-Select's JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <!--searchable drop down list-->
+    <script type="text/javascript">
+        $(function () {
+            $("#ddlSupplier").selectpicker({ width: "100%" });
+        });
+    </script>
     @* FUNCTION FOR STATUS BAR IN STAGE COLUMN *@
     <script>
         $(document).ready(function () {
