@@ -2,37 +2,100 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-    @* Used for cookies *@
+@* Used for cookies *@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
+<style>
+    .nav-item:hover, .form-nav-item:hover{
+    }
+    .logout-icon{
+        font-size: 20px;
+        position: relative;
+        top: 5px;
+        right: 2px;
+    }
+
+    .form-nav-item {
+        width: 100%; /* Ensure form takes full width of its parent */
+    }
+
+        .form-nav-item button {
+            display: block; /* Make the button display as block */
+            width: 100%; /* Stretch button to fill the form */
+            padding: 0.5rem 1rem; /* Adjust padding as needed */
+        }
+
+    .dropdown-menu {
+        min-width: 220px; /* Adjust this value as needed to fit content */
+        text-align: left;
+    }
+        .dropdown-menu li {
+            padding: 0 10px;
+        }
+
+        .dropdown-menu .nav-link {
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: visible; /* Allow text to be fully visible */
+        }
+
+</style>
+
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    //Store username in cookie
+    @if (SignInManager.IsSignedIn(User))
+    {
+        //Store username in cookie
         var userName = HttpContextAccessor.HttpContext.Request.Cookies["userName"] ?? UserManager.GetUserName(User);
-    //Comment to help find this file login LOGIN Login - Menu   
-    //drop down menu
+        //Comment to help find this file login LOGIN Login - Menu
+        //drop down menu
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarIDDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @userName - Menu<b class="caret"></b>
+                @userName <span class="d-none">- Menu</span><b class="caret"></b>
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarIDDropdown">
-                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Change Security Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" asp-area="" asp-controller="EmployeeAccount" asp-action="Details">Manage Account</a></li>
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="nav-link btn btn-link text-dark">&nbsp;&nbsp;Logout</button>
-                </form>                                                             @* FIX added temporary spacing so Logout would be symmetrical *@
+            <ul class="dropdown-menu dropdown-menu-end bg-nav border-secondary text-center" aria-labelledby="navbarIDDropdown">
+                <li class="nav-item pb-1">
+                    <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Change Security Settings</a>
+                </li>
+                <li>
+                    @* <hr class="dropdown-divider text-white"> *@
+                </li>
+                <li class="nav-item border-top border-secondary pt-1 pb-1">
+                    <a class="nav-link text-white" asp-area="" asp-controller="EmployeeAccount" asp-action="Details">Manage Account</a>
+                </li>
+                <form class="form-inline form-nav-item border-top border-secondary pt-1 pe-2" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" id="logout-button" class="nav-link btn btn-link text-white"><ion-icon class="text-white logout-icon" name="exit-outline"></ion-icon> Logout </button>
+                </form>                                                      
             </ul>
         </li>
-}
-else
-{ 
-@*       <li class="nav-item">
-        <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    }
+    else
+    {
+        @*       <li class="nav-item">
+    <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li> *@  @* Accounts will be made by admin and any user who just goes on teh website cannot register to be part of the company *@
-    <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li> 
-}
+        </li>
+    }
 </ul>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select the logout button by ID
+        var logoutButton = document.getElementById('logout-button');
+
+        // Add click event listener to the logout button
+        logoutButton.addEventListener('click', function (event) {
+            // Prevent the form from submitting
+            event.preventDefault();
+
+            // Display confirmation dialog
+            var userConfirmed = confirm('Are you sure you want to log out?');
+
+            // If the user confirms, submit the form
+            if (userConfirmed) {
+                // Find the form that contains the logout button and submit it
+                logoutButton.form.submit();
+            }
+        });
+    });
+</script>
