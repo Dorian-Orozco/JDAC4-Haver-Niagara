@@ -245,34 +245,23 @@ namespace Haver_Niagara.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.NCRs == null)
-            {
                 return NotFound();
-            }
             //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
                 .Include(n => n.Supplier)
-                .Include(n => n.Part)
-                    .ThenInclude(n => n.Medias)
-                .Include(n => n.Part)
-                    .ThenInclude(n => n.Supplier)
-                .Include(n => n.Part)
-                    .ThenInclude(n => n.DefectLists)
-                        .ThenInclude(n => n.Defect)
+                .Include(n => n.Part).ThenInclude(n => n.Medias)
+                .Include(n => n.Part).ThenInclude(n => n.Supplier)
+                .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
                 .Include(n => n.QualityInspection)
                 .Include(n => n.QualityInspectionFinal)
                 .Include(n => n.Engineering)
-
-                .Include(n => n.Operation)
-                    .ThenInclude(n => n.CAR)
-                .Include(n => n.Operation)
-                    .ThenInclude(n => n.FollowUp)
-                    .Include(p => p.Procurement)
+                .Include(n => n.Operation).ThenInclude(n => n.CAR)
+                .Include(n => n.Operation).ThenInclude(n => n.FollowUp)
+                .Include(p => p.Procurement)
                 .FirstOrDefaultAsync(n => n.ID == id);
 
             if (nCR == null)
-            {
                 return NotFound();
-            }
             //Populate list of defects and suppliers
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
@@ -296,6 +285,10 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
+            var ncrRetrieveStage = _context.NCRs
+                .FirstOrDefaultAsync(n => n.ID == id);
+            
+           
 
             if (ModelState.IsValid)
             {
