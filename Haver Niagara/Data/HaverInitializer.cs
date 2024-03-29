@@ -107,41 +107,57 @@ namespace Haver_Niagara.Data
             if (!context.Suppliers.Any())
             {
                 context.Suppliers.AddRange(
-                new Supplier
-                {
-                    ID = 1,
-                    Name = "HINGSTON METAL FABRICATORS",
-                },
-                new Supplier
-                {
-                    ID = 2,
-                    Name = "W S TYLER - PARTICLE & FINE",
-                },
-                new Supplier
-                {
-                    ID = 3,
-                    Name = "VALLEY RUBBER, LLC",
-                },
-                new Supplier
-                {
-                    ID = 4,
-                    Name = "RIGHT MACHINE INDUSTRIAL",
-                },
-                new Supplier
-                {
-                    ID = 5,
-                    Name = "KAVON MACHINE INC",
-                },
-                new Supplier
-                {
-                    ID = 6,
-                    Name = "NIAGARA PRECISION LTD",
-                },
-                new Supplier
-                {
-                    ID = 7,
-                    Name = "BICKLE MAIN INDUSTRIAL SUPPLY INC.",
-                });
+                new Supplier { ID = 1, Name = "AJAX TOCCO" },
+                new Supplier { ID = 2, Name = "HINGSTON METAL FABRICATORS" },
+                new Supplier { ID = 3, Name = "HOTZ ENVIRONMENTAL SERVICES" },
+                new Supplier { ID = 4, Name = "BLACK CREEK METAL" },
+                new Supplier { ID = 5, Name = "POLYMER EXTRUSIONS INC" },
+                new Supplier { ID = 6, Name = "DON CASSELMAN & SON LTD" },
+                new Supplier { ID = 7, Name = "WAFIOS MACHINERY CORPORATION" },
+                new Supplier { ID = 8, Name = "C.H.R. INDUSTRIES INC." },
+                new Supplier { ID = 9, Name = "PHILPOTT RUBBER COMPANY" },
+                new Supplier { ID = 10, Name = "BALDOR ELECTRIC COMPANY" },
+                new Supplier { ID = 11, Name = "LUDOWICI SCREENS, INC." },
+                new Supplier { ID = 12, Name = "ESMET INC" },
+                new Supplier { ID = 13, Name = "SECURITY STEEL SUPPLY CO." },
+                new Supplier { ID = 14, Name = "HOIST LIFTRUCK MFG INC" },
+                new Supplier { ID = 15, Name = "MIDWESTERN INDUSTRIES INC." },
+                new Supplier { ID = 16, Name = "FIRESTONE IND. PROD." },
+                new Supplier { ID = 17, Name = "STIMPSON COMPANY INC." },
+                new Supplier { ID = 18, Name = "GLENRIDGE MACHINE CO." },
+                new Supplier { ID = 19, Name = "SIFCO FORGE GROUP" },
+                new Supplier { ID = 20, Name = "JOHNSON RUBBER COMPANY" },
+                new Supplier { ID = 21, Name = "MIDWEST BRASS FORGING COMPANY" },
+                new Supplier { ID = 22, Name = "SIEMENS WATER TECHNOLOGIES" },
+                new Supplier { ID = 23, Name = "SAMSCREEN INC" },
+                new Supplier { ID = 24, Name = "BETTCHER MANUFACTURING LLC" },
+                new Supplier { ID = 25, Name = "UNIVERSAL WIRE CLOTH CO." },
+                new Supplier { ID = 26, Name = "UNIQUE SYSTEMS" },
+                new Supplier { ID = 27, Name = "RAF FLUID POWER" },
+                new Supplier { ID = 28, Name = "DEKALB FORGE COMPANY" },
+                new Supplier { ID = 29, Name = "CORDILLERA" },
+                new Supplier { ID = 30, Name = "A.W. BOHANAN COMPANY" },
+                new Supplier { ID = 31, Name = "SIGNAL TECHNOLOGY SYSTEMS" },
+                new Supplier { ID = 32, Name = "MCDA INC" },
+                new Supplier { ID = 33, Name = "EDWARD W DANIEL CO" },
+                new Supplier { ID = 34, Name = "ALCOA FASTENING SYSTEMS" },
+                new Supplier { ID = 35, Name = "WESTERN CAST PARTS" },
+                new Supplier { ID = 36, Name = "TESCO-THE ENGINEERED SALES CO." },
+                new Supplier { ID = 37, Name = "MCMASTER-CARR" },
+                new Supplier { ID = 38, Name = "DRACO SPRING MFG. CO." },
+                new Supplier { ID = 39, Name = "VALLEY EQUIPMENT COMPANY INC." },
+                new Supplier { ID = 40, Name = "OVERLY HAUTZ MOTOR BASE CO." },
+                new Supplier { ID = 41, Name = "BPG/BRANDON PRODUCTS GROUP" },
+                new Supplier { ID = 42, Name = "CAST METALS INC." },
+                new Supplier { ID = 43, Name = "TEMA ISENMANN, INC." },
+                new Supplier { ID = 44, Name = "VALLEY RUBBER, LLC" },
+                new Supplier { ID = 45, Name = "COILING TECHNOLOGIES INC" },
+                new Supplier { ID = 46, Name = "WARD INDUSTRIAL EQUIPMENT" },
+                new Supplier { ID = 47, Name = "E S FOX LTD" },
+                new Supplier { ID = 48, Name = "HENDRICK MANUFACTURING" },
+                new Supplier { ID = 49, Name = "DIAMOND WIRE SPRING CO." }
+
+                );
                 context.SaveChanges();
             }
 
@@ -3112,7 +3128,7 @@ namespace Haver_Niagara.Data
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 24),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 24),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 24),
-                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24), 
+                        QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 24),
                     },
                     new NCR
                     {
@@ -3127,7 +3143,7 @@ namespace Haver_Niagara.Data
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 25),
                         Procurement = context.Procurements.FirstOrDefault(p => p.ID == 25), //TESTING PROCUREMENT
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 25),
-                       
+
                     },
                     new NCR
                     {
@@ -3352,54 +3368,54 @@ namespace Haver_Niagara.Data
 
             // DEFECT LIST
 
-            if (!context.DefectLists.Any())
-            {
-                context.DefectLists.AddRange(
+            //if (!context.DefectLists.Any())
+            //{
+            //    context.DefectLists.AddRange(
 
-                    new DefectList
-                    {
-                        DefectID = context.Defects.FirstOrDefault(d => d.Name == "Design Error (Drawing)").ID,
-                        PartID = context.Parts.FirstOrDefault(p => p.Name == "Wheels").ID
-                    },
-                    //new DefectList { DefectID = 1, PartID = 1 },
-                    new DefectList { DefectID = 2, PartID = 2 },
-                    new DefectList { DefectID = 3, PartID = 3 },
-                    new DefectList { DefectID = 4, PartID = 4 },
-                    new DefectList { DefectID = 5, PartID = 5 },
-                    new DefectList { DefectID = 6, PartID = 6 },
-                    new DefectList { DefectID = 7, PartID = 7 },
-                    new DefectList { DefectID = 8, PartID = 8 },
-                    new DefectList { DefectID = 9, PartID = 9 },
-                    new DefectList { DefectID = 10, PartID = 10 },
-                    new DefectList { DefectID = 11, PartID = 11 },
-                    new DefectList { DefectID = 12, PartID = 12 },
-                    new DefectList { DefectID = 13, PartID = 13 },
-                    new DefectList { DefectID = 14, PartID = 14 },
-                    new DefectList { DefectID = 15, PartID = 15 },
-                    new DefectList { DefectID = 16, PartID = 16 },
-                    new DefectList { DefectID = 17, PartID = 17 },
-                    new DefectList { DefectID = 18, PartID = 18 },
-                    new DefectList { DefectID = 19, PartID = 19 },
-                    new DefectList { DefectID = 20, PartID = 20 },
-                    new DefectList { DefectID = 21, PartID = 21 },
-                    new DefectList { DefectID = 22, PartID = 22 },
-                    new DefectList { DefectID = 23, PartID = 23 },
-                    new DefectList { DefectID = 24, PartID = 24 },
-                    new DefectList { DefectID = 23, PartID = 25 },
-                    new DefectList { DefectID = 23, PartID = 26 },
-                    new DefectList { DefectID = 11, PartID = 27 },
-                    new DefectList { DefectID = 11, PartID = 28 },
-                    new DefectList { DefectID = 11, PartID = 29 },
-                    new DefectList { DefectID = 11, PartID = 30 },
-                    new DefectList { DefectID = 11, PartID = 31 },
-                    new DefectList { DefectID = 11, PartID = 32 },
-                    new DefectList { DefectID = 11, PartID = 33 },
-                    new DefectList { DefectID = 11, PartID = 34 },
-                    new DefectList { DefectID = 11, PartID = 35 }
-                );
+            //        new DefectList
+            //        {
+            //            DefectID = context.Defects.FirstOrDefault(d => d.Name == "Design Error (Drawing)").ID,
+            //            PartID = context.Parts.FirstOrDefault(p => p.Name == "Wheels").ID
+            //        },
+            //        //new DefectList { DefectID = 1, PartID = 1 },
+            //        new DefectList { DefectID = 2, PartID = 2 },
+            //        new DefectList { DefectID = 3, PartID = 3 },
+            //        new DefectList { DefectID = 4, PartID = 4 },
+            //        new DefectList { DefectID = 5, PartID = 5 },
+            //        new DefectList { DefectID = 6, PartID = 6 },
+            //        new DefectList { DefectID = 7, PartID = 7 },
+            //        new DefectList { DefectID = 8, PartID = 8 },
+            //        new DefectList { DefectID = 9, PartID = 9 },
+            //        new DefectList { DefectID = 10, PartID = 10 },
+            //        new DefectList { DefectID = 11, PartID = 11 },
+            //        new DefectList { DefectID = 12, PartID = 12 },
+            //        new DefectList { DefectID = 13, PartID = 13 },
+            //        new DefectList { DefectID = 14, PartID = 14 },
+            //        new DefectList { DefectID = 15, PartID = 15 },
+            //        new DefectList { DefectID = 16, PartID = 16 },
+            //        new DefectList { DefectID = 17, PartID = 17 },
+            //        new DefectList { DefectID = 18, PartID = 18 },
+            //        new DefectList { DefectID = 19, PartID = 19 },
+            //        new DefectList { DefectID = 20, PartID = 20 },
+            //        new DefectList { DefectID = 21, PartID = 21 },
+            //        new DefectList { DefectID = 22, PartID = 22 },
+            //        new DefectList { DefectID = 23, PartID = 23 },
+            //        new DefectList { DefectID = 24, PartID = 24 },
+            //        new DefectList { DefectID = 23, PartID = 25 },
+            //        new DefectList { DefectID = 23, PartID = 26 },
+            //        new DefectList { DefectID = 11, PartID = 27 },
+            //        new DefectList { DefectID = 11, PartID = 28 },
+            //        new DefectList { DefectID = 11, PartID = 29 },
+            //        new DefectList { DefectID = 11, PartID = 30 },
+            //        new DefectList { DefectID = 11, PartID = 31 },
+            //        new DefectList { DefectID = 11, PartID = 32 },
+            //        new DefectList { DefectID = 11, PartID = 33 },
+            //        new DefectList { DefectID = 11, PartID = 34 },
+            //        new DefectList { DefectID = 11, PartID = 35 }
+            //    );
 
-                context.SaveChanges();
-            }
+            //    context.SaveChanges();
+            //}
 
 
         }
