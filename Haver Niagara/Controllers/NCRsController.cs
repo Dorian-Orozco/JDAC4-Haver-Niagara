@@ -16,6 +16,7 @@ using IronPdf.Rendering;
 using Microsoft.AspNetCore.Http;
 using X.PagedList;
 using Razor.Templating.Core;
+using AspNetCore;
 
 namespace Haver_Niagara.Controllers
 {
@@ -1061,6 +1062,8 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProcurementEdit(int id, [Bind("OldNCRID")] NCR nCR, Procurement procurement)
@@ -1179,7 +1182,6 @@ namespace Haver_Niagara.Controllers
         }
 
 
-
         // POST: NCRs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -1193,6 +1195,23 @@ namespace Haver_Niagara.Controllers
             if (nCR != null)
             {
                 _context.NCRs.Remove(nCR);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("List", "Home");
+            //return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Void(int id)
+        {
+            if (_context.NCRs == null)
+            {
+                return Problem("Entity set 'HaverNiagaraDbContext.NCRs'  is null.");
+            }
+            var nCR = await _context.NCRs.FindAsync(id);
+            if (nCR != null)
+            {
+                nCR.IsVoid =true;
             }
 
             await _context.SaveChangesAsync();

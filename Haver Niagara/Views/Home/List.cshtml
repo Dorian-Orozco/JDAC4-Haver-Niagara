@@ -284,6 +284,13 @@
                                     <ion-icon name="eye"></ion-icon>
                                 </a>
 
+                                @if (User.IsInRole("Admin")) 
+                                {
+                                <a href="@Url.Action("Void", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Void NCR report">
+                                    <ion-icon name="void"></ion-icon>
+                                </a>
+                                }
+
 
                                 @if (item.NCR_Status)
                                 {
@@ -342,6 +349,7 @@
     <div class="d-flex justify-content-end">
         <a asp-controller="Home" asp-action="ListArchive" class="btn archive-btn">Archive <ion-icon name="archive" class="archive-btn-icon ms-1"></ion-icon></a>
     </div>
+
 
     <br />
 
