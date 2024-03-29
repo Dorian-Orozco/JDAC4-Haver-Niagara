@@ -11,17 +11,19 @@ namespace Haver_Niagara.Models
         public int ID { get; set; }
 
         [Display(Name = "Part Name")]
-        [Required(ErrorMessage = "Please Enter Part Name")]
+        [Required(ErrorMessage = "Please enter a part name")]
         public string Name { get; set; }
 
         [Display(Name = "Part Number")]
+        [Required(ErrorMessage = "Please enter a part number")]
         public int PartNumber { get; set; }
 
         [Display(Name = "SAP")] //SAME AS PART NUMBER?
-        [Required(ErrorMessage = "Please Enter Sap Number")]
+        [Required(ErrorMessage = "Please enter a sap number")]
         public int SAPNumber { get; set; }
 
         [Display(Name = "PO")]
+        [Required(ErrorMessage = "Please enter a PO number")]
         public long PurchaseNumber { get; set; }
 
         [Display(Name = "Sales #")]
@@ -29,6 +31,7 @@ namespace Haver_Niagara.Models
         public string SalesOrder { get; set; }
 
         [Display(Name = "Prod #")]
+        [Required(ErrorMessage = "Please enter a product number")]
         public int ProductNumber { get; set; }
 
         [Required]
