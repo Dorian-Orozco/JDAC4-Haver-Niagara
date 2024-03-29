@@ -13,7 +13,7 @@
         display: flex;
         width: 100%;
         margin: 20px auto;
-        border: 1px solid grey;
+        border: 1px solid black;
       }
 
       .container-row-one,
@@ -38,11 +38,25 @@
         justify-content: center; /* Center logo horizontally */
       }
 
+      .row-one {
+          background-color: grey;
+      }
+
       .row-one,
       .row-two {
         display: flex;
         width: 100%;
       }
+
+      .company-name {
+          font-family: 'Arial';
+          font-weight: 600;
+      }
+
+    .document-title {
+        font-family: 'Arial';
+        font-weight: 400;
+    }
 
       .company-name,
       .document-title,
@@ -57,6 +71,8 @@
       .company-name,
       .document-title {
         flex: 1; /* Split space equally */
+        display: flex;
+        justify-content: center;
       }
 
       .footer {
@@ -87,17 +103,17 @@
         <div class="container-row-one">
             <div class="container-col-one">
                 <div class="row-one">
-                    <div class="company-name">Company Name</div>
-                    <div class="document-title">Document Title</div>
+                    <div class="company-name">Haver & Boecker Canada</div>
+                    <div class="document-title">Internal Process Document</div>
                 </div>
                 <div class="row-two">
-                    <div class="document-number">Document #</div>
-                    <div class="title">Title</div>
-                    <div class="page-number">Page #</div>
+                    <div class="document-number">Document No.</div>
+                    <div class="title">Non-Conformance Report</div>
+                    <div class="page-number">Page:</div>
                 </div>
             </div>
             <div class="container-col-two">
-                <img src="~/images/report-logo.png" alt="Logo" class="logo" />
+                <img src="@Url.Content("wwwroot/images/report-logo.png")" alt="Logo" class="logo" />
             </div>
         </div>
     </div>
