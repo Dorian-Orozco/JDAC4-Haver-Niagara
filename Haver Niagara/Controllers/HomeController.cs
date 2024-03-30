@@ -111,7 +111,7 @@ namespace Haver_Niagara.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var originalNCRs = _context.NCRs
-                .Where(p => p.IsArchived == false)
+                .Where(p => p.IsArchived == false & p.IsVoid == false)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part.DefectLists)
@@ -121,7 +121,7 @@ namespace Haver_Niagara.Controllers
             //Since 
 
             var ncrs = _context.NCRs
-                .Where(p => p.IsArchived == false)
+                .Where(p => p.IsArchived == false & p.IsVoid == false)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part.DefectLists)
@@ -487,7 +487,7 @@ namespace Haver_Niagara.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var originalNCRs = _context.NCRs
-                .Where(p => p.IsArchived == true)
+                .Where(p => p.IsVoid == true)
                 .Include(p => p.Supplier)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
@@ -496,7 +496,7 @@ namespace Haver_Niagara.Controllers
                 .ToList();
 
             var ncrs = _context.NCRs
-                .Where(p => p.IsArchived == true)
+                .Where(p => p.IsVoid == true)
                 .Include(p => p.Supplier)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
