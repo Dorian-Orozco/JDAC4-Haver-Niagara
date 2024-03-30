@@ -266,7 +266,7 @@
                                 Quality Representative's Name
                             </dt>
                             <dd class="col-sm ms-2">
-                                <input asp-for="QualityInspection.Name"  required class="form-control" />
+                                <input asp-for="QualityInspection.Name" required class="form-control" />
                                 <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
                             </dd>
                         </dl>
@@ -838,7 +838,7 @@
 
         @if (User.IsInRole("Admin") || User.IsInRole("Quality Representative"))
         {
-            @if(Model.NCR_Stage == NCRStage.QualityRepresentative_Final)
+            @if (Model.NCR_Stage == NCRStage.QualityRepresentative_Final)
             {
                 @* Quality Inspector Section *@
                 <div class="section section-qual">
@@ -978,24 +978,23 @@
                     </div>
                 </div>
             }
-         
         }
     </div>
-
-
 
     <div class="d-flex justify-content-between mt-3">
         <div class="mt-2">
             <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
         </div>
-        <div class="mt-2">
-            <input type="submit" value="Save Report" class="btn btn-primary" />
+        <div class="justify-content-end">
+            <span class="mt-2">
+                <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+            </span>
+            <span class="mt-2 ms-2">
+                <a id="complete-button" asp-controller="Home" asp-action="List" class="btn btn-primary">Mark section as completed</a>
+            </span>
         </div>
     </div>
 </form>
-
-
-
 
 @section Scripts {
     @{
