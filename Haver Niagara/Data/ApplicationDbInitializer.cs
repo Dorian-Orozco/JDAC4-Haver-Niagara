@@ -45,7 +45,7 @@ namespace Haver_Niagara.Data
                         EmailConfirmed = true
                     };
 
-                    IdentityResult result = userManager.CreateAsync(user, "Admin1a$").Result; //If you are going to set a custom password,
+                    IdentityResult result = userManager.CreateAsync(user, "rx5g8E^xGYy").Result; //If you are going to set a custom password,
                                                                                               //Is must not break the constraints found in program.cs
                     if (result.Succeeded)                                                     //for simplicity I disabled some constraints
                     {                                                                         //so instead of having to use something like P@5w0rd! just use password
@@ -62,7 +62,7 @@ namespace Haver_Niagara.Data
                         EmailConfirmed = true
                     };
 
-                    IdentityResult result = userManager.CreateAsync(user, "password").Result;
+                    IdentityResult result = userManager.CreateAsync(user, "w7,7tm!Monk").Result;
 
                     if (result.Succeeded)
                     {
@@ -79,7 +79,7 @@ namespace Haver_Niagara.Data
                         EmailConfirmed = true
                     };
 
-                    IdentityResult result = userManager.CreateAsync(user, "Quality1a$").Result;
+                    IdentityResult result = userManager.CreateAsync(user, "s?og1oyQ~RD").Result;
 
                     if (result.Succeeded)
                     {
@@ -96,7 +96,7 @@ namespace Haver_Niagara.Data
                         EmailConfirmed = true
                     };
 
-                    IdentityResult result = userManager.CreateAsync(user, "Engineer1a$").Result;
+                    IdentityResult result = userManager.CreateAsync(user, "5Z6uwE9!R~x").Result;
 
                     if (result.Succeeded)
                     {
@@ -113,7 +113,7 @@ namespace Haver_Niagara.Data
                         EmailConfirmed = true
                     };
 
-                    IdentityResult result = userManager.CreateAsync(user, "Procurement1a$").Result;
+                    IdentityResult result = userManager.CreateAsync(user, "w3gAr?MQ^VD").Result;
 
                     if (result.Succeeded)
                     {
@@ -131,7 +131,7 @@ namespace Haver_Niagara.Data
                         EmailConfirmed = true
                     };
 
-                    IdentityResult result = userManager.CreateAsync(user, "Operations1a$").Result;
+                    IdentityResult result = userManager.CreateAsync(user, "Gc3ov?J63sF").Result;
 
                     if (result.Succeeded)
                     {
