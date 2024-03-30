@@ -106,6 +106,7 @@ namespace Haver_Niagara.Models
             //NCR_Stage = NCRStage.Procurement;
             //Setting a default of todays date
             NCR_Date = DateTime.Today;
+            IsVoid = false;
         }
     }
 }

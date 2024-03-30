@@ -2775,6 +2775,7 @@ namespace Haver_Niagara.Data
                     {       //So this WAS 1, but to not have to change 20+ Id's - going to change these first 7.
                         ID = 1, //will assign these 24
                         NCR_Date = DateTime.Parse("2017-01-01"),
+                        IsVoid = true,
                         NCR_Status = false,
                         NCR_Stage = (NCRStage)5,       //NCR Stage can be changed to match the data 
                         Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 1),

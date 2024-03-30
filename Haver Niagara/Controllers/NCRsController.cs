@@ -1217,7 +1217,7 @@ namespace Haver_Niagara.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction("List", "Home");
-            //return RedirectToAction(nameof(Index));
+            
         }
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
 

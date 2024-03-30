@@ -284,12 +284,7 @@
                                     <ion-icon name="eye"></ion-icon>
                                 </a>
 
-                                @if (User.IsInRole("Admin")) 
-                                {
-                                <a href="@Url.Action("Void", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Void NCR report">
-                                    <ion-icon name="void"></ion-icon>
-                                </a>
-                                }
+                                
 
 
                                 @if (item.NCR_Status)
@@ -336,6 +331,13 @@
                                         </button>
                                     </form>
 
+                                }
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a href="@Url.Action("Void", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Void NCR report">
+                                        <ion-icon name="ban-outline"></ion-icon>
+                                    </a>
                                 }
 
                             </div>

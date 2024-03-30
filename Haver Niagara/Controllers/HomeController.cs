@@ -155,6 +155,11 @@ namespace Haver_Niagara.Controllers
                 ncrs = ncrs.Where(x => x.NCR_Stage == ncrStage.Value);
             }
 
+            if (!selectedStatus.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.IsVoid == false); //archive list shows closed ncr's on default
+            }
+
             // Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -452,6 +457,10 @@ namespace Haver_Niagara.Controllers
             return View(pagedNCRs);
         }
 
+        
+        /// NCR VOIDED LOG 
+       
+
         public IActionResult ListVoided(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter, NCRStage? ncrStage)
         {
             ViewBag.FormattedIDSortParam = sortOrder == "FormattedID_Asc" ? "FormattedID_Desc" : "FormattedID_Asc";
@@ -506,10 +515,11 @@ namespace Haver_Niagara.Controllers
                 ncrs = ncrs.Where(x => x.NCRSupplierID == selectedSupplierID);
             }
 
-            if (!selectedStatus.HasValue)
+             if (!selectedStatus.HasValue)
             {
                 ncrs = ncrs.Where(x => x.IsVoid == true); //void list shows voided NCRs
             }
+            
             // Apply NCRStage filter if selected
             if (ncrStage.HasValue)
             {
