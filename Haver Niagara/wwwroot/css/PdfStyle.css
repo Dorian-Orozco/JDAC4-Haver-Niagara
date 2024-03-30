@@ -288,15 +288,15 @@ h2 {
 .div37 {
     grid-area: 23 / 2 / 24 / 8;
     padding: 10px;
-    border-top: 1px solid black;
+    border-top: 2px solid black;
     border-right: 1px solid black;
-    border-left: 1px solid black;
+    border-left: 2px solid black;
 }
 
 .div38 {
     grid-area: 24 / 2 / 25 / 4;
     padding: 10px;
-    border-left: 1px solid black;
+    border-left: 2px solid black;
     border-bottom: 1px solid black;
 }
 
@@ -318,6 +318,7 @@ h2 {
 .div41 {
     grid-area: 25 / 4 / 26 / 8;
     padding: 10px;
+    border-top: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
 }
