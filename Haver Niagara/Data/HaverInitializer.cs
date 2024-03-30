@@ -13,7 +13,6 @@ namespace Haver_Niagara.Data
             HaverNiagaraDbContext context = applicationBuilder.ApplicationServices.CreateScope()
                 .ServiceProvider.GetRequiredService<HaverNiagaraDbContext>();
 
-
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             //context.Database.Migrate();
@@ -25,19 +24,13 @@ namespace Haver_Niagara.Data
                     {
                         FirstName = "Admin",
                         LastName = "Powers",
-                        Email = "admin@outlook.com"
+                        Email = "admin@outlook.com" 
                     },
                     new Employee
                     {
                         FirstName = "Fred",
                         LastName = "Flintstone",
                         Email = "super@outlook.com"
-                    },
-                    new Employee
-                    {
-                        FirstName = "Betty",
-                        LastName = "Rubble",
-                        Email = "user@outlook.com"
                     },
                     new Employee
                     {
@@ -62,6 +55,12 @@ namespace Haver_Niagara.Data
                         FirstName = "Purs",
                         LastName = "Chaser",
                         Email = "procurement@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Change To Testing",
+                        LastName = "Currently_Engineering",
+                        Email = "dorianCodeDemo@outlook.com"
                     });
                 context.SaveChanges();
             }

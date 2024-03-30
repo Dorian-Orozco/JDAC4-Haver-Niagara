@@ -16,6 +16,9 @@ using IronPdf.Rendering;
 using Microsoft.AspNetCore.Http;
 using X.PagedList;
 using Razor.Templating.Core;
+using Haver_Niagara.Utilities;
+using Microsoft.AspNetCore.Identity;
+using Haver_Niagara.ViewModels;
 
 namespace Haver_Niagara.Controllers
 {
@@ -27,14 +30,17 @@ namespace Haver_Niagara.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IRazorViewRenderer _viewRenderService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public NCRsController(HaverNiagaraDbContext context, ILogger<HomeController> logger, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor)
+        public NCRsController(HaverNiagaraDbContext context, ILogger<HomeController> logger, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor,
+                                UserManager<IdentityUser> userManager)
         {
             _context = context;
             //Print PDF
             _logger = logger;
             _viewRenderService = viewRenderService;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
 
         // Print PDF Details View
@@ -198,9 +204,6 @@ namespace Haver_Niagara.Controllers
                 nCR.PartID = part.ID;
                 nCR.QualityInspectionID = qualityInspection.ID;
 
-
-
-
                 //Retrieves the old ncr from the GET create. 
                 nCR.OldNCRID = oldNCRID ?? null;
                 var defectList = new DefectList
@@ -229,8 +232,22 @@ namespace Haver_Niagara.Controllers
                 }
                 TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here To View: {nCR.FormattedID}</a>";
 
-                //In here, the model state is good meaning everything submitted properly, so once we create the NCR it will send a notification to engineers
-                //As well as an email saying, a new NCR has been created..something IMPLEMENT FIX
+
+                //So since the Create proccess only occurs once we can send a email here 
+                //Find all employees in the engineering role, then send them emails. 
+                var usersInEngineering = await _userManager.GetUsersInRoleAsync("Engineer");
+                EmailMessage emailMessage = new EmailMessage
+                {
+                    Subject = $"New NCR Has Been Created #{nCR.FormattedID}!",
+                    Content = $"<p>Dear Engineers,</p>" +
+                              $"<p>A new Non-Conformance Report (NCR) has been created.</p>" +
+                              $"<p>Please review and fill out your part of the form.</p>"+
+                              $"<p>Thank you!</p>"
+                };
+                foreach (var user in usersInEngineering)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
 
                 return RedirectToAction("List", "Home");
             }
