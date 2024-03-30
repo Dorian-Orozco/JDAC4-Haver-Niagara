@@ -67,8 +67,7 @@
                                 @foreach (var oppDecision in Enum.GetValues(typeof(OperationDecision)))
                                 {
                                     <div class="form-check">
-                                        <input type="radio" asp-for="Operation.OperationDecision" class="form-check-input" value="@oppDecision" id="@($"oppDecision{oppDecision}")" required/>
-                                        @* <label class="form-check-label" for="@($"oppDecision{oppDecision}")">@oppDecision</label> *@
+                                        <input type="radio" asp-for="Operation.OperationDecision" class="form-check-input" value="@oppDecision" id="@($"oppDecision{oppDecision}")"/>
                                         <label for="@($"oppDecision{oppDecision}")">@((typeof(OperationDecision).GetMember(oppDecision.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
                                     </div>
                                 }

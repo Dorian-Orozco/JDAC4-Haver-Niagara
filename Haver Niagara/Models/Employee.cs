@@ -25,36 +25,10 @@ namespace Haver_Niagara.Models
             }
         }
 
-        //public string PhoneNumber
-        //{
-        //    get
-        //    {
-        //        if (String.IsNullOrEmpty(Phone))
-        //        {
-        //            return "";
-        //        }
-        //        else
-        //        {
-        //            return "(" + Phone.Substring(0, 3) + ") " + Phone.Substring(3, 3) + "-" + Phone.Substring(6, 4);
-        //        }
-        //    }
-        //}
-
-
         public string FirstName { get; set; }
 
      
         public string LastName { get; set; }
-
-   
-        //public string? Phone { get; set; }
-
-        //[Required(ErrorMessage = "Perscriber status required.")] //
-        //public bool Prescriber { get; set; }
-
-
-        //Enumeration for basic roles
-        //public EmployeeRole EmployeeRole{ get; set; }
 
         public string Email { get; set; }
 

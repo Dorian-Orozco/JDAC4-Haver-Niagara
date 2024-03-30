@@ -16,6 +16,11 @@ using IronPdf.Rendering;
 using Microsoft.AspNetCore.Http;
 using X.PagedList;
 using Razor.Templating.Core;
+using Haver_Niagara.Utilities;
+using Microsoft.AspNetCore.Identity;
+using Haver_Niagara.ViewModels;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Haver_Niagara.Controllers
 {
@@ -27,14 +32,19 @@ namespace Haver_Niagara.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IRazorViewRenderer _viewRenderService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IMyEmailSender _emailSender;
 
-        public NCRsController(HaverNiagaraDbContext context, ILogger<HomeController> logger, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor)
+        public NCRsController(HaverNiagaraDbContext context, ILogger<HomeController> logger, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor,
+                                UserManager<IdentityUser> userManager, IMyEmailSender emailSender)
         {
             _context = context;
             //Print PDF
             _logger = logger;
             _viewRenderService = viewRenderService;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         // Print PDF Details View
@@ -145,6 +155,7 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
+            await RemindUsers(id.Value); //send it to method that will allow to retrieve data to send to users.
 
             return View(nCR);
         }
@@ -198,9 +209,6 @@ namespace Haver_Niagara.Controllers
                 nCR.PartID = part.ID;
                 nCR.QualityInspectionID = qualityInspection.ID;
 
-
-
-
                 //Retrieves the old ncr from the GET create. 
                 nCR.OldNCRID = oldNCRID ?? null;
                 var defectList = new DefectList
@@ -229,8 +237,24 @@ namespace Haver_Niagara.Controllers
                 }
                 TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here To View: {nCR.FormattedID}</a>";
 
-                //In here, the model state is good meaning everything submitted properly, so once we create the NCR it will send a notification to engineers
-                //As well as an email saying, a new NCR has been created..something IMPLEMENT FIX
+
+                //So since the Create proccess only occurs once we can send a email here 
+                //Find all employees in the engineering role, then send them emails. 
+                var usersInEngineering = await _userManager.GetUsersInRoleAsync("Engineer");
+                EmailMessage emailMessage = new EmailMessage
+                {
+                    Subject = $"New NCR Has Been Created #{nCR.FormattedID}!",
+                    Content = $"<p>Dear Engineers,</p>" +
+                              $"<p>A new Non-Conformance Report (NCR) has been created.</p>" +
+                              $"<p>Please review and fill out your part of the form.</p>"+
+                              $"<p>Thank you!</p>"
+                };
+                foreach (var user in usersInEngineering)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+
+                //await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email engineer so disable their account.
 
                 return RedirectToAction("List", "Home");
             }
@@ -816,6 +840,9 @@ namespace Haver_Niagara.Controllers
             if (id != nCR.ID)
                 return NotFound();
 
+            //determine if email
+            bool emailYesOrNo = false;
+
             //Gets the NCR that's going to be edited and is used to store the stage
             var ncrStageCheck = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == id);
 
@@ -840,6 +867,7 @@ namespace Haver_Niagara.Controllers
                     if (ncrStageCheck.NCR_Stage == NCRStage.Engineering) //this would mean that the NCR stage should be sent to the next enum (operations)
                     {
                         existingNCR.NCR_Stage = NCRStage.Operations;  //if the ncr was in the engineering stage, since its complete set it to operations
+                        emailYesOrNo = true; //meaning yes send email because it is new, and not an edit
                     }
                     if (ncrStageCheck.NCR_Stage != NCRStage.Engineering) //if the ncr stage is not equal to engineering meaning its from a later stage (operations, procurement, final..)
                         existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
@@ -880,6 +908,25 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
+                if (emailYesOrNo)
+                {
+                    var usersInOperation = await _userManager.GetUsersInRoleAsync("Operations");
+                    EmailMessage emailMessage = new EmailMessage
+                    {
+                        Subject = $"NCR #{nCR.FormattedID} is ready to be filled!",
+                        Content = $"<p>Hey! </p>" +
+                                  $"<p>A new Non-Conformance Report (NCR) has entered your stage.</p>" +
+                                  $"<p>Please review and fill as soon as possible.</p>" +
+                                  $"<p>Thank you!</p>"
+                    };
+                    foreach (var user in usersInOperation)
+                    {
+                        emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                    }
+
+                    //await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account and create an employee with procurement as ur own.
+                }
+
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
                 return RedirectToAction("List", "Home");
             }
@@ -919,6 +966,8 @@ namespace Haver_Niagara.Controllers
             if (id != nCR.ID)
                 return NotFound();
 
+            bool sendEmailYesNo = false; //default, dont send email
+
             //Gets the NCR that's going to be edited and is used to store the stage
             var ncrStageCheck = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == id);
 
@@ -943,10 +992,11 @@ namespace Haver_Niagara.Controllers
                     //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
                     if (ncrStageCheck.NCR_Stage == NCRStage.Operations) //this would mean that the NCR stage should be sent to the next enum (procurement)
                     {
-                        existingNCR.NCR_Stage = NCRStage.Procurement;  //if the ncr was in the engineering stage, since its complete set it to operations
+                        existingNCR.NCR_Stage = NCRStage.Procurement;  //if the ncr was in the operations stage, since its complete set it to procurement
+                        sendEmailYesNo = true;  //set to true because this means it isnt an edit but its the first time its being "created"
                     }
                     if (ncrStageCheck.NCR_Stage != NCRStage.Operations) //if the ncr stage is not equal to operations meaning its from a later stage ( procurement, final..)
-                        existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
+                        existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //keep it as that value
 
                     if (existingNCR.OldNCRID != null)
                         existingNCR.OldNCRID = nCR.ID;
@@ -1030,6 +1080,26 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
+   
+                if (sendEmailYesNo)
+                {
+                    var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
+                    EmailMessage emailMessage = new EmailMessage
+                    {
+                        Subject = $"NCR #{nCR.FormattedID} is ready to be filled!",
+                        Content = $"<p>Hey there!</p>" +
+                                  $"<p>A new Non-Conformance Report (NCR) has entered your stage.</p>" +
+                                  $"<p>Please review and fill as soon as possible.</p>" +
+                                  $"<p>Thank you!</p>"
+                    };
+                    foreach (var user in usersInProcurement)
+                    {
+                        emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                    }
+
+                    //await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account.
+                                                                       //and use your own (create through maintain employee and give urself procurement role)
+                }
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
                 return RedirectToAction("List", "Home");
             }
@@ -1069,6 +1139,8 @@ namespace Haver_Niagara.Controllers
             if (id != nCR.ID)
                 return NotFound();
 
+            bool sendEmailYesNo = false;
+
             //Gets the NCR that's going to be edited and is used to store the stage
             var ncrStageCheck = await _context.NCRs.FirstOrDefaultAsync(n => n.ID == id);
 
@@ -1090,8 +1162,11 @@ namespace Haver_Niagara.Controllers
                         return NotFound();
 
                     //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
-                    if (ncrStageCheck.NCR_Stage == NCRStage.Procurement) //this would mean that the NCR stage should be sent to the next enum (quality final)
+                    if (ncrStageCheck.NCR_Stage == NCRStage.Procurement)//this would mean that the NCR stage should be sent to the next enum (quality final)
+                    {                                       
                         existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
+                        sendEmailYesNo = true;
+                    }
 
                     if (ncrStageCheck.NCR_Stage != NCRStage.Procurement) //if the ncr stage is not equal to procurement meaning its from a later stage ( , final..)
                         existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
@@ -1144,6 +1219,25 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
+                if (sendEmailYesNo)
+                {
+                    var usersInQualityRep = await _userManager.GetUsersInRoleAsync("Quality Representative");
+                    EmailMessage emailMessage = new EmailMessage
+                    {
+                        Subject = $"NCR #{nCR.FormattedID} is ready to be finished!",
+                        Content = $"<p>Hey there!</p>" +
+                                  $"<p>Non-Conformance Report (NCR) has come back around for your signing.</p>" +
+                                  $"<p>Please review and fill as soon as possible.</p>" +
+                                  $"<p>Thank you!</p>"
+                    };
+                    foreach (var user in usersInQualityRep)
+                    {
+                        emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                    }
+
+                    //await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email quality rep so disable their account.
+                                                                       //and use your own (create through maintain employee and give urself quality rep role)
+                }
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
                 return RedirectToAction("List", "Home");
             }
@@ -1151,8 +1245,63 @@ namespace Haver_Niagara.Controllers
 
         }
 
+        //Email button on the details page uses this 
+        public async Task RemindUsers (int id)
+        {
+            var nCR = await _context.NCRs.FindAsync(id);
+            var ncrStage = nCR.NCR_Stage;
+
+            EmailMessage emailMessage = new EmailMessage   //Default template for ALL stages (if you want to change them, put them inside the if statements (one for each))
+            {
+                Subject = $"Reminder: #{nCR.FormattedID} has reached your stage!",
+                Content = $"<p>If you need any assistance please contact management.</p>" +
+                          $"<p>Please review and fill as soon as possible.</p>" +
+                          $"<p>Thank you!</p>"
+            };
 
 
+            if (ncrStage == NCRStage.Engineering) //then email engineering to remind them
+            {   //return engineering employees
+                var usersInOperation = await _userManager.GetUsersInRoleAsync("Engineer");
+                foreach (var user in usersInOperation)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+
+                await _emailSender.SendToManyAsync(emailMessage);
+            }///////////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (ncrStage == NCRStage.Operations)
+            { 
+                var usersInEngineer = await _userManager.GetUsersInRoleAsync("Operations");
+                foreach (var user in usersInEngineer)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+                await _emailSender.SendToManyAsync(emailMessage);
+            }//////////////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (ncrStage == NCRStage.Procurement) 
+            { 
+                var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
+                foreach (var user in usersInProcurement)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+
+                await _emailSender.SendToManyAsync(emailMessage);
+            }/////////////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (ncrStage == NCRStage.QualityRepresentative_Final) 
+            {//return procurement quality rep employees
+                var usersInQualityRepFinal = await _userManager.GetUsersInRoleAsync("Quality Representative");
+                foreach (var user in usersInQualityRepFinal)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+                await _emailSender.SendToManyAsync(emailMessage);
+            }
+            
+
+
+        }
 
 
             // GET: NCRs/Delete/5
