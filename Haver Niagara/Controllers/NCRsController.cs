@@ -1145,6 +1145,8 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProcurementEdit(int id, [Bind("OldNCRID")] NCR nCR, Procurement procurement)
@@ -1354,7 +1356,6 @@ namespace Haver_Niagara.Controllers
         }
 
 
-
         // POST: NCRs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -1373,6 +1374,25 @@ namespace Haver_Niagara.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("List", "Home");
             //return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Void(int id)
+        {
+            if (_context.NCRs == null)
+            {
+                return Problem("Entity set 'HaverNiagaraDbContext.NCRs'  is null.");
+            }
+            var nCR = await _context.NCRs.FindAsync(id);
+            if (nCR != null)
+            {
+                nCR.IsVoid =true;
+            }
+
+            _context.NCRs.Update(nCR);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("List", "Home");
+            
         }
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
 

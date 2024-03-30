@@ -111,7 +111,7 @@ namespace Haver_Niagara.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var originalNCRs = _context.NCRs
-                .Where(p => p.IsArchived == false)
+                .Where(p => p.IsArchived == false & p.IsVoid == false)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part.DefectLists)
@@ -121,7 +121,7 @@ namespace Haver_Niagara.Controllers
             //Since 
 
             var ncrs = _context.NCRs
-                .Where(p => p.IsArchived == false)
+                .Where(p => p.IsArchived == false & p.IsVoid == false)
                 .Include(p => p.Part)
                 .ThenInclude(s => s.Supplier)
                 .Include(p => p.Part.DefectLists)
@@ -172,6 +172,11 @@ namespace Haver_Niagara.Controllers
             if (ncrStage.HasValue)
             { 
                 ncrs = ncrs.Where(x => x.NCR_Stage == ncrStage.Value);
+            }
+
+            if (!selectedStatus.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.IsVoid == false); //archive list shows closed ncr's on default
             }
 
             // Search Box
@@ -349,6 +354,191 @@ namespace Haver_Niagara.Controllers
             {
                 ncrs = ncrs.Where(x => x.NCR_Status == false); //archive list shows closed ncr's on default
             }
+            // Apply NCRStage filter if selected
+            if (ncrStage.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.NCR_Stage == ncrStage.Value);
+            }
+
+            // Search Box
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                searchString = searchString.ToLower();
+
+                // Split the searchString to potentially match the "YYYY-NNN" format
+                var parts = searchString.Split('-');
+                int yearPart, idPart;
+
+                ncrs = ncrs.Where(x =>
+                    x.NCR_Date.ToString().ToLower().Contains(searchString) ||
+                    x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
+                    x.ID.ToString().ToLower().Contains(searchString) ||
+                    x.Part.Supplier.Name.ToLower().Contains(searchString) ||
+                    (parts.Length == 2 &&
+                     int.TryParse(parts[0], out yearPart) &&
+                     int.TryParse(parts[1], out idPart) &&
+                     x.NCR_Date.Year == yearPart &&
+                     x.ID == idPart) // New condition for matching year and ID separately
+
+                );
+            }
+
+            // Filter by Date
+            if (!String.IsNullOrEmpty(selectedDate))
+            {
+                DateTime parsedDate;
+                if (DateTime.TryParseExact(selectedDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                {
+                    ncrs = ncrs.Where(x => x.NCR_Date.Date == parsedDate.Date);
+                }
+            }
+
+            // Sorting
+            IOrderedQueryable<NCR> sortedNCRs;
+            switch (sortOrder)
+            {
+                case "FormattedID_Asc":
+                    sortedNCRs = ncrs.OrderBy(x => x.NCR_Date.Year).ThenBy(x => x.ID);
+                    break;
+                case "FormattedID_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(x => x.NCR_Date.Year).ThenByDescending(x => x.ID);
+                    break;
+                case "NCRStage_Asc":
+                    sortedNCRs = ncrs.OrderBy(x => x.NCR_Stage);
+                    break;
+                case "NCRStage_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(x => x.NCR_Stage);
+                    break;
+                // Existing sort cases
+                case "ProductNum_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(b => b.Part.ProductNumber);
+                    break;
+                case "ProductNum_Asc":
+                    sortedNCRs = ncrs.OrderBy(b => b.Part.ProductNumber);
+                    break;
+                case "Supplier_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(s => s.Part.Supplier.Name);
+                    break;
+                case "Supplier_Asc":
+                    sortedNCRs = ncrs.OrderBy(n => n.Part.Supplier.Name);
+                    break;
+                case "Stage_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(b => b.NCR_Status);
+                    break;
+                case "Stage_Asc":
+                    sortedNCRs = ncrs.OrderBy(b => b.NCR_Status);
+                    break;
+                case "Date_Asc":
+                    sortedNCRs = ncrs.OrderBy(b => b.NCR_Date);
+                    break;
+                case "Date_Desc":
+                    sortedNCRs = ncrs.OrderByDescending(b => b.NCR_Date);
+                    break;
+                default:
+                    sortedNCRs = ncrs.OrderBy(b => b.ID);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            var pagedNCRs = sortedNCRs.ToPagedList(pageNumber, pageSize);
+
+            // Create a separate list for dropdown options
+            var suppliersForDropdown = originalNCRs
+                .Where(x => x.Part != null && x.Part.Supplier != null)
+                .Select(x => x.Part.Supplier.Name)
+                .Distinct()
+                .ToList();
+
+            // Update the ViewBag.SupplierList with the dropdown options
+            ViewBag.SupplierList = new SelectList(suppliersForDropdown, selectedSupplier);
+
+            // Get all unique suppliers for the dropdown list
+            var allSuppliers = originalNCRs
+                .Where(x => x.Part != null && x.Part.Supplier != null && x.Part.Supplier.Name != null)
+                .Select(x => x.Part.Supplier.Name)
+                .Distinct()
+                .ToList();
+
+            ViewBag.SupplierList = new SelectList(allSuppliers, selectedSupplier);
+
+            // Dropdown for NCRStages with specific stages and their display names
+            var stagesToInclude = new[]
+            {
+                NCRStage.Engineering,
+                NCRStage.Operations,
+                NCRStage.Procurement,
+                NCRStage.QualityRepresentative_Final
+            };
+            ViewBag.NCRStageList = ToSelectList(stagesToInclude);
+
+            return View(pagedNCRs);
+        }
+
+        
+        /// NCR VOIDED LOG 
+       
+
+        public IActionResult ListVoided(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter, NCRStage? ncrStage)
+        {
+            ViewBag.FormattedIDSortParam = sortOrder == "FormattedID_Asc" ? "FormattedID_Desc" : "FormattedID_Asc";
+            ViewBag.NCRStageSortParam = sortOrder == "NCRStage_Asc" ? "NCRStage_Desc" : "NCRStage_Asc";
+            // Sorting Functionality
+            ViewBag.POSortParam = sortOrder == "ProductNum_Asc" ? "ProductNum_Desc" : "ProductNum_Asc";
+            ViewBag.SupplierSortParam = sortOrder == "Supplier_Asc" ? "Supplier_Desc" : "Supplier_Asc";
+            ViewBag.StageSortParam = sortOrder == "Stage_Asc" ? "Stage_Desc" : "Stage_Asc";
+            ViewBag.DateSortParam = sortOrder == "Date_Asc" ? "Date_Desc" : "Date_Asc";
+            ViewBag.CurrentFilter = currentFilter;
+            ViewBag.SelectedSupplier = selectedSupplier;
+            ViewBag.SelectedDate = selectedDate;
+            ViewBag.SelectedStatus = selectedStatus;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var originalNCRs = _context.NCRs
+                .Where(p => p.IsVoid == true)
+                .Include(p => p.Supplier)
+                .Include(p => p.Part)
+                .ThenInclude(s => s.Supplier)
+                .Include(p => p.Part.DefectLists)
+                .ThenInclude(d => d.Defect)
+                .ToList();
+
+            var ncrs = _context.NCRs
+                .Where(p => p.IsVoid == true)
+                .Include(p => p.Supplier)
+                .Include(p => p.Part)
+                .ThenInclude(s => s.Supplier)
+                .Include(p => p.Part.DefectLists)
+                .ThenInclude(d => d.Defect)
+                .AsQueryable();
+
+            // Apply filters
+            if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
+            {
+                var selectedSupplierID = _context.Suppliers //Retrieves the selected ID based on the name
+                 .Where(s => s.Name == selectedSupplier)
+                 .Select(s => s.ID)
+                 .FirstOrDefault();
+                //Use NCRSupplierID instead of Part.Name
+                ncrs = ncrs.Where(x => x.NCRSupplierID == selectedSupplierID);
+            }
+
+             if (!selectedStatus.HasValue)
+            {
+                ncrs = ncrs.Where(x => x.IsVoid == true); //void list shows voided NCRs
+            }
+            
             // Apply NCRStage filter if selected
             if (ncrStage.HasValue)
             {

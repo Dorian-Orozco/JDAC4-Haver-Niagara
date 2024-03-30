@@ -54,6 +54,8 @@ namespace Haver_Niagara.Models
             set { }
         }
 
+        public bool? IsVoid { get; set; }
+
         //NCR Enumeration To Determine the Stage
         [Display(Name = "Stage")]
         public NCRStage NCR_Stage { get; set; }
@@ -104,6 +106,7 @@ namespace Haver_Niagara.Models
             //NCR_Stage = NCRStage.Procurement;
             //Setting a default of todays date
             NCR_Date = DateTime.Today;
+            IsVoid = false;
         }
     }
 }
