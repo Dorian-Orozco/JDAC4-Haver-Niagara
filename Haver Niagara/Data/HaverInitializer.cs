@@ -14,7 +14,7 @@ namespace Haver_Niagara.Data
                 .ServiceProvider.GetRequiredService<HaverNiagaraDbContext>();
 
 
-            //context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             //context.Database.Migrate();
 

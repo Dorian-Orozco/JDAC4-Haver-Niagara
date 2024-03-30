@@ -16,6 +16,9 @@ using IronPdf.Rendering;
 using Microsoft.AspNetCore.Http;
 using X.PagedList;
 using Razor.Templating.Core;
+using WebPush;
+using Haver_Niagara.Utilities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Haver_Niagara.Controllers
 {
@@ -27,14 +30,24 @@ namespace Haver_Niagara.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IRazorViewRenderer _viewRenderService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private VapidDetails vapidDetails;
+        private IConfiguration _configuration;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public NCRsController(HaverNiagaraDbContext context, ILogger<HomeController> logger, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor)
+        public NCRsController(HaverNiagaraDbContext context, ILogger<HomeController> logger, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor,
+                              IConfiguration configuration, UserManager<IdentityUser> userManager)
         {
             _context = context;
             //Print PDF
             _logger = logger;
             _viewRenderService = viewRenderService;
             _httpContextAccessor = httpContextAccessor;
+            _configuration = configuration;
+            vapidDetails = new VapidDetails("mailto:HaverNiagaraNCR@outlook.com",
+                _configuration.GetSection("VapidKeys")["PublicKey"],
+                _configuration.GetSection("VapidKeys")["PrivateKey"]);
+            _userManager = userManager;
+
         }
 
         // Print PDF Details View
@@ -229,8 +242,20 @@ namespace Haver_Niagara.Controllers
                 }
                 TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here To View: {nCR.FormattedID}</a>";
 
-                //In here, the model state is good meaning everything submitted properly, so once we create the NCR it will send a notification to engineers
-                //As well as an email saying, a new NCR has been created..something IMPLEMENT FIX
+                //Notification goes to employees when an NCR is created
+                //Retrieve the employees in Engineer
+                var usersInEngineerRole = await _userManager.GetUsersInRoleAsync("Engineer");
+                var listofEngineersID = usersInEngineerRole.Select(item => item.Id);
+
+                var engineersWithSubscriptions = await _context.Employees
+                    .Where(a => listofEngineersID.Contains(a.ID.ToString()))            //if throws error just comment out
+                    .Include(e => e.Subscriptions)                                  //i cant really test this because subscribing to a notification 
+                    .Where(e => e.Subscriptions.Any())                      //does not work but it does / should retrieve the right employees
+                    .ToListAsync();
+
+                string result = PushNotification.Send(vapidDetails, engineersWithSubscriptions, "New NCR Created", $"New NCR Created {nCR.FormattedID}");
+                TempData["ncrCreatedMessage"] = result;
+
 
                 return RedirectToAction("List", "Home");
             }
