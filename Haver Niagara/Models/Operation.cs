@@ -27,12 +27,14 @@ namespace Haver_Niagara.Models
         public string OperationNotes { get; set; }
 
         //For Radio Buttons T/F 
-        [Range(typeof(bool), "true", "true", ErrorMessage = "Select if Car was Raised")]
+        //[Range(typeof(bool), "true", "true", ErrorMessage = "Select if Car was Raised")]
+        [Required(ErrorMessage = "Select if Car was Raised")]
         [Display(Name = "Car Raised?")]
         public bool OperationCar { get; set; }
 
         //For Radio Buttons T/F 
-        [Range(typeof(bool), "true", "true", ErrorMessage = "Select if Follow-Up is Required")]
+        //[Range(typeof(bool), "true", "true", ErrorMessage = "Select if Follow-Up is Required")]
+        [Required(ErrorMessage = "Select if Follow-Up is Required")]
         [Display(Name = "Follow-Up Required?")]
         public bool OperationFollowUp { get; set; }
 
