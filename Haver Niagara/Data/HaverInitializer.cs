@@ -163,13 +163,13 @@ namespace Haver_Niagara.Data
                 {
                     ID = 1,
                     Name = "Wheels",
-                    ProductNumber = 208475893,
+                    ProductNumber = 4500730930,
                     QuantityRecieved = 20,
                     QuantityDefect = 20,
                     Description = "Replacement wheels",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 1),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -186,7 +186,7 @@ namespace Haver_Niagara.Data
                     Description = "Replacement wires",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -203,7 +203,7 @@ namespace Haver_Niagara.Data
                     Description = "Steel panels for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -220,7 +220,7 @@ namespace Haver_Niagara.Data
                     Description = "Bolts for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 3),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -237,7 +237,7 @@ namespace Haver_Niagara.Data
                     Description = "Nuts for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -254,7 +254,7 @@ namespace Haver_Niagara.Data
                     Description = "Screws for repairs.",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -271,7 +271,7 @@ namespace Haver_Niagara.Data
                     Description = "Rivets for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -289,7 +289,7 @@ namespace Haver_Niagara.Data
                     Description = "Washers for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -306,7 +306,7 @@ namespace Haver_Niagara.Data
                     Description = "Anchors for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -323,7 +323,7 @@ namespace Haver_Niagara.Data
                     Description = "Nails for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -340,7 +340,7 @@ namespace Haver_Niagara.Data
                     Description = "Clips for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -357,7 +357,7 @@ namespace Haver_Niagara.Data
                     Description = "Replacement wheels",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 1),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -374,7 +374,7 @@ namespace Haver_Niagara.Data
                     Description = "Replacement wires",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -391,7 +391,7 @@ namespace Haver_Niagara.Data
                     Description = "Steel panels for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -408,7 +408,7 @@ namespace Haver_Niagara.Data
                     Description = "Bolts for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 3),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -425,7 +425,7 @@ namespace Haver_Niagara.Data
                     Description = "Nuts for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -442,7 +442,7 @@ namespace Haver_Niagara.Data
                     Description = "Screws for repairs.",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -459,7 +459,7 @@ namespace Haver_Niagara.Data
                     Description = "Rivets for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -476,7 +476,7 @@ namespace Haver_Niagara.Data
                     Description = "Washers for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -493,7 +493,7 @@ namespace Haver_Niagara.Data
                     Description = "Anchors for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -510,7 +510,7 @@ namespace Haver_Niagara.Data
                     Description = "Nails for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -527,7 +527,7 @@ namespace Haver_Niagara.Data
                     Description = "Clips for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -544,7 +544,7 @@ namespace Haver_Niagara.Data
                     Description = "Anchors for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -562,7 +562,7 @@ namespace Haver_Niagara.Data
                     Description = "Screws for repairs.",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -581,7 +581,7 @@ namespace Haver_Niagara.Data
                     Description = "Replacement wires",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -599,7 +599,7 @@ namespace Haver_Niagara.Data
                     Description = "Nuts for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -617,7 +617,7 @@ namespace Haver_Niagara.Data
                     Description = "Screws for repairs.",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -635,7 +635,7 @@ namespace Haver_Niagara.Data
                     Description = "Rivets for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -653,7 +653,7 @@ namespace Haver_Niagara.Data
                     Description = "Washers for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 5),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -671,7 +671,7 @@ namespace Haver_Niagara.Data
                     Description = "Anchors for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -689,7 +689,7 @@ namespace Haver_Niagara.Data
                     Description = "Nails for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -708,7 +708,7 @@ namespace Haver_Niagara.Data
                     Description = "Clips for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 7),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -725,7 +725,7 @@ namespace Haver_Niagara.Data
                     Description = "Anchors for repairs",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 6),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -742,7 +742,7 @@ namespace Haver_Niagara.Data
                     Description = "Screws for repairs.",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 4),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
@@ -759,7 +759,7 @@ namespace Haver_Niagara.Data
                     Description = "Replacement wires",
                     Supplier = context.Suppliers.FirstOrDefault(c => c.ID == 2),
                     SAPNumber = 207956254,
-                    PurchaseNumber = 4500730930,
+                    //PurchaseNumber = 4500730930,
                     SalesOrder = "Stock",
                     DefectLists = new List<DefectList>
                     {
