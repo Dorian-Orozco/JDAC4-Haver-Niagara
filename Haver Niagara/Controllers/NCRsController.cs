@@ -20,6 +20,7 @@ using Haver_Niagara.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Haver_Niagara.ViewModels;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Haver_Niagara.Controllers
 {
@@ -154,6 +155,7 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
+            await RemindUsers(id.Value); //send it to method that will allow to retrieve data to send to users.
 
             return View(nCR);
         }
@@ -1243,8 +1245,63 @@ namespace Haver_Niagara.Controllers
 
         }
 
+        //Email button on the details page uses this 
+        public async Task RemindUsers (int id)
+        {
+            var nCR = await _context.NCRs.FindAsync(id);
+            var ncrStage = nCR.NCR_Stage;
+
+            EmailMessage emailMessage = new EmailMessage   //Default template for ALL stages (if you want to change them, put them inside the if statements (one for each))
+            {
+                Subject = $"Reminder: #{nCR.FormattedID} has reached your stage!",
+                Content = $"<p>If you need any assistance please contact management.</p>" +
+                          $"<p>Please review and fill as soon as possible.</p>" +
+                          $"<p>Thank you!</p>"
+            };
 
 
+            if (ncrStage == NCRStage.Engineering) //then email engineering to remind them
+            {   //return engineering employees
+                var usersInOperation = await _userManager.GetUsersInRoleAsync("Engineer");
+                foreach (var user in usersInOperation)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+
+                await _emailSender.SendToManyAsync(emailMessage);
+            }///////////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (ncrStage == NCRStage.Operations)
+            { 
+                var usersInEngineer = await _userManager.GetUsersInRoleAsync("Operations");
+                foreach (var user in usersInEngineer)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+                await _emailSender.SendToManyAsync(emailMessage);
+            }//////////////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (ncrStage == NCRStage.Procurement) 
+            { 
+                var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
+                foreach (var user in usersInProcurement)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+
+                await _emailSender.SendToManyAsync(emailMessage);
+            }/////////////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (ncrStage == NCRStage.QualityRepresentative_Final) 
+            {//return procurement quality rep employees
+                var usersInQualityRepFinal = await _userManager.GetUsersInRoleAsync("Quality Representative");
+                foreach (var user in usersInQualityRepFinal)
+                {
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                }
+                await _emailSender.SendToManyAsync(emailMessage);
+            }
+            
+
+
+        }
 
 
             // GET: NCRs/Delete/5
