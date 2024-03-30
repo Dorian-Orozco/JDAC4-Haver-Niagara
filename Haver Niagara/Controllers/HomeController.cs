@@ -128,6 +128,25 @@ namespace Haver_Niagara.Controllers
                 .ThenInclude(d => d.Defect)
                 .AsQueryable();
 
+            //depending on stage, filter list by stage of department and completed stage
+            if (User.IsInRole("Engineer"))
+            {
+                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)1 || n.NCR_Stage == (NCRStage)5); //engineering stage
+            }
+            if (User.IsInRole("Operations"))
+            {
+                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)2 || n.NCR_Stage == (NCRStage)5); //operations stage
+            }
+            if (User.IsInRole("Procurement"))
+            {
+                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)3 || n.NCR_Stage == (NCRStage)5); //procurement stage
+            }
+            if (User.IsInRole("Quality Representative"))
+            {
+                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)4 || n.NCR_Stage == (NCRStage)5); //quality stage
+            }
+
+
             // Apply filters
             if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
             {
@@ -462,14 +481,37 @@ namespace Haver_Niagara.Controllers
         // For Dashboard
         public async Task<IActionResult> Index()
         {
+            //Summary Table
             var ncrs = await _context.NCRs
                 .Include(n => n.Supplier)
                 .Include(n => n.Part)
                     .ThenInclude(p => p.Supplier)
                 .Where(n => n.NCR_Status == true)
                 .OrderBy(n => n.NCR_Date)
-                .Take(5)
+                //.Take(5)
                 .ToListAsync();
+
+            //depending on stage, filter list
+            if (User.IsInRole("Engineer"))
+            {
+                ncrs = new List<NCR>(ncrs.Where(n => n.NCR_Stage == (NCRStage)1)); //engineering stage not working with .Take(5)
+            }
+            else if (User.IsInRole("Operations"))
+            {
+                ncrs = new List<NCR>(ncrs.Where(n => n.NCR_Stage == (NCRStage)2)); //operations stage not working with .Take(5)
+            }
+            else if (User.IsInRole("Procurement"))
+            {
+                ncrs = new List<NCR>(ncrs.Where(n => n.NCR_Stage == (NCRStage)3)); //procurement 
+            }
+            else if (User.IsInRole("Quality Representative"))
+            {
+                ncrs = new List<NCR>(ncrs.Where(n => n.NCR_Stage == (NCRStage)4)); //quality
+            } else
+            {
+                ncrs = new List<NCR>(ncrs.Take(5));
+            }
+
 
             return View(ncrs);
         }

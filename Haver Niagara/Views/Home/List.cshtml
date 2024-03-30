@@ -135,57 +135,106 @@
         <div class="collapse" id="collapseFilter">
             <div class="card card-body bg-light mb-2 d-flex">
 
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <label class="control-label">Status</label>
-                            <div>
-                                @Html.DropDownList("SelectedStatus", new List<SelectListItem>
+                @{
+                    if (User.IsInRole("Admin")) //if not admin the link is disabled (cannot navigate to all reports)
+                    {
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label">Status</label>
+                                    <div>
+                                        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
                                 {
                                 new SelectListItem { Text = "Active", Value = "true" },
                                 new SelectListItem { Text = "Closed", Value = "false" }
                                 }, new { @class = "form-control border" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label">Stage</label>
+                                    <div>
+                                        @Html.DropDownList("ncrStage", (IEnumerable<SelectListItem>)ViewBag.NCRStageList, "Select Stage", new { @class = "form-control border" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label">Date Created</label>
+                                    <input type="date" id="SelectedDate" name="SelectedDate" class="form-control border">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <label class="control-label">Stage</label>
-                            <div>
-                                @Html.DropDownList("ncrStage", (IEnumerable<SelectListItem>)ViewBag.NCRStageList, "Select Stage", new { @class = "form-control border" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <label class="control-label">Date Created</label>
-                            <input type="date" id="SelectedDate" name="SelectedDate" class="form-control border">
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2 mb-2">
+                        <div class="row mt-2 mb-2">
 
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <label class="control-label">Supplier</label>
-                            <div>
-                                @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control selectpicker border", data_live_search = "true", data_style = "btn", data_dropup_auto = "false", id = "ddlSupplier" })
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label">Supplier</label>
+                                    <div>
+                                        @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control selectpicker border", data_live_search = "true", data_style = "btn", data_dropup_auto = "false", id = "ddlSupplier" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label">Part Number / NCR Number</label>
+                                    @Html.TextBox("SearchString", null, new { @class = "form-control border", placeholder="Enter a part or NCR number" })
+                                </div>
+                            </div>
+                            <div class="col-sm-auto mt-4">
+                                <div class="form-group">
+                                    <button type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2">Search</button>
+                                    <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <label class="control-label">Part Number / NCR Number</label>
-                            @Html.TextBox("SearchString", null, new { @class = "form-control border", placeholder="Enter a part or NCR number" })
+                    }
+                    else //remove status and stage filter if not admin 
+                    {
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">Status</label>
+                                    <div>
+                                        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
+                                {
+                                new SelectListItem { Text = "Active", Value = "true" },
+                                new SelectListItem { Text = "Closed", Value = "false" }
+                                }, new { @class = "form-control border" })
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label">Supplier</label>
+                                    <div>
+                                        @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control selectpicker border", data_live_search = "true", data_style = "btn", data_dropup_auto = "false", id = "ddlSupplier" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label">Part / NCR Number</label>
+                                    @Html.TextBox("SearchString", null, new { @class = "form-control border", placeholder = "part # or NCR #" })
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">Date Created</label>
+                                    <input type="date" id="SelectedDate" name="SelectedDate" class="form-control border">
+                                </div>
+                            </div>
+                            <div class="col-sm-auto mt-4">
+                                <div class="form-group">
+                                    <button type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2">Search</button>
+                                    <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-auto mt-4">
-                        <div class="form-group">
-                            <button type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2">Search</button>
-                            <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
 
             </div>
         </div>
@@ -383,6 +432,21 @@
 </form>
 
 @section scripts {
+    <!--if navigated here from the dashboard button viewing ncr reports for this year, display alert-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let date = new Date().getFullYear();
+            // Check if the showAlert flag is set, and if so, show the alert
+            if (sessionStorage.getItem('showAlert') === 'true') {
+                alert('Showing all NCR reports from ' + date);
+                sessionStorage.removeItem('showAlert'); // Clear the flag
+            }
+            else if (sessionStorage.getItem('showAlertClosed') === 'true') {
+                alert('Showing closed NCR reports from ' + date);
+                sessionStorage.removeItem('showAlertClosed'); // Clear the flag
+            }
+        });
+    </script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap's JavaScript (ensure you're including Bootstrap's JS or Bundle) -->

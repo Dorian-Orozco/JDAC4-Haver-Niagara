@@ -262,19 +262,25 @@
         </div>
         @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
         {
-            <div>
-                <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
-                    <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
-                    <span class="me-1">Create Report</span>
-                </a>
+            <div class="d-flex">
+                <div>
+                    <a asp-controller="Home" asp-action="List" title="view all reports" class="btn btn-outline-primary p-2 me-3">
+                        <span class="me-1">View All</span>
+                    </a>
+                </div>
+                <div>
+                    <a asp-controller="NCRs" asp-action="Create" title="create new report" class="btn btn-primary ps-3 pe-3 pt-1 pb-2">
+                        <span class="me-1">Create Report</span>
+                        <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
+                    </a>
+                </div>
             </div>
         }
         else
         {
             <div>
-                <a asp-controller="Home" asp-action="List" class="btn btn-primary p-2">
-                    @*  <ion-icon name="add-circle-outline" class="vie-btn-icon"></ion-icon> *@
-                    <span class="me-1">View NCRs</span>
+                <a asp-controller="Home" asp-action="List" title="view all reports" class="btn btn-primary p-2">
+                    <span class="me-1">View All</span>
                 </a>
             </div>
         }
@@ -282,24 +288,39 @@
 
     <div class="dashboard-row card-row">
 
-        <div class="card activeCard">
-            <a asp-controller="Home" asp-action="List"
-               asp-route-SelectedStatus=""
-               asp-route-ncrStage=""
-               asp-route-SelectedDate=""
-               asp-route-SelectedSupplier=""
-               asp-route-SearchString="@DateTime.Now.Year"
-               asp-route-actionButton="Filter">
-                <div class="card-content">
-                    <h2>Current Active</h2>
-                    <h3 id="openNCRCount"></h3>
-                    <p>This year</p>
-                </div>
-            </a>
-        </div>
+        @{
+            if (!User.IsInRole("Admin")) //if not admin the link is disabled (cannot navigate to all reports)
+            {
+                    <div class="card activeCard">
+                        <div class="card-content">
+                            <h2>Current Active</h2>
+                            <h3 id="openNCRCount"></h3>
+                            <p>This year</p>
+                        </div>
+                    </div>
+            }
+            else
+            {
+                    <div class="card activeCard" id="activeThisYear">
+                        <a asp-controller="Home" asp-action="List"
+                           asp-route-SelectedStatus=""
+                           asp-route-ncrStage=""
+                           asp-route-SelectedDate=""
+                           asp-route-SelectedSupplier=""
+                           asp-route-SearchString="@DateTime.Now.Year"
+                           asp-route-actionButton="Filter">
+                            <div class="card-content">
+                                <h2>Current Active</h2>
+                                <h3 id="openNCRCount"></h3>
+                                <p>This year</p>
+                            </div>
+                        </a>
+                    </div>
+            }
+        }
 
         <div class="card stageCard">
-            <a id="dynamicStageLink" asp-controller="Home" asp-action="List"
+            <a id="dynamicStageLink" title="View all" asp-controller="Home" asp-action="List"
                asp-route-SelectedStatus=""
                asp-route-ncrStage=""
                asp-route-SelectedDate=""
@@ -314,7 +335,7 @@
             </a>
         </div>
 
-        <div class="card closedCard">
+        <div class="card closedCard" id="closedThisYear">
             <a asp-controller="Home" asp-action="List"
                asp-route-SelectedStatus="false"
                asp-route-ncrStage=""
@@ -380,33 +401,33 @@
                                     @{
                                         if (User.IsInRole("Admin"))
                                         {
-                                            <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
-                                                <ion-icon name="create"></ion-icon>
-                                            </a>
+                                                <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
+                                                    <ion-icon name="create"></ion-icon>
+                                                </a>
                                         }
                                         if (User.IsInRole("Quality Representative"))
                                         {
-                                            <a href="@Url.Action("QualityRepresentativeEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                                <ion-icon name="create"></ion-icon>
-                                            </a>
+                                                <a href="@Url.Action("QualityRepresentativeEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                    <ion-icon name="create"></ion-icon>
+                                                </a>
                                         }
                                         if (User.IsInRole("Engineer"))
                                         {
-                                            <a href="@Url.Action("EngineeringEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                                <ion-icon name="create"></ion-icon>
-                                            </a>
+                                                <a href="@Url.Action("EngineeringEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                    <ion-icon name="create"></ion-icon>
+                                                </a>
                                         }
                                         if (User.IsInRole("Procurement"))
                                         {
-                                            <a href="@Url.Action("ProcurementEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                                <ion-icon name="create"></ion-icon>
-                                            </a>
+                                                <a href="@Url.Action("ProcurementEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                    <ion-icon name="create"></ion-icon>
+                                                </a>
                                         }
                                         if (User.IsInRole("Operations"))
                                         {
-                                            <a href="@Url.Action("OperationEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                                <ion-icon name="create"></ion-icon>
-                                            </a>
+                                                <a href="@Url.Action("OperationEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                    <ion-icon name="create"></ion-icon>
+                                                </a>
                                         }
                                     }
                                 </div>
@@ -478,6 +499,19 @@
             // Add an event listener for changes to the stage selection
             $('#stage').change(fetchStageCount);
         });
+
+        //set flag for alert when navigating to list page from active reports this year button
+        document.getElementById('activeThisYear').addEventListener('click', function (event) {
+            // Set a flag in session storage before navigation
+            sessionStorage.setItem('showAlert', 'true');
+        });
+
+        //set flag for alert when navigating to list page from closed reports this year button
+        document.getElementById('closedThisYear').addEventListener('click', function (event) {
+            // Set a flag in session storage before navigation
+            sessionStorage.setItem('showAlertClosed', 'true');
+        });
+
     </script>
 
     <script>
