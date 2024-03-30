@@ -24,7 +24,7 @@ namespace Haver_Niagara.Data
                     {
                         FirstName = "Admin",
                         LastName = "Powers",
-                        Email = "admin@outlook.com" 
+                        Email = "admin@outlook.com"
                     },
                     new Employee
                     {
@@ -55,12 +55,6 @@ namespace Haver_Niagara.Data
                         FirstName = "Purs",
                         LastName = "Chaser",
                         Email = "procurement@outlook.com"
-                    },
-                    new Employee
-                    {
-                        FirstName = "Change To Testing",
-                        LastName = "Currently_Engineering",
-                        Email = "dorianCodeDemo@outlook.com"
                     });
                 context.SaveChanges();
             }
