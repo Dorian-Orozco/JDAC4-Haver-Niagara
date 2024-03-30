@@ -82,7 +82,7 @@
                     <dl class="d-flex mb-2">
                     </dl>
                 </div>
-                <div class="row">
+          @*       <div class="row">
                     <dl class="d-flex m-0">
                         <dt class="col-sm-5 ">
                             PO No. <span class="text-danger">*</span>
@@ -92,14 +92,16 @@
                             <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
                         </dd>
                     </dl>
-                </div>
+                </div> *@
                 <div class="row">
                     <dl class="d-flex m-0">
                         <dt class="col-sm-5 ">
-                            Prod. No. <span class="text-danger">*</span>
+                            @* PO or Prod No. *@
+                            <label asp-for="Part.ProductNumber" class="control-label"></label>
+                            <span class="text-danger">*</span>
                         </dt>
                         <dd class="col-sm-7 ">
-                            <input asp-for="Part.ProductNumber" class="form-control" />
+                            <input asp-for="Part.ProductNumber" class="form-control" placeholder="E.g. 4500730930" />
                             <span asp-validation-for="Part.ProductNumber" class="text-danger"></span>
                         </dd>
                     </dl>
