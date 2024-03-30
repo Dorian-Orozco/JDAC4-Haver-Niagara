@@ -325,7 +325,7 @@
                asp-route-ncrStage=""
                asp-route-SelectedDate=""
                asp-route-SelectedSupplier=""
-               asp-route-SearchString=""
+               asp-route-SearchString="@DateTime.Now.Year"
                asp-route-actionButton="Filter">
                 <div class="card-content">
                     <h2><span id="stageName"></span> Stage</h2>
@@ -335,13 +335,13 @@
             </a>
         </div>
 
-        <div class="card closedCard">
+        <div class="card closedCard" id="closedThisYear">
             <a asp-controller="Home" asp-action="List"
                asp-route-SelectedStatus="false"
                asp-route-ncrStage=""
                asp-route-SelectedDate=""
                asp-route-SelectedSupplier=""
-               asp-route-SearchString="" 
+               asp-route-SearchString="@DateTime.Now.Year"
                asp-route-actionButton="Filter">
                 <div class="card-content">
                     <h2>Current Closed</h2>
@@ -504,6 +504,12 @@
         document.getElementById('activeThisYear').addEventListener('click', function (event) {
             // Set a flag in session storage before navigation
             sessionStorage.setItem('showAlert', 'true');
+        });
+
+        //set flag for alert when navigating to list page from closed reports this year button
+        document.getElementById('closedThisYear').addEventListener('click', function (event) {
+            // Set a flag in session storage before navigation
+            sessionStorage.setItem('showAlertClosed', 'true');
         });
 
     </script>

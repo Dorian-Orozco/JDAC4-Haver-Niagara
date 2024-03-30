@@ -441,6 +441,10 @@
                 alert('Showing all NCR reports from ' + date);
                 sessionStorage.removeItem('showAlert'); // Clear the flag
             }
+            else if (sessionStorage.getItem('showAlertClosed') === 'true') {
+                alert('Showing closed NCR reports from ' + date);
+                sessionStorage.removeItem('showAlertClosed'); // Clear the flag
+            }
         });
     </script>
     <!-- jQuery -->
