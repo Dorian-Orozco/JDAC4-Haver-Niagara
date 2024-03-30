@@ -193,6 +193,18 @@
                     else //remove status and stage filter if not admin 
                     {
                         <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">Status</label>
+                                    <div>
+                                        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
+                                {
+                                new SelectListItem { Text = "Active", Value = "true" },
+                                new SelectListItem { Text = "Closed", Value = "false" }
+                                }, new { @class = "form-control border" })
+                                    </div>
+                                </div>
+                            </div>
                            
                             <div class="col-sm">
                                 <div class="form-group">
@@ -204,11 +216,11 @@
                             </div>
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label class="control-label">Part Number / NCR Number</label>
-                                    @Html.TextBox("SearchString", null, new { @class = "form-control border", placeholder = "Enter a part or NCR number" })
+                                    <label class="control-label">Part / NCR Number</label>
+                                    @Html.TextBox("SearchString", null, new { @class = "form-control border", placeholder = "part # or NCR #" })
                                 </div>
                             </div>
-                            <div class="col-sm">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">Date Created</label>
                                     <input type="date" id="SelectedDate" name="SelectedDate" class="form-control border">

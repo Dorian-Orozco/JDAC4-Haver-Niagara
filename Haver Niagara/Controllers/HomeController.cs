@@ -128,22 +128,22 @@ namespace Haver_Niagara.Controllers
                 .ThenInclude(d => d.Defect)
                 .AsQueryable();
 
-            //depending on stage, filter list
+            //depending on stage, filter list by stage of department and completed stage
             if (User.IsInRole("Engineer"))
             {
-                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)1); //engineering stage
+                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)1 || n.NCR_Stage == (NCRStage)5); //engineering stage
             }
             if (User.IsInRole("Operations"))
             {
-                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)2); //operations stage
+                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)2 || n.NCR_Stage == (NCRStage)5); //operations stage
             }
             if (User.IsInRole("Procurement"))
             {
-                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)3); //procurement stage
+                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)3 || n.NCR_Stage == (NCRStage)5); //procurement stage
             }
             if (User.IsInRole("Quality Representative"))
             {
-                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)4); //quality stage
+                ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)4 || n.NCR_Stage == (NCRStage)5); //quality stage
             }
 
 
