@@ -103,11 +103,9 @@
                     <dl class="d-flex mb-1">
                         <dt class="col-sm-5 ">
                             @Html.DisplayNameFor(model => model.Part.SalesOrder)
-
                         </dt>
                         <dd class="col-sm-7 ms-2">
                             @Html.DisplayFor(model => model.Part.SalesOrder)
-
                         </dd>
                     </dl>
                 </div>
@@ -309,7 +307,6 @@
                                     @(Model.Engineering?.EngineeringDisposition == disposition ? "checked" : "") />
                                     @* <label for="@disposition">@disposition</label><br /> *@
                                     <label for="@disposition">@((typeof(EngineeringDisposition).GetMember(disposition.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
-
                                 </span>
                             }
                         </div>

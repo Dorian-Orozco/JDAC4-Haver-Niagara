@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+#nullable enable
+
+
 namespace Haver_Niagara.Models
 {
     public class Procurement : IValidatableObject
@@ -45,6 +48,8 @@ namespace Haver_Niagara.Models
 
         public NCR NCR { get; set; } //FK
 
+#nullable disable
+
         public Procurement()
         {
             ToReceiveDate = DateTime.Today;
@@ -61,9 +66,9 @@ namespace Haver_Niagara.Models
                     yield return new ValidationResult("Carrier Phone Number is Required.", new[] { "CarrierPhone" });
                 if (AccountNumber <= 0 || AccountNumber == null)
                     yield return new ValidationResult("Account Number is Required.", new[] { "AccountNumber" });
-                if (ReturnRejected && DisposeOnSite == null)
-                    yield return new ValidationResult("Dispose on Site is Required.", new[] { "DisposeOnSite" });
             }
+            if (!ReturnRejected && DisposeOnSite == null)
+                yield return new ValidationResult("Dispose on Site is Required.", new[] { "DisposeOnSite" });
             var today = DateTime.Today;
             if(ToReceiveDate < today)
             {
