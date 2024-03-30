@@ -19,7 +19,7 @@ namespace Haver_Niagara.Models
         [Display(Name = "Operation Date")]
         public DateTime OperationDate { get; set; }
 
-        [Required(ErrorMessage="Prelimnary Decision Required")]
+        [Required(ErrorMessage = "Preliminary Decision Required")]
         [Display(Name = "Operation Decision")]
         public OperationDecision OperationDecision { get; set; }
 
@@ -27,12 +27,12 @@ namespace Haver_Niagara.Models
         public string OperationNotes { get; set; }
 
         //For Radio Buttons T/F 
-        [Required]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Select if Car was Raised")]
         [Display(Name = "Car Raised?")]
         public bool OperationCar { get; set; }
 
         //For Radio Buttons T/F 
-        [Required]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Select if Follow-Up is Required")]
         [Display(Name = "Follow-Up Required?")]
         public bool OperationFollowUp { get; set; }
 
@@ -70,7 +70,14 @@ namespace Haver_Niagara.Models
 
             if(OperationFollowUp == true)
             {
-
+                if(FollowUp.FollowUpDate == DateTime.MinValue)
+                {
+                    yield return new ValidationResult("Follow up Date Required", new[] { "FollowUp.FollowUpDate" });
+                }
+                if (string.IsNullOrEmpty(FollowUp.FollowUpType))
+                {
+                    yield return new ValidationResult("Follow up Type Required", new[] { "CAR.CARNumber" });
+                }
             }
 
 
@@ -109,5 +116,6 @@ namespace Haver_Niagara.Models
                 FollowUp.FollowUpDate = default;
             }
         }
+
     }
 }

@@ -15,7 +15,6 @@ namespace Haver_Niagara.ViewModels
         //public EmployeeRole EmployeeRole{ get; set; }
         public bool Active { get; set; }
 
-        [Display(Name = "Roles")]
         public List<string> UserRoles { get; set; } = new List<string>();
     }
 }

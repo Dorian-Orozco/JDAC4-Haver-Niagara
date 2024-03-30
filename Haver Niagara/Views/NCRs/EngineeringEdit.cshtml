@@ -71,7 +71,6 @@
                                     {
                                         <div class="form-check form-check-inline">
                                             <input type="radio" asp-for="Engineering.EngineeringDisposition" required class="form-check-input" value="@engineerDisposition" id="@($"engineerDisposition{engineerDisposition}")" />
-                                            @* <label class="form-check-label" for="@($"engineerDisposition{engineerDisposition}")">@engineerDisposition</label> *@
                                             <label for="@($"engineerDisposition{engineerDisposition}")">@((typeof(EngineeringDisposition).GetMember(engineerDisposition.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
                                         </div>
                                     }

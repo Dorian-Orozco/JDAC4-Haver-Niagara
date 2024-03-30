@@ -216,10 +216,10 @@
             $('input[name="Procurement.ReturnRejected"]').change(function () {
                 // Check if "Yes" is selected
                 if ($(this).val() === "True") {
-                    $('input[name="Procurement.DisposeOnSite"]').prop('required', true);
+                    // $('input[name="Procurement.DisposeOnSite"]').prop('required', true);
                 }
                 else if ($(this).val() === "False") {
-                    $('input[name="Procurement.DisposeOnSite"]').prop('required', false);
+                    // $('input[name="Procurement.DisposeOnSite"]').prop('required', false);
                     // Clear inputs if "Yes" is selected
                     // Clear RMANumber
                     $('#RMANumber').val('');
@@ -229,8 +229,8 @@
                     $('#CarrierPhone').val('');
                     // Clear AccountNumber
                     $('#AccountNumber').val('');
-                    // Clear DisposeOnSite
-                    $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
+                    // // Clear DisposeOnSite
+                    // $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
                 }
             });
         });
