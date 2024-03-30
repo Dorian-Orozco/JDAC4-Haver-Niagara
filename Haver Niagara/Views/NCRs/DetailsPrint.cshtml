@@ -309,3 +309,125 @@
 	<div class="div46"><small>Revision No.:<br>013</small></div>
 
 </div>
+
+<div class="parent2">
+
+	<div class="div1">
+		<h1>Haver & Boecker Niagara</h1>
+	</div>
+
+	<div class="div2">
+		<h1>Internal Process Document</h1>
+	</div>
+
+	<div class="div3">
+		<img src="@Url.Content("wwwroot/images/report-logo.png")" alt="Logo" class="logo" />
+	</div>
+
+	<div class="div4"><small>Document No.:</small><br><h2>OPS-00011</h2></div>
+	<div class="div5"><small>Document Title:</small><br><h2>Non-Conforming Report</h2></div>
+	<div class="div6"><small>Page:</small><br><h2>2 of 2</h2></div>
+
+	<div class="div47"><small>When required utilize the space below for any additional information including drawings, sketches, pictures, etc.</small></div>
+
+	<div class="div12"><h2>NCR No.:</h2></div>
+	<div class="div13">
+		@Html.DisplayFor(model => model.FormattedID)
+	</div>
+
+	<div class="div48">Quality Representative</div>
+
+	<div class="div49">
+		@if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
+		{
+			foreach (var image in Model.Part.Medias)
+			{
+				if (image.Content != null)
+				{
+					<img src="data:@image.MimeType;base64,@Convert.ToBase64String(image.Content)" alt="@image.Description" width="300" height="300" />
+
+				}
+				else
+				{
+					//Content Failed error ?
+				}
+			}
+		}
+		else
+		{
+			<text>No Images Associated</text>
+		}
+	</div>
+
+	<div class="div50">Insp</div>
+
+	<div class="div37">
+		<span class="title">Re-Inspected Acceptable?</span>(if "No" then record new NCR number)
+		@Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, true, new { @checked = Model.QualityInspectionFinal != null && Model.QualityInspectionFinal.ReInspected, @disabled = "disabled", @class = "me-2" })
+		<label class="me-4">Yes</label>
+
+		@Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, false, new { @checked = Model.QualityInspectionFinal != null && !Model.QualityInspectionFinal.ReInspected, @disabled = "disabled", @class = "me-2" })
+		<label>No</label>
+	</div>
+
+	<div class="div38">
+		New NCR Number:
+		<div>
+			@{
+				// If the Old or New NCRID's are not null then..
+				if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
+				{
+					// Declare formatID to use for comparison
+					var newNCR = ViewBag?.NewNCRID;
+					var oldNCR = Model?.OldNCRID;
+
+					// Format NCR IDs with the current year
+					string newNCR_ID = newNCR != null ? $"{DateTime.UtcNow.Year}-{newNCR.ToString().PadLeft(3, '0')}" : null;
+					string oldNCR_ID = oldNCR != null ? $"{DateTime.UtcNow.Year}-{oldNCR.ToString().PadLeft(3, '0')}" : null;
+
+					// If the formatted ID is NOT the same as the old one OR if the formatted id is NOT equal to the ViewBag format ID, proceed
+					if (Model.FormattedID != oldNCR_ID || Model.FormattedID != newNCR_ID)
+					{
+						// If the old NCR id is not null, then it must be Previous, else it must be New
+						string ncrLabel = oldNCR != null ? "Previous NCR Number" : "New NCR Number";
+						@ncrLabel
+					}
+				}
+
+			}
+		</div>
+		@{
+			if (Model.OldNCRID != null || ViewBag.NewNCRID != null)
+			{
+				// Declare formatID to use for comparison
+				var newNCR = ViewBag?.NewNCRID;
+				var oldNCR = Model?.OldNCRID;
+
+				// Format NCR IDs with the current year
+				string newNCR_ID = newNCR != null ? $"{DateTime.UtcNow.Year}-{newNCR.ToString().PadLeft(3, '0')}" : null;
+				string oldNCR_ID = oldNCR != null ? $"{DateTime.UtcNow.Year}-{oldNCR.ToString().PadLeft(3, '0')}" : null;
+
+				if (oldNCR_ID != Model.FormattedID || newNCR_ID != Model.FormattedID)
+				{
+					// If old NCR ID is null then use new NCR ID
+					string useID = oldNCR_ID != null ? oldNCR_ID : newNCR_ID;
+					@useID
+				}
+			}
+		}
+	</div>
+
+	<div class="div39">
+		<span class="title">Inspector's Name:</span>
+		<span class="value">@Html.DisplayFor(model => model.QualityInspectionFinal.InspectorName)</span>
+		<span class="title">Date:</span>
+		<span class="value">@Html.DisplayFor(model => model.QualityInspectionFinal.InspectorDate)</span>
+	</div>
+
+	<div class="div42"><small>Document Author:<br>L. Nicholls</small></div>
+	<div class="div43"><small>Document Date:<br>8/12/13</small></div>
+	<div class="div44"><small>Approved By:<br>L. Pentalnd, Operations Manager</small></div>
+	<div class="div45"><small>Revision Date:<br>07.14.2020</small></div>
+	<div class="div46"><small>Revision No.:<br>013</small></div>
+
+</div>
