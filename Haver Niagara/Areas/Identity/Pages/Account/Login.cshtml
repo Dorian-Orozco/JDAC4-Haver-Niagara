@@ -117,23 +117,24 @@
     <partial name="_ValidationScriptsPartial" />
 }
 <script>
-    //created a script for login. the pain and agony of typing in login credentials got to me. -dorian
+    //created a script for login. the pain and agony of typing in login credentials got to me. 
 
     //Finds button by their ID's and has attached event listeners - when clicked, go to a function with login credentials and signs
+    //note these passwords do NOT work for any other, or real ACCOUNTS.
     document.getElementById("autoAdminLogin").addEventListener("click", function () {
-        determineLogin("admin@outlook.com", "Admin1a$");
+        determineLogin("admin@outlook.com", "rx5g8E^xGYy");
     });
-    document.getElementById("autoQualityRepLogin").addEventListener("click", function () {
-        determineLogin("qualityrepresentative@outlook.com", "Quality1a$");
+    document.getElementById("autoQualityRepLogin").addEventListener("click", function () { 
+            determineLogin("qualityrepresentative@outlook.com", "s?og1oyQ~RD");
     });
     document.getElementById("autoEngineerLogin").addEventListener("click", function () {
-        determineLogin("engineer@outlook.com", "Engineer1a$");
+        determineLogin("engineer@outlook.com", "5Z6uwE9!R~x");
     });
     document.getElementById("autoOperationLogin").addEventListener("click", function () {
-        determineLogin("operations@outlook.com", "Operations1a$");
+        determineLogin("operations@outlook.com", "Gc3ov?J63sF");
     });
     document.getElementById("autoProcurementLogin").addEventListener("click", function () {
-        determineLogin("procurement@outlook.com", "Procurement1a$");
+        determineLogin("procurement@outlook.com", "w3gAr?MQ^VD");
     });
 
     function determineLogin(email, password) {

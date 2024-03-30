@@ -155,7 +155,7 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            await RemindUsers(id.Value); //send it to method that will allow to retrieve data to send to users.
+            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
 
             return View(nCR);
         }
@@ -251,10 +251,14 @@ namespace Haver_Niagara.Controllers
                 };
                 foreach (var user in usersInEngineering)
                 {
+                    if (user.Email == "engineer@outlook.com")
+                        continue;
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                 }
+                //iF we do not provide an email address it will not work, so put in your email here to test
+                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
 
-                //await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email engineer so disable their account.
+                await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email engineer so disable their account.
 
                 return RedirectToAction("List", "Home");
             }
@@ -921,10 +925,15 @@ namespace Haver_Niagara.Controllers
                     };
                     foreach (var user in usersInOperation)
                     {
+                        if (user.Email == "operations@outlook.com")
+                        {
+                            continue; 
+                        }
                         emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                     }
-
-                    //await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account and create an employee with procurement as ur own.
+                    //hard code ur own email to test it
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
+                    await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account and create an employee with procurement as ur own.
                 }
 
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
@@ -1094,10 +1103,15 @@ namespace Haver_Niagara.Controllers
                     };
                     foreach (var user in usersInProcurement)
                     {
+                        if(user.Email == "procurement@outlook.com")
+                        {
+                            continue;
+                        }
                         emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                     }
-
-                    //await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account.
+                    //hard code ur own email to test
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
+                    await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account.
                                                                        //and use your own (create through maintain employee and give urself procurement role)
                 }
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
@@ -1232,10 +1246,12 @@ namespace Haver_Niagara.Controllers
                     };
                     foreach (var user in usersInQualityRep)
                     {
+                        if(user.Email == "qualityrepresentative@outlook.com")
                         emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                     }
-
-                    //await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email quality rep so disable their account.
+                    //hardcode ur own email to test
+                    emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
+                    await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email quality rep so disable their account.
                                                                        //and use your own (create through maintain employee and give urself quality rep role)
                 }
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
@@ -1256,7 +1272,7 @@ namespace Haver_Niagara.Controllers
                 Subject = $"Reminder: #{nCR.FormattedID} has reached your stage!",
                 Content = $"<p>If you need any assistance please contact management.</p>" +
                           $"<p>Please review and fill as soon as possible.</p>" +
-                          $"<p>Thank you!</p>"
+                          $"<p>Thank you! REMIND USERS METHOD</p>"
             };
 
 
@@ -1265,9 +1281,11 @@ namespace Haver_Niagara.Controllers
                 var usersInOperation = await _userManager.GetUsersInRoleAsync("Engineer");
                 foreach (var user in usersInOperation)
                 {
+                    if (user.Email == "engineer@outlook.com")
+                        continue;
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                 }
-
+                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                 await _emailSender.SendToManyAsync(emailMessage);
             }///////////////////////////////////////////////////////////////////////////////////////////////////////
             else if (ncrStage == NCRStage.Operations)
@@ -1275,8 +1293,11 @@ namespace Haver_Niagara.Controllers
                 var usersInEngineer = await _userManager.GetUsersInRoleAsync("Operations");
                 foreach (var user in usersInEngineer)
                 {
+                    if (user.Email == "operations@outlook.com")
+                        continue;
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                 }
+                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                 await _emailSender.SendToManyAsync(emailMessage);
             }//////////////////////////////////////////////////////////////////////////////////////////////////////////
             else if (ncrStage == NCRStage.Procurement) 
@@ -1284,9 +1305,11 @@ namespace Haver_Niagara.Controllers
                 var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
                 foreach (var user in usersInProcurement)
                 {
+                    if (user.Email == "procurement@outlook.com")
+                        continue;
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                 }
-
+                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                 await _emailSender.SendToManyAsync(emailMessage);
             }/////////////////////////////////////////////////////////////////////////////////////////////////////////
             else if (ncrStage == NCRStage.QualityRepresentative_Final) 
@@ -1294,8 +1317,11 @@ namespace Haver_Niagara.Controllers
                 var usersInQualityRepFinal = await _userManager.GetUsersInRoleAsync("Quality Representative");
                 foreach (var user in usersInQualityRepFinal)
                 {
+                    if (user.Email == "qualityrepresentative@outlook.com")
+                        continue;
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                 }
+                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                 await _emailSender.SendToManyAsync(emailMessage);
             }
             
