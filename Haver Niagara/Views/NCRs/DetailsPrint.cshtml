@@ -1,120 +1,120 @@
-﻿@model Haver_Niagara.Models.NCR
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authorization
+
+@model Haver_Niagara.Models.NCR
 
 @{
-    Layout = "~/Views/Shared/_LayoutPdf.cshtml";
-    ViewData["Title"] = @Model.FormattedID;
+	Layout = "~/Views/Shared/_LayoutPdf.cshtml";
+	ViewData["Title"] = @Model.FormattedID;
 }
 
 <!--Import Tailwind CSS Library-->
 <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-      .report {
-        display: flex;
-        width: 100%;
-        margin: 20px auto;
-        border: 1px solid black;
-      }
-
-      .container-row-one,
-      .sidebar {
-        padding: 10px;
-      }
-
-      .container-col-one {
-        flex: 80%;
-      }
-
-      .container-row-one {
-        flex: 100%;
-        display: flex;
-        /* flex-direction: column; */
-      }
-
-      .container-col-two {
-        flex: 20%;
-        display: flex;
-        align-items: center; /* Center logo vertically */
-        justify-content: center; /* Center logo horizontally */
-      }
-
-      .row-one {
-          background-color: grey;
-      }
-
-      .row-one,
-      .row-two {
-        display: flex;
-        width: 100%;
-      }
-
-      .company-name {
-          font-family: 'Arial';
-          font-weight: 600;
-      }
-
-    .document-title {
-        font-family: 'Arial';
-        font-weight: 400;
-    }
-
-      .company-name,
-      .document-title,
-      .document-number,
-      .title,
-      .page-number,
-      .container-col-two {
-        padding: 5px; /* Just for some spacing */
-        border: 1px solid #ddd; /* Just for visualizing the areas */
-      }
-
-      .company-name,
-      .document-title {
-        flex: 1; /* Split space equally */
-        display: flex;
-        justify-content: center;
-      }
-
-      .footer {
-        display: flex;
-      }
-
-      .document-number,
-      .page-number {
-        flex: 20%;
-      }
-
-      .title {
-        flex: 60%; /* Take the majority of the space */
-      }
-
-      .logo {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain; /* Keep aspect ratio */
-        width: 80px;
-      }
-    </style>
+<link rel="stylesheet" type="text/css" href="@Url.Content("wwwroot/css/PdfStyle.css")" />
 
 <h1>NCR# @Model.FormattedID</h1>
 
-<div>
-    <div class="report">
-        <div class="container-row-one">
-            <div class="container-col-one">
-                <div class="row-one">
-                    <div class="company-name">Haver & Boecker Canada</div>
-                    <div class="document-title">Internal Process Document</div>
-                </div>
-                <div class="row-two">
-                    <div class="document-number">Document No.</div>
-                    <div class="title">Non-Conformance Report</div>
-                    <div class="page-number">Page:</div>
-                </div>
-            </div>
-            <div class="container-col-two">
-                <img src="@Url.Content("wwwroot/images/report-logo.png")" alt="Logo" class="logo" />
-            </div>
-        </div>
-    </div>
+<div class="parent">
+
+	<div class="div1">
+	<h1>Haver & Boecker Niagara</h1>
+	</div>
+
+	<div class="div2">
+		<h1>Internal Process Document</h1>
+	</div>
+
+	<div class="div3">
+		<img src="@Url.Content("wwwroot/images/report-logo.png")" alt="Logo" class="logo" />
+	</div>
+
+	<div class="div4"><small>Document No.:</small><br><h2>OPS-00011</h2></div>
+	<div class="div5"><small>Document Title:</small><br><h2>Non-Conforming Report</h2></div>
+	<div class="div6"><small>Page:</small><br><h2>1 of 2</h2></div>
+
+	<div class="div7">1/ Quality Representative</div>
+
+	<div class="div8"><h2>Identify Process Applicable:</h2></div>
+	<div class="div9">
+		@foreach (var qualityIdentify in Enum.GetValues(typeof(QualityIdentify))) //working!
+		{
+			<div class="form-check form-check-inline">
+				<input type="radio" asp-for="QualityInspection.QualityIdentify" disabled class="form-check-input" value="@qualityIdentify" id="@($"qualityIdentify{qualityIdentify}")" />
+				@* <label class="form-check-label" for="@($"qualityIdentify{qualityIdentify}")">@qualityIdentify</label> *@
+				<label class="" for="@($"qualityIdentify{qualityIdentify}")">@((typeof(QualityIdentify).GetMember(qualityIdentify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+			</div>
+		}
+	</div>
+
+	<div class="div10"><h2>Supplier Name:</h2></div>
+	<div class="div11">
+		@Html.DisplayFor(model => model.Supplier.Name)
+	</div>
+
+	<div class="div12"><h2>NCR No.:</h2></div>
+	<div class="div13">
+		@Html.DisplayFor(model => model.FormattedID)
+	</div>
+
+	<div class="div14"><h2>PO or Prod No.:</h2></div>
+	<div class="div15">
+		@Html.DisplayFor(model => model.Part.ProductNumber)
+	</div>
+
+	<div class="div16"><h2>Sales Order No.:</h2></div>
+	<div class="div17">
+		@Html.DisplayFor(model => model.Part.SalesOrder)
+	</div>
+
+	<div class="div18">
+		<span class="title">Description of Item (including SAP No.):</span><br>
+		<span class="value">@Html.DisplayFor(model => model.Part.SAPNumber) - @Html.DisplayFor(model => model.Part.Name)</span>
+	</div>
+
+	<div class="div19">
+		<span class="title">Quantity Received:</span>
+		<span class="value">@Html.DisplayFor(model => model.Part.QuantityRecieved)</span>
+	</div>
+
+	<div class="div20">
+		<span class="title">Quantity Defective:</span>
+		<span class="value">@Html.DisplayFor(model => model.Part.QuantityDefect)</span>
+	</div>
+
+	<div class="div21">
+		<span class="title">Description of Defect:</span> (in as much detail as possible, use page 2 if necessary)<br>
+		@if (Model.Part != null && Model.Part.DefectLists != null)
+		{
+			@foreach (var defectL in Model.Part.DefectLists)
+			{
+				@defectL.Defect.Name;
+			}
+		}
+	</div>
+
+	<div class="div22"><h2>Item marked Nonconforming</h2><br>
+		@Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, true, new { @checked = Model.QualityInspection != null && Model.QualityInspection.ItemMarked, @disabled = "disabled", @class = "me-2" })
+		<label class="me-4">Yes</label>
+
+		@Html.RadioButtonFor(model => model.QualityInspection.ItemMarked, false, new { @checked = Model.QualityInspection != null && !Model.QualityInspection.ItemMarked, @disabled = "disabled", @class = "me-2" })
+		<label>No</label>
+	</div>
+
+	<div class="div23">
+		<small>
+			Completed NCR to be forwarded to HBC Purchasing Manager
+			complete with any relevant documents attached (pictures, actual
+			measurements, material certs, etc.)
+		</small>
+	</div>
+
+	<div class="div24">
+		<span class="title">Quality Representative's Name</span>
+		<span class="value">@Html.DisplayFor(model => model.QualityInspection.Name)</span>
+		<br>
+		<span class="title">Date</span>
+		<span class="value">@Html.DisplayFor(model => model.NCR_Date)</span>
+	</div>
+
 </div>
