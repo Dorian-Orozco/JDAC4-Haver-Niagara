@@ -117,4 +117,61 @@
 		<span class="value">@Html.DisplayFor(model => model.NCR_Date)</span>
 	</div>
 
+	<div class="div25">
+		<span class="title">Review by HBC Engineering</span> (indicate disposition by "checking" one of the following)<br>
+		<span class="value">
+			@foreach (EngineeringDisposition disposition in Enum.GetValues(typeof(EngineeringDisposition)))
+			{
+				<label class="mr-5">
+					<input type="radio" id="@disposition" name="disposition" disabled value="@disposition"
+					@(Model.Engineering?.EngineeringDisposition == disposition ? "checked" : "") />
+					@((typeof(EngineeringDisposition).GetMember(disposition.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)
+				</label>
+			}
+		</span>
+	</div>
+
+	<div class="div26">
+		<span class="title">Does Customer require notification of NCR</span> (If "Yes" then raise message to customer detailing issues)<br>
+		<span class="value">
+			@Html.RadioButtonFor(model => model.Engineering.CustomerNotify, true, new { @checked = Model.Engineering != null && Model.Engineering.CustomerNotify, @disabled = "disabled", @class = "me-2" })
+			<label class="me-4">Yes</label>
+
+			@Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, @disabled = "disabled", @class = "me-2" })
+			<label>No</label>
+		</span>
+	</div>
+
+	<div class="div27">
+		<span class="title">Disposition</span> (Sequence of work steps required when "repair" or "rework" indicated)<br>
+		<span class="value">
+			@Html.DisplayFor(model => model.Engineering.DispositionNotes)
+		</span>
+	</div>
+
+	<div class="div28">
+		<span class="title">Does the drawing require updating?</span>
+		<span class="value">
+			@Html.RadioButtonFor(model => model.Engineering.DrawUpdate, true, new { @checked = Model.Engineering != null && Model.Engineering.DrawUpdate, @disabled = "disabled", @class = "me-2" })
+			<label class="me-4">Yes</label>
+
+			@Html.RadioButtonFor(model => model.Engineering.DrawUpdate, false, new { @checked = Model.Engineering != null && !Model.Engineering.DrawUpdate, @disabled = "disabled", @class = "me-2" })
+			<label>No</label>
+		</span>
+	</div>
+
+	<div class="div29">
+		<span class="title">Original Rev. Number:</span> @Html.DisplayFor(model => model.Engineering.RevisionOriginal)<br>
+		<span class="title">Name of Engineer:</span> @Html.DisplayFor(model => Model.Engineering.Name)
+	</div>
+
+	<div class="div30">
+		<span class="title">Updated Rev. Number:</span> @Html.DisplayFor(model => model.Engineering.RevisionUpdated)<br>
+		<span class="title">Revision Date:</span><br>
+
+		<span class="title">Engineering:</span>&nbsp;
+		<span class="title">Date:</span> 
+	</div>
+
+ 	<div class="div31">2/ Engineering</div>
 </div>

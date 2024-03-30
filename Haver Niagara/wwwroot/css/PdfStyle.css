@@ -27,7 +27,7 @@ h2 {
 .parent {
     display: grid;
     grid-template-columns: 35px 250px 200px 240px 175px 125px;
-    grid-template-rows: 45px 55px repeat(7, 40px) 70px 65px;
+    grid-template-rows: 45px 55px repeat(7, 40px) repeat(6, 65px) 40px;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     border: 2px solid black;
@@ -173,16 +173,76 @@ h2 {
 .div22 {
     grid-area: 10 / 2 / 12 / 4;
     padding: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
 }
 
 .div23 {
     grid-area: 10 / 4 / 11 / 7;
     padding: 10px;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
 }
 
 .div24 {
     grid-area: 11 / 4 / 12 / 7;
     padding: 10px;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.div25 {
+    grid-area: 12 / 2 / 13 / 7;
+    padding: 10px;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.div26 {
+    grid-area: 13 / 2 / 14 / 7;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.div27 {
+    grid-area: 14 / 2 / 16 / 7;
+    padding: 10px;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.div28 {
+    grid-area: 16 / 2 / 17 / 7;
+    padding: 10px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.div29 {
+    grid-area: 17 / 2 / 18 / 4;
+    padding: 10px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.div30 {
+    grid-area: 17 / 4 / 18 / 7;
+    padding: 10px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.div31 {
+    grid-area: 12 / 1 / 18 / 2;
+    border: 1px solid black;
+    padding: 10px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
 }
 
 .logo {
