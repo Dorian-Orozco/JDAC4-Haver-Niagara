@@ -1576,6 +1576,25 @@ namespace Haver_Niagara.Controllers
             return RedirectToAction("List", "Home");
 
         }
+
+        public async Task<IActionResult> UnVoid(int id)
+        {
+            if (_context.NCRs == null)
+            {
+                return Problem("Entity set 'HaverNiagaraDbContext.NCRs'  is null.");
+            }
+            var nCR = await _context.NCRs.FindAsync(id);
+            if (nCR != null)
+            {
+                nCR.IsVoid = false;
+            }
+
+            _context.NCRs.Update(nCR);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ListVoided", "Home");
+
+        }
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
 
         //Create methods that return each SelectList separately and one method to put them all into ViewData
