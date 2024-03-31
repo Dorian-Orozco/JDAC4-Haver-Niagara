@@ -284,6 +284,7 @@ h2 {
 .div35 {
     grid-area: 22 / 4 / 23 / 8;
     padding: 10px;
+    padding-right: 5px;
     border-right: 1px solid black;
 }
 
@@ -390,6 +391,13 @@ h2 {
     text-orientation: mixed;
 }
 
+.insert-space-left {
+    margin-left: 40px;
+}
+
+.insert-space-right {
+    margin-right: 40px;
+}
 
 .logo {
     max-width: 100%;

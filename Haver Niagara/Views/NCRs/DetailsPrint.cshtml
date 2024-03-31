@@ -110,10 +110,10 @@
 	</div>
 
 	<div class="div24">
-		<span class="title">Quality Representative's Name</span>
+		<span class="title">Quality Representative's Name: </span>
 		<span class="value">@Html.DisplayFor(model => model.QualityInspection.Name)</span>
-		<br>
-		<span class="title">Date</span>
+
+		<span class="title insert-space-left">Date:</span>
 		<span class="value">@Html.DisplayFor(model => model.NCR_Date)</span>
 	</div>
 
@@ -151,7 +151,7 @@
 
 	<div class="div28">
 		<span class="title">Does the drawing require updating?</span>
-		<span class="value">
+		<span class="value insert-space-left">
 			@Html.RadioButtonFor(model => model.Engineering.DrawUpdate, true, new { @checked = Model.Engineering != null && Model.Engineering.DrawUpdate, @disabled = "disabled", @class = "me-2" })
 			<label class="me-4">Yes</label>
 
@@ -169,8 +169,8 @@
 		<span class="title">Updated Rev. Number:</span> @Html.DisplayFor(model => model.Engineering.RevisionUpdated)<br>
 		<span class="title">Revision Date:</span><br>
 
-		<span class="title">Engineering:</span>&nbsp;
-		<span class="title">Date:</span>
+		<span class="title">Engineering:</span>
+		<span class="title insert-space-left">Date:</span>
 	</div>
 
 	<div class="div31">2/ Engineering</div>
@@ -197,26 +197,29 @@
 	</div>
 
 	<div class="div33">
-		<span class="title">Was a CAR raised?</span>(if "Yes" indicate CAR #)
-		@Html.RadioButtonFor(model => model.Operation.OperationCar, true, new { @checked = Model.Operation != null && Model.Operation.OperationCar, @disabled = "disabled", @class = "me-2" })
-		<label class="me-4">Yes</label>
+		<span class="title">Was a CAR raised?</span> (if "Yes" indicate CAR #)
+		<span class="value insert-space-left">
+			@Html.RadioButtonFor(model => model.Operation.OperationCar, true, new { @checked = Model.Operation != null && Model.Operation.OperationCar, @disabled = "disabled", @class = "me-2" })
+			<label class="me-4">Yes</label>
 
-		@Html.RadioButtonFor(model => model.Operation.OperationCar, false, new { @checked = Model.Operation != null && !Model.Operation.OperationCar, @disabled = "disabled", @class = "me-2" })
-		<label>No</label>
+			@Html.RadioButtonFor(model => model.Operation.OperationCar, false, new { @checked = Model.Operation != null && !Model.Operation.OperationCar, @disabled = "disabled", @class = "me-2" })
+			<label>No</label>
+		</span>
 	</div>
 
 	<div class="div34">
-		<span class="title">Follow-up Required?</span>(if "Yes" indicate type & expected date)
-		@Html.RadioButtonFor(model => model.Operation.OperationFollowUp, true, new { @checked = Model.Operation != null && Model.Operation.OperationFollowUp, @disabled = "disabled", @class = "me-2" })
-		<label class="me-4">Yes</label>
-
-		@Html.RadioButtonFor(model => model.Operation.OperationFollowUp, false, new { @checked = Model.Operation != null && !Model.Operation.OperationFollowUp, @disabled = "disabled", @class = "me-2" })
-		<label>No</label>
+		<span class="title">Follow-up Required?</span> (if "Yes" indicate type & expected date)
+		<span class="value insert-space-left">
+			@Html.RadioButtonFor(model => model.Operation.OperationFollowUp, true, new { @checked = Model.Operation != null && Model.Operation.OperationFollowUp, @disabled = "disabled", @class = "me-2" })
+			<label class="me-4">Yes</label>
+			@Html.RadioButtonFor(model => model.Operation.OperationFollowUp, false, new { @checked = Model.Operation != null && !Model.Operation.OperationFollowUp, @disabled = "disabled", @class = "me-2" })
+			<label>No</label>
+		</span>
 	</div>
 
 	<div class="div35">
 		<span class="title">Operations Manager:</span> @Html.DisplayFor(model => model.Operation.Name)
-		<span class="title">Date:</span>
+		<span class="title insert-space-left">Date:</span>
 		@{
 			var OperationDate = Model.Operation != null ? Model.Operation.OperationDate.ToString("yyyy-MM-dd") : "Date Not Specified";
 		}
@@ -226,12 +229,12 @@
 	<div class="div36">3/ Purchasing</div>
 
 	<div class="div37">
-		<span class="title">Re-Inspected Acceptable?</span>(if "No" then record new NCR number)
-		@Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, true, new { @checked = Model.QualityInspectionFinal != null && Model.QualityInspectionFinal.ReInspected, @disabled = "disabled", @class = "me-2" })
-		<label class="me-4">Yes</label>
-
-		@Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, false, new { @checked = Model.QualityInspectionFinal != null && !Model.QualityInspectionFinal.ReInspected, @disabled = "disabled", @class = "me-2" })
-		<label>No</label>
+		<span class="title">Re-Inspected Acceptable?</span> (if "No" then record new NCR number)
+		<span class="value insert-space-left">
+			@Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, true, new { @checked = Model.QualityInspectionFinal != null && Model.QualityInspectionFinal.ReInspected, @disabled = "disabled", @class = "me-2" })
+			<label class="me-4">Yes</label>@Html.RadioButtonFor(model => model.QualityInspectionFinal.ReInspected, false, new { @checked = Model.QualityInspectionFinal != null && !Model.QualityInspectionFinal.ReInspected, @disabled = "disabled", @class = "me-2" })
+			<label>No</label>
+		</span>
 	</div>
 
 	<div class="div38">
@@ -284,12 +287,12 @@
 	<div class="div39">
 		<span class="title">Inspector's Name:</span>
 		<span class="value">@Html.DisplayFor(model => model.QualityInspectionFinal.InspectorName)</span>
-		<span class="title">Date:</span>
+		<span class="title insert-space-left">Date:</span>
 		<span class="value">@Html.DisplayFor(model => model.QualityInspectionFinal.InspectorDate)</span>
 	</div>
 
 	<div class="div40">
-		<span class="title">NCR Still Active?</span>
+		<span class="title insert-space-right">NCR Still Active?</span>
 		@Html.RadioButtonFor(model => model.NCR_Status, true, new { @checked = Model != null && Model.NCR_Status, @disabled = "disabled", @class = "me-2" })
 		<label class="me-4">Yes</label>
 	</div>
@@ -298,7 +301,7 @@
 		<span class="title">Quality Department:</span>
 		<span class="value"> @Html.DisplayFor(model => model.QualityInspectionFinal.Department)</span>
 
-		<span class="title">Date:</span>
+		<span class="title insert-space-left">Date:</span>
 		<span class="value"> @Html.DisplayFor(model => model.QualityInspectionFinal.DepartmentDate)</span>
 	</div>
 
@@ -420,7 +423,7 @@
 	<div class="div39">
 		<span class="title">Inspector's Name:</span>
 		<span class="value">@Html.DisplayFor(model => model.QualityInspectionFinal.InspectorName)</span>
-		<span class="title">Date:</span>
+		<span class="title insert-space-left">Date:</span>
 		<span class="value">@Html.DisplayFor(model => model.QualityInspectionFinal.InspectorDate)</span>
 	</div>
 
