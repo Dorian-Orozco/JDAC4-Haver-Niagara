@@ -246,7 +246,7 @@ namespace Haver_Niagara.Controllers
                     Subject = $"New NCR Has Been Created #{nCR.FormattedID}!",
                     Content = $"<p>Dear Engineers,</p>" +
                               $"<p>A new Non-Conformance Report (NCR) has been created.</p>" +
-                              $"<p>Please review and fill out your part of the form.</p>"+
+                              $"<p>Please review and fill out your part of the form.</p>" +
                               $"<p>Thank you!</p>"
                 };
                 foreach (var user in usersInEngineering)
@@ -315,8 +315,8 @@ namespace Haver_Niagara.Controllers
 
             var ncrRetrieveStage = _context.NCRs
                 .FirstOrDefaultAsync(n => n.ID == id);
-            
-           
+
+
 
             if (ModelState.IsValid)
             {
@@ -883,7 +883,7 @@ namespace Haver_Niagara.Controllers
                     }
                     if (ncrStageCheck.NCR_Stage != NCRStage.Engineering) //if the ncr stage is not equal to engineering meaning its from a later stage (operations, procurement, final..)
                         existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
-                    
+
                     if (existingNCR.OldNCRID != null)
                         existingNCR.OldNCRID = nCR.ID;
 
@@ -935,7 +935,7 @@ namespace Haver_Niagara.Controllers
                     {
                         if (user.Email == "operations@outlook.com")
                         {
-                            continue; 
+                            continue;
                         }
                         emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                     }
@@ -949,7 +949,7 @@ namespace Haver_Niagara.Controllers
             }
             return View(nCR);
         }
-    
+
 
 
         ///Operations Edut : GET
@@ -1097,7 +1097,7 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-   
+
                 if (sendEmailYesNo)
                 {
                     var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
@@ -1111,7 +1111,7 @@ namespace Haver_Niagara.Controllers
                     };
                     foreach (var user in usersInProcurement)
                     {
-                        if(user.Email == "procurement@outlook.com")
+                        if (user.Email == "procurement@outlook.com")
                         {
                             continue;
                         }
@@ -1143,7 +1143,7 @@ namespace Haver_Niagara.Controllers
 
             //If the NCR has not finished the previous stage (operation)
             //deny them from editing 
-            if((int)nCR.NCR_Stage < (int)NCRStage.Procurement)
+            if ((int)nCR.NCR_Stage < (int)NCRStage.Procurement)
             {
 
                 TempData["ErrorMessage"] = "You cannot edit this NCR because it is not at the procurement stage.";
@@ -1153,7 +1153,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -1187,7 +1187,7 @@ namespace Haver_Niagara.Controllers
 
                     //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
                     if (ncrStageCheck.NCR_Stage == NCRStage.Procurement)//this would mean that the NCR stage should be sent to the next enum (quality final)
-                    {                                       
+                    {
                         existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
                         sendEmailYesNo = true;
                     }
@@ -1256,8 +1256,8 @@ namespace Haver_Niagara.Controllers
                     };
                     foreach (var user in usersInQualityRep)
                     {
-                        if(user.Email == "qualityrepresentative@outlook.com")
-                        emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                        if (user.Email == "qualityrepresentative@outlook.com")
+                            emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                     }
                     //hardcode ur own email to test
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
@@ -1270,8 +1270,10 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
 
         }
+        #region individual details views
 
-        // GET: NCRs/Details/5
+        // GET: NCRs/QualityRepDetails/5
+        //When Engineer presses edit, they can go back to view previous section which would be this view
         public async Task<IActionResult> QualityRepDetails(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -1312,8 +1314,139 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+        // GET: NCRs/EngineerDetails/5
+        //When Operations presses edit, they can go back to view previous section which would be this view
+        public async Task<IActionResult> EngineerDetails(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.Engineering)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Medias)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.DefectLists)
+                    .ThenInclude(n => n.Defect)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.FollowUp)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.CAR)
+                    .Include(n => n.Procurement)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
+            {
+                ViewBag.NewNCRID = nCR.NewNCRID;
+            }
+
+            if (nCR == null)
+            {
+                return NotFound();
+            }
+            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
+
+            return View(nCR);
+        }
+
+        // GET: NCRs/OperationsDetilas/5
+        //When Procurement presses edit, they can go back to view previous section which would be this view
+        public async Task<IActionResult> OperationsDetails(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.Engineering)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Medias)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.DefectLists)
+                    .ThenInclude(n => n.Defect)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.FollowUp)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.CAR)
+                    .Include(n => n.Procurement)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
+            {
+                ViewBag.NewNCRID = nCR.NewNCRID;
+            }
+
+            if (nCR == null)
+            {
+                return NotFound();
+            }
+            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
+
+            return View(nCR);
+        }
+
+        // GET: NCRs/ProcurementDetails/5
+        //When Quality Rep presses edit, they can go back to view previous section which would be this view
+        public async Task<IActionResult> ProcurementDetails(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.Engineering)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Medias)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.DefectLists)
+                    .ThenInclude(n => n.Defect)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.FollowUp)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.CAR)
+                    .Include(n => n.Procurement)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
+            {
+                ViewBag.NewNCRID = nCR.NewNCRID;
+            }
+
+            if (nCR == null)
+            {
+                return NotFound();
+            }
+            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
+
+            return View(nCR);
+        }
+
+
+
+        #endregion
+
+
         //Email button on the details page uses this 
-        public async Task RemindUsers (int id)
+        public async Task RemindUsers(int id)
         {
             var nCR = await _context.NCRs.FindAsync(id);
             var ncrStage = nCR.NCR_Stage;
@@ -1340,7 +1473,7 @@ namespace Haver_Niagara.Controllers
                 await _emailSender.SendToManyAsync(emailMessage);
             }///////////////////////////////////////////////////////////////////////////////////////////////////////
             else if (ncrStage == NCRStage.Operations)
-            { 
+            {
                 var usersInEngineer = await _userManager.GetUsersInRoleAsync("Operations");
                 foreach (var user in usersInEngineer)
                 {
@@ -1351,8 +1484,8 @@ namespace Haver_Niagara.Controllers
                 emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                 await _emailSender.SendToManyAsync(emailMessage);
             }//////////////////////////////////////////////////////////////////////////////////////////////////////////
-            else if (ncrStage == NCRStage.Procurement) 
-            { 
+            else if (ncrStage == NCRStage.Procurement)
+            {
                 var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
                 foreach (var user in usersInProcurement)
                 {
@@ -1363,7 +1496,7 @@ namespace Haver_Niagara.Controllers
                 emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                 await _emailSender.SendToManyAsync(emailMessage);
             }/////////////////////////////////////////////////////////////////////////////////////////////////////////
-            else if (ncrStage == NCRStage.QualityRepresentative_Final) 
+            else if (ncrStage == NCRStage.QualityRepresentative_Final)
             {//return procurement quality rep employees
                 var usersInQualityRepFinal = await _userManager.GetUsersInRoleAsync("Quality Representative");
                 foreach (var user in usersInQualityRepFinal)
@@ -1375,14 +1508,14 @@ namespace Haver_Niagara.Controllers
                 emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                 await _emailSender.SendToManyAsync(emailMessage);
             }
-            
+
 
 
         }
 
 
-            // GET: NCRs/Delete/5
-            public async Task<IActionResult> Delete(int? id)
+        // GET: NCRs/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.NCRs == null)
             {
@@ -1434,14 +1567,14 @@ namespace Haver_Niagara.Controllers
             var nCR = await _context.NCRs.FindAsync(id);
             if (nCR != null)
             {
-                nCR.IsVoid =true;
+                nCR.IsVoid = true;
             }
 
             _context.NCRs.Update(nCR);
 
             await _context.SaveChangesAsync();
             return RedirectToAction("List", "Home");
-            
+
         }
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
 
@@ -1467,7 +1600,7 @@ namespace Haver_Niagara.Controllers
             ViewData["SupplierID"] = SupplierSelectList(ncr?.NCRSupplierID);
 
             //check to see if it exists 
-            if(ncr.Part != null && ncr.Part.DefectLists != null)
+            if (ncr.Part != null && ncr.Part.DefectLists != null)
             {
                 var defectID = ncr.Part.DefectLists.Select(dl => dl.DefectID);
 
