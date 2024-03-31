@@ -207,14 +207,19 @@
         }
     </div>
 
-
-
+    <!--action buttons-->
     <div class="d-flex justify-content-between mt-3">
         <div class="mt-2">
             <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
         </div>
-        <div class="mt-2">
-            <input type="submit" value="Save Report" class="btn btn-primary" />
+        <div class="justify-content-end">
+            <span class="mt-2">
+                <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+            </span>
+            <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
+            <span class="mt-2 ms-2">
+                <a id="complete-button" asp-controller="Home" asp-action="List" class="btn btn-primary">Mark as completed</a>
+            </span>
         </div>
     </div>
 </form>

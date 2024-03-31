@@ -183,7 +183,6 @@ namespace Haver_Niagara.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Create(int? oldNCRID, [Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID,NCRSupplierID")]
                 NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
@@ -266,9 +265,6 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-
-
-
         // GET: NCRs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -296,7 +292,6 @@ namespace Haver_Niagara.Controllers
             ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "Name");
             return View(nCR);
         }
-
 
         // POST: NCRs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -613,14 +608,13 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-
-
         //Stage system, retrieve the part of the ncr that is being edited, use the ncr id and see if there is data filled out after their section NOT BEFORe
         //because if you create an NCR thats automatically the quality rep stage but once you submit the form it turns into Engineering.
         //So what if someone goes back to change that NCR quality rep info if engineering data already exists? It will overwrite the stage and mess things up
         //So Retrieve the NCR, look for associated objects (engineering table, procurement, etc) if engineering exists, stage = procurement, if procurement exists, stage = qual rep final 
         //if qual rep exists and ncr close selected then stage = complete.
 
+        #region individual edit views
 
         ///Quality Representative Edit : GET
         public async Task<IActionResult> QualityRepresentativeEdit(int? id)
@@ -811,9 +805,6 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-
-
-
         ///Engineering Edit : GET
         public async Task<IActionResult> EngineeringEdit(int? id)
         {
@@ -949,10 +940,7 @@ namespace Haver_Niagara.Controllers
             }
             return View(nCR);
         }
-
-
-
-        ///Operations Edut : GET
+        ///Operations Edit : GET
         public async Task<IActionResult> OperationEdit(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -975,6 +963,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+        //Operations Edit : POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OperationEdit(int id, [Bind("OldNCRID")] NCR nCR, Operation operation) //didnt use followup/car objects because they can be null so just did it in code 
@@ -1128,7 +1117,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-
+        //Procurement Edit : GET
         public async Task<IActionResult> ProcurementEdit(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -1153,8 +1142,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-
-
+        //Procurement Edit : POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProcurementEdit(int id, [Bind("OldNCRID")] NCR nCR, Procurement procurement)
@@ -1270,6 +1258,9 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
 
         }
+
+        #endregion
+
         #region individual details views
 
         // GET: NCRs/QualityRepDetails/5
@@ -1440,10 +1431,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-
-
         #endregion
-
 
         //Email button on the details page uses this 
         public async Task RemindUsers(int id)

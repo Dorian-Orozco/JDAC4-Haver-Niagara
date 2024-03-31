@@ -13,6 +13,7 @@ namespace Haver_Niagara.Models
         public int ID { get; set; } //PK
 
         [Display(Name = "Return rejected items to supplier")]
+        [Required(ErrorMessage = "Please select one")]
         public bool ReturnRejected { get; set; } //Return rejected items to supplier?
 
         //if ReturnRejected = true (yes)
@@ -31,7 +32,7 @@ namespace Haver_Niagara.Models
         [Display(Name = "Dispose on site")] 
         public bool? DisposeOnSite {  get; set; } //if ReturnRejected = false (no)
 
-        [Display(Name = "When will replacement/reworked item be received/returned?")]
+        [Display(Name = "When will replacement/ reworked item be received/returned?")]
         [Required(ErrorMessage = "Date is Required")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
