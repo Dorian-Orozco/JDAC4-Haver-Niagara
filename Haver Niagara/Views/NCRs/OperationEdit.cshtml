@@ -141,11 +141,11 @@
                                             <label asp-for="Operation.OperationFollowUp" class="control-label"></label><br />
                                             <div class="d-flex">
                                                 @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, true, new { @checked = Model.Operation != null && Model.Operation.OperationFollowUp, @class = "me-2" })
-                                                <label class="me-4">Yes</label>
+                                                <label class="me-4" for="operationFollowUpYes">Yes</label>
 
                                                 @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, false, new { @checked = Model.Operation != null && !Model.Operation.OperationFollowUp, @class = "me-2" })
-                                                <label>No</label>
-                                                <span asp-validation-for="Operation.OperationFollowUp" class="text-danger"></span>
+                                                <label for="operationFollowUpYes">No</label>
+                                                <span id="operationFollowUpError" class="text-danger"></span>
                                             </div>
                                         </span>
                                     </div>
@@ -219,6 +219,18 @@
    
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" ></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#myForm').submit(function (event) {
+                // Check if either "Yes" or "No" is selected
+                if (!$('input[name="Operation.OperationFollowUp"]').is(':checked')) {
+                    // Display an error message
+                    $('#operationFollowUpError').text('Please select either "Yes" or "No" for Operation Follow-Up.');
+                    // Prevent form submission
+                    event.preventDefault();
+                }
+            });
+        });
     <script>
         document.getElementById("cancel-button").addEventListener("click", function (event) {
             if (!confirm("Are you sure you want to cancel?")) {

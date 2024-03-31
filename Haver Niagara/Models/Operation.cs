@@ -19,21 +19,19 @@ namespace Haver_Niagara.Models
         [Display(Name = "Operation Date")]
         public DateTime OperationDate { get; set; }
 
-        [Required(ErrorMessage = "Preliminary Decision Required")]
         [Display(Name = "Operation Decision")]
+
+        [Required(ErrorMessage = "Preliminary Decision Required")]
         public OperationDecision OperationDecision { get; set; }
 
         [Display(Name = "Operation Notes")]
         public string OperationNotes { get; set; }
 
-        //For Radio Buttons T/F 
-        //[Range(typeof(bool), "true", "true", ErrorMessage = "Select if Car was Raised")]
         [Required(ErrorMessage = "Select if Car was Raised")]
         [Display(Name = "Car Raised?")]
         public bool OperationCar { get; set; }
 
         //For Radio Buttons T/F 
-        //[Range(typeof(bool), "true", "true", ErrorMessage = "Select if Follow-Up is Required")]
         [Required(ErrorMessage = "Select if Follow-Up is Required")]
         [Display(Name = "Follow-Up Required?")]
         public bool OperationFollowUp { get; set; }
@@ -87,7 +85,7 @@ namespace Haver_Niagara.Models
             {
                 yield return new ValidationResult("Date Cannot be in The Future", new[] { "OperationDate"});
             }
-            if(OperationCar && CAR != null) //if true then look for values if none throw err
+            if(OperationCar) //if true then look for values if none throw err
             {
                 if (CAR.CARNumber == null)
                     yield return new ValidationResult("Car Number Cannot Be Empty", new[] { "CAR.CARNumber" });
