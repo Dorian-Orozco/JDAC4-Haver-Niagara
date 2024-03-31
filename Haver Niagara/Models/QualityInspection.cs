@@ -51,6 +51,7 @@ namespace Haver_Niagara.Models
         }
     }
 
+    //Final Section (Different Class)
     public class QualityInspectionFinal : IValidatableObject
     {
         //Auto generating ID /Key
@@ -58,28 +59,31 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Display(Name = "Re-Inspected?")]
+        [Display(Name = "Re-Inspected?")] //Re-inspected Acceptable?
+        [Required(ErrorMessage = "Please select one")]
         public bool ReInspected { get; set; }
 
-        [Display(Name = "Inspector's Name")]
-        //[Required(ErrorMessage = "Inspector Name Required")] //added
+        [Display(Name = "Inspector's Name")] //Name
+        [Required(ErrorMessage = "Please enter a name")]
         public string InspectorName { get; set; }
 
-        [Display(Name = "Inspected Date")]
+        [Display(Name = "Inspected Date")] //Date
         [Required(ErrorMessage = "Date is Required")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InspectorDate { get; set; }
 
-        [Display(Name = "Quality Department")]
-        //[Required(ErrorMessage = "Quality Department Required")] //added
+        [Display(Name = "Quality Department")] //Department
+        [Required(ErrorMessage = "Please enter department")] 
         public string Department { get; set; }
 
-        [Display(Name = "Department Date")]
+        [Display(Name = "Department Date")] //Department Date
         [Required(ErrorMessage = "Date is Required")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DepartmentDate { get; set; }
+
+        //Keep NCR Open = NCR_Status property in NCR class
 
         public QualityInspectionFinal() //default dates and re-inspect acceptable
         {

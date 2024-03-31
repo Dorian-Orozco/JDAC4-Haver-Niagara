@@ -22,11 +22,6 @@
         font-size: 100px;
         font-weight: 600;
     }
-    /*
-                            .form-control {
-                                border-color: #FF0000;
-                                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
-                            } */
 
     .bootstrap-select .btn {
         color: #333 !important; /* Choose a darker color as needed */
@@ -46,9 +41,9 @@
         <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
     </div>
     <div class="d-flex">
-        @if ((ViewBag.SelectedStatus == null) || (ViewBag.SelectedStatus == true))
+        <!--print ncr log button-->
+  @*       @if ((ViewBag.SelectedStatus == null) || (ViewBag.SelectedStatus == true))
         {
-            @* print ncr log button *@
             <div class="me-3">
                 @using (Html.BeginForm("LogPdf", "Home", FormMethod.Post, new { @class = "form-class" }))
                 {
@@ -59,7 +54,7 @@
                     </button>
                 }
             </div>
-        }
+        } *@
         <div>
             @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
             {
@@ -350,6 +345,12 @@
                                                 <ion-icon name="eye"></ion-icon>
                                             </a>
                                         }
+                                        if (User.IsInRole("Quality Representative"))
+                                        {
+                                            <a href="@Url.Action("QualityRepDetailsFinal", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                                <ion-icon name="eye"></ion-icon>
+                                            </a>
+                                        }
                                         else if (User.IsInRole("Admin"))
                                         {
                                             <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
@@ -423,7 +424,7 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <a asp-controller="Home" asp-action="ListArchive" class="btn archive-btn">Archive <ion-icon name="archive" class="archive-btn-icon ms-1"></ion-icon></a>
+        <a asp-controller="Home" asp-action="ListArchive" class="btn archive-btn">Archived <ion-icon name="archive" class="archive-btn-icon ms-1"></ion-icon></a>
     </div>
 
 
