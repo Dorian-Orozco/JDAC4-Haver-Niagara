@@ -307,7 +307,6 @@
                                     @(Model.Engineering?.EngineeringDisposition == disposition ? "checked" : "") />
                                     @* <label for="@disposition">@disposition</label><br /> *@
                                     <label for="@disposition">@((typeof(EngineeringDisposition).GetMember(disposition.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
-
                                 </span>
                             }
                         </div>
