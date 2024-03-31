@@ -868,6 +868,25 @@ namespace Haver_Niagara.Data
                     },
                     new Media
                     {
+                        ID = 14,
+                        Content = tube,
+                        Description = "Poor tube finish",
+                        MimeType = "image/jpg",
+                        Links = "https://example.com/9poorTubeFinish_video",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 9)
+                    },
+                    new Media
+                    {
+                        ID = 15,
+                        Content = bluePrint1,
+                        Description = "blue print",
+                        MimeType = "image/jpg",
+                        Links = "https://example.com/9poorTubeFinish_video",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 10)
+                    },
+
+                    new Media
+                    {
                         ID = 10,
                         Content = tube,
                         Description = "Poor Finish",
