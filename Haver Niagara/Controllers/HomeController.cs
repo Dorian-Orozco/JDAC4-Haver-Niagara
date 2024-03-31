@@ -476,10 +476,7 @@ namespace Haver_Niagara.Controllers
             return View(pagedNCRs);
         }
 
-        
         /// NCR VOIDED LOG 
-       
-
         public IActionResult ListVoided(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter, NCRStage? ncrStage)
         {
             ViewBag.FormattedIDSortParam = sortOrder == "FormattedID_Asc" ? "FormattedID_Desc" : "FormattedID_Asc";
@@ -749,7 +746,6 @@ namespace Haver_Niagara.Controllers
         //{
         //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         //}
-
         private string GetDisplayName(Enum enumValue)
         {
             return enumValue.GetType()
