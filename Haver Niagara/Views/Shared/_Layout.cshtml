@@ -53,22 +53,21 @@
                                 <li class="nav-item pb-1">
                                     <a class="nav-link text-white" asp-area="" asp-controller="Lookup" asp-action="Index">Maintain Lookup Values</a>
                                 </li>
+                                <li class="nav-item border-top border-secondary pt-1">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ListArchive">Archived Reports</a>
+                                </li>
                                 @{
                                     if (User.IsInRole("Admin"))
                                     {
+                                        <li class="nav-item border-top border-secondary pt-1">
+                                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ListVoided">Voided Reports</a>
+                                        </li>
                                         <li class="nav-item border-top border-secondary pt-1">
                                             <a class="nav-link text-white" asp-area="" asp-controller="Employee" asp-action="Index">Maintain Employees</a>
                                         </li>
                                     }
                                 }
-                                @{
-                                    if (User.IsInRole("Admin"))
-                                    {
-                                        <li class="nav-item border-top border-secondary pt-1">
-                                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ListVoided">View Voided NCR</a>
-                                        </li>
-                                    }
-                                }
+                    
                             </ul>
                         </li>
                         <!--TESTING PURPOSES-->

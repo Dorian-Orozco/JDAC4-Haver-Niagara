@@ -171,11 +171,12 @@ a {
     color: white;
 }
 
-.archive-btn:hover {
-    background: white;
-    color: #b51963;
-    border-color: #b51963;
-}
+    .archive-btn:hover {
+        background: #970045;
+        color: white;
+        /*    color: #b51963;
+    border-color: #b51963;*/
+    }
 
 .btn-back{
     border: none;
