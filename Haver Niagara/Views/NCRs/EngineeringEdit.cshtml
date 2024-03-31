@@ -48,14 +48,6 @@
     <a asp-action="QualityRepDetails" asp-route-id="@Model?.ID" class="btn-forward" title="previous section">
         <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
     </a>
- @*    <button onclick="window.history.back();" class="btn-forward" title="Go Back">
-        <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
-    </button> *@
-</div>
-
-@* <a asp-action="QualityRepDetails" asp-route-id="@Model?.ID" class="btn-forward">
-    <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
-    </a> *@
 
 <form class="" asp-action="EngineeringEdit" id="myForm" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>

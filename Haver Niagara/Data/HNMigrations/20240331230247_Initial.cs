@@ -55,8 +55,8 @@ namespace Haver_Niagara.Data.HNMigrations
                     CustomerNotify = table.Column<bool>(type: "INTEGER", nullable: false),
                     DrawUpdate = table.Column<bool>(type: "INTEGER", nullable: false),
                     DispositionNotes = table.Column<string>(type: "TEXT", nullable: true),
-                    RevisionOriginal = table.Column<int>(type: "INTEGER", nullable: false),
-                    RevisionUpdated = table.Column<int>(type: "INTEGER", nullable: false),
+                    RevisionOriginal = table.Column<int>(type: "INTEGER", nullable: true),
+                    RevisionUpdated = table.Column<int>(type: "INTEGER", nullable: true),
                     RevisionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EngineeringDisposition = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -112,9 +112,9 @@ namespace Haver_Niagara.Data.HNMigrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ReInspected = table.Column<bool>(type: "INTEGER", nullable: false),
-                    InspectorName = table.Column<string>(type: "TEXT", nullable: true),
+                    InspectorName = table.Column<string>(type: "TEXT", nullable: false),
                     InspectorDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Department = table.Column<string>(type: "TEXT", nullable: true),
+                    Department = table.Column<string>(type: "TEXT", nullable: false),
                     DepartmentDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -238,7 +238,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     SAPNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     PurchaseNumber = table.Column<long>(type: "INTEGER", nullable: false),
                     SalesOrder = table.Column<string>(type: "TEXT", nullable: true),
-                    ProductNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductNumber = table.Column<long>(type: "INTEGER", nullable: false),
                     QuantityRecieved = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityDefect = table.Column<int>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
@@ -333,6 +333,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     NewNCRID = table.Column<int>(type: "INTEGER", nullable: true),
                     OldNCRID = table.Column<int>(type: "INTEGER", nullable: true),
                     IsArchived = table.Column<bool>(type: "INTEGER", nullable: true),
+                    IsVoid = table.Column<bool>(type: "INTEGER", nullable: true),
                     NCR_Stage = table.Column<int>(type: "INTEGER", nullable: false),
                     NCRSupplierID = table.Column<int>(type: "INTEGER", nullable: false),
                     PartID = table.Column<int>(type: "INTEGER", nullable: true),

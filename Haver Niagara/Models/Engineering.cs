@@ -27,7 +27,7 @@ namespace Haver_Niagara.Models
         public bool DrawUpdate { get; set; }
 
         [Display(Name = "Disposition Sequence")] //Disposition Notes
-        public string DispositionNotes { get; set; }
+        public string? DispositionNotes { get; set; }
 
         //not required
         [Display(Name = "Original Revision Number")] //Original Revision Number

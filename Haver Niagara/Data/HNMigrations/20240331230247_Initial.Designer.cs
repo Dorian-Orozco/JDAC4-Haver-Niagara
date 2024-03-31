@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Haver_Niagara.Data.HNMigrations
 {
     [DbContext(typeof(HaverNiagaraDbContext))]
-    [Migration("20240330045926_Initial")]
+    [Migration("20240331230247_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -150,10 +150,10 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<DateTime>("RevisionDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("RevisionOriginal")
+                    b.Property<int?>("RevisionOriginal")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RevisionUpdated")
+                    b.Property<int?>("RevisionUpdated")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
@@ -239,6 +239,9 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool?>("IsArchived")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsVoid")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("NCRSupplierID")
@@ -346,7 +349,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int>("PartNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ProductNumber")
+                    b.Property<long>("ProductNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("PurchaseNumber")
@@ -446,6 +449,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Department")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DepartmentDate")
@@ -455,6 +459,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("InspectorName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("ReInspected")
@@ -691,7 +696,8 @@ namespace Haver_Niagara.Data.HNMigrations
 
             modelBuilder.Entity("Haver_Niagara.Models.Procurement", b =>
                 {
-                    b.Navigation("NCR");
+                    b.Navigation("NCR")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.QualityInspection", b =>
