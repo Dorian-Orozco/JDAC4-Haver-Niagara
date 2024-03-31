@@ -19,7 +19,7 @@ namespace Haver_Niagara.Models
         public int PartNumber { get; set; }
 
         [Display(Name = "SAP")] //SAME AS PART NUMBER?
-        [Required(ErrorMessage = "Please enter a sap number")]
+        [Required(ErrorMessage = "Please enter a number")]
         public int SAPNumber { get; set; }
 
         [Display(Name = "PO")]
@@ -31,20 +31,20 @@ namespace Haver_Niagara.Models
         public string SalesOrder { get; set; }
 
         [Display(Name = "PO or Prod No.")] //required PO or Prod No.
-        [Required(ErrorMessage = "Please enter a product number")]
+        [Required(ErrorMessage = "Please enter a number")]
         public long ProductNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter a number")]
         [Display(Name = "Quantity Received")]
         public int QuantityRecieved { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter a number")]
         [Display(Name = "Quantity Defective")]
         public int QuantityDefect { get; set; }
 
 
         [Display(Name = "Description of Item")]
-        [Required(ErrorMessage = "Please Enter Item Description")]
+        //[Required(ErrorMessage = "Please enter a description")]
         public string Description { get; set; }
 
         //navigation property for supplier

@@ -4,8 +4,16 @@
 @{
     ViewData["Title"] = "Create";
 }
-<partial name="_addDefectModal" />
-<partial name="_addSupplierModal" />
+
+<style>
+    .defectError {
+        color: red;
+    }
+</style>
+
+<!-- Bootstrap-select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
 @* h1 *@
 <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
     <dl class="d-flex">
@@ -30,6 +38,8 @@
     </dl>
 </div>
 
+<partial name="_addDefectModal" />
+<partial name="_addSupplierModal" />
 <form class="" id="myForm" asp-action="Create" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     @*     <input type="hidden" asp-for="ID" /> *@
@@ -53,8 +63,8 @@
                                     <label class="" for="@($"qualityIdentify{qualityIdentify}")">@((typeof(QualityIdentify).GetMember(qualityIdentify.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
                                 </div>
                             }
-                            <span asp-validation-for="QualityInspection.QualityIdentify" class="text-danger"></span>
                         </div>
+                            <span asp-validation-for="QualityInspection.QualityIdentify" class="text-danger"></span>
 
                     </dd>
                 </dl>
@@ -65,10 +75,10 @@
                     <dd>
                         <div class="form-group mt-1">
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
+                                <span class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" id="nowAddSupplier" data-bs-toggle="modal" data-bs-target="#addSupplierModal" type="button">&#x2795;</button>
-                                </div>
-                                <select asp-for="NCRSupplierID" class="form-control" name="NCRSupplierID" asp-items="ViewBag.SupplierID">
+                                </span>
+                                <select asp-for="NCRSupplierID" name="NCRSupplierID" asp-items="ViewBag.SupplierID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
                                     <option value="">Select Supplier</option>
                                 </select>
                             </div>
@@ -82,16 +92,16 @@
                     <dl class="d-flex mb-2">
                     </dl>
                 </div>
-          @*       <div class="row">
-                    <dl class="d-flex m-0">
-                        <dt class="col-sm-5 ">
-                            PO No. <span class="text-danger">*</span>
-                        </dt>
-                        <dd class="col-sm-7 ">
-                            <input asp-for="Part.PurchaseNumber" class="form-control" />
-                            <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
-                        </dd>
-                    </dl>
+                @*       <div class="row">
+                <dl class="d-flex m-0">
+                <dt class="col-sm-5 ">
+                PO No. <span class="text-danger">*</span>
+                </dt>
+                <dd class="col-sm-7 ">
+                <input asp-for="Part.PurchaseNumber" class="form-control" />
+                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
+                </dd>
+                </dl>
                 </div> *@
                 <div class="row">
                     <dl class="d-flex m-0">
@@ -112,7 +122,7 @@
                             Sales Order No.
                         </dt>
                         <dd class="col-sm-7">
-                            <input asp-for="Part.SalesOrder" class="form-control" />
+                            <input asp-for="Part.SalesOrder" class="form-control" placeholder="E.g. Stock" />
                             <span asp-validation-for="Part.SalesOrder" class="text-danger"></span>
                         </dd>
                     </dl>
@@ -131,17 +141,17 @@
                     <dd class="mt-1">
                         <div class="form-group">
                             <label asp-for="Part.SAPNumber" class="control-label"></label><span class="text-danger"> *</span>
-                            <input asp-for="Part.SAPNumber" class="form-control" />
+                            <input asp-for="Part.SAPNumber" class="form-control" placeholder="E.g. 208670449" />
                             <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Part.Name" class="control-label"></label><span class="text-danger"> *</span>
-                            <input asp-for="Part.Name" class="form-control" />
+                            <input asp-for="Part.Name" class="form-control" placeholder="E.g. Mounting plate" />
                             <span asp-validation-for="Part.Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Part.Description" class="control-label"></label><span class="text-danger"> *</span>
-                            <textarea asp-for="Part.Description" class="form-control" rows="3" cols="30"></textarea>
+                            <label asp-for="Part.Description" class="control-label"></label>
+                            <textarea asp-for="Part.Description" class="form-control" rows="3" cols="30" placeholder="E.g. the part of a hinge, handle or latch that mounts the hardware to a cabinet"></textarea>
                             <span asp-validation-for="Part.Description" class="text-danger"></span>
                         </div>
                     </dd>
@@ -154,7 +164,7 @@
                             <label asp-for="Part.QuantityRecieved" class="control-label"></label><span class="text-danger"> *</span>
                         </dt>
                         <dd class="col-sm">
-                            <input asp-for="Part.QuantityRecieved" class="form-control" />
+                            <input asp-for="Part.QuantityRecieved" class="form-control" placeholder="E.g. 22" />
                             <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
                         </dd>
                     </dl>
@@ -165,7 +175,7 @@
                             <label asp-for="Part.QuantityDefect" class="control-label"></label><span class="text-danger"> *</span>
                         </dt>
                         <dd class="col-sm">
-                            <input asp-for="Part.QuantityDefect" class="form-control" />
+                            <input asp-for="Part.QuantityDefect" class="form-control" placeholder="E.g. 20" />
                             <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
                         </dd>
                     </dl>
@@ -185,7 +195,7 @@
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" id="nowAddDefect" data-bs-toggle="modal" data-bs-target="#addDefectModal" type="button">&#x2795;</button>
                                 </div>
-                                <select id="defectID" name="SelectedDefectID" class="form-control" required>
+                                <select id="defectID" name="SelectedDefectID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false" required>
                                     <option value="">Select a Defect</option>
                                     @foreach (var defect in ViewBag.DefectList)
                                     {
@@ -193,9 +203,9 @@
                                     }
                                 </select>
                             </div>
-                            <span class="text-danger" id="defectError"></span>
                         </div>
                     </dd>
+                    <div class="text-danger" id="defectError"></div>
                 </dl>
             </div>
         </div>
@@ -252,7 +262,7 @@
                 <div class="form-group ps-3 mb-3">
                     <div class="col-md-6">
                         <label for="links">Enter links (one per line):</label>
-                        <textarea name="links" class="form-control"></textarea>
+                        <textarea name="links" class="form-control" placeholder="E.g. https://haverniagara.com/"></textarea>
                         <span class="text-danger"></span>
                     </div>
                 </div>
@@ -267,7 +277,7 @@
                     </dt>
                     <dd class="col-sm">
                         <div class="form-group">
-                            <input asp-for="QualityInspection.Name" class="form-control" />
+                            <input asp-for="QualityInspection.Name" class="form-control" placeholder="E.g. Todd Smith" />
                             <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
                         </div>
                     </dd>
@@ -294,16 +304,15 @@
         {
             // When the page post to server fails, the selected id gets saved and returned from controller to here
             // and then when the page reloads "Dom Content Loaded", it sets the ddl to that saved value
-                <script>
-                    // JavaScript code to set the selected value of the dropdown list
-                    document.addEventListener("DOMContentLoaded", function () {
-                        var selectedDefectID = @Html.Raw(Json.Serialize(ViewBag.SelectedDefectID));
-                        document.getElementById("defectID").value = selectedDefectID;
-                    });
-                </script>
+            <script>
+                // JavaScript code to set the selected value of the dropdown list
+                document.addEventListener("DOMContentLoaded", function () {
+                    var selectedDefectID = @Html.Raw(Json.Serialize(ViewBag.SelectedDefectID));
+                    document.getElementById("defectID").value = selectedDefectID;
+                });
+            </script>
         }
     }
-
 
     <div class="d-flex justify-content-between mt-3">
         <div class="mt-2">
@@ -319,6 +328,9 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <!-- refresh ddl script -->
+    <script src="~/js/refreshDDL.js"></script>
+
     <!--alert for cancel button-->
     <script>
         $('#cancel-button').click(function (event) {
@@ -326,37 +338,33 @@
         });
     </script>
 
+    <!-- jQuery for quickly add ddl -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- jQuery for validate -->
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script>
-          //https://stackoverflow.com/questions/63913825/jquery-validator-not-working-properly-on-a-select-dropdown
-                $(document).ready(function () {
-            $('#myForm').validate({
-                errorClass: "defectError",
-                rules: {
-                    SelectedDefectID: 'required'
-                },
-                messages: {
-                    SelectedDefectID: "Please select a defect"
-                },
-                highlight: function (element, errorClass) {
-                    $(element).removeClass(errorClass); //prevent class to be added to selects
-                },
-                submitHandler: function (form) {
-                    //do something
-                    form.submit();
-                }
-            });
+
+    <!-- Bootstrap for searchable ddl -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Bootstrap-Select's JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <!-- Updated jQuery for selectpicker (conflicts with current one) -->
+    @* <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  *@
+
+    <!--searchable drop down list-->
+    <script type="text/javascript">
+        $(function () {
+            $("#NCRSupplierID").selectpicker({ width: "auto" });
+        });
+        //defectID
+        $(function () {
+            $("#defectID").selectpicker({ width: "auto" });
         });
     </script>
-    <style>
-        .defectError {
-            color: red;
-        }
-    </style>
 
-    @* QUICKLY ADD OPTION TO SUPPLIER SELECT DROP DOWN LIST *@
-    <script src="~/js/refreshDDL.js"></script>
+    <!--quickly add ddl supplier-->
     <script type="text/javascript">
         $('#submitSupplierCreate').click(function (event) {
             event.preventDefault();
@@ -402,12 +410,14 @@
             }
             return false;
         });
+
         $('#addSupplierModal').on('hide.bs.modal', function () {
             document.getElementById("createSupplierForm").reset();//to clear the data in the popup form
             ClearErrors();
             var selectedOption = $('#NCRSupplierID').val();//Return to the current selected value
             refreshDDL('NCRSupplierID', '/NCRs/GetSuppliers/' + selectedOption, false, null, true, null, true);
         });
+
         function ClearErrors() {
             //Empty out the list of validation errors if there are any
             var ul = document.getElementById("ErrorList");
@@ -416,8 +426,8 @@
             }
         }
     </script>
-    @* Defect Modal / Form Javascript/////////// *@
-    <script src="~/js/refreshDDL.js"></script>
+
+    <!--quickly add ddl defect-->
     <script type="text/javascript">
         $('#submitDefectCreate').click(function (event) {
             event.preventDefault();
@@ -477,6 +487,32 @@
             }
         }
     </script>
+
+    <!--required error message on defect list-->
+@*     <script>
+        //https://stackoverflow.com/questions/63913825/jquery-validator-not-working-properly-on-a-select-dropdown
+        $(document).ready(function () {
+            $('#myForm').validate({
+                errorClass: "defectError",
+                rules: {
+                    SelectedDefectID: 'required'
+                },
+                messages: {
+                    SelectedDefectID: "Please select a defect"
+                },
+                highlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass); //prevent class to be added to selects
+                },
+                submitHandler: function (form) {
+                    //do something
+                    form.submit();
+                }
+            });
+        });
+    </script> *@
+    @*
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script> *@
 }
 
 

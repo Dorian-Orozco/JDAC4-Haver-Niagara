@@ -1,5 +1,5 @@
 ﻿@model Haver_Niagara.Models.Defect
-<form  asp-controller="Defects" asp-action="Create" id="createDefectForm">
+<form  asp-controller="Defect" asp-action="Create" id="createDefectForm">
     <div class="text-danger validation-summary-errors"><ul id="ErrorList"></ul></div>
     <div class="row">
         <div class="col-md-12">
@@ -14,7 +14,7 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div> *@
             <div class="form-group">
-                <input type="submit" id="submitDefectCreate" value="Create" class="btn btn-primary" />
+                <input type="submit" id="submitDefectCreate" value="Create" class="btn btn-primary mt-3" />
             </div>
         </div>
     </div>
