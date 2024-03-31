@@ -64,61 +64,65 @@
 <small class="text-under-heading">NCR Reports that have been Voided.</small>
 
 <form asp-action="ListVoided" asp-controller="Home" method="get" class="mt-4">
-    <div class="form-horizontal">
-        <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-            Filter/Search
-        </button><br />
-        <div class="collapse" id="collapseFilter">
-            <div class="card card-body bg-light mb-2 d-flex">
+    @*     <div class="form-horizontal">
+    <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+    Filter/Search
+    </button><br />
+    <div class="collapse" id="collapseFilter">
+    <div class="card card-body bg-light mb-2 d-flex">
 
-                <div class="row mt-2 mb-2">
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <label class="control-label">Date Created:</label>
-                            <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <label class="control-label">Supplier:</label>
-                            @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <label class="control-label">Part Number or NCR #:</label>
-                            @Html.TextBox("SearchString", null, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-sm-auto mt-4">
-                        <div class="form-group">
-                            <button type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2">Search</button>
-                            <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row mt-2 mb-2">
+    <div class="col-sm">
+    <div class="form-group">
+    <label class="control-label">Date Created:</label>
+    <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
     </div>
+    </div>
+
+    <div class="col-sm">
+    <div class="form-group">
+    <label class="control-label">Supplier:</label>
+    @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
+    </div>
+    </div>
+    <div class="col-sm">
+    <div class="form-group">
+    <label class="control-label">Part Number or NCR #:</label>
+    @Html.TextBox("SearchString", null, new { @class = "form-control" })
+    </div>
+    </div>
+    <div class="col-sm-auto mt-4">
+    <div class="form-group">
+    <button type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2">Search</button>
+    <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div> *@
 
     <table class="table table-hover">
         <thead>
             <tr>
                 <th class="text-center">
-                    <a asp-action="List"
-                       asp-route-sortOrder="@ViewBag.StageSortParam"
+
+                    Status
+
+                </th>
+                <th class="text-center">
+                    <a asp-action="ListVoided"
+                       asp-route-sortOrder="@ViewBag.FormattedIDSortParam"
                        asp-route-currentFilter="@ViewBag.CurrentFilter"
                        asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
                        asp-route-selectedDate="@ViewBag.SelectedDate"
                        asp-route-selectedStatus="@ViewBag.SelectedStatus"
                        asp-route-page="@Model.PageNumber">
-                        Status
+                        NCR Number
                     </a>
                 </th>
-                <th class="text-center">NCR Number</th>
                 <th class="text-center">
-                    <a asp-action="List"
+                    <a asp-action="ListVoided"
                        asp-route-sortOrder="@ViewBag.DateSortParam"
                        asp-route-currentFilter="@ViewBag.CurrentFilter"
                        asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
@@ -129,7 +133,7 @@
                     </a>
                 </th>
                 <th class="text-center">
-                    <a asp-action="List"
+                    <a asp-action="ListVoided"
                        asp-route-sortOrder="@ViewBag.POSortParam"
                        asp-route-currentFilter="@ViewBag.CurrentFilter"
                        asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
@@ -140,7 +144,7 @@
                     </a>
                 </th>
                 <th>
-                    <a asp-action="List"
+                    <a asp-action="ListVoided"
                        asp-route-sortOrder="@ViewBag.SupplierSortParam"
                        asp-route-currentFilter="@ViewBag.CurrentFilter"
                        asp-route-selectedSupplier="@ViewBag.SelectedSupplier"
@@ -161,11 +165,11 @@
                     <td class="text-center">
                         @if (!item.NCR_Status)
                         {
-                            <button class="status-btn closed" title="Closed"></button>
+                            <button class="status-btn closedStatus" title="Closed"></button>
                         }
                         else
                         {
-                            <button class="status-btn active" title="Active"></button>
+                            <button class="status-btn activeStatus" title="Active"></button>
                         }
                     </td>
                     @{
