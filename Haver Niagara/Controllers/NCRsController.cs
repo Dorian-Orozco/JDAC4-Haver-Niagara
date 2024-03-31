@@ -1486,6 +1486,8 @@ namespace Haver_Niagara.Controllers
                     .Include(n => n.Procurement)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
+            nCR.NCR_Stage = (NCRStage)0; //set stage to quality rep
+
             if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
             {
                 ViewBag.NewNCRID = nCR.NewNCRID;
@@ -1527,6 +1529,8 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.CAR)
                     .Include(n => n.Procurement)
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+            nCR.NCR_Stage = (NCRStage)1; //set stage to engineering
 
             if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
             {
@@ -1570,6 +1574,8 @@ namespace Haver_Niagara.Controllers
                     .Include(n => n.Procurement)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
+            nCR.NCR_Stage = (NCRStage)2; //set stage to operations
+
             if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
             {
                 ViewBag.NewNCRID = nCR.NewNCRID;
@@ -1611,6 +1617,8 @@ namespace Haver_Niagara.Controllers
                     .ThenInclude(n => n.CAR)
                     .Include(n => n.Procurement)
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+            nCR.NCR_Stage = (NCRStage)3; //set stage to procurement
 
             if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
             {
