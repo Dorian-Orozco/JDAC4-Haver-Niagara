@@ -36,14 +36,20 @@
         </dd>
     </dl>
 </div>
-<div class="d-flex justify-content-start text-muted mb-3">
-    @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage))) //working!
-    {
-        <div class="form-check form-check-inline">
-            <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
-            <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
-        </div>
-    }
+<div class="d-flex justify-content-between text-muted mb-3">
+    <div>
+        @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
+        {
+            <div class="form-check form-check-inline">
+                <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
+                <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+            </div>
+        }
+    </div>
+    <!--Previous Section = EngineerDetails-->
+    <a asp-action="EngineerDetails" asp-route-id="@Model?.ID" class="btn-forward">
+        <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
+    </a>
 </div>
 
 <form class="" asp-action="OperationEdit" method="post" enctype="multipart/form-data">
@@ -61,7 +67,7 @@
                     <div class="col-sm-6 pt-3 ps-3 d-flex justify-content-start">
                         <dl>
                             <dt>
-                                Purchasing's Preliminary Decision
+                                Purchasing's Preliminary Decision<span class="text-danger"> *</span>
                             </dt>
                             <dd class="mt-1 ms-2">
                                 @foreach (var oppDecision in Enum.GetValues(typeof(OperationDecision)))
@@ -100,7 +106,7 @@
                         <div class="d-flex justify-content-center">
                             <dl>
                                 <dt>
-                                    Was a CAR raised? <span class="fw-light">(If "Yes" indicate CAR #)</span>
+                                    Was a CAR raised?<span class="text-danger"> *</span> <span class="fw-light">(If "Yes" indicate CAR #)</span>
                                     @* @Html.DisplayNameFor(model => model.Purchasing.CAR) *@
                                 </dt>
                                 <dd class="mt-2">
@@ -133,7 +139,7 @@
                         <div class="d-flex justify-content-center">
                             <dl>
                                 <dt>
-                                    Follow-up Required? <span class="fw-light">(If "Yes" indicate type & expected date)</span>
+                                    Follow-up Required?<span class="text-danger"> *</span> <span class="fw-light">(If "Yes" indicate type & expected date)</span>
                                 </dt>
                                 <dd class="mt-2 mb-0">
                                     <div class="d-flex">
@@ -172,7 +178,7 @@
                         <div class="row">
                             <dl class="d-flex m-0">
                                 <dt class="col-sm">
-                                    Operations Manager
+                                    Operations Manager<span class="text-danger"> *</span>
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <input asp-for="Operation.Name" class="form-control"  required/>

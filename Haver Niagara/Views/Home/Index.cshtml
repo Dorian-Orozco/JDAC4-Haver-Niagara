@@ -401,6 +401,12 @@
                                             <ion-icon name="eye"></ion-icon>
                                         </a>
                                     }
+                                    @if (User.IsInRole("Operations"))
+                                    {
+                                        <a href="@Url.Action("EngineerDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                            <ion-icon name="eye"></ion-icon>
+                                        </a>
+                                    }
                                     else
                                     {
                                         <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
