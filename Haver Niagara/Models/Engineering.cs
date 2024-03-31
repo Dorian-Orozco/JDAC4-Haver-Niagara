@@ -9,44 +9,41 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "Please Enter an Engineer's Name")]
+        [Required(ErrorMessage = "Please enter a name")] //Name
         [Display(Name = "Engineering Name")]
         public string Name { get; set; }
 
-
-        [Required(ErrorMessage = "Date is Required")]
+        [Required(ErrorMessage = "Required")] //Date
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-        [Required(ErrorMessage = "Customer Notify?")]
-        [Display(Name = "Notify Customer Required?")]
+        [Required(ErrorMessage = "Please select one")] //Notify Customer?
+        [Display(Name = "Notify Customer Required?")] 
         public bool CustomerNotify { get; set; }
 
-        [Required(ErrorMessage = "Select if Drawing Requires Updating")]
+        [Required(ErrorMessage = "Please select one")] //Update Drawing?
         [Display(Name = "Drawing Updated?")]
         public bool DrawUpdate { get; set; }
 
-        [Display(Name = "Disposition Sequence")]
+        [Display(Name = "Disposition Sequence")] //Disposition Notes
         public string DispositionNotes { get; set; }
 
+        //not required
+        [Display(Name = "Original Revision Number")] //Original Revision Number
+        public int? RevisionOriginal { get; set; }
 
-        [Display(Name = "Original Revision Number")]
-        public int RevisionOriginal { get; set; }
+        //not required
+        [Display(Name = "Updated Revision Number")] //Updated Revision Number
+        public int? RevisionUpdated { get; set; }
 
-
-        [Display(Name = "Updated Revision Number")]
-        public int RevisionUpdated { get; set; }
-
-
-        [Display(Name = "Revision Date")]
+        [Display(Name = "Revision Date")] //Revision Date
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime RevisionDate { get; set; }
 
-
-        [Display(Name = "Engineering Disposition")]
-        [Required(ErrorMessage = "Please Select a Decision")]
+        [Display(Name = "Engineering Disposition")] //Review by HBC Engineering (disposition)
+        [Required(ErrorMessage = "Please select one")]
         public EngineeringDisposition EngineeringDisposition { get; set; }
         //Link to NCR 
         public NCR NCR { get; set; }
