@@ -35,14 +35,24 @@
         </dd>
     </dl>
 </div>
-<div class="d-flex justify-content-start text-muted mb-3">
-    @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
-    {
-        <div class="form-check form-check-inline">
-            <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
-            <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
-        </div>
-    }
+<div class="d-flex justify-content-between text-muted mb-3">
+    <!--Previous Section = OperationDetails-->
+    <a asp-action="OperationsDetails" asp-route-id="@Model?.ID" class="btn-forward">
+        <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
+    </a>
+    <div>
+        @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
+        {
+            <div class="form-check form-check-inline">
+                <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
+                <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+            </div>
+        }
+    </div>
+    <!--hidden button, not functional - just for styling-->
+    <button class="btn-forward pe-none">
+        <ion-icon name="arrow-forward-circle-outline" class="btn-forward-icon bg-white "></ion-icon>
+    </button>
 </div>
 
 <form class="" asp-action="ProcurementEdit" method="post" enctype="multipart/form-data">
@@ -53,7 +63,7 @@
         {
             @* Procurement Section *@
             <div class="section section-procure">
-                <div class="row border m-1 p-2 ps-3 fs-6 section-header">4/ Procurement (buyer)</div>
+                <div class="row border m-1 p-2 ps-3 fs-6 section-header">4. Procurement (buyer)</div>
 
                 @* row 13 *@
                 <div class="row m-1 border">
@@ -61,7 +71,7 @@
                         <div class="d-flex justify-content-center">
                             <dl>
                                 <dt>
-                                    Return rejected items to supplier <span class="fw-light">(If "Yes" enter Carrier information)</span>                       
+                                    Return rejected items to supplier<span class="text-danger"> *</span> <span class="fw-light">(If "Yes" enter Carrier information, If "No" indicate whether to dispose on site)</span>
                                 </dt>
                                 <dd class="mt-2">
                                     <div class="d-flex">
@@ -70,7 +80,7 @@
 
                                         @Html.RadioButtonFor(model => model.Procurement.ReturnRejected, false, new { @checked = Model.Procurement != null && !Model.Procurement.ReturnRejected, @class = "me-2" })
                                         <label>No</label>
-                                        <span asp-validation-for="Procurement.ReturnRejected" class="text-danger"></span>
+                                        <span asp-validation-for="Procurement.ReturnRejected" class="text-danger ms-3"></span>
                                     </div>
                                 </dd>
                             </dl>
@@ -80,7 +90,7 @@
                         <div class="d-flex justify-content-center">
                             <dl class="d-flex">
                                 <dt class="col-sm">
-                                    @Html.DisplayNameFor(model => model.Procurement.ToReceiveDate)
+                                    @Html.DisplayNameFor(model => model.Procurement.ToReceiveDate)<span class="text-danger"> *</span>
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <input asp-for="Procurement.ToReceiveDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
@@ -169,14 +179,19 @@
         }
     </div>
 
-
-
+    <!--action buttons-->
     <div class="d-flex justify-content-between mt-3">
         <div class="mt-2">
             <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
         </div>
-        <div class="mt-2">
-            <input type="submit" value="Save Report" class="btn btn-primary" />
+        <div class="justify-content-end">
+            <span class="mt-2">
+                <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+            </span>
+            <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
+            <span class="mt-2 ms-2">
+                <a id="complete-button" asp-controller="Home" asp-action="List" class="btn btn-primary">Mark as completed</a>
+            </span>
         </div>
     </div>
 </form>
@@ -189,18 +204,24 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
+    <!--alert for cancel button-->
+    <script>
+        $('#cancel-button').click(function (event) {
+            // Show the confirmation dialog and store the user's response
+            var userConfirmed = confirm('Are you sure you want to cancel? All progress will be lost.');
+
+            // If the user clicks 'Cancel', prevent the default button action
+            if (!userConfirmed) {
+                event.preventDefault();
+            }
+        });
+    </script>
 
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" ></script>
 
     <script>
-        document.getElementById("cancel-button").addEventListener("click", function (event) {
-            if (!confirm("Are you sure you want to cancel?")) {
-                event.preventDefault();
-            }
-        });
-
         // Define variables to store initial values
         var initialRMANumber, initialCarrierName, initialCarrierPhone, initialAccountNumber, initialDisposeOnSite;
 
