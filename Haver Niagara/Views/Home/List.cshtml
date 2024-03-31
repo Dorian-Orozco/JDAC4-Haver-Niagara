@@ -23,10 +23,10 @@
         font-weight: 600;
     }
     /*
-                            .form-control {
-                                border-color: #FF0000;
-                                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
-                            } */
+                                .form-control {
+                                    border-color: #FF0000;
+                                    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+                                } */
 
     .bootstrap-select .btn {
         color: #333 !important; /* Choose a darker color as needed */
@@ -349,6 +349,12 @@
                                             <a href="@Url.Action("OperationsDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
                                                 <ion-icon name="eye"></ion-icon>
                                             </a>
+                                        }
+                                        if (User.IsInRole("Quality Representative"))
+                                        {
+                                            <a href="@Url.Action("ProcurementDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                                <ion-icon name="eye"></ion-icon>
+                                            </a>                                            
                                         }
                                         else if (User.IsInRole("Admin"))
                                         {
