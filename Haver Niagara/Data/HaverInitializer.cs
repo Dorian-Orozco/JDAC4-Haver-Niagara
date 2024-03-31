@@ -3169,7 +3169,7 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 3),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 26),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 26),
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 26),
+                        //Procurement = context.Procurements.FirstOrDefault(p => p.ID == 26),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 26)
                     },
                     new NCR
@@ -3183,7 +3183,7 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 4),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 27),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 27),
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 27),
+                        //Procurement = context.Procurements.FirstOrDefault(p => p.ID == 27),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 27)
                     },
                     new NCR
@@ -3197,7 +3197,7 @@ namespace Haver_Niagara.Data
                         Part = context.Parts.FirstOrDefault(p => p.ID == 5),
                         Engineering = context.Engineerings.FirstOrDefault(p => p.ID == 28),
                         Operation = context.Operations.FirstOrDefault(p => p.ID == 28),
-                        Procurement = context.Procurements.FirstOrDefault(p => p.ID == 28),
+                        //Procurement = context.Procurements.FirstOrDefault(p => p.ID == 28),
                         QualityInspection = context.QualityInspections.FirstOrDefault(p => p.ID == 28)
                     },
                     new NCR

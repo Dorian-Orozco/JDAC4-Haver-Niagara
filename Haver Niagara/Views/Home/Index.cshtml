@@ -291,31 +291,31 @@
         @{
             if (!User.IsInRole("Admin")) //if not admin the link is disabled (cannot navigate to all reports)
             {
-                    <div class="card activeCard">
+                <div class="card activeCard">
+                    <div class="card-content">
+                        <h2>Current Active</h2>
+                        <h3 id="openNCRCount"></h3>
+                        <p>This year</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card activeCard" id="activeThisYear">
+                    <a asp-controller="Home" asp-action="List"
+                       asp-route-SelectedStatus=""
+                       asp-route-ncrStage=""
+                       asp-route-SelectedDate=""
+                       asp-route-SelectedSupplier=""
+                       asp-route-SearchString="@DateTime.Now.Year"
+                       asp-route-actionButton="Filter">
                         <div class="card-content">
                             <h2>Current Active</h2>
                             <h3 id="openNCRCount"></h3>
                             <p>This year</p>
                         </div>
-                    </div>
-            }
-            else
-            {
-                    <div class="card activeCard" id="activeThisYear">
-                        <a asp-controller="Home" asp-action="List"
-                           asp-route-SelectedStatus=""
-                           asp-route-ncrStage=""
-                           asp-route-SelectedDate=""
-                           asp-route-SelectedSupplier=""
-                           asp-route-SearchString="@DateTime.Now.Year"
-                           asp-route-actionButton="Filter">
-                            <div class="card-content">
-                                <h2>Current Active</h2>
-                                <h3 id="openNCRCount"></h3>
-                                <p>This year</p>
-                            </div>
-                        </a>
-                    </div>
+                    </a>
+                </div>
             }
         }
 
@@ -395,55 +395,63 @@
                             <td><p class="stage border" id="stage">@Html.DisplayFor(modelItem => item.NCR_Stage)</p></td>
                             <td class="text-center">
                                 <div>
-                                    @if (User.IsInRole("Engineer"))
-                                    {
-                                        <a href="@Url.Action("QualityRepDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
-                                            <ion-icon name="eye"></ion-icon>
-                                        </a>
-                                    }
-                                    @if (User.IsInRole("Operations"))
-                                    {
-                                        <a href="@Url.Action("EngineerDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
-                                            <ion-icon name="eye"></ion-icon>
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
-                                            <ion-icon name="eye"></ion-icon>
-                                        </a>
-                                    }
-                                 
                                     @{
-                                        if (User.IsInRole("Admin"))
-                                        {
-                                                <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
-                                                    <ion-icon name="create"></ion-icon>
-                                                </a>
-                                        }
-                                        if (User.IsInRole("Quality Representative"))
-                                        {
-                                                <a href="@Url.Action("QualityRepresentativeEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                                    <ion-icon name="create"></ion-icon>
-                                                </a>
-                                        }
                                         if (User.IsInRole("Engineer"))
                                         {
-                                                <a href="@Url.Action("EngineeringEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                                    <ion-icon name="create"></ion-icon>
-                                                </a>
-                                        }
-                                        if (User.IsInRole("Procurement"))
-                                        {
-                                                <a href="@Url.Action("ProcurementEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                                    <ion-icon name="create"></ion-icon>
-                                                </a>
+                                            <a href="@Url.Action("QualityRepDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                                <ion-icon name="eye"></ion-icon>
+                                            </a>
                                         }
                                         if (User.IsInRole("Operations"))
                                         {
-                                                <a href="@Url.Action("OperationEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
-                                                    <ion-icon name="create"></ion-icon>
-                                                </a>
+                                            <a href="@Url.Action("EngineerDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                                <ion-icon name="eye"></ion-icon>
+                                            </a>
+                                        }
+                                        if (User.IsInRole("Procurement"))
+                                        {
+                                            <a href="@Url.Action("OperationsDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                                <ion-icon name="eye"></ion-icon>
+                                            </a>
+                                        }
+                                        else if (User.IsInRole("Admin"))
+                                        {
+                                            <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                                <ion-icon name="eye"></ion-icon>
+                                            </a>
+                                        }
+                                    }
+
+                                    @{
+                                        if (User.IsInRole("Admin"))
+                                        {
+                                            <a href="@Url.Action("Edit", "NCRs", new { id = item.ID })" class="view-btn" title="Edit NCR report">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        }
+                                        if (User.IsInRole("Quality Representative"))
+                                        {
+                                            <a href="@Url.Action("QualityRepresentativeEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        }
+                                        if (User.IsInRole("Engineer"))
+                                        {
+                                            <a href="@Url.Action("EngineeringEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        }
+                                        if (User.IsInRole("Procurement"))
+                                        {
+                                            <a href="@Url.Action("ProcurementEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        }
+                                        if (User.IsInRole("Operations"))
+                                        {
+                                            <a href="@Url.Action("OperationEdit", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Edit NCR report">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
                                         }
                                     }
                                 </div>
