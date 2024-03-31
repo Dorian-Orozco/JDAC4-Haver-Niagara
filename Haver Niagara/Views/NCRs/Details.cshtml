@@ -163,7 +163,8 @@
                             {
                                 @foreach (var defectL in Model.Part.DefectLists)
                                 {
-                                    @defectL.Defect.Name;
+                                    @defectL.Defect.Name
+                                    ;
                                 }
                             }
                         </div>
@@ -646,7 +647,7 @@
                         Carrier: <span class=text-muted>@Html.DisplayFor(model => model.Procurement.CarrierName)</span>
                     </p>
                     <p>
-                        
+
                         Phone: <span class=text-muted>@Html.DisplayFor(model => model.Procurement.CarrierPhone)</span>
                     </p>
                     <p>
@@ -852,31 +853,39 @@
         </div>
         <div class="">
             @{
-                if (User.IsInRole("Admin"))
+                if (Model.NCR_Stage == (NCRStage)5)
                 {
-                    <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                    <span></span>
                 }
-                if (User.IsInRole("Quality Representative"))
+                else
                 {
-                    <a asp-action="QualityRepresentativeEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
-                }
-                if (User.IsInRole("Engineer"))
-                {
-                    <a asp-action="EngineeringEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
-                }
-                if (User.IsInRole("Procurement"))
-                {
-                    <a asp-action="ProcurementEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
-                }
-                if (User.IsInRole("Operations"))
-                {
-                    <a asp-action="OperationEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                    if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-outline-primary btnEditJs">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                    }
+                    if (User.IsInRole("Quality Representative"))
+                    {
+                        <a asp-action="QualityRepresentativeEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                    }
+                    if (User.IsInRole("Engineer"))
+                    {
+                        <a asp-action="EngineeringEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                    }
+                    if (User.IsInRole("Procurement"))
+                    {
+                        <a asp-action="ProcurementEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                    }
+                    if (User.IsInRole("Operations"))
+                    {
+                        <a asp-action="OperationEdit" asp-route-id="@Model?.ID" class="btn btn-outline-primary">Edit Report<ion-icon name="create-outline" class="ms-2"></ion-icon></a>
+                    }
                 }
             }
-     
+
         </div>
     </div>
 </form>
+
 
 
 

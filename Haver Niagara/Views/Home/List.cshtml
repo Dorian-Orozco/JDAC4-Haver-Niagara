@@ -398,7 +398,7 @@
                                 </span>
 
                                 <span>
-                                    @if (User.IsInRole("Admin"))
+                                    @if (User.IsInRole("Admin") && item.NCR_Status)
                                     {
                                         <a href="@Url.Action("Void", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Void NCR report">
                                             <ion-icon name="ban-outline"></ion-icon>
