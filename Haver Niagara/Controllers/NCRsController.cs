@@ -818,19 +818,27 @@ namespace Haver_Niagara.Controllers
         public async Task<IActionResult> EngineeringEdit(int? id)
         {
             if (id == null || _context.NCRs == null)
-            {
                 return NotFound();
-            }
+            //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.Part).ThenInclude(n => n.Medias)
+                .Include(n => n.Part).ThenInclude(n => n.Supplier)
+                .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
                 .Include(n => n.Engineering)
-                .FirstOrDefaultAsync(n=>n.ID == id);
-
-
+                .Include(n => n.Operation).ThenInclude(n => n.CAR)
+                .Include(n => n.Operation).ThenInclude(n => n.FollowUp)
+                .Include(p => p.Procurement)
+                .FirstOrDefaultAsync(n => n.ID == id);
 
             if (nCR == null)
                 return NotFound();
-
-
+            //Populate list of defects and suppliers
+            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
+            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "Name");
             return View(nCR);
         }
 
@@ -1261,6 +1269,47 @@ namespace Haver_Niagara.Controllers
             }
             return View(nCR);
 
+        }
+
+        // GET: NCRs/Details/5
+        public async Task<IActionResult> QualityRepDetails(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.Engineering)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Medias)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.DefectLists)
+                    .ThenInclude(n => n.Defect)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.FollowUp)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.CAR)
+                    .Include(n => n.Procurement)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
+            {
+                ViewBag.NewNCRID = nCR.NewNCRID;
+            }
+
+            if (nCR == null)
+            {
+                return NotFound();
+            }
+            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
+
+            return View(nCR);
         }
 
         //Email button on the details page uses this 

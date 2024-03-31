@@ -191,6 +191,20 @@ a {
     font-size: 40px;
 }
 
+/*for individual details view go to next section button*/
+
+.btn-forward {
+    border: none;
+    background: transparent;
+}
+
+.btn-forward-icon {
+    background-color: #1C335E;
+    border-radius: 30px;
+    color: white;
+    font-size: 30px;
+}
+
 .text-under-heading {
     margin-left: 60px;
 }
