@@ -11,16 +11,15 @@ namespace Haver_Niagara.Models
         public int ID { get; set; }
 
         [Display(Name = "Operation Name")]
-        [Required(ErrorMessage ="Operation's Name Required")] //Had to remove to make edit work 2024-03-11
+        [Required(ErrorMessage = "Please enter a name")] //Had to remove to make edit work 2024-03-11
         public string Name { get; set; }
 
-
-        [Required(ErrorMessage = "Date is Required")] //Had to remove to make edit work 2024-03-11
         [Display(Name = "Operation Date")]
+        [Required(ErrorMessage = "Date is Required")] //Had to remove to make edit work 2024-03-11
         public DateTime OperationDate { get; set; }
 
-        [Required(ErrorMessage = "Preliminary Decision Required")]
         [Display(Name = "Operation Decision")]
+        [Required(ErrorMessage = "Preliminary Decision Required")]
         public OperationDecision OperationDecision { get; set; }
 
         [Display(Name = "Operation Notes")]
@@ -28,23 +27,21 @@ namespace Haver_Niagara.Models
 
         //For Radio Buttons T/F 
         //[Range(typeof(bool), "true", "true", ErrorMessage = "Select if Car was Raised")]
-        [Required(ErrorMessage = "Select if Car was Raised")]
         [Display(Name = "Car Raised?")]
+        [Required(ErrorMessage = "Select if Car was Raised")]
         public bool OperationCar { get; set; }
 
         //For Radio Buttons T/F 
         //[Range(typeof(bool), "true", "true", ErrorMessage = "Select if Follow-Up is Required")]
-        [Required(ErrorMessage = "Select if Follow-Up is Required")]
         [Display(Name = "Follow-Up Required?")]
+        [Required(ErrorMessage = "Please select one")]
         public bool OperationFollowUp { get; set; }
-
 
         //Follow Up Property
         public FollowUp FollowUp { get; set; }
 
         //Car Property
         public CAR CAR { get; set; }
-
 
         //NCR Property
         public NCR NCR { get; set; }
@@ -58,21 +55,26 @@ namespace Haver_Niagara.Models
         {
             var TodaysDate = DateTime.Today;
 
-            if(OperationCar == true) //If Operation Car Is Set to True
+            if (OperationDate > TodaysDate)
             {
-                if(string.IsNullOrEmpty(CAR.CARNumber.ToString())) //If the car number is left empty, validate
+                yield return new ValidationResult("Date Cannot be in The Future", new[] { "OperationDate" });
+            }
+
+            if (OperationCar == true) //If Operation Car Is Set to True
+            {
+                if (string.IsNullOrEmpty(CAR.CARNumber.ToString())) //If the car number is left empty, validate
                 {
                     yield return new ValidationResult("Car Number Required", new[] { "CAR.CARNumber" });
                 }
-                if(CAR.Date == DateTime.MinValue) //if the date is null
+                if (CAR.Date == DateTime.MinValue) //if the date is null
                 {
                     yield return new ValidationResult("Car Date Required", new[] { "CAR.Date" });
                 }
             }
 
-            if(OperationFollowUp == true)
+            if (OperationFollowUp == true)
             {
-                if(FollowUp.FollowUpDate == DateTime.MinValue)
+                if (FollowUp.FollowUpDate == DateTime.MinValue)
                 {
                     yield return new ValidationResult("Follow up Date Required", new[] { "FollowUp.FollowUpDate" });
                 }
@@ -82,20 +84,15 @@ namespace Haver_Niagara.Models
                 }
             }
 
-
-            if (OperationDate > TodaysDate)
-            {
-                yield return new ValidationResult("Date Cannot be in The Future", new[] { "OperationDate"});
-            }
-            if(OperationCar && CAR != null) //if true then look for values if none throw err
+            if (OperationCar && CAR != null) //if true then look for values if none throw err
             {
                 if (CAR.CARNumber == null)
                     yield return new ValidationResult("Car Number Cannot Be Empty", new[] { "CAR.CARNumber" });
-                if(CAR.CARNumber <= 0)
+                if (CAR.CARNumber <= 0)
                     yield return new ValidationResult("Car Number Cannot Be Negative", new[] { "CAR.CARNumber" });
-                if(CAR.Date == default(DateTime))
+                if (CAR.Date == default(DateTime))
                     yield return new ValidationResult("Car Date Cannot Be Empty", new[] { "CAR.Date" });
-                if(CAR.Date > TodaysDate)
+                if (CAR.Date > TodaysDate)
                     yield return new ValidationResult("Car Date Cannot Be In The Future", new[] { "CAR.Date" });
             }
             if (!OperationCar && CAR != null)
@@ -103,16 +100,18 @@ namespace Haver_Niagara.Models
                 CAR.CARNumber = null;
                 CAR.Date = default;
             }
+
             if (OperationFollowUp && FollowUp != null)
             {
-                if(string.IsNullOrEmpty(FollowUp.FollowUpType))
+                if (string.IsNullOrEmpty(FollowUp.FollowUpType))
                     yield return new ValidationResult("Follow Up Type Cannot Be Empty", new[] { "FollowUp.FollowUpType" });
-                if(FollowUp.FollowUpDate == default(DateTime))
+                if (FollowUp.FollowUpDate == default(DateTime))
                     yield return new ValidationResult("Follow Up Date Cannot Be Empty", new[] { "FollowUp.FollowUpDate" });
-                if(FollowUp.FollowUpDate > TodaysDate)
+                if (FollowUp.FollowUpDate > TodaysDate)
                     yield return new ValidationResult("Follow Up Date Cannot Be In The Future", new[] { "FollowUp.FollowUpDate" });
             }
-            if (!OperationFollowUp &&FollowUp != null)
+
+            if (!OperationFollowUp && FollowUp != null)
             {
                 FollowUp.FollowUpType = string.Empty;
                 FollowUp.FollowUpDate = default;

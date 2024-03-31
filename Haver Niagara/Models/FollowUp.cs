@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+#nullable enable
+
 namespace Haver_Niagara.Models
 {
     public class FollowUp
@@ -18,6 +20,7 @@ namespace Haver_Niagara.Models
         [Display(Name = "Type")]
         public string? FollowUpType { get; set; }
 
+#nullable disable
 
         [ForeignKey("Operation")]
         public int? OperationID { get; set; }
