@@ -13,16 +13,16 @@ namespace Haver_Niagara.Models
 
         //Identify process applicable
         [Display(Name = "Quality Identify")]
-        [Required(ErrorMessage = "Please Select The Process Applicable")]
+        [Required(ErrorMessage = "Please select one")]
         public QualityIdentify QualityIdentify { get; set; }
 
         //Item marked non-conforming
-        [Required(ErrorMessage = "Please indicate if Item is Marked")]
+        [Required(ErrorMessage = "Please select one")]
         [Display(Name = "Item Marked Non-Conforming")]
         public bool ItemMarked { get; set; }
 
         //Representative Name
-        [Required(ErrorMessage = "Representative Name Required")]
+        [Required(ErrorMessage = "Please enter a name")]
         [Display(Name = "Quality Representative's Name")]
         public string Name { get; set; }
 

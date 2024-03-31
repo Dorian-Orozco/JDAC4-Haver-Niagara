@@ -10,8 +10,9 @@ namespace Haver_Niagara.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DefectListID { get; set; }
-        
+
         //Foreign key to defect
+        [Required(ErrorMessage = "test")]
         public int? DefectID { get; set; }   
         public Defect Defect { get; set; }
 
