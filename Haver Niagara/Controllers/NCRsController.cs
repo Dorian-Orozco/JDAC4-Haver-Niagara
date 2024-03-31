@@ -1634,6 +1634,50 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
+        // GET: NCRs/QualityRepDetails/5
+        //When Engineer presses edit, they can go back to view previous section which would be this view
+        public async Task<IActionResult> QualityRepDetailsFinal(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.Engineering)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Medias)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.DefectLists)
+                    .ThenInclude(n => n.Defect)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.FollowUp)
+                .Include(n => n.Operation)
+                    .ThenInclude(n => n.CAR)
+                    .Include(n => n.Procurement)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            nCR.NCR_Stage = (NCRStage)4; //set stage to quality rep final
+
+            if (nCR.NewNCRID != null) //Getting new ncr id if it exists to display it.
+            {
+                ViewBag.NewNCRID = nCR.NewNCRID;
+            }
+
+            if (nCR == null)
+            {
+                return NotFound();
+            }
+            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
+
+            return View(nCR);
+        }
+
         #endregion
 
         //Email button on the details page uses this 
