@@ -32,6 +32,10 @@
         </dl>
     </div>
     <div class="d-flex justify-content-between text-muted mb-3">
+        <!--hidden button, not functional - just for styling-->
+        <button class="btn-forward pe-none">
+            <ion-icon name="arrow-forward-circle-outline" class="btn-forward-icon bg-white "></ion-icon>
+        </button>
         <!--display enum stage quality rep-->
         <div>
             @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
