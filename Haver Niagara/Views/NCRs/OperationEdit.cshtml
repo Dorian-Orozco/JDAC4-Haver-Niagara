@@ -262,6 +262,8 @@
                 if ($(this).val() === "False") {
                     // Clear the FollowUpType and FollowUpDate input fields
                     $('#FollowUpType').val('');
+                    $('#FollowUpType').attr('required', false);
+                    $('#FollowUpType').attr('required', false);
                 }
                 if ($(this).val() === "True") {
                     $('#FollowUpType').attr('required', true);
@@ -269,13 +271,17 @@
                 }
             });
 
-            // Handler for the change event of the OperationCar radio button
             $('input[name="Operation.OperationCar"]').change(function () {
                 // Check if OperationCar is set to false
                 if ($(this).val() === "False") {
                     // Clear the CARNumber and CARDate input fields
                     $('#CARNumber').val('');
-                    $('#CARDate').val('');
+                    $('#CARNumber').attr('required', false);
+                    $('#CARDate').attr('required', false);
+                } // <-- Move this closing bracket here
+                if ($(this).val() === "True") {
+                    $('#CARNumber').attr('required', true);
+                    $('#CARDate').attr('required', true);
                 }
             });
         });

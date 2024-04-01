@@ -1039,6 +1039,7 @@
             var ncrStage = '@Model.NCR_Stage';
 
             // Remove the sections based on the selected stage
+            //Apparently removes form DOM content or something, will test.
             switch (ncrStage) {
                 case "Engineering":
                     $('.section-oper').remove();
@@ -1052,7 +1053,7 @@
                 case "Procurement":
                     $('.section-qual').remove();
                     break;
-                // Add cases for other stages if needed
+                
             }
         });
     </script>
