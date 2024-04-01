@@ -63,7 +63,8 @@ namespace Haver_Niagara.Models
         // PART ENTITY //
         [ForeignKey("Supplier")]
         [Display(Name = "Select Supplier")]
-        [Range(0, Int32.MaxValue, ErrorMessage = "Please select a Value")]
+        [Required(ErrorMessage = "Please select a supplier")]
+        //[Range(0, Int32.MaxValue, ErrorMessage = "Please select a Value")]
         public int NCRSupplierID { get; set; }
         public Supplier? Supplier { get; set; }
 
