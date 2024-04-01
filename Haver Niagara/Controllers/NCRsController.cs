@@ -949,6 +949,9 @@ namespace Haver_Niagara.Controllers
                     //hard code ur own email to test it
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                     await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account and create an employee with procurement as ur own.
+                    TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Section 2/ Engineering for NCR #{nCR.FormattedID} has been successfully completed and passed on to section 3/ Operations. Email Notification has been sent to next department. Click here to view the report.</a>";
+                    return RedirectToAction("List", "Home");
+
                 }
 
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
@@ -1127,8 +1130,9 @@ namespace Haver_Niagara.Controllers
                     }
                     //hard code ur own email to test
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                    await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account.
-                                                                       //and use your own (create through maintain employee and give urself procurement role)
+                    await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account. //and use your own (create through maintain employee and give urself procurement role)
+                    TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Section 3/ Operations for NCR #{nCR.FormattedID} has been successfully completed and passed on to section 4/ Procurement. Email Notification has been sent to next department. Click here to view the report.</a>";
+                    return RedirectToAction("List", "Home");
                 }
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
                 return RedirectToAction("List", "Home");
@@ -1275,7 +1279,7 @@ namespace Haver_Niagara.Controllers
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                     await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email quality rep so disable their account.
                                                                        //and use your own (create through maintain employee and give urself quality rep role)
-                    TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                    TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Section 4/ Procurement for NCR #{nCR.FormattedID} has been successfully completed and passed on to section 5/ Quality Rep Final. Email Notification has been sent to next department. Click here to view the report.</a>";
                     return RedirectToAction("List", "Home");
                 }
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
