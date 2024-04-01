@@ -1203,7 +1203,7 @@ namespace Haver_Niagara.Controllers
                     }
 
 
-                        if (ncrStageCheck.NCR_Stage != NCRStage.Procurement) //if the ncr stage is not equal to procurement meaning its from a later stage ( , final..)
+                    if (ncrStageCheck.NCR_Stage != NCRStage.Procurement) //if the ncr stage is not equal to procurement meaning its from a later stage ( , final..)
                             existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
                     
 
@@ -1275,6 +1275,8 @@ namespace Haver_Niagara.Controllers
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                     await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email quality rep so disable their account.
                                                                        //and use your own (create through maintain employee and give urself quality rep role)
+                    TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                    return RedirectToAction("List", "Home");
                 }
                 TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
                 return RedirectToAction("List", "Home");
