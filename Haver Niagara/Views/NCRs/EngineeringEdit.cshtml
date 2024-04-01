@@ -48,7 +48,7 @@
     <a asp-action="QualityRepDetails" asp-route-id="@Model?.ID" class="btn-forward" title="previous section">
         <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
     </a>
-
+</div>
 <form class="" asp-action="EngineeringEdit" id="myForm" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ID" />
@@ -228,7 +228,7 @@
             </span>
             <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
             <span class="mt-2 ms-2">
-                <a id="complete-button" asp-controller="Home" asp-action="List" class="btn btn-primary">Mark as completed</a>
+                <input type="submit" value="Mark as Completed" class="btn btn-outline-primary" />
             </span>
         </div>
     </div>
@@ -248,6 +248,22 @@
                 // If the user clicks 'Cancel', prevent the default button action
                 if (!userConfirmed) {
                     event.preventDefault();
+                }
+            });
+        </script>
+        <script>
+            document.getElementById('myForm').addEventListener('submit', function (event) {
+                // Get the value of the clicked submit button
+                var clickedButtonValue = event.submitter.value;
+
+                // If the clicked button is "Mark as Completed"
+                if (clickedButtonValue === 'Mark as Completed') {
+                    // Set a hidden field value to indicate mark as completed
+                    var hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = 'MarkAsCompleted';
+                    hiddenField.value = true;
+                    this.appendChild(hiddenField);
                 }
             });
         </script>

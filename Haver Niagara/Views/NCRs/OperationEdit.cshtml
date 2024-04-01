@@ -148,7 +148,6 @@
                                 <dd class="mt-2 mb-0">
                                     <div class="d-flex">
                                         <span class="ms-2 me-5">
-                                            @* <label asp-for="Operation.OperationFollowUp" class="control-label"></label><br /> *@
                                             <div class="d-flex">
                                                 @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, true, new { @checked = Model.Operation != null && Model.Operation.OperationFollowUp, @class = "me-2" })
                                                 <label class="me-4" for="operationFollowUpYes">Yes</label>
@@ -156,6 +155,7 @@
                                                 @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, false, new { @checked = Model.Operation != null && !Model.Operation.OperationFollowUp, @class = "me-2" })
                                                 <label for="operationFollowUpYes">No</label>
                                                 <span id="operationFollowUpError" class="text-danger"></span>
+                                                <span asp-validation-for="Operation.OperationFollowUp" class="text-danger ms-3"></span>
                                             </div>
                                         </span>
                                     </div>
@@ -218,7 +218,7 @@
             </span>
             <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
             <span class="mt-2 ms-2">
-                <a id="complete-button" asp-controller="Home" asp-action="List" class="btn btn-primary">Mark as completed</a>
+                <input type="submit"  id="complete-button" value="Mark as Completed" class="btn btn-outline-primary" />
             </span>
         </div>
     </div>
@@ -252,11 +252,12 @@
     <script>
         $(document).ready(function () {
             $('#myForm').submit(function (event) {
-                // Check if either "Yes" or "No" is selected
+                // check if none of either "Yes" or "No" is selected
                 if (!$('input[name="Operation.OperationFollowUp"]').is(':checked')) {
                     // Display an error message
                     $('#operationFollowUpError').text('Please select either "Yes" or "No" for Operation Follow-Up.');
                     // Prevent form submission
+                    
                     event.preventDefault();
                 }
             });
@@ -322,6 +323,22 @@
                     $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
                 }
             });
+        });
+    </script>
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function (event) {
+            // Get the value of the clicked submit button
+            var clickedButtonValue = event.submitter.value;
+
+            // If the clicked button is "Mark as Completed"
+            if (clickedButtonValue === 'Mark as Completed') {
+                // Set a hidden field value to indicate mark as completed
+                var hiddenField = document.createElement('input');
+                hiddenField.type = 'hidden';
+                hiddenField.name = 'MarkAsCompleted';
+                hiddenField.value = true;
+                this.appendChild(hiddenField);
+            }
         });
     </script>
 }
