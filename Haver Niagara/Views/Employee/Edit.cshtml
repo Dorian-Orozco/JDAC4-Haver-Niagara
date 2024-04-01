@@ -62,7 +62,7 @@
                                 }
                                         @:<td>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox"
+                                                <input class="form-check-input role-checkbox" type="checkbox"
                                                        id="@role.RoleName-CheckBox"
                                                        name="selectedRoles"
                                                        value="@role.RoleName"
@@ -77,6 +77,23 @@
                 </div>
             </div>            
         </div>
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirm Save</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to save changes?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="confirmSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />
     </div>
@@ -88,5 +105,38 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            // Function to uncheck other checkboxes
+            function uncheckOtherCheckboxes(checkbox) {
+                $('.role-checkbox').not(checkbox).prop('checked', false);
+            }
+
+            // Change event handler for checkboxes
+            $('.role-checkbox').on('change', function () {
+                uncheckOtherCheckboxes($(this));
+            });
+
+            // Show confirmation modal when Save button is clicked
+            $('form').submit(function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Check if Admin checkbox is unchecked
+                if (!$('#Admin-CheckBox').prop('checked')) {
+                    // Show warning if Admin checkbox is unchecked
+                    $('#confirmationModal .modal-body').text("Admin role must be selected!");
+                } else {
+                    // Show confirmation modal
+                    $('#confirmationModal').modal('show');
+                }
+            });
+
+            // Handle form submission after confirmation
+            $('#confirmationModal').on('click', '#confirmSave', function () {
+                $('form').off('submit').submit(); // Submit the form
+            });
+        });
+    </script>
+
 }
 
