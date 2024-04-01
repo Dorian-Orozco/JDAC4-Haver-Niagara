@@ -80,7 +80,7 @@ namespace Haver_Niagara.Controllers
                     InsertIdentityUser(employee.Email, selectedRoles);
 
                     //Send Email to new Employee - commented out till email configured
-                    //await InviteUserToResetPassword(employee, null);
+                    await InviteUserToResetPassword(employee, null);
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -368,8 +368,8 @@ namespace Haver_Niagara.Controllers
         private async Task InviteUserToResetPassword(Employee employee, string message)
         {
             message ??= "Hello " + employee.FirstName + "<br /><p>Please navigate to:<br />" +
-                        "<a href='https://theapp.azurewebsites.net/' title='https://theapp.azurewebsites.net/' target='_blank' rel='noopener'>" +
-                        "https://theapp.azurewebsites.net</a><br />" +
+                        "<a href='https://haverniagara2024.azurewebsites.net/Identity/Account/Login?ReturnUrl=%2F' title='https://haverniagara2024.azurewebsites.net/Identity/Account/Login?ReturnUrl=%2F' target='_blank' rel='noopener'>" +
+                        "https://haverniagara2024.azurewebsites.net/Identity/Account/Login?ReturnUrl=%2F</a><br />" +
                         " and create a new password for " + employee.Email + " using Forgot Password.</p>";
             try
             {
