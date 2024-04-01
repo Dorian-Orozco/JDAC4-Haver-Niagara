@@ -26,15 +26,13 @@ namespace Haver_Niagara.Models
         public string OperationNotes { get; set; }
 
         //For Radio Buttons T/F 
-        //[Range(typeof(bool), "true", "true", ErrorMessage = "Select if Car was Raised")]
         [Display(Name = "Car Raised?")]
         [Required(ErrorMessage = "Select if Car was Raised")]
         public bool OperationCar { get; set; }
 
         //For Radio Buttons T/F 
-        //[Range(typeof(bool), "true", "true", ErrorMessage = "Select if Follow-Up is Required")]
         [Display(Name = "Follow-Up Required?")]
-        [Required(ErrorMessage = "Please select one")]
+        [Required(ErrorMessage = "Select if follow up required ")]
         public bool OperationFollowUp { get; set; }
 
         //Follow Up Property
@@ -80,7 +78,7 @@ namespace Haver_Niagara.Models
                 }
                 if (string.IsNullOrEmpty(FollowUp.FollowUpType))
                 {
-                    yield return new ValidationResult("Follow up Type Required", new[] { "CAR.CARNumber" });
+                    yield return new ValidationResult("Follow up Type Required", new[] { "FollowUp.FollowUpType" });
                 }
             }
 
