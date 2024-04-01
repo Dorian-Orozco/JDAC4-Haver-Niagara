@@ -13,7 +13,7 @@ namespace Haver_Niagara.Models
         public int ID { get; set; } //PK
 
         [Display(Name = "Return rejected items to supplier")]
-        [Required(ErrorMessage = "Please select one")]
+        [Required(ErrorMessage = "Please select if rejected items should be returned")]
         public bool ReturnRejected { get; set; } //Return rejected items to supplier?
 
         //if ReturnRejected = true (yes)
@@ -57,7 +57,7 @@ namespace Haver_Niagara.Models
         }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (ReturnRejected)
+            if (ReturnRejected == true)
             {
                 if (RMANumber <= 0 || RMANumber == null)
                     yield return new ValidationResult("RMA Number is Required.", new[] { "RMANumber" });
@@ -68,8 +68,12 @@ namespace Haver_Niagara.Models
                 if (AccountNumber <= 0 || AccountNumber == null)
                     yield return new ValidationResult("Account Number is Required.", new[] { "AccountNumber" });
             }
-            if (!ReturnRejected && DisposeOnSite == null)
+            else
+            {
                 yield return new ValidationResult("Dispose on Site is Required.", new[] { "DisposeOnSite" });
+            }
+
+
             var today = DateTime.Today;
             if(ToReceiveDate < today)
             {

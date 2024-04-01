@@ -27,7 +27,7 @@ namespace Haver_Niagara.Models
         public bool DrawUpdate { get; set; }
 
         [Display(Name = "Disposition Sequence")] //Disposition Notes
-        public string DispositionNotes { get; set; }
+        public string? DispositionNotes { get; set; }
 
         //not required
         [Display(Name = "Original Revision Number")] //Original Revision Number
@@ -61,6 +61,11 @@ namespace Haver_Niagara.Models
                     yield return new ValidationResult("Disposition Notes Required", new[] {"DispositionNotes"});
                 }
             }
+            if(RevisionOriginal != null && RevisionUpdated == null)
+                yield return new ValidationResult("Updated Revision Number Required", new[] { "RevisionUpdated" } );
+            if (RevisionUpdated != null && RevisionOriginal== null)
+                yield return new ValidationResult("Original Revision Number Required", new[] { "RevisionOriginal" });
+
         }
     }
 }

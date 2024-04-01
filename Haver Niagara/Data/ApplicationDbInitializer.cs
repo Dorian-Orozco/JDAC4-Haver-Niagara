@@ -19,7 +19,7 @@ namespace Haver_Niagara.Data
                 //Create Roles
                 var RoleManager = applicationBuilder.ApplicationServices.CreateScope()
                     .ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                string[] roleNames = { "Admin", "Supervisor", "Quality Representative",  //Role Names a User can be assigned
+                string[] roleNames = { "Admin", "Quality Representative",  //Role Names a User can be assigned
                                        "Engineer", "Procurement", "Operations" };
                 IdentityResult roleResult;
                 foreach (var roleName in roleNames)
@@ -50,23 +50,6 @@ namespace Haver_Niagara.Data
                     if (result.Succeeded)                                                     //for simplicity I disabled some constraints
                     {                                                                         //so instead of having to use something like P@5w0rd! just use password
                         userManager.AddToRoleAsync(user, "Admin").Wait();
-                    }
-                }
-                //Supervisor
-                if (userManager.FindByEmailAsync("super@outlook.com").Result == null)
-                {
-                    IdentityUser user = new IdentityUser
-                    {
-                        UserName = "super@outlook.com",
-                        Email = "super@outlook.com",
-                        EmailConfirmed = true
-                    };
-
-                    IdentityResult result = userManager.CreateAsync(user, "w7,7tm!Monk").Result;
-
-                    if (result.Succeeded)
-                    {
-                        userManager.AddToRoleAsync(user, "Supervisor").Wait();
                     }
                 }
                 //Quality Representative Stuff

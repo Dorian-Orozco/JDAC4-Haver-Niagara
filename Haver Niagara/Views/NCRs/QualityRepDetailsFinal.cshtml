@@ -7,6 +7,10 @@
     ViewData["Title"] = "Quality Inspection";
 }
 
+<div class="d-flex justify-content-end">
+    <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-close"></a>
+</div>
+
 <!--Header-->
 <div>
     <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
@@ -208,7 +212,7 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-between mt-3">
+    <div class="d-flex justify-content-end mt-3">
         <div class="mt-2">
             <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
         </div>

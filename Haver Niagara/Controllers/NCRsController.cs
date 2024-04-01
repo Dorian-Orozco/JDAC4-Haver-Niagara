@@ -841,13 +841,14 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EngineeringEdit(int id, [Bind("OldNCRID")]
-                                                        NCR nCR, Engineering engineering)
+                                                        NCR nCR, Engineering engineering, string MarkAsCompleted)
         {
             nCR.ID = id;
             if (id != nCR.ID)
                 return NotFound();
 
-            //determine if email
+
+            //determine if email, false by default
             bool emailYesOrNo = false;
 
             //Gets the NCR that's going to be edited and is used to store the stage
@@ -870,12 +871,15 @@ namespace Haver_Niagara.Controllers
                     if (existingNCR == null)
                         return NotFound();
 
-                    //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
-                    if (ncrStageCheck.NCR_Stage == NCRStage.Engineering) //this would mean that the NCR stage should be sent to the next enum (operations)
+                    if(MarkAsCompleted == "true") //if they want to complete the form and pass it to the next stage
                     {
-                        existingNCR.NCR_Stage = NCRStage.Operations;  //if the ncr was in the engineering stage, since its complete set it to operations
-                        emailYesOrNo = true; //meaning yes send email because it is new, and not an edit
+                        if (ncrStageCheck.NCR_Stage == NCRStage.Engineering) //check to see if it's in engineering, and if it is, then update it to operations
+                        {
+                            existingNCR.NCR_Stage = NCRStage.Operations;  //sets ncr stage to operation
+                            emailYesOrNo = true; //then sends emails to employees in operation 
+                        }
                     }
+
                     if (ncrStageCheck.NCR_Stage != NCRStage.Engineering) //if the ncr stage is not equal to engineering meaning its from a later stage (operations, procurement, final..)
                         existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
 
@@ -970,7 +974,7 @@ namespace Haver_Niagara.Controllers
         //Operations Edit : POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OperationEdit(int id, [Bind("OldNCRID")] NCR nCR, Operation operation) //didnt use followup/car objects because they can be null so just did it in code 
+        public async Task<IActionResult> OperationEdit(int id, [Bind("OldNCRID")] NCR nCR, Operation operation, string MarkAsCompleted) //didnt use followup/car objects because they can be null so just did it in code 
         {
             nCR.ID = id;
             if (id != nCR.ID)
@@ -999,11 +1003,14 @@ namespace Haver_Niagara.Controllers
                     if (existingNCR == null)
                         return NotFound();
 
-                    //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
-                    if (ncrStageCheck.NCR_Stage == NCRStage.Operations) //this would mean that the NCR stage should be sent to the next enum (procurement)
+                    if(MarkAsCompleted == "true")
                     {
-                        existingNCR.NCR_Stage = NCRStage.Procurement;  //if the ncr was in the operations stage, since its complete set it to procurement
-                        sendEmailYesNo = true;  //set to true because this means it isnt an edit but its the first time its being "created"
+                        //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
+                        if (ncrStageCheck.NCR_Stage == NCRStage.Operations) //this would mean that the NCR stage should be sent to the next enum (procurement)
+                        {
+                            existingNCR.NCR_Stage = NCRStage.Procurement;  //if the ncr was in the operations stage, since its complete set it to procurement
+                            sendEmailYesNo = true;  //set to true because this means it isnt an edit but its the first time its being "created"
+                        }
                     }
                     if (ncrStageCheck.NCR_Stage != NCRStage.Operations) //if the ncr stage is not equal to operations meaning its from a later stage ( procurement, final..)
                         existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //keep it as that value
@@ -1149,7 +1156,7 @@ namespace Haver_Niagara.Controllers
         //Procurement Edit : POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ProcurementEdit(int id, [Bind("OldNCRID")] NCR nCR, Procurement procurement)
+        public async Task<IActionResult> ProcurementEdit(int id, [Bind("OldNCRID")] NCR nCR, Procurement procurement, string MarkAsCompleted)
         {
             nCR.ID = id;
             if (id != nCR.ID)
@@ -1183,9 +1190,11 @@ namespace Haver_Niagara.Controllers
                         existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
                         sendEmailYesNo = true;
                     }
-
-                    if (ncrStageCheck.NCR_Stage != NCRStage.Procurement) //if the ncr stage is not equal to procurement meaning its from a later stage ( , final..)
-                        existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
+                    if(MarkAsCompleted == "true")
+                    {
+                        if (ncrStageCheck.NCR_Stage != NCRStage.Procurement) //if the ncr stage is not equal to procurement meaning its from a later stage ( , final..)
+                            existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
+                    }
 
                     if (existingNCR.OldNCRID != null)
                         existingNCR.OldNCRID = nCR.ID;

@@ -329,19 +329,19 @@
                                     @{
                                         if (User.IsInRole("Engineer"))
                                         {
-                                            <a href="@Url.Action("QualityRepDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                            <a href="@Url.Action("EngineerDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
                                                 <ion-icon name="eye"></ion-icon>
                                             </a>
                                         }
                                         if (User.IsInRole("Operations"))
                                         {
-                                            <a href="@Url.Action("EngineerDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                            <a href="@Url.Action("OperationsDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
                                                 <ion-icon name="eye"></ion-icon>
                                             </a>
                                         }
                                         if (User.IsInRole("Procurement"))
                                         {
-                                            <a href="@Url.Action("OperationsDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                            <a href="@Url.Action("ProcurementDetails", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
                                                 <ion-icon name="eye"></ion-icon>
                                             </a>
                                         }
