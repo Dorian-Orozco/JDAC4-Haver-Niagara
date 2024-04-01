@@ -1000,7 +1000,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
+@*     <script>
         // HIDE DIFFERENT SECTIONS DEPENDING ON WHAT STAGE ITS AT
         $(document).ready(function () {
             // Get the selected stage value
@@ -1013,23 +1013,47 @@
             // Remove the 'd-none' class from the selected section
             switch (ncrStage) {
                 case "Engineering":
-                    // $('.section-eng').removeClass('d-none');
+                    // $('.section-eng').removeClass('d-none');             //leave commented
                     $('.section-oper').addClass('d-none')
                     $('.section-procure').addClass('d-none');
                     $('.section-qual').addClass('d-none');
                     break;
                 case "Operations":
-                    // $('.section-oper').removeClass('d-none');
+                    // $('.section-oper').removeClass('d-none');            //leave commented
                     $('.section-procure').addClass('d-none');
                     $('.section-qual').addClass('d-none');
                     break;
                 case "Procurement":
-                    // $('.section-procure').removeClass('d-none');
+                    // $('.section-procure').removeClass('d-none');         //leave commented
                     $('.section-qual').addClass('d-none');
                     break;
-                // case "QualityRepresentative_Final":
-                //     $('.section-qual').removeClass('d-none');
-                //     break;
+                // case "QualityRepresentative_Final":                      //leave commented
+                //     $('.section-qual').removeClass('d-none');            //leave commented
+                //     break;                                               //leave commented
+            }
+        });
+    </script> *@
+    <script>
+        $(document).ready(function () {
+            // Get the selected stage value
+            var ncrStage = '@Model.NCR_Stage';
+
+            // Remove the sections based on the selected stage
+            //Apparently removes form DOM content or something, will test.
+            switch (ncrStage) {
+                case "Engineering":
+                    $('.section-oper').remove();
+                    $('.section-procure').remove();
+                    $('.section-qual').remove();
+                    break;
+                case "Operations":
+                    $('.section-procure').remove();
+                    $('.section-qual').remove();
+                    break;
+                case "Procurement":
+                    $('.section-qual').remove();
+                    break;
+                
             }
         });
     </script>

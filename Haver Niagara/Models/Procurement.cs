@@ -70,7 +70,7 @@ namespace Haver_Niagara.Models
             }
             else
             {
-                yield return new ValidationResult("Dispose on Site is Required.", new[] { "DisposeOnSite" });
+                //yield return new ValidationResult("Dispose on Site is Required.", new[] { "DisposeOnSite" });
             }
 
 

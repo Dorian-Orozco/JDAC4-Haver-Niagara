@@ -82,7 +82,7 @@ namespace Haver_Niagara.Models
                 }
             }
 
-            if (OperationCar && CAR != null) //if true then look for values if none throw err
+            if (OperationCar) //if true then look for values if none throw err
             {
                 if (CAR.CARNumber == null)
                     yield return new ValidationResult("Car Number Cannot Be Empty", new[] { "CAR.CARNumber" });
