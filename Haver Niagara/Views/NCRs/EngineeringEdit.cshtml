@@ -36,6 +36,10 @@
     </dl>
 </div>
 <div class="d-flex justify-content-between text-muted mb-3">
+    <!--previous section = quality rep-->
+    <a asp-action="QualityRepDetails" asp-route-id="@Model?.ID" class="btn-forward" title="previous section">
+        <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
+    </a>
     <div>
         @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
         {
@@ -45,10 +49,12 @@
             </div>
         }
     </div>
-    <a asp-action="QualityRepDetails" asp-route-id="@Model?.ID" class="btn-forward" title="previous section">
-        <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
-    </a>
+    <!--hidden button, not functional - just for styling-->
+    <button class="btn-forward pe-none">
+        <ion-icon name="arrow-forward-circle-outline" class="btn-forward-icon bg-white "></ion-icon>
+    </button>
 </div>
+
 <form class="" asp-action="EngineeringEdit" id="myForm" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ID" />
@@ -228,7 +234,7 @@
             </span>
             <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
             <span class="mt-2 ms-2">
-                <input type="submit" value="Mark as Completed" class="btn btn-outline-primary" />
+                <input type="submit" value="Mark as Completed" class="btn btn-primary" />
             </span>
         </div>
     </div>

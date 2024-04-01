@@ -5,8 +5,10 @@
     ViewData["Title"] = "Report";
 }
 
-<partial name="_addSupplierModal" />
-<partial name="_addDefectModal" />
+<!-- Bootstrap-select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
+
 @* h1 *@
 <dl>
     <dt class="text-muted">
@@ -48,6 +50,8 @@
     }
 </div>
 
+<partial name="_addSupplierModal" />
+<partial name="_addDefectModal" />
 <form class="" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ID" />
@@ -61,7 +65,7 @@
                 <div class="col-sm-4 border pt-3 ps-3">
                     <dl>
                         <dt>
-                            Identify Process Applicable:
+                            Identify Process Applicable <span class="text-danger"> *</span>
                         </dt>
                         <dd class="mt-1 ms-2">
                             @foreach (var qualityIdentify in Enum.GetValues(typeof(QualityIdentify)))@* Has To Be Fixed to use Quality Identify Data Annotations *@
@@ -79,25 +83,27 @@
                 <div class="col-sm-4 border pt-3 ps-3">
                     <dl>
                         <dt class="">
-                            Supplier Name
+                            Supplier Name<span class="text-danger"> *</span>
                         </dt>
-                        <dd class="mt-1">
-                            @*  <div class="form-group">
-                        <label asp-for="Part.SupplierID" class="control-label"></label>
-                        <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
-                        <option value="">--Select Supplier--</option>
-                        </select>
-                        <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
-                        </div> *@
+                        @*  <div class="form-group">
+                    <label asp-for="Part.SupplierID" class="control-label"></label>
+                    <select asp-for="Part.SupplierID" class="form-control" asp-items="ViewBag.listOfSuppliers">
+                    <option value="">--Select Supplier--</option>
+                    </select>
+                    <span asp-validation-for="Part.SupplierID" class="text-danger"></span>
+                    </div> *@
+
+                        <dd>
                             <div class="form-group mt-1">
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
+                                    <span class="input-group-prepend">
                                         <button class="btn btn-outline-secondary" id="nowAddSupplier" data-bs-toggle="modal" data-bs-target="#addSupplierModal" type="button">&#x2795;</button>
-                                    </div>
-                                    <select asp-for="NCRSupplierID" class="form-control" asp-items="ViewBag.SupplierID">
+                                    </span>
+                                    <select asp-for="NCRSupplierID" name="NCRSupplierID" asp-items="ViewBag.SupplierID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
                                         <option value="">Select Supplier</option>
                                     </select>
                                 </div>
+                                <span asp-validation-for="NCRSupplierID" class="text-danger"></span>
                             </div>
                         </dd>
                     </dl>
@@ -112,22 +118,22 @@
                             <span asp-validation-for="FormattedID" class="text-danger"></span>
                         </dl>
                     </div>
-               @*      <div class="row">
-                        <dl class="d-flex m-0">
-                            <dt class="col-sm-5 ">
-                                <label asp-for="Part.PurchaseNumber" class="control-label"></label>
-                            </dt>
-                            <dd class="col-sm-7 ">
-                                <input asp-for="Part.PurchaseNumber" class="form-control" />
-                                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
-                            </dd>
-                        </dl>
-                    </div> *@
+                    @*      <div class="row">
+                <dl class="d-flex m-0">
+                <dt class="col-sm-5 ">
+                <label asp-for="Part.PurchaseNumber" class="control-label"></label>
+                </dt>
+                <dd class="col-sm-7 ">
+                <input asp-for="Part.PurchaseNumber" class="form-control" />
+                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
+                </dd>
+                </dl>
+                </div> *@
                     <div class="row">
                         <dl class="d-flex m-0">
                             <dt class="col-sm-5 ">
                                 @* PO or Prod No. *@
-                                <label asp-for="Part.ProductNumber" class="control-label"></label>
+                                <label asp-for="Part.ProductNumber" class="control-label"></label><span class="text-danger"> *</span>
                             </dt>
                             <dd class="col-sm-7 ">
                                 <input asp-for="Part.ProductNumber" class="form-control" />
@@ -138,7 +144,7 @@
                     <div class="row">
                         <dl class="d-flex mb-1">
                             <dt class="col-sm-5 ">
-                                <label asp-for="Part.SalesOrder" class="control-label"></label>
+                                <label asp-for="Part.SalesOrder" class="control-label"></label><span class="text-danger"> *</span>
                             </dt>
                             <dd class="col-sm-7">
                                 <input asp-for="Part.SalesOrder" class="form-control" />
@@ -158,12 +164,12 @@
                         </dt>
                         <dd class="mt-1">
                             <div class="form-group">
-                                <label asp-for="Part.SAPNumber" class="control-label"></label>
+                                <label asp-for="Part.SAPNumber" class="control-label"></label><span class="text-danger"> *</span>
                                 <input asp-for="Part.SAPNumber" class="form-control" />
                                 <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Part.Name" class="control-label"></label>
+                                <label asp-for="Part.Name" class="control-label"></label><span class="text-danger"> *</span>
                                 <input asp-for="Part.Name" class="form-control" />
                                 <span asp-validation-for="Part.Name" class="text-danger"></span>
                             </div>
@@ -180,7 +186,7 @@
                     <div class="row">
                         <dl class="d-flex m-0">
                             <dt class="col-sm">
-                                <label asp-for="Part.QuantityRecieved" class="control-label"></label>
+                                <label asp-for="Part.QuantityRecieved" class="control-label"></label><span class="text-danger"> *</span>
                             </dt>
                             <dd class="col-sm">
                                 <input asp-for="Part.QuantityRecieved" class="form-control" />
@@ -191,7 +197,7 @@
                     <div class="row">
                         <dl class="d-flex">
                             <dt class="col-sm">
-                                <label asp-for="Part.QuantityDefect" class="control-label"></label>
+                                <label asp-for="Part.QuantityDefect" class="control-label"></label><span class="text-danger"> *</span>
                             </dt>
                             <dd class="col-sm">
                                 <input asp-for="Part.QuantityDefect" class="form-control" />
@@ -206,7 +212,7 @@
                 <div class="col-sm-12 border pt-3 ps-3">
                     <dl>
                         <dt>
-                            Description of Defect <span class="fw-light">(in as much detail as possible)</span>
+                            Description of Defect <span class="fw-light">(in as much detail as possible)</span><span class="text-danger"> *</span>
                         </dt>
                         <dd class="mt-1">
                             <div class="form-group">
@@ -214,8 +220,8 @@
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-secondary" id="nowAddDefect" data-bs-toggle="modal" data-bs-target="#addDefectModal" type="button">&#x2795;</button>
                                     </div>
-                                    <select id="defectID" name="SelectedDefectID" class="form-control">
-                                        <option value="">--Select Defect--</option>
+                                    <select id="defectID" name="SelectedDefectID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
+                                        <option value="">Select a Defect</option>
                                         @foreach (var defect in ViewBag.DefectList)
                                         {
                                             if (Model.Part != null && Model.Part.DefectLists != null && Model.Part.DefectLists.Any(defectL => defectL.Defect.Name == defect.Text))
@@ -229,9 +235,9 @@
                                         }
                                     </select>
                                 </div>
-                                <span class="text-danger"></span>
                             </div>
                         </dd>
+                        <div class="text-danger" id="defectError"></div>
                     </dl>
                 </div>
             </div>
@@ -240,7 +246,7 @@
                 <div class="col-sm-3 pt-3 ps-3 d-flex justify-content-start">
                     <dl>
                         <dt>
-                            Item marked Non-conforming
+                            Item marked Non-conforming<span class="text-danger">*</span>
                         </dt>
                         <dd class="mt-2">
                             <div class="d-flex">
@@ -263,7 +269,7 @@
                     <div class="row">
                         <dl class="d-flex m-0">
                             <dt class="col-sm">
-                                Quality Representative's Name
+                                Quality Representative's Name<span class="text-danger">*</span>
                             </dt>
                             <dd class="col-sm ms-2">
                                 <input asp-for="QualityInspection.Name" required class="form-control" />
@@ -1000,39 +1006,11 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-@*     <script>
-        // HIDE DIFFERENT SECTIONS DEPENDING ON WHAT STAGE ITS AT
-        $(document).ready(function () {
-            // Get the selected stage value
-            var ncrStage = '@Model.NCR_Stage';
-            // alert('Selected stage: ' + ncrStage);
 
-            // Remove the 'active' class from all sections
-            $('.section').removeClass('d-none');
+    <!-- refresh ddl script -->
+    <script src="~/js/refreshDDL.js"></script>
 
-            // Remove the 'd-none' class from the selected section
-            switch (ncrStage) {
-                case "Engineering":
-                    // $('.section-eng').removeClass('d-none');             //leave commented
-                    $('.section-oper').addClass('d-none')
-                    $('.section-procure').addClass('d-none');
-                    $('.section-qual').addClass('d-none');
-                    break;
-                case "Operations":
-                    // $('.section-oper').removeClass('d-none');            //leave commented
-                    $('.section-procure').addClass('d-none');
-                    $('.section-qual').addClass('d-none');
-                    break;
-                case "Procurement":
-                    // $('.section-procure').removeClass('d-none');         //leave commented
-                    $('.section-qual').addClass('d-none');
-                    break;
-                // case "QualityRepresentative_Final":                      //leave commented
-                //     $('.section-qual').removeClass('d-none');            //leave commented
-                //     break;                                               //leave commented
-            }
-        });
-    </script> *@
+    <!--Hide different sections depending on stage-->
     <script>
         $(document).ready(function () {
             // Get the selected stage value
@@ -1058,11 +1036,37 @@
         });
     </script>
 
+    <!--alert for cancel button-->
+    <script>
+        $('#cancel-button').click(function (event) {
+            // Show the confirmation dialog and store the user's response
+            var userConfirmed = confirm('Are you sure you want to cancel? All progress will be lost.');
 
-    @* QUICKLY ADD OPTION TO SUPPLIER SELECT DROP DOWN LIST *@
+            // If the user clicks 'Cancel', prevent the default button action
+            if (!userConfirmed) {
+                event.preventDefault();
+            }
+        });
+    </script>
 
-    <script src="~/js/refreshDDL.js"></script>
+    <!-- Bootstrap for searchable ddl -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Bootstrap-Select's JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <!--searchable drop down list-->
+    <script type="text/javascript">
+        $(function () {
+            $("#NCRSupplierID").selectpicker({ width: "auto" });
+        });
+        //defectID
+        $(function () {
+            $("#defectID").selectpicker({ width: "auto" });
+        });
+    </script>
+
+    <!--quickly add ddl supplier-->
     <script type="text/javascript">
         $('#submitSupplierCreate').click(function (event) {
             event.preventDefault();
@@ -1123,7 +1127,7 @@
         }
     </script>
 
-    @* Defect Modal / Form Javascript *@
+    <!--quickly add ddl defect-->
     <script type="text/javascript">
         $('#submitDefectCreate').click(function (event) {
             event.preventDefault();
@@ -1183,47 +1187,48 @@
             }
         }
         <script>
+    </script>>
 
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 
-
-            <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" ></script>
-
+    <!--Remove Images JQUERY/AJAX-->
     <script>
-                /* Remove Images JQUERY/AJAX */
-                $(document).ready(function () {
-                    // Attach click event handler to elements with class "delete"
-                    $(".delete").click(function (event) {
-                        // Prevent the default action of the link
-                        event.preventDefault();
+            $(document).ready(function () {
+                // Attach click event handler to elements with class "delete"
+                $(".delete").click(function (event) {
+                    // Prevent the default action of the link
+                    event.preventDefault();
 
-                        // Get the ncrID and imageID of the clicked link
-                        var ncrID = $(this).data("ncrid");
-                        var imageID = $(this).data("imageid");
+                    // Get the ncrID and imageID of the clicked link
+                    var ncrID = $(this).data("ncrid");
+                    var imageID = $(this).data("imageid");
 
-                        //Storing most recently clicked button
-                        var imageContainer = $(this).closest('.image-container');
+                    //Storing most recently clicked button
+                    var imageContainer = $(this).closest('.image-container');
 
-                        // Show confirmation dialog
-                        if (confirm('Are you sure you want to remove this image?')) {
-                            // Make AJAX call to remove the image
-                            $.ajax({
-                                type: "POST",
-                                url: '@Url.Action("RemoveImage", "NCRs")',
-                                data: { ncrID: ncrID, imageID: imageID },
-                                success: function (response) {
-                                    // Remove the image element from the DOM if removal is successful
-                                    alert('Image Successfully Deleted!')
-                                    imageContainer.remove();
-                                },
-                                error: function (xhr, status, error) {
-                                    alert('Delete Failed, Try Again Later.')
-                                    console.error(xhr.responseText);
-                                }
-                            });
-                        }
-                    });
+                    // Show confirmation dialog
+                    if (confirm('Are you sure you want to remove this image?')) {
+                        // Make AJAX call to remove the image
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("RemoveImage", "NCRs")',
+                            data: { ncrID: ncrID, imageID: imageID },
+                            success: function (response) {
+                                // Remove the image element from the DOM if removal is successful
+                                alert('Image Successfully Deleted!')
+                                imageContainer.remove();
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Delete Failed, Try Again Later.')
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    }
                 });
+            });
+
         //LISTS USING AJAX /JQUEWRY
+
         $(document).ready(function () {
             $(".delete-link").click(function (event) {
                 event.preventDefault();
@@ -1251,11 +1256,6 @@
             });
         });
 
-        document.getElementById("cancel-button").addEventListener("click", function (event) {
-            if (!confirm("Are you sure you want to cancel?")) {
-                event.preventDefault();
-            }
-        });
         $(document).ready(function () {
             // Handler for the change event of the OperationFollowUp radio button
             $('input[name="Operation.OperationFollowUp"]').change(function () {
@@ -1277,8 +1277,6 @@
                 }
             });
         });
-
-
 
         // Define variables to store initial values
         var initialRMANumber, initialCarrierName, initialCarrierPhone, initialAccountNumber, initialDisposeOnSite;
@@ -1313,6 +1311,40 @@
             });
         });
     </script>
+
+    @*   <script>
+        // HIDE DIFFERENT SECTIONS DEPENDING ON WHAT STAGE ITS AT
+        $(document).ready(function () {
+            // Get the selected stage value
+            var ncrStage = '@Model.NCR_Stage';
+            // alert('Selected stage: ' + ncrStage);
+
+            // Remove the 'active' class from all sections
+            $('.section').removeClass('d-none');
+
+            // Remove the 'd-none' class from the selected section
+            switch (ncrStage) {
+                case "Engineering":
+                    // $('.section-eng').removeClass('d-none');             //leave commented
+                    $('.section-oper').addClass('d-none')
+                    $('.section-procure').addClass('d-none');
+                    $('.section-qual').addClass('d-none');
+                    break;
+                case "Operations":
+                    // $('.section-oper').removeClass('d-none');            //leave commented
+                    $('.section-procure').addClass('d-none');
+                    $('.section-qual').addClass('d-none');
+                    break;
+                case "Procurement":
+                    // $('.section-procure').removeClass('d-none');         //leave commented
+                    $('.section-qual').addClass('d-none');
+                    break;
+                // case "QualityRepresentative_Final":                      //leave commented
+                //     $('.section-qual').removeClass('d-none');            //leave commented
+                //     break;                                               //leave commented
+            }
+        });
+    </script>  *@
 }
 
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
