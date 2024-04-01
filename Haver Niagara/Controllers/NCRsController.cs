@@ -311,7 +311,15 @@ namespace Haver_Niagara.Controllers
             var ncrRetrieveStage = _context.NCRs
                 .FirstOrDefaultAsync(n => n.ID == id);
 
-
+            if (!ModelState.IsValid) 
+            {
+               // nCR.NCR_Stage = ncrStageCheck.NCR_Stage; //If they are editing quality rep final, it will keep that stage if posts back. If the ncr is in engineering it will persist
+                // Populate supplier dropdown list              //The ncr stage will get changed in every edit after this. so in engineering, if model state is valid, then at the end change the stage and continue.
+                ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
+                ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
+                ViewBag.SelectedDefectID = SelectedDefectID;
+                return View(nCR);
+            }
 
             if (ModelState.IsValid)
             {
