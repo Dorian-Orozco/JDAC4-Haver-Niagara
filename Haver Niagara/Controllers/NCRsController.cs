@@ -234,7 +234,8 @@ namespace Haver_Niagara.Controllers
                 {
                     await OnPostUploadAsync(files, nCR.ID, links);
                 }
-                TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here To View: {nCR.FormattedID}</a>";
+                TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Section 1/ Quality Rep for NCR #{nCR.FormattedID} has been successfully created and passed on to section 2/ Engineer. Email Notification has been sent to next department. Click here to view the report.</a>";
+
 
 
                 //So since the Create proccess only occurs once we can send a email here 
