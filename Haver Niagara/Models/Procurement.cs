@@ -47,10 +47,11 @@ namespace Haver_Niagara.Models
         [Display(Name = "Billing supplier for expenses incurred in the rework process")]
         public bool BillSupplier {  get; set; } //Billing supplier for expenses incurred in rework process
 
-        public NCR NCR { get; set; } //FK
+
 
 #nullable disable
 
+        public NCR NCR { get; set; } //FK
         public Procurement()
         {
             ToReceiveDate = DateTime.Today;
@@ -68,12 +69,6 @@ namespace Haver_Niagara.Models
                 if (AccountNumber <= 0 || AccountNumber == null)
                     yield return new ValidationResult("Account Number is Required.", new[] { "AccountNumber" });
             }
-            else
-            {
-                //yield return new ValidationResult("Dispose on Site is Required.", new[] { "DisposeOnSite" });
-            }
-
-
             var today = DateTime.Today;
             if(ToReceiveDate < today)
             {
