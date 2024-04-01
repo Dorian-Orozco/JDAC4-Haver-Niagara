@@ -1192,17 +1192,20 @@ namespace Haver_Niagara.Controllers
                     if (existingNCR == null)
                         return NotFound();
 
-                    //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
-                    if (ncrStageCheck.NCR_Stage == NCRStage.Procurement)//this would mean that the NCR stage should be sent to the next enum (quality final)
-                    {
-                        existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
-                        sendEmailYesNo = true;
-                    }
                     if(MarkAsCompleted == "true")
                     {
+                        //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
+                        if (ncrStageCheck.NCR_Stage == NCRStage.Procurement)//this would mean that the NCR stage should be sent to the next enum (quality final)
+                        {
+                            existingNCR.NCR_Stage = NCRStage.QualityRepresentative_Final;
+                            sendEmailYesNo = true;
+                        }
+                    }
+
+
                         if (ncrStageCheck.NCR_Stage != NCRStage.Procurement) //if the ncr stage is not equal to procurement meaning its from a later stage ( , final..)
                             existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
-                    }
+                    
 
                     if (existingNCR.OldNCRID != null)
                         existingNCR.OldNCRID = nCR.ID;

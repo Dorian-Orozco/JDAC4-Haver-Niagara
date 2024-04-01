@@ -222,32 +222,20 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" ></script>
 
     <script>
-        // Define variables to store initial values
-        var initialRMANumber, initialCarrierName, initialCarrierPhone, initialAccountNumber, initialDisposeOnSite;
-
         $(document).ready(function () {
-            // Store initial values when the page loads
-            initialRMANumber = $('#RMANumber').val();
-            initialCarrierName = $('#CarrierName').val();
-            initialCarrierPhone = $('#CarrierPhone').val();
-            initialAccountNumber = $('#AccountNumber').val();
-            initialDisposeOnSite = $('input[name="Procurement.DisposeOnSite"]:checked').val();
-
             // Handler for the change event of the ReturnRejected radio buttons
             $('input[name="Procurement.ReturnRejected"]').change(function () {
                 // Check if "Yes" is selected
                 if ($(this).val() === "True") {
-                    // $('input[name="Procurement.DisposeOnSite"]').prop('required', true);
                     $('#RMANumber').prop('required', true);
                     $('#CarrierName').prop('required', true);
                     $('#CarrierPhone').prop('required', true);
                     $('#AccountNumber').prop('required', true);
                     $('input[name="Procurement.DisposeOnSite"]').removeAttr('required');
                     $('input[name="Procurement.DisposeOnSite"]').prop('disabled', true);
-        
                     $('input[name="Procurement.DisposeOnSite"]').val('');
                 }
-                else if ($(this).val() === "False") {
+                if ($(this).val() === "False") {
                     $('#RMANumber').val('');
                     $('#RMANumber').prop('required', false);
                     $('#CarrierName').val('');
@@ -262,7 +250,6 @@
             });
         });
     </script>
-    <script>
     <script>
         document.getElementById('myForm').addEventListener('submit', function (event) {
             // Get the value of the clicked submit button
