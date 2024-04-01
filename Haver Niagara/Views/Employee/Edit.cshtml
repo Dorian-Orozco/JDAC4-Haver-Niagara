@@ -102,7 +102,6 @@
 <div>
     <partial name="_BackToList" />
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
@@ -117,17 +116,24 @@
                 uncheckOtherCheckboxes($(this));
             });
 
+            // Check if Admin checkbox is checked initially
+            if ($('#Admin-CheckBox').prop('checked')) {
+                // Disable all checkboxes except Admin if it's checked
+                $('.role-checkbox:not(#Admin-CheckBox)').prop('disabled', true);
+            }
+
             // Show confirmation modal when Save button is clicked
             $('form').submit(function (event) {
-                event.preventDefault(); // Prevent default form submission
-
-                // Check if Admin checkbox is unchecked
-                if (!$('#Admin-CheckBox').prop('checked')) {
-                    // Show warning if Admin checkbox is unchecked
-                    $('#confirmationModal .modal-body').text("Admin role must be selected!");
-                } else {
-                    // Show confirmation modal
+                // Check if Admin checkbox is checked
+                if ($('#Admin-CheckBox').prop('checked')) {
+                    // Show warning if Admin checkbox is checked
+                    $('#confirmationModal .modal-body').text("Admin role is pre-selected and cannot be removed.");
                     $('#confirmationModal').modal('show');
+                    event.preventDefault(); // Prevent default form submission
+                } else {
+                    $('#confirmationModal .modal-body').text("Are you sure you want to make changes?");
+                    $('#confirmationModal').modal('show');
+                    event.preventDefault(); // Prevent default form submission
                 }
             });
 
@@ -137,6 +143,6 @@
             });
         });
     </script>
-
 }
+
 
