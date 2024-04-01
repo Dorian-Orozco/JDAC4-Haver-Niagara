@@ -250,19 +250,6 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#myForm').submit(function (event) {
-                // check if none of either "Yes" or "No" is selected
-                if (!$('input[name="Operation.OperationFollowUp"]').is(':checked')) {
-                    // Display an error message
-                    $('#operationFollowUpError').text('Please select either "Yes" or "No" for Operation Follow-Up.');
-                    // Prevent form submission
-                    
-                    event.preventDefault();
-                }
-            });
-        });
-    <script>
         document.getElementById("cancel-button").addEventListener("click", function (event) {
             if (!confirm("Are you sure you want to cancel?")) {
                 event.preventDefault();
@@ -275,55 +262,31 @@
                 if ($(this).val() === "False") {
                     // Clear the FollowUpType and FollowUpDate input fields
                     $('#FollowUpType').val('');
-                    $('#FollowUpDate').val('');
+                    $('#FollowUpType').attr('required', false);
+                    $('#FollowUpType').attr('required', false);
+                }
+                if ($(this).val() === "True") {
+                    $('#FollowUpType').attr('required', true);
+                    $('#FollowUpType').attr('required', true);
                 }
             });
 
-            // Handler for the change event of the OperationCar radio button
             $('input[name="Operation.OperationCar"]').change(function () {
                 // Check if OperationCar is set to false
                 if ($(this).val() === "False") {
                     // Clear the CARNumber and CARDate input fields
                     $('#CARNumber').val('');
-                    $('#CARDate').val('');
-                }
-            });
-        });
-
-
-
-        // Define variables to store initial values
-        var initialRMANumber, initialCarrierName, initialCarrierPhone, initialAccountNumber, initialDisposeOnSite;
-
-        $(document).ready(function () {
-            // Store initial values when the page loads
-            initialRMANumber = $('#RMANumber').val();
-            initialCarrierName = $('#CarrierName').val();
-            initialCarrierPhone = $('#CarrierPhone').val();
-            initialAccountNumber = $('#AccountNumber').val();
-            initialDisposeOnSite = $('input[name="Procurement.DisposeOnSite"]:checked').val();
-
-            // Handler for the change event of the ReturnRejected radio buttons
-            $('input[name="Procurement.ReturnRejected"]').change(function () {
-                // Check if "Yes" is selected
+                    $('#CARNumber').attr('required', false);
+                    $('#CARDate').attr('required', false);
+                } // <-- Move this closing bracket here
                 if ($(this).val() === "True") {
-                    $('input[name="Procurement.DisposeOnSite"]').prop('required', true);
-                }
-                else {
-                    // Clear inputs if "Yes" is selected
-                    // Clear RMANumber
-                    $('#RMANumber').val('');
-                    // Clear CarrierName
-                    $('#CarrierName').val('');
-                    // Clear CarrierPhone
-                    $('#CarrierPhone').val('');
-                    // Clear AccountNumber
-                    $('#AccountNumber').val('');
-                    // Clear DisposeOnSite
-                    $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
+                    $('#CARNumber').attr('required', true);
+                    $('#CARDate').attr('required', true);
                 }
             });
         });
+
+
     </script>
     <script>
         document.getElementById('myForm').addEventListener('submit', function (event) {
