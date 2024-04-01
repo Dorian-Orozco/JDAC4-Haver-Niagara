@@ -61,7 +61,7 @@
         <span>Voided Reports</span>
     </h1>
 </div>
-<small class="text-under-heading">NCR Reports that have been Voided.</small>
+<small class="text-under-heading">NCR reports that have been voided.</small>
 
 <form asp-action="ListVoided" asp-controller="Home" method="get" class="mt-4">
     @*     <div class="form-horizontal">
@@ -186,7 +186,7 @@
                                 <ion-icon name="eye"></ion-icon>
                             </a>
                             
-                            <a href="@Url.Action("UnVoid", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="UnVoid NCR report">
+                            <a href="@Url.Action("UnVoid", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Unvoid NCR report">
                                 <ion-icon name="arrow-undo-outline"></ion-icon>
                             </a>
                             
