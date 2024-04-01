@@ -28,12 +28,6 @@ namespace Haver_Niagara.Data
                     },
                     new Employee
                     {
-                        FirstName = "Fred",
-                        LastName = "Flintstone",
-                        Email = "super@outlook.com"
-                    },
-                    new Employee
-                    {
                         FirstName = "Alex",
                         LastName = "Baxter",
                         Email = "qualityrepresentative@outlook.com"
