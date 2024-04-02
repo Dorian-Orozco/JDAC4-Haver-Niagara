@@ -464,6 +464,10 @@ h2 {
     padding: 5px;
 }
 
+.page-break {
+    break-after: page;
+}
+
 /* New Grid Starts Here */
 
 /* Value: When required utilize the space below blurb */

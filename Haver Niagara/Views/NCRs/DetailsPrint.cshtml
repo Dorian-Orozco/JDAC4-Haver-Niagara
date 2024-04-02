@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" type="text/css" href="@Url.Content("wwwroot/css/PdfStyle.css")" />
 
-<div class="parent">
+<div class="parent page-break">
 
 	<div class="div1">
 		<h1>Haver & Boecker Niagara</h1>
@@ -285,14 +285,16 @@
 	</div>
 
 	<div class="div41">
-		@Html.CheckBoxFor(model => model.Procurement.SuppReturnCompletedSAP, new { @disabled = "disabled" })
-		<label>Supplier return has been completed in SAP</label><br>
+		<span class="value">
+			@Html.CheckBoxFor(model => model.Procurement.SuppReturnCompletedSAP, new { @disabled = "disabled" })
+			<label>Supplier return has been completed in SAP</label><br>
 
-		@Html.CheckBoxFor(model => model.Procurement.ExpectSuppCredit, new { @disabled = "disabled" })
-		<label>Expecting credit from supplier</label><br>
+			@Html.CheckBoxFor(model => model.Procurement.ExpectSuppCredit, new { @disabled = "disabled" })
+			<label>Expecting credit from supplier</label><br>
 
-		@Html.CheckBoxFor(model => model.Procurement.BillSupplier, new { @disabled = "disabled" })
-		<label>Billing supplier for expenses incurred in the rework process</label>
+			@Html.CheckBoxFor(model => model.Procurement.BillSupplier, new { @disabled = "disabled" })
+			<label>Billing supplier for expenses incurred in the rework process</label>
+		</span>
 	</div>
 
 	<div class="div42">4/ Procurement</div>
@@ -411,7 +413,7 @@
 
 
 
-<div class="parent2 page-break-after">
+<div class="parent2">
 
 	<div class="div1">
 		<h1>Haver & Boecker Niagara</h1>
