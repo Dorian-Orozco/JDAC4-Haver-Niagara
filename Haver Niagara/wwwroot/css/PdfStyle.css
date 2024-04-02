@@ -31,7 +31,7 @@ h2 {
 .parent {
     display: grid;
     grid-template-columns: 35px repeat(2, 150px) repeat(2, 75px) 60px 90px 50px 40px 55px 50px 135px; /* 12 columns (13 lines) */
-    grid-template-rows: 35px 45px repeat(7, 30px) 40px 50px 55px 60px repeat(2, 50px) 45px 65px repeat(2, 50px) repeat(2, 45px) 50px 55px repeat(2, 60px); /* 29 rows (30 lines) */
+    grid-template-rows: 35px 45px repeat(7, 30px) 40px 50px 55px 60px repeat(2, 50px) 45px 85px repeat(2, 50px) repeat(2, 45px) 50px 55px repeat(2, 60px); /* 29 rows (30 lines) */
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     border: 2px solid black;
@@ -320,6 +320,7 @@ h2 {
     padding: 10px;
     padding-right: 5px;
     border-right: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 /* Operations Side Title */
@@ -343,15 +344,14 @@ h2 {
 .div38 {
     grid-area: 23 / 7 / 24 / 13;
     padding: 10px;
+    border-top: 1px solid black;
     border-right: 1px solid black;
-    border-left: 2px solid black;
 }
 
 /* Title/Value: RMA #, Carrier, Phone, Acc # */
 .div39 {
     grid-area: 24 / 2 / 26 / 4;
     padding: 10px;
-    border-right: 1px solid black;
     border-left: 2px solid black;
 }
 
@@ -359,8 +359,6 @@ h2 {
 .div40 {
     grid-area: 24 / 4 / 26 / 7;
     padding: 10px;
-    border-right: 1px solid black;
-    border-left: 2px solid black;
 }
 
 /* Title/Value: Supplier return, expect credit, billing Options */

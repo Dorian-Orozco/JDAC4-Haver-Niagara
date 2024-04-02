@@ -284,29 +284,16 @@
 		<label>No</label>
 	</div>
 
-@* 	<div class="div 41">
-			<span class="ms-3">
-				@Html.CheckBoxFor(model => model.Procurement.SuppReturnCompletedSAP, new { @disabled = "disabled" })
-			</span>
-			<span class="ms-3">
-				@Html.DisplayNameFor(model => model.Procurement.SuppReturnCompletedSAP)
-			</span>
+	<div class="div41">
+		@Html.CheckBoxFor(model => model.Procurement.SuppReturnCompletedSAP, new { @disabled = "disabled" })
+		<label>Supplier return has been completed in SAP</label><br>
 
+		@Html.CheckBoxFor(model => model.Procurement.ExpectSuppCredit, new { @disabled = "disabled" })
+		<label>Expecting credit from supplier</label><br>
 
-			<span class="ms-3">
-				@Html.CheckBoxFor(model => model.Procurement.ExpectSuppCredit, new { @disabled = "disabled" })
-			</span>
-			<span class="ms-3">
-				@Html.DisplayNameFor(model => model.Procurement.ExpectSuppCredit)
-			</span>
-
-			<span class="ms-3">
-				@Html.CheckBoxFor(model => model.Procurement.BillSupplier, new { @disabled = "disabled" })
-			</span>
-			<span class="ms-3">
-				@Html.DisplayNameFor(model => model.Procurement.BillSupplier)
-			</span>
-	</div> *@
+		@Html.CheckBoxFor(model => model.Procurement.BillSupplier, new { @disabled = "disabled" })
+		<label>Billing supplier for expenses incurred in the rework process</label>
+	</div>
 
 	<div class="div42">4/ Procurement</div>
 
