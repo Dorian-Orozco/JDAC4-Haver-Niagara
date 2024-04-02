@@ -83,10 +83,10 @@ namespace Haver_Niagara.Controllers
                 ChromePdfRenderer renderer = new ChromePdfRenderer();
 
                 //margins
-                renderer.RenderingOptions.MarginTop = 10;
-                renderer.RenderingOptions.MarginLeft = 10;
-                renderer.RenderingOptions.MarginRight = 10;
-                renderer.RenderingOptions.MarginBottom = 10;
+                renderer.RenderingOptions.MarginTop = 5;
+                renderer.RenderingOptions.MarginLeft = 5;
+                renderer.RenderingOptions.MarginRight = 5;
+                renderer.RenderingOptions.MarginBottom = 5;
 
                 // Choose screen or print CSS media
                 //renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
