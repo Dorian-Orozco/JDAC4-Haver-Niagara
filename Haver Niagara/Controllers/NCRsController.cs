@@ -74,7 +74,7 @@ namespace Haver_Niagara.Controllers
                     .Include(n => n.Procurement)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
-            //Print Details View to PDF
+            // Print Details View to PDF
             if (_httpContextAccessor.HttpContext.Request.Method == HttpMethod.Post.Method)
             {
                 //create html string from DetailsPrint razor view and data from nCR
@@ -88,20 +88,14 @@ namespace Haver_Niagara.Controllers
                 renderer.RenderingOptions.MarginRight = 10;
                 renderer.RenderingOptions.MarginBottom = 5;
 
-                // Choose screen or print CSS media
-                //renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
-
                 //render pdf doc based on html string from razor view
                 using var pdfDocument = renderer.RenderHtmlAsPdf(html);
 
-                //// Use the FormattedID property to generate the file name
+                //use the FormattedID property to generate the file name
                 string fileName = $"NCR_{nCR.FormattedID}.pdf";
-
-                //Response.Headers.Add("Content-Disposition", "inline");
 
                 //output pdf
                 return File(pdfDocument.BinaryData, "application/pdf", fileName);
-
             }
 
             return View(nCR);
@@ -266,7 +260,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        // GET: NCRs/Edit/5
+        //GET: NCRs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -617,7 +611,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        //Stage system, retrieve the part of the ncr that is being edited, use the ncr id and see if there is data filled out after their section NOT BEFORe
+//Stage system, retrieve the part of the ncr that is being edited, use the ncr id and see if there is data filled out after their section NOT BEFORe
         //because if you create an NCR thats automatically the quality rep stage but once you submit the form it turns into Engineering.
         //So what if someone goes back to change that NCR quality rep info if engineering data already exists? It will overwrite the stage and mess things up
         //So Retrieve the NCR, look for associated objects (engineering table, procurement, etc) if engineering exists, stage = procurement, if procurement exists, stage = qual rep final 
@@ -625,9 +619,8 @@ namespace Haver_Niagara.Controllers
 
         #region individual edit views
 
-        //FIRST SECTION FOR QUALITY REP
-
-        ///Quality Representative Edit : GET
+        // FIRST SECTION FOR QUALITY REP 
+        //GET: NCRS/QualityRepEditFirst
         public async Task<IActionResult> QualityRepEditFirst(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -651,7 +644,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        ///Quality Representative Edit : POST 
+        // POST: NCRs/QualityRepEditFirst 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> QualityRepEditFirst(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")]
@@ -816,9 +809,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-       
-
-        ///Engineering Edit : GET
+        // GET: NCRs/EngineeringEdit 
         public async Task<IActionResult> EngineeringEdit(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -846,7 +837,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        ///Engineering Edit : POST
+        // POST: NCRs/EngineeringEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EngineeringEdit(int id, [Bind("OldNCRID")]
@@ -960,7 +951,7 @@ namespace Haver_Niagara.Controllers
             }
             return View(nCR);
         }
-        ///Operations Edit : GET
+        // GET: NCRs/OperationEdit
         public async Task<IActionResult> OperationEdit(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -983,7 +974,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        //Operations Edit : POST
+        // POST: NCRs/OperationEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OperationEdit(int id, [Bind("OldNCRID")] NCR nCR, Operation operation, string MarkAsCompleted) //didnt use followup/car objects because they can be null so just did it in code 
@@ -1141,7 +1132,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        //Procurement Edit : GET
+        // GET: NCRs/ProcurementEdit
         public async Task<IActionResult> ProcurementEdit(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -1166,7 +1157,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        //Procurement Edit : POST
+        // POST: NCRs/ProcurementEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProcurementEdit(int id, [Bind("OldNCRID")] NCR nCR, Procurement procurement, string MarkAsCompleted)
@@ -1291,8 +1282,7 @@ namespace Haver_Niagara.Controllers
         }
 
         //FINAL SECTION FOR QUALITY REP
-
-        ///Quality Representative Edit : GET
+        // GET: NCRs/QualityRepresentativeEdit
         public async Task<IActionResult> QualityRepresentativeEdit(int? id)
         {
             if (id == null || _context.NCRs == null)
@@ -1316,7 +1306,7 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        ///Quality Representative Edit : POST 
+        // POST: NCRs/QualityRepresentativeEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> QualityRepresentativeEdit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")]
@@ -1524,7 +1514,6 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
 
             return View(nCR);
         }
@@ -1568,7 +1557,6 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
 
             return View(nCR);
         }
@@ -1612,7 +1600,6 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
 
             return View(nCR);
         }
@@ -1656,7 +1643,6 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
 
             return View(nCR);
         }
@@ -1700,13 +1686,14 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
 
             return View(nCR);
         }
 
         #endregion
 
+
+        //RemindUsers
         //Email button on the details page uses this 
         public async Task RemindUsers(int id)
         {
@@ -1775,51 +1762,8 @@ namespace Haver_Niagara.Controllers
 
         }
 
-
-        // GET: NCRs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.NCRs == null)
-            {
-                return NotFound();
-            }
-
-            var nCR = await _context.NCRs
-                .Include(n => n.Engineering)
-                .Include(n => n.Operation)
-                .Include(n => n.QualityInspection)
-                .Include(n => n.Part)
-                    .ThenInclude(n => n.Medias)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (nCR == null)
-            {
-                return NotFound();
-            }
-
-            return View(nCR);
-        }
-
-
-        // POST: NCRs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.NCRs == null)
-            {
-                return Problem("Entity set 'HaverNiagaraDbContext.NCRs'  is null.");
-            }
-            var nCR = await _context.NCRs.FindAsync(id);
-            if (nCR != null)
-            {
-                _context.NCRs.Remove(nCR);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction("List", "Home");
-            //return RedirectToAction(nameof(Index));
-        }
-
+        //Void
+        //For Admin
         public async Task<IActionResult> Void(int id)
         {
             if (_context.NCRs == null)
@@ -1839,6 +1783,8 @@ namespace Haver_Niagara.Controllers
 
         }
 
+        //UnVoid
+        //put void reports back in main list
         public async Task<IActionResult> UnVoid(int id)
         {
             if (_context.NCRs == null)
@@ -1855,26 +1801,31 @@ namespace Haver_Niagara.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction("ListVoided", "Home");
-
         }
-        //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
 
+        //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
         //Create methods that return each SelectList separately and one method to put them all into ViewData
         //This approach allows for AJAX requests to refresh DDL Data at a later date 
         //https://www.youtube.com/watch?v=JnOKiME3guQ&list=PL16MVmKNvI0JTGdka0_MykIhKX1S-gfli&index=69
-        //14:19
+
+        //SupplierSelectList
+        //List of Suppliers
         private SelectList SupplierSelectList(int? selectedId)
         {
             return new SelectList(_context.Suppliers
-                .OrderBy(s => s.Name), "ID", "Name", selectedId);       //retrieves suppliers and orders them by their name?
+                .OrderBy(s => s.Name), "ID", "Name", selectedId); //order by supplier ID - retrieves suppliers and displays name
         }
 
+        //DefectSelectList
+        //List of defects
         private SelectList DefectSelectList(int? selectedDefectID)
         {
             return new SelectList(_context.Defects
                 .OrderBy(s => s.Name), "ID", "Name", selectedDefectID);
         }
 
+        //PopulateDropDownLists
+        //fill lists 
         private void PopulateDropDownLists(NCR ncr = null)
         {
             //Sets the view data for supplierID from the method which retrieves it
@@ -1895,6 +1846,7 @@ namespace Haver_Niagara.Controllers
             }
         }
 
+        //GetSuppliers
         //add JsonResult GetSuppliers to return a new copy of the SelectList for SupplierID
         [HttpGet]
         public JsonResult GetSuppliers(int? id)
@@ -1902,12 +1854,15 @@ namespace Haver_Niagara.Controllers
             return Json(SupplierSelectList(id));
         }
 
+        //GetDefects
+        //JsonResult
         [HttpGet]
         public JsonResult GetDefects(int? id)
         {
             return Json(DefectSelectList(id));
         }
 
+        //OnPostUploadAsync
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files, int ncrID, List<string> links) //Accepting multiple Iformfiles, and an NCR ID to relate data
@@ -1977,7 +1932,7 @@ namespace Haver_Niagara.Controllers
             return Ok(new { count = files.Count, size });
         }
 
-
+        //RemoveImage
         [HttpPost]
         public async Task<IActionResult> RemoveImage(int ncrID, int imageID)
         {
@@ -2001,6 +1956,7 @@ namespace Haver_Niagara.Controllers
             return NotFound();  //else not found
         }
 
+        //RemoveLink
         [HttpPost]
         public async Task<IActionResult> RemoveLink(int ncrID, int linkID) //Could have probably made this into one function, if time will do later. *FIX*
         {
@@ -2025,11 +1981,56 @@ namespace Haver_Niagara.Controllers
 
         }
 
-
-
         private bool NCRExists(int id)
         {
             return _context.NCRs.Any(e => e.ID == id);
         }
+
+        #region Not Used
+
+        // GET: NCRs/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _context.NCRs == null)
+            {
+                return NotFound();
+            }
+
+            var nCR = await _context.NCRs
+                .Include(n => n.Engineering)
+                .Include(n => n.Operation)
+                .Include(n => n.QualityInspection)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.Medias)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (nCR == null)
+            {
+                return NotFound();
+            }
+
+            return View(nCR);
+        }
+
+        // POST: NCRs/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.NCRs == null)
+            {
+                return Problem("Entity set 'HaverNiagaraDbContext.NCRs'  is null.");
+            }
+            var nCR = await _context.NCRs.FindAsync(id);
+            if (nCR != null)
+            {
+                _context.NCRs.Remove(nCR);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("List", "Home");
+            //return RedirectToAction(nameof(Index));
+        }
+
+        #endregion
     }
 }

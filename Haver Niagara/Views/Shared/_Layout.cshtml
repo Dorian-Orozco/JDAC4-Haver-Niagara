@@ -7,11 +7,11 @@
     <!--preimported site.css and bootstrap-->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
     @* <link rel="stylesheet" href="~/Haver_Niagara.styles.css" asp-append-version="true" /> *@
+
     <style>
         .dropdown-menu {
-            min-width: 220px; /* Adjust this value as needed to fit content */
+            min-width: 220px; 
             text-align: left;
         }
 
@@ -20,8 +20,8 @@
             }
 
             .dropdown-menu .nav-link {
-                white-space: nowrap; /* Prevent wrapping */
-                overflow: visible; /* Allow text to be fully visible */
+                white-space: nowrap; 
+                overflow: visible; 
             }
     </style>
 </head>
@@ -70,30 +70,6 @@
                     
                             </ul>
                         </li>
-                        <!--TESTING PURPOSES-->
-                   @*      <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-action="DetailsPrint" asp-controller="NCRs" asp-route-id="10">PDF</a>
-
-                        </li>
-                        @{
-                            if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Employee" asp-action="Index">Maintain Employees</a>
-                                </li>
-                            }
-                        }
-                        @{
-                            if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ListVoided">Voided NCRs</a>
-                                </li>
-                            }
-                        }
-
-                        </li> *@
-                      
 
                     </ul>
                     <partial name="_LoginPartial" />
@@ -111,13 +87,8 @@
 
         </div>
     </div>
-    @* <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2024 - Haver_Niagara - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-    </footer>*@
 
-    @*script for importing icons from https://ionic.io/ionicons*@
+    <!--script for importing icons from https://ionic.io/ionicons-->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 

@@ -2,8 +2,6 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
-
-
 ﻿@{
     ViewBag.Title = "NCR List";
 }
@@ -29,30 +27,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-@* @using (Html.BeginForm("List", "Home", FormMethod.Get))
-        {
-        <p>
-        Filter By Part No. @Html.TextBox("SearchString")
-        Filter By Supplier:
-        @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier")
-        </p>
-        <p>
-        Filter By Status:
-        @Html.DropDownList("SelectedStatus", new List<SelectListItem>
-        {
-        // new SelectListItem { Text = "Active", Value = "true" },
-        new SelectListItem { Text = "Closed", Value = "false" },
-        new SelectListItem { Text = "Active", Value = "", Selected = true }
-        })
-        <label for="SelectedDate">Filter By Date:</label>
-        <input type="date" id="SelectedDate" name="SelectedDate">
-        <input type="submit" value="Search" />
-        <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-secondary">Clear Filters</a>
-        </p>
-        } *@
-
-
-
 <div class="d-flex">
     <button onclick="window.location.href = '@Url.Action("List", "Home")'" class="btn-back" title="Go Back">
         <ion-icon name="arrow-back-circle-outline" class="btn-back-icon"></ion-icon>
@@ -64,43 +38,6 @@
 <small class="text-under-heading">NCR Reports that have been closed for 5 or more years.</small>
 
 <form asp-action="ListArchive" asp-controller="Home" method="get" class="mt-4">
-    @*  <div class="form-horizontal">
-    <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-    Filter/Search
-    </button><br />
-    <div class="collapse" id="collapseFilter">
-    <div class="card card-body bg-light mb-2 d-flex">
-
-    <div class="row mt-2 mb-2">
-    <div class="col-sm">
-    <div class="form-group">
-    <label class="control-label">Date Created:</label>
-    <input type="date" id="SelectedDate" name="SelectedDate" class="form-control">
-    </div>
-    </div>
-
-    <div class="col-sm">
-    <div class="form-group">
-    <label class="control-label">Supplier:</label>
-    @Html.DropDownList("SelectedSupplier", (SelectList)ViewBag.SupplierList, "Select Supplier", new { @class = "form-control" })
-    </div>
-    </div>
-    <div class="col-sm">
-    <div class="form-group">
-    <label class="control-label">Part Number or NCR #:</label>
-    @Html.TextBox("SearchString", null, new { @class = "form-control" })
-    </div>
-    </div>
-    <div class="col-sm-auto mt-4">
-    <div class="form-group">
-    <button type="submit" name="actionButton" value="Filter" class="btn btn-primary me-2">Search</button>
-    <a href="@Url.Action("ClearFilters", "Home")" class="btn btn-outline-dark">Clear</a>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div> *@
 
     <table class="table table-hover">
         <thead>
@@ -160,7 +97,7 @@
         </thead>
         <tbody>
             @foreach (var item in Model)
-            {                           //Added some validation, will remove later.
+            {                          
                 <tr>
                     <td class="text-center">
                         @if (!item.NCR_Status)
@@ -193,7 +130,7 @@
     </table>
     <br />
 
-    @* PAGING NAV BAR *@
+    <!--Paging NAV Bar-->
     @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled='disabled'" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled='disabled'" : "";
@@ -230,49 +167,33 @@
 
 </form>
 
-@*   Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-        @Html.PagedListPager(Model, page => Url.Action("List",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })) *@
-
+<!--update status buttons styling based on stage-->
 @section scripts {
     <script>
         $(document).ready(function () {
-            // Select all elements with the class "stage"
+
             $('.stage').each(function () {
-                // Get the text content of the element
+
                 var stage = $(this).text().trim();
 
-                // Remove existing classes
-                $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
-
-                // Depending on the stage, change the color
                 switch (stage) {
                     case "Engineering":
                         $(this).addClass('stage-eng2');
-                        // $(this).css('color', 'red');
                         break;
                     case "Operations":
                         $(this).addClass('stage-oper3');
-                        // $(this).css('color', 'blue');
                         break;
                     case "Procurement":
                         $(this).addClass('stage-procure4');
-                        // $(this).css('color', 'green');
                         break;
                     case "Quality Rep":
                         $(this).addClass('stage-qual5');
-                        // $(this).css('color', 'green');
                         break;
-                    // Add more cases as needed for other stages
                     case "Complete":
                         $(this).addClass('stage-complete');
                         break;
                     default:
-                        // Default class if stage not matched
                         $(this).addClass('stage');
-                    // Default color if stage not matched
-                    // $(this).css('color', 'black');
                 }
             });
         });

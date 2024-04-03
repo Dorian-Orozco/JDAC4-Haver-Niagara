@@ -30,44 +30,92 @@ a {
     text-decoration: none;
 }
 
+.activeStatus {
+    /*background-color: #20DE10;*/
+    background-color: #0073e6;
+    /*background-color: rgb(0, 191, 178)*/
+}
+
+.archive-btn-icon {
+    position: relative;
+    top: 2px;
+}
+
+.archive-btn {
+    background: #b51963;
+    color: white;
+}
+
+    .archive-btn:hover {
+        background: #970045;
+        color: white;
+    }
+
 .bg-nav {
     background-color: #0C2340;
 }
 
-/*.nav-icon-list{
-    font-size: 20px;
-    margin-left: 3px;
-    border: 1px solid white;
-}
-
-.nav-link-list{
-    border: 1px solid white;
-    display: inline-flex;
-
-}*/
-
 .bg-haver {
+    background-color: #1C335E;
     /*    background-color: #0C2340;
     opacity: 80%;*/
-    background-color: #1C335E;
 }
 
-/*eye icon under action column in ncr table*/
-.view-btn, .download-btn {
-    color: gray;
-    font-size: 30px;
+.btn-back {
+    border: none;
+    background: transparent;
+    margin-top: 25px;
+    margin-right: 10px;
+}
+
+.btn-back-icon {
+    background-color: #1C335E;
+    border-radius: 30px;
+    color: white;
+    font-size: 40px;
+}
+
+/*for individual details view (go to next section) button*/
+
+.btn-forward {
     border: none;
     background: transparent;
 }
 
-    .download-btn:hover, .view-btn:hover {
-        color: #0073e6;
-    }
+.btn-forward-icon {
+    background-color: #1C335E;
+    border-radius: 30px;
+    color: white;
+    font-size: 30px;
+}
 
-    .download-icon{
-        position: relative;
-        top: -3px;
-    }
+.closedStatus {
+    /*background-color: #DC3220;*/
+    background-color: #b51963;
+}
+
+.create-btn-icon {
+    font-size: 22px;
+    position: relative;
+    top: 5px;
+    margin-left: 3px;
+}
+
+/*delete buttons content image and links in edit*/
+.delete, .delete-link {
+    font-size: 14px;
+}
+
+/*NCR log border*/
+.list-container {
+    border: 2px solid #0C2340;
+    border-radius: 20px;
+}
+
+.report-container {
+    padding: 30px 30px;
+    border-radius: 20px;
+}
 
 /*headers for NCR details view*/
 .section-header {
@@ -83,17 +131,6 @@ a {
     width: 18px;
     margin: 10px;
     cursor: default;
-}
-
-.activeStatus {
-    /*background-color: #20DE10;*/
-    background-color: #0073e6;
-    /*background-color: rgb(0, 191, 178)*/
-}
-
-.closedStatus {
-    /*background-color: #DC3220;*/
-    background-color: #b51963;
 }
 
 .stage {
@@ -113,22 +150,18 @@ a {
 }
 
 .stage-eng2 {
-    /*   background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 50%, transparent 50%, transparent 100%);*/
     background: linear-gradient(to right, rgba(0, 191, 178, 0.4) 0%, rgba(0, 191, 178, 0.4) 35%, transparent 35%, transparent 100%);
 }
 
 .stage-oper3 {
-    /* background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 75%, transparent 75%, transparent 100%);*/
     background: linear-gradient(to right, rgba(0, 191, 178, 0.4) 0%, rgba(0, 191, 178, 0.4) 55%, transparent 55%, transparent 100%);
 }
 
 .stage-procure4 {
-    /*  background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 100%, transparent 100%, transparent 100%);*/
     background: linear-gradient(to right, rgba(0, 191, 178, 0.4) 0%, rgba(0, 191, 178, 0.4) 75%, transparent 75%, transparent 100%);
 }
 
 .stage-qual5 {
-    /*  background: linear-gradient(to right, rgba(92, 154, 219, 0.5) 0%, rgba(92, 154, 219, 0.5) 100%, transparent 100%, transparent 100%);*/
     background: linear-gradient(to right, rgba(0, 191, 178, 0.4) 0%, rgba(0, 191, 178, 0.4) 90%, transparent 90%, transparent 100%);
 }
 
@@ -138,80 +171,27 @@ a {
     text-align: center;
 }
 
-.report-container {
-    padding: 30px 30px;
-    border-radius: 20px;
-}
-
-/*NCR log border*/
-.list-container {
-    border: 2px solid #0C2340;
-    border-radius: 20px;
-}
-
-/*delete buttons content image and links in edit*/
-.delete, .delete-link {
-    font-size: 14px;
-}
-
-.create-btn-icon {
-    font-size: 22px;
-    position: relative;
-    top: 5px;
-    margin-left: 3px;
-}
-
-.archive-btn-icon{
-    position: relative;
-    top: 2px;
-}
-
-.archive-btn {
-    background: #b51963;
-    color: white;
-}
-
-    .archive-btn:hover {
-        background: #970045;
-        color: white;
-        /*    color: #b51963;
-    border-color: #b51963;*/
-    }
-
-.btn-back{
-    border: none;
-    background: transparent;
-    margin-top: 25px;
-    margin-right: 10px;
-}
-
-.btn-back-icon {
-    background-color: #1C335E;
-    border-radius: 30px;
-    color: white;
-    font-size: 40px;
-}
-
-/*for individual details view go to next section button*/
-
-.btn-forward {
-    border: none;
-    background: transparent;
-}
-
-.btn-forward-icon {
-    background-color: #1C335E;
-    border-radius: 30px;
-    color: white;
-    font-size: 30px;
+#SupplierPanel p {
+    background-color: white;
 }
 
 .text-under-heading {
     margin-left: 60px;
 }
 
-#SupplierPanel p {
+/*eye icon under action column in ncr table*/
+.view-btn, .download-btn {
+    color: gray;
+    font-size: 30px;
+    border: none;
+    background: transparent;
+}
 
-    background-color: white;
+    .download-btn:hover, .view-btn:hover {
+        color: #0073e6;
+    }
 
+.download-icon {
+    position: relative;
+    top: -3px;
 }

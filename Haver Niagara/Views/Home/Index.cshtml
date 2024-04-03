@@ -4,12 +4,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-@* layout with no container *@
-@* @{
-	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-} *@
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
@@ -157,8 +151,8 @@
     }
 
         .stageCard:hover {
-            border-color: rgb(0, 143, 134); /* Darker shade */
-            color: rgb(0, 143, 134); /* Darker shade */
+            border-color: rgb(0, 143, 134);
+            color: rgb(0, 143, 134);
         }
 
     table {
@@ -203,7 +197,7 @@
     <div class="d-flex justify-content-between">
         <div class="d-flex mt-4 mb-4">
             <h1 class="">NCR Dashboard</h1>
-            <!--If Admin, show drop down for selecting stage of NCR Report-->
+            @* <!--If Admin, show drop down for selecting stage of NCR Report--> *@
             @if (User.IsInRole("Admin"))
             {
                 <div class="">
@@ -215,6 +209,7 @@
                     </select>
                 </div>
             }
+            @* <!--If Quality Rep, select that stage by default--> *@
             @if (User.IsInRole("Quality Representative"))
             {
                 <div class="d-none">
@@ -226,6 +221,7 @@
                     </select>
                 </div>
             }
+            @* <!--If Engineer, select that stage by default--> *@
             @if (User.IsInRole("Engineer"))
             {
                 <div class="d-none">
@@ -237,6 +233,7 @@
                     </select>
                 </div>
             }
+            @* <!--If Procurement, select that stage by default--> *@
             @if (User.IsInRole("Procurement"))
             {
                 <div class="d-none">
@@ -248,6 +245,7 @@
                     </select>
                 </div>
             }
+            @* <!--If Operations, select that stage by default--> *@
             @if (User.IsInRole("Operations"))
             {
                 <div class="d-none">
@@ -260,6 +258,7 @@
                 </div>
             }
         </div>
+    @* If Admin/Quality, show view all reports and create report button *@
         @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
         {
             <div class="d-flex">
@@ -276,20 +275,22 @@
                 </div>
             </div>
         }
+    @* If any other role, show view all button, styled differently *@
         else
         {
-            <div>
-                <a asp-controller="Home" asp-action="List" title="view all reports" class="btn btn-primary p-2">
-                    <span class="me-1">View All</span>
-                </a>
-            </div>
+        <div>
+            <a asp-controller="Home" asp-action="List" title="view all reports" class="btn btn-primary p-2">
+                <span class="me-1">View All</span>
+            </a>
+        </div>
         }
     </div>
 
     <div class="dashboard-row card-row">
 
         @{
-            if (!User.IsInRole("Admin")) //if not admin the link is disabled (cannot navigate to all reports)
+            //if not admin the link is disabled (cannot navigate to all reports)
+            if (!User.IsInRole("Admin"))
             {
                 <div class="card activeCard">
                     <div class="card-content">
@@ -373,7 +374,7 @@
                 @* Table Contents *@
                 <tbody>
                     @foreach (var item in Model)
-                    {                           //Added some validation, will remove later.
+                    {
                         <tr>
                             <td class="text-center">
                                 @if (!item.NCR_Status)
@@ -467,16 +468,15 @@
                 </tbody>
             </table>
 
-            <div class="d-flex">
-                @* <a asp-controller="Home" asp-action="List" class="button">View All</a> *@
-                @* <a asp-controller="NCRs" asp-action="Create" class="button">Create New</a> *@
-                @* <p class="disclaimer-txt">(Displaying the oldest 5 open NCRs)</p> *@
-            </div>
+            @*     <div class="d-flex">
+            <a asp-controller="Home" asp-action="List" class="button">View All</a>
+            <a asp-controller="NCRs" asp-action="Create" class="button">Create New</a>
+            <p class="disclaimer-txt">(Displaying the oldest 5 open NCRs)</p>
+            </div> *@
         </div>
     </div>
 
 </div> @* container div *@
-
 
 @section scripts {
     <script>
@@ -499,7 +499,6 @@
                 const stageSelectValue = stageSelect.val(); // Get the selected stage value
 
                 const stageSelectText = stageSelect.find("option:selected").text(); // Get the selected stage text
-                //const selectedStage = (stageSelectValue).text();
 
                 // Update the stageName span with the selected stage's text
                 $('#stageName').text(stageSelectText);
@@ -515,7 +514,7 @@
                 // Update only the targeted link's `href` attribute
                 $('#dynamicStageLink').attr('href', newHref);
 
-                fetch(`/Home/Get${stageSelectValue}StageCount`) // Use template literal to insert the value
+                fetch(`/Home/Get${stageSelectValue}StageCount`) 
                     .then(response => response.json())
                     .then(data => {
                         $('#stageCount').text(data.count);
@@ -523,64 +522,55 @@
                     .catch(error => console.error('Error fetching data:', error));
             }
 
-            // Fetch the initial stage count when the page loads
+            // initial stage count when the page loads
             fetchStageCount();
 
-            // Add an event listener for changes to the stage selection
+            // event listener for changes to the stage selection
             $('#stage').change(fetchStageCount);
         });
 
         //set flag for alert when navigating to list page from active reports this year button
         document.getElementById('activeThisYear').addEventListener('click', function (event) {
+
             // Set a flag in session storage before navigation
             sessionStorage.setItem('showAlert', 'true');
         });
 
         //set flag for alert when navigating to list page from closed reports this year button
         document.getElementById('closedThisYear').addEventListener('click', function (event) {
+
             // Set a flag in session storage before navigation
             sessionStorage.setItem('showAlertClosed', 'true');
         });
 
     </script>
 
+    <!--update status buttons styling based on stage-->
     <script>
         $(document).ready(function () {
-            // Select all elements with the class "stage"
+
             $('.stage').each(function () {
-                // Get the text content of the element
+
                 var stage = $(this).text().trim();
 
-                // Remove existing classes
-                $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
-
-                // Depending on the stage, change the color
                 switch (stage) {
                     case "Engineering":
                         $(this).addClass('stage-eng2');
-                        // $(this).css('color', 'red');
                         break;
                     case "Operations":
                         $(this).addClass('stage-oper3');
-                        // $(this).css('color', 'blue');
                         break;
                     case "Procurement":
                         $(this).addClass('stage-procure4');
-                        // $(this).css('color', 'green');
                         break;
                     case "Quality Rep":
                         $(this).addClass('stage-qual5');
-                        // $(this).css('color', 'green');
                         break;
-                    // Add more cases as needed for other stages
                     case "Complete":
                         $(this).addClass('stage-complete');
                         break;
                     default:
-                        // Default class if stage not matched
                         $(this).addClass('stage');
-                    // Default color if stage not matched
-                    // $(this).css('color', 'black');
                 }
             });
         });
