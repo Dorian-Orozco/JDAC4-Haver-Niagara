@@ -204,7 +204,7 @@
         <div class="d-flex mt-4 mb-4">
             <h1 class="">NCR Dashboard</h1>
             <!--If Admin, show drop down for selecting stage of NCR Report-->
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin") || (User.IsInRole("Finance")))
             {
                 <div class="">
                     <select name="stage" id="stage" class="form-select mt-2 ms-3">
@@ -289,7 +289,7 @@
     <div class="dashboard-row card-row">
 
         @{
-            if (!User.IsInRole("Admin")) //if not admin the link is disabled (cannot navigate to all reports)
+            if (!User.IsInRole("Admin") || (!User.IsInRole("Finance"))) //if not admin the link is disabled (cannot navigate to all reports)
             {
                 <div class="card activeCard">
                     <div class="card-content">

@@ -159,14 +159,7 @@ namespace Haver_Niagara.Controllers
 
             if (!selectedStatus.HasValue)
             {
-                if (User.IsInRole("Finance"))
-                {
-                    ncrs = ncrs.Where(x => x.NCR_Status == false);
-                }
-                else
-                {
-                    ncrs = ncrs.Where(x => x.NCR_Status == true);
-                }
+                ncrs = ncrs.Where(x => x.NCR_Status == true);
             }
             else if (selectedStatus.HasValue)
             {
@@ -712,14 +705,14 @@ namespace Haver_Niagara.Controllers
             {
                 ncrs = new List<NCR>(ncrs.Where(n => n.NCR_Stage == (NCRStage)4)); //quality
             }
-            else if (User.IsInRole("Finance"))
-            {
-                financeNCRs = financeNCRs.Where(n => n.NCR_Stage == (NCRStage)5)
-                                           .OrderByDescending(n => n.NCR_Date)
-                                           .Take(5)
-                                           .ToList();
-                return View(financeNCRs);
-            }
+            //else if (User.IsInRole("Finance"))
+            //{
+            //    financeNCRs = financeNCRs.Where(n => n.NCR_Stage == (NCRStage)5)
+            //                               .OrderByDescending(n => n.NCR_Date)
+            //                               .Take(5)
+            //                               .ToList();
+            //    return View(financeNCRs);
+            //}
             else
             {
                 ncrs = new List<NCR>(ncrs.Take(5));
