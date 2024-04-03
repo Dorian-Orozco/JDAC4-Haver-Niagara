@@ -109,6 +109,7 @@
             <button id="autoEngineerLogin" class="btn btn-outline-primary me-2">Engineer <ion-icon name="key-outline" class=""></ion-icon></button>
             <button id="autoOperationLogin" class="btn btn-outline-primary me-2">Operations <ion-icon name="key-outline" class=""></ion-icon></button>
             <button id="autoProcurementLogin" class="btn btn-outline-primary">Procurement <ion-icon name="key-outline" class=""></ion-icon></button>
+            <button id="autoFinanceLogin" class="btn btn-outline-primary">Finance <ion-icon name="key-outline" class=""></ion-icon></button>
         </div>
     </div>
 </div>
@@ -135,6 +136,9 @@
     });
     document.getElementById("autoProcurementLogin").addEventListener("click", function () {
         determineLogin("procurement@outlook.com", "w3gAr?MQ^VD");
+    });
+    document.getElementById("autoFinanceLogin").addEventListener("click", function () {
+        determineLogin("finance@outlook.com", "Gc2JSJ63sF");
     });
 
     function determineLogin(email, password) {

@@ -65,6 +65,7 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("DefectID")
+                        .IsRequired()
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PartID")
@@ -336,7 +337,6 @@ namespace Haver_Niagara.Data.HNMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -545,7 +545,9 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     b.HasOne("Haver_Niagara.Models.Defect", "Defect")
                         .WithMany("DefectLists")
-                        .HasForeignKey("DefectID");
+                        .HasForeignKey("DefectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Haver_Niagara.Models.Part", "Part")
                         .WithMany("DefectLists")
@@ -693,8 +695,7 @@ namespace Haver_Niagara.Data.HNMigrations
 
             modelBuilder.Entity("Haver_Niagara.Models.Procurement", b =>
                 {
-                    b.Navigation("NCR")
-                        .IsRequired();
+                    b.Navigation("NCR");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.QualityInspection", b =>

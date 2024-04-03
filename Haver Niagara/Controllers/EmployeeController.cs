@@ -29,8 +29,8 @@ namespace Haver_Niagara.Controllers
 
         // GET: Employees
         public async Task<IActionResult> Index() //got all of it from video and added a bunch of files FROM the video 
-        {                                                   //might be better to just use some random method because
-            var employees = await _context.Employees        //i dont know what im doing by adding all of these random things for it not to work :D
+        {                                                   
+            var employees = await _context.Employees        
                 .Include(e => e.Subscriptions)
                 .Select(e => new EmployeeAdminVM
                 {

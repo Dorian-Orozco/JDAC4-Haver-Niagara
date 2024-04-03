@@ -195,7 +195,7 @@
                                         @Html.DropDownList("SelectedStatus", new List<SelectListItem>
                                 {
                                 new SelectListItem { Text = "Active", Value = "true" },
-                                new SelectListItem { Text = "Closed", Value = "false" }
+                                new SelectListItem { Text = "Closed", Value = "false", Selected = User.IsInRole("Finance") } //Defaults to closed selected if finance is logged in
                                 }, new { @class = "form-control border" })
                                     </div>
                                 </div>
@@ -302,7 +302,7 @@
             </thead>
             <tbody>
                 @foreach (var item in Model)
-                {                           //Added some validation, will remove later.
+                {                           
                     <tr>
                         <td class="text-center">
                             @if (!item.NCR_Status)
@@ -348,6 +348,12 @@
                                         if (User.IsInRole("Quality Representative"))
                                         {
                                             <a href="@Url.Action("QualityRepDetailsFinal", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                                <ion-icon name="eye"></ion-icon>
+                                            </a>
+                                        }
+                                        if (User.IsInRole("Finance"))
+                                        {
+                                            <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
                                                 <ion-icon name="eye"></ion-icon>
                                             </a>
                                         }

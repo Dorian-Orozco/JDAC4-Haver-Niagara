@@ -20,7 +20,7 @@ namespace Haver_Niagara.Data
                 var RoleManager = applicationBuilder.ApplicationServices.CreateScope()
                     .ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 string[] roleNames = { "Admin", "Quality Representative",  //Role Names a User can be assigned
-                                       "Engineer", "Procurement", "Operations" };
+                                       "Engineer", "Procurement", "Operations", "Finance" };
                 IdentityResult roleResult;
                 foreach (var roleName in roleNames)
                 {
@@ -119,6 +119,23 @@ namespace Haver_Niagara.Data
                     if (result.Succeeded)
                     {
                         userManager.AddToRoleAsync(user, "Operations").Wait();
+                    }
+                }
+                //Finance Stuff
+                if (userManager.FindByEmailAsync("finance@outlook.com").Result == null)
+                {
+                    IdentityUser user = new IdentityUser
+                    {
+                        UserName = "finance@outlook.com",
+                        Email = "finance@outlook.com",
+                        EmailConfirmed = true
+                    };
+
+                    IdentityResult result = userManager.CreateAsync(user, "Gc2JSJ63sF").Result;
+
+                    if (result.Succeeded)
+                    {
+                        userManager.AddToRoleAsync(user, "Finance").Wait();
                     }
                 }
             }
