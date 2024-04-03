@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Identity;
 using Haver_Niagara.ViewModels;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Security.Claims;
 
 namespace Haver_Niagara.Controllers
 {
@@ -45,7 +46,9 @@ namespace Haver_Niagara.Controllers
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
             _emailSender = emailSender;
+
         }
+
 
         // Print PDF Details View
         public async Task<IActionResult> DetailsPrint(int? id)
@@ -163,6 +166,7 @@ namespace Haver_Niagara.Controllers
         // GET: NCRs/Create
         public IActionResult Create(int? oldNCRID)
         {
+
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
 
             // Populate supplier dropdown list
