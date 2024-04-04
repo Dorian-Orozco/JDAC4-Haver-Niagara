@@ -1792,7 +1792,10 @@ namespace Haver_Niagara.Controllers
             _context.NCRs.Update(nCR);
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("List", "Home");
+
+            TempData["VoidSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been voided. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+
+            return RedirectToAction("ListVoided", "Home");
 
         }
 
@@ -1813,7 +1816,10 @@ namespace Haver_Niagara.Controllers
             _context.NCRs.Update(nCR);
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("ListVoided", "Home");
+
+            TempData["UnvoidSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been un-voided. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+
+            return RedirectToAction("List", "Home");
         }
 
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0

@@ -179,6 +179,19 @@ a {
     margin-left: 60px;
 }
 
+.toast-container {
+    position: fixed;
+    bottom: 2%;
+    left: 2%;
+    z-index: 1050;
+}
+
+.toast {
+    background-color: #ffffff;
+    opacity: 1;
+    border: 1px solid #0C2340;
+}
+
 /*eye icon under action column in ncr table*/
 .view-btn, .download-btn {
     color: gray;
