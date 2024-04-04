@@ -241,7 +241,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     ProductNumber = table.Column<long>(type: "INTEGER", nullable: false),
                     QuantityRecieved = table.Column<int>(type: "INTEGER", nullable: false),
                     QuantityDefect = table.Column<int>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
                     SupplierID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -279,7 +279,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     DefectListID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    DefectID = table.Column<int>(type: "INTEGER", nullable: true),
+                    DefectID = table.Column<int>(type: "INTEGER", nullable: false),
                     PartID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -289,7 +289,8 @@ namespace Haver_Niagara.Data.HNMigrations
                         name: "FK_DefectLists_Defects_DefectID",
                         column: x => x.DefectID,
                         principalTable: "Defects",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DefectLists_Parts_PartID",
                         column: x => x.PartID,

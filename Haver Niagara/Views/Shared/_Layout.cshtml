@@ -44,34 +44,32 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="List">NCR Log</a>
                         </li>
+                        <li class="nav-item text-white">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ListArchive">Archived Reports</a>
+                        </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Office Menu
-                            </a>
-                            <ul class="dropdown-menu bg-nav border-secondary" aria-labelledby="navbarDropdown">
-                                <li class="nav-item pb-1">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Lookup" asp-action="Index">Maintain Lookup Values</a>
-                                </li>
-                                <li class="nav-item border-top border-secondary pt-1">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ListArchive">Archived Reports</a>
-                                </li>
-                                @{
-                                    if (User.IsInRole("Admin"))
-                                    {
+                        @{
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Office Menu
+                                    </a>
+                                    <ul class="dropdown-menu bg-nav border-secondary" aria-labelledby="navbarDropdown">
+                                        <li class="nav-item pb-1">
+                                            <a class="nav-link text-white" asp-area="" asp-controller="Lookup" asp-action="Index">Maintain Lookup Values</a>
+                                        </li>
                                         <li class="nav-item border-top border-secondary pt-1">
                                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ListVoided">Voided Reports</a>
                                         </li>
                                         <li class="nav-item border-top border-secondary pt-1">
                                             <a class="nav-link text-white" asp-area="" asp-controller="Employee" asp-action="Index">Maintain Employees</a>
-                                        </li>
-                                    }
-                                }
-                    
+                                        </li>                    
+                                    </ul>
+                                </li>
+                            }
+                        }
                             </ul>
-                        </li>
-
-                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

@@ -21,8 +21,7 @@ using Microsoft.AspNetCore.Identity;
 using Haver_Niagara.ViewModels;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Org.BouncyCastle.Ocsp;
-using static System.Collections.Specialized.BitVector32;
+using System.Security.Claims;
 
 namespace Haver_Niagara.Controllers
 {
@@ -34,11 +33,14 @@ namespace Haver_Niagara.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IRazorViewRenderer _viewRenderService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMyEmailSender _emailSender;
 
+        //holds full name
+        private string _fullName;
+
         public NCRsController(HaverNiagaraDbContext context, ILogger<HomeController> logger, IRazorViewRenderer viewRenderService, IHttpContextAccessor httpContextAccessor,
-                                UserManager<IdentityUser> userManager, IMyEmailSender emailSender)
+                                UserManager<ApplicationUser> userManager, IMyEmailSender emailSender)
         {
             _context = context;
             //Print PDF
@@ -106,6 +108,7 @@ namespace Haver_Niagara.Controllers
         // GET: NCRs
         public async Task<IActionResult> Index()
         {
+
             var haverNiagaraDbContext = _context.NCRs
                 .Include(n => n.Engineering)
                 .Include(n => n.Operation)
@@ -157,8 +160,15 @@ namespace Haver_Niagara.Controllers
         }
 
         // GET: NCRs/Create
-        public IActionResult Create(int? oldNCRID)
+        public async Task<IActionResult> Create(int? oldNCRID)
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                string fullName = user.FullName;
+                ViewBag.FullName = fullName;
+            }
+
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
 
             // Populate supplier dropdown list
@@ -835,6 +845,14 @@ namespace Haver_Niagara.Controllers
 
             if (nCR == null)
                 return NotFound();
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                string fullName = user.FullName;
+                ViewBag.FullName = fullName;
+            }
+
             //Populate list of defects and suppliers
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
@@ -977,6 +995,12 @@ namespace Haver_Niagara.Controllers
 
                 TempData["ErrorMessage"] = "You cannot edit this NCR because it is not at the operation stage.";
                 return RedirectToAction("List", "Home"); // Redirect to another page
+            }
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                string fullName = user.FullName;
+                ViewBag.FullName = fullName;
             }
             return View(nCR);
         }
@@ -1162,7 +1186,12 @@ namespace Haver_Niagara.Controllers
                 TempData["ErrorMessage"] = "You cannot edit this NCR because it is not at the procurement stage.";
                 return RedirectToAction("List", "Home"); // Redirect to another page
             }
-
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                string fullName = user.FullName;
+                ViewBag.FullName = fullName;
+            }
             return View(nCR);
         }
 
@@ -1310,6 +1339,12 @@ namespace Haver_Niagara.Controllers
 
             if (nCR == null)
                 return NotFound();
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                string fullName = user.FullName;
+                ViewBag.FullName = fullName;
+            }
 
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");

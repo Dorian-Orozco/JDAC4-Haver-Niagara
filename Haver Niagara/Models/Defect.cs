@@ -14,7 +14,5 @@ namespace Haver_Niagara.Models
         [Display(Name = "Defect Name")]
         public string Name { get; set; }
         public ICollection<DefectList> DefectLists { get; set; } = new HashSet<DefectList>();
-
-
     }
 }

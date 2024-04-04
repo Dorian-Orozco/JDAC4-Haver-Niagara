@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Haver_Niagara.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
        
 
@@ -12,10 +12,5 @@ namespace Haver_Niagara.Data
             : base(options)
         {
         }
-       
-
-      
-
-       
     }
 }

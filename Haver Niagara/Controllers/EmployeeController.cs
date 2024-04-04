@@ -7,6 +7,7 @@ using Haver_Niagara.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Models;
 using Haver_Niagara.Utilities;
+using NuGet.Versioning;
 namespace Haver_Niagara.Controllers
 {
     [Authorize(Roles = "Admin")]  //Commented out authorization, so dont have to log in everytime app launches
@@ -15,22 +16,23 @@ namespace Haver_Niagara.Controllers
         private readonly HaverNiagaraDbContext _context;
         private readonly ApplicationDbContext _identityContext;
         private readonly IMyEmailSender _emailSender;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public EmployeeController(HaverNiagaraDbContext context,
            ApplicationDbContext identityContext, IMyEmailSender emailSender,
-           UserManager<IdentityUser> userManager)
+           UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _identityContext = identityContext;
             _emailSender = emailSender;
             _userManager = userManager;
+
         }
 
         // GET: Employees
         public async Task<IActionResult> Index() //got all of it from video and added a bunch of files FROM the video 
-        {                                                   //might be better to just use some random method because
-            var employees = await _context.Employees        //i dont know what im doing by adding all of these random things for it not to work :D
+        {                                                   
+            var employees = await _context.Employees        
                 .Include(e => e.Subscriptions)
                 .Select(e => new EmployeeAdminVM
                 {
@@ -77,7 +79,7 @@ namespace Haver_Niagara.Controllers
                     _context.Add(employee);
                     await _context.SaveChangesAsync();
 
-                    InsertIdentityUser(employee.Email, selectedRoles);
+                    InsertIdentityUser(employee.Email, selectedRoles, employee.FirstName, employee.LastName);
 
                     //Send Email to new Employee - commented out till email configured
                     await InviteUserToResetPassword(employee, null);
@@ -100,12 +102,10 @@ namespace Haver_Niagara.Controllers
             EmployeeAdminVM employeeAdminVM = new EmployeeAdminVM
             {
                 Email = employee.Email,
-                //EmployeeRole = employee.EmployeeRole,
                 Active = employee.Active,
                 ID = employee.ID,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName
-                //Phone = employee.Phone
             };
             foreach (var role in selectedRoles)
             {
@@ -193,7 +193,7 @@ namespace Haver_Niagara.Controllers
                     {
                         //You reactivating the user, create them and
                         //give them the selected roles
-                        InsertIdentityUser(employeeToUpdate.Email, selectedRoles);
+                        InsertIdentityUser(employeeToUpdate.Email, selectedRoles, employeeToUpdate.FirstName, employeeToUpdate.LastName);
                     }
                     else if (employeeToUpdate.Active == true && ActiveStatus == true)
                     {
@@ -203,7 +203,7 @@ namespace Haver_Niagara.Controllers
                         if (employeeToUpdate.Email != databaseEmail)
                         {
                             //Add the new login with the selected roles
-                            InsertIdentityUser(employeeToUpdate.Email, selectedRoles);
+                            InsertIdentityUser(employeeToUpdate.Email, selectedRoles, employeeToUpdate.FirstName, employeeToUpdate.LastName);
 
                             //This deletes the user's old login from the security system
                             await DeleteIdentityUser(databaseEmail);
@@ -323,17 +323,20 @@ namespace Haver_Niagara.Controllers
             }
         }
 
-        private void InsertIdentityUser(string Email, string[] selectedRoles)
+        private void InsertIdentityUser(string Email, string[] selectedRoles, string FirstName, string LastName)
         {
             //Create the IdentityUser in the IdentitySystem
             //Note: this is similar to what we did in ApplicationSeedData
             if (_userManager.FindByEmailAsync(Email).Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = Email,
                     Email = Email,
+                    FirstName = FirstName,
+                    LastName = LastName,
                     EmailConfirmed = true //since we are creating it!
+                    
                 };
                 //Create a random password with a default 8 characters
                 //string password = MakePassword.Generate();
@@ -354,6 +357,42 @@ namespace Haver_Niagara.Controllers
                 TempData["message"] = "The Login Account for " + Email + " was already in the system.";
             }
         }
+
+
+
+
+
+        //POST DELETE
+        [HttpGet]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            if(id == 1)
+                return Content("Nice try! You cannot delete the admin ;)");
+            try
+            {
+                if (_context.Employees == null)
+                {
+                    return Problem("Entity set 'HaverNiagaraDbContext.Employees'  is null.");
+                }
+                var employee = await _context.Employees
+                    .Include(n=>n.Subscriptions)
+                    .FirstOrDefaultAsync(n=>n.ID == id);
+                if(employee != null)
+                {
+                    _context.Employees.Remove(employee);
+                }
+                await _context.SaveChangesAsync();
+                await DeleteIdentityUser(employee.Email);
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("", "An error occurred while deleting the employee: " + ex.Message);
+                return View("Error"); 
+            }
+
+        }
+
 
         private async Task DeleteIdentityUser(string Email)
         {
