@@ -24,6 +24,9 @@
                     <strong>&#x270D; Create</strong>
                 </a>
             </th>
+            <th>
+                test
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -48,6 +51,7 @@
                         @(Html.Raw(item.Active ? "checked=\"checked\"" : "")) />
                     </div>
                 </td>
+
                 <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-outline-primary"
                        role="button" data-bs-toggle="tooltip" title="Edit @ViewData["ControllerFriendlyName"]">
@@ -59,8 +63,14 @@
                             <a asp-controller="WebPush" asp-action="Send" asp-route-id="@item.ID">Send Notification</a>
                         }
                     }
+                    <a asp-controller="Employee" asp-action="DeleteConfirmed" asp-route-id="@item.ID" class="btn btn-sm btn-outline-primary"
+                       role="button" data-bs-toggle="tooltip" title="Delete @ViewData["ControllerFriendlyName"]">
+                        &#x1F5D1; Delete
+                    </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+@section Scripts {
+}

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Haver_Niagara.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -32,14 +33,16 @@ namespace Haver_Niagara.Data
                 }
                 //Create Users
                 var userManager = applicationBuilder.ApplicationServices.CreateScope()
-                    .ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                    .ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
        
                 //Admin
                 if (userManager.FindByEmailAsync("admin@outlook.com").Result == null)
                 {
-                    IdentityUser user = new IdentityUser
+                    ApplicationUser user = new ApplicationUser
                     {
+                        FirstName = "Admin",
+                        LastName = "Power",
                         UserName = "admin@outlook.com",
                         Email = "admin@outlook.com",
                         EmailConfirmed = true
@@ -55,8 +58,10 @@ namespace Haver_Niagara.Data
                 //Quality Representative Stuff
                 if (userManager.FindByEmailAsync("qualityrepresentative@outlook.com").Result == null)
                 {
-                    IdentityUser user = new IdentityUser
+                    ApplicationUser user = new ApplicationUser
                     {
+                        FirstName = "Quality",
+                        LastName = "User",
                         UserName = "qualityrepresentative@outlook.com",
                         Email = "qualityrepresentative@outlook.com",
                         EmailConfirmed = true
@@ -72,8 +77,10 @@ namespace Haver_Niagara.Data
                 //Engineer
                 if (userManager.FindByEmailAsync("engineer@outlook.com").Result == null)
                 {
-                    IdentityUser user = new IdentityUser
+                    ApplicationUser user = new ApplicationUser
                     {
+                        FirstName = "Engineer",
+                        LastName = "User",
                         UserName = "engineer@outlook.com",
                         Email = "engineer@outlook.com",
                         EmailConfirmed = true
@@ -89,8 +96,10 @@ namespace Haver_Niagara.Data
                 //Procurement
                 if (userManager.FindByEmailAsync("procurement@outlook.com").Result == null)
                 {
-                    IdentityUser user = new IdentityUser
+                    ApplicationUser user = new ApplicationUser
                     {
+                        FirstName = "Procurement",
+                        LastName = "User",
                         UserName = "procurement@outlook.com",
                         Email = "procurement@outlook.com",
                         EmailConfirmed = true
@@ -107,8 +116,10 @@ namespace Haver_Niagara.Data
                 //Operations Stuff
                 if (userManager.FindByEmailAsync("operations@outlook.com").Result == null)
                 {
-                    IdentityUser user = new IdentityUser
+                    ApplicationUser user = new ApplicationUser
                     {
+                        FirstName = "Operations",
+                        LastName = "User",
                         UserName = "operations@outlook.com",
                         Email = "operations@outlook.com",
                         EmailConfirmed = true
@@ -124,8 +135,10 @@ namespace Haver_Niagara.Data
                 //Finance Stuff
                 if (userManager.FindByEmailAsync("finance@outlook.com").Result == null)
                 {
-                    IdentityUser user = new IdentityUser
+                    ApplicationUser user = new ApplicationUser
                     {
+                        FirstName = "Finance",
+                        LastName = "User",
                         UserName = "finance@outlook.com",
                         Email = "finance@outlook.com",
                         EmailConfirmed = true

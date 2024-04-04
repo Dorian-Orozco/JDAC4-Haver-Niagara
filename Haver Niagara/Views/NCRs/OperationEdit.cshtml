@@ -185,7 +185,7 @@
                                     Operations Manager<span class="text-danger"> *</span>
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    <input asp-for="Operation.Name" class="form-control"  required/>
+                                    <input asp-for="Operation.Name" value="@ViewBag.FullName" class="form-control"  required/>
                                     <span asp-validation-for="Operation.Name" class="text-danger"></span>
                                 </dd>
                             </dl>

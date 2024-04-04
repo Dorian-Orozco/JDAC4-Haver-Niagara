@@ -199,7 +199,7 @@
                                     Engineering's Name<span class="text-danger"> *</span>
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    <input asp-for="Engineering.Name" class="form-control" />
+                                    <input asp-for="Engineering.Name" value="@ViewBag.FullName" class="form-control" />
                                     <span asp-validation-for="Engineering.Name" class="text-danger"></span>
                                 </dd>
                             </dl>

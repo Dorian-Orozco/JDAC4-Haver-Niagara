@@ -59,11 +59,6 @@ namespace Haver_Niagara.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //Many to Many Intersection Composite Key for DefectList
-            //modelBuilder.Entity<DefectList>()
-            //    .HasKey(d => new { d.PartID, d.DefectID });
-
-
             modelBuilder.Entity<Operation>()
                 .Property(n => n.ID)
                 .ValueGeneratedOnAdd();
@@ -93,10 +88,10 @@ namespace Haver_Niagara.Data
                 .HasIndex(a => new { a.Email })
                 .IsUnique();
 
-            ////Unique Constraint for Phone Number 
-            //modelBuilder.Entity<Employee>()
-            //    .HasIndex(a => new { a.Phone})
-            //    .IsUnique();
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.Subscriptions)
+                .WithOne(s => s.Employee)
+                .OnDelete(DeleteBehavior.Cascade);
 
             ////Unique Constraint for Defect Name
             modelBuilder.Entity<Defect>()

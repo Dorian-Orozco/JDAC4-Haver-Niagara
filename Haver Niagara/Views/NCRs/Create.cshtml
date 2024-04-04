@@ -277,7 +277,7 @@
                     </dt>
                     <dd class="col-sm">
                         <div class="form-group">
-                            <input asp-for="QualityInspection.Name" class="form-control" placeholder="E.g. Todd Smith" />
+                            <input asp-for="QualityInspection.Name" value="@ViewBag.FullName" class="form-control" placeholder="E.g. Todd Smith" />
                             <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
                         </div>
                     </dd>

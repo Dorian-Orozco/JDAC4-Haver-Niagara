@@ -1,4 +1,5 @@
 using Haver_Niagara.Data;
+using Haver_Niagara.Models;
 using Haver_Niagara.Utilities;
 using Haver_Niagara.ViewModels;
 using IronPdf.Extensions.Mvc.Core;
@@ -24,8 +25,12 @@ builder.Services.AddDbContext<HaverNiagaraDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>() //added from video
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddRoles<IdentityRole>() //added from video
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.Configure<IdentityOptions>(options => //added from video
