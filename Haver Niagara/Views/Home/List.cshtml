@@ -24,9 +24,8 @@
     }
 
     .bootstrap-select .btn {
-        color: #333 !important; /* Choose a darker color as needed */
+        color: #333 !important; 
     }
-
 </style>
 
 <!--Font Montserrat-->
@@ -36,85 +35,99 @@
 <!-- Bootstrap-select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
-<div class="d-flex justify-content-between">
-    <div>
-        <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
-    </div>
-    <div class="d-flex">
-        <!--print ncr log button-->
-  @*       @if ((ViewBag.SelectedStatus == null) || (ViewBag.SelectedStatus == true))
-        {
-            <div class="me-3">
-                @using (Html.BeginForm("LogPdf", "Home", FormMethod.Post, new { @class = "form-class" }))
+<div>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h1 class="mt-4 mb-4"> Non-Conformance Log</h1>
+        </div>
+        <div class="d-flex">
+            <div>
+                @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
                 {
-                    <button type="submit" class="btn btn-outline-primary p-2">
-                        <ion-icon name="document-outline" class="create-btn-icon"></ion-icon>
-                        <span class="me-1">NCR Log</span>
-
-                    </button>
+                    <div>
+                        <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
+                            <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
+                            <span class="me-1">Create Report</span>
+                        </a>
+                    </div>
                 }
             </div>
-        } *@
-        <div>
-            @if (User.IsInRole("Admin") || (User.IsInRole("Quality Representative")))
-            {
-                <div>
-                    <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
-                        <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
-                        <span class="me-1">Create Report</span>
-                    </a>
+
+        </div>
+    </div>
+    @* Success Created MSg *@
+    @{
+        var createsuccessMsg = TempData["CreateSuccessMsg"] as string;
+        var editsuccessMsg = TempData["EditSuccessMsg"] as string;
+        var editErr = TempData["ErrorMessage"] as string;
+        var unvoidsuccessMsg = TempData["UnvoidSuccessMsg"] as string;
+    }
+    @* Toasts  *@
+    @if (!string.IsNullOrEmpty(createsuccessMsg))
+    {
+        <div class="toast-container" aria-live="assertive" aria-atomic="true">
+            <div id="toastCreate" class="toast" role="alert" data-bs-autohide="false">
+                <div class="toast-header">
+                    <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
+                    <strong class="me-auto">Success</strong>
+                    <small class="text-muted">just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-            }
+                <div class="toast-body">
+                    @Html.Raw(createsuccessMsg)
+                </div>
+            </div>
         </div>
-    </div>
+    }
+    @if (!string.IsNullOrEmpty(editsuccessMsg))
+    {
+        <div class="toast-container" aria-live="assertive" aria-atomic="true">
+            <div id="toastEdit" class="toast" role="alert" data-bs-autohide="false">
+                <div class="toast-header">
+                    <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
+                    <strong class="me-auto">Success</strong>
+                    <small class="text-muted">just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    @Html.Raw(editsuccessMsg)
+                </div>
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(editErr))
+    {
+        <div class="toast-container" aria-live="assertive" aria-atomic="true">
+            <div id="toastEditCheck" class="toast" role="alert" data-bs-autohide="false">
+                <div class="toast-header">
+                    <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
+                    <strong class="me-auto">Error</strong>
+                    <small class="text-muted">just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    @Html.Raw(editErr)
+                </div>
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(unvoidsuccessMsg))
+    {
+        <div class="toast-container" aria-live="assertive" aria-atomic="true">
+            <div id="toastUnvoid" class="toast" role="alert" data-bs-autohide="false">
+                <div class="toast-header">
+                    <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
+                    <strong class="me-auto">Success</strong>
+                    <small class="text-muted">just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    @Html.Raw(unvoidsuccessMsg)
+                </div>
+            </div>
+        </div>
+    }
 </div>
-@* Success Created MSg *@
-@{
-    var createsuccessMsg = TempData["CreateSuccessMsg"] as string;
-    var editsuccessMsg = TempData["EditSuccessMsg"] as string;
-    var editErr = TempData["ErrorMessage"] as string;
-}
-@* Toasts  *@
-@if (!string.IsNullOrEmpty(createsuccessMsg))
-{
-
-    <div class="toastCreate align-items-center justify-content-center" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
-        <div class="toastCreate-header">
-            <strong class="me-auto">Successfully Created NCR</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toastCreate" aria-label="Close"></button>
-        </div>
-        <div class="toastCreate-body">
-            @Html.Raw(createsuccessMsg)
-        </div>
-    </div>
-}
-@if (!string.IsNullOrEmpty(editsuccessMsg))
-{
-
-    <div class="toastEdit align-items-center justify-content-center" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
-        <div class="toastEdit-header">
-            <strong class="me-auto">Successfully Edited NCR</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toastEdit" aria-label="Close"></button>
-        </div>
-        <div class="toastEdit-body">
-            @Html.Raw(editsuccessMsg)
-        </div>
-    </div>
-}
-@if (!string.IsNullOrEmpty(editErr))
-{
-
-    <div class="toastEditCheck align-items-center justify-content-center" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
-        <div class="toastEditCheck-header">
-            <strong class="me-auto">Heads Up!</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toastEditCheck" aria-label="Close"></button>
-        </div>
-        <div class="toastEditCheck-body">
-            @Html.Raw(editErr)
-        </div>
-    </div>
-}
-
 <form asp-action="List" asp-controller="Home" method="get">
     <div class="form-horizontal">
         <button class="mb-3 btn border" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
@@ -227,8 +240,8 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
 
+    <div class="table-responsive">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -406,7 +419,7 @@
                                 </span>
 
                                 <span>
-                                <!-- Void Report button appears if user is admin -->
+                                    <!-- Void Report button appears if user is admin -->
                                     @if (User.IsInRole("Admin") && item.NCR_Status)
                                     {
                                         <a href="@Url.Action("Void", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Void NCR report">
@@ -423,8 +436,8 @@
     </div>
 
     <div class="d-flex justify-content-end">
-    <!--show voided list button for admin-->
-      @if (User.IsInRole("Admin"))
+        <!--show voided list button for admin-->
+        @if (User.IsInRole("Admin"))
         {
             <a asp-controller="Home" asp-action="ListVoided" class="btn me-3 btn-secondary">Voided <ion-icon name="ban-outline" class="archive-btn-icon ms-1"></ion-icon></a>
         }
@@ -535,27 +548,22 @@
     <!--initialize toast messages (hide or display)-->
     <script>
         $(document).ready(function () {
-            $('.toastCreate').toast('show');
+            $('#toastCreate').toast('show');
         });
-
-        setTimeout(function () {
-            $('.toastCreate').toast('hide');
-        }, 12000);
     </script>
     <script>
         $(document).ready(function () {
-            $('.toastEdit').toast('show')
+            $('#toastEdit').toast('show')
         });
-        setTimeout(function () {
-            $('.toastEdit').toast('hide');
-        }, 12000);
     </script>
     <script>
         $(document).ready(function () {
-            $('.toastEditCheck').toast('show')
+            $('#toastEditCheck').toast('show')
         });
-        setTimeout(function () {
-            $('.toastEditCheck').toast('hide');
-        }, 12000);
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#toastUnvoid').toast('show')
+        });
     </script>
 }

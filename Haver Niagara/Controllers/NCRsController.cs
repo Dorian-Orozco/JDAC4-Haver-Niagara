@@ -240,8 +240,11 @@ namespace Haver_Niagara.Controllers
                 {
                     await OnPostUploadAsync(files, nCR.ID, links);
                 }
-                TempData["CreateSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Section 1/ Quality Rep for NCR #{nCR.FormattedID} has been successfully created and passed on to section 2/ Engineer. Email Notification has been sent to next department. Click here to view the report.</a>";
+                TempData["CreateSuccessMsg"] = $"NCR # {nCR.FormattedID} has been successfully created and passed on to Engineering. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
 
+                //Section 1 / Quality Rep for NCR #{nCR.FormattedID} has been successfully created and passed on to section 2/ Engineer. Email Notification has been sent to next department. Click here to view the report.</a>";
+
+                //NCR #{nCR.FormattedID} has been successfully created and passed on to Engineering. Click here to view the report.</a>";
 
 
                 //So since the Create proccess only occurs once we can send a email here 
@@ -578,8 +581,6 @@ namespace Haver_Niagara.Controllers
                         existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
                     }
 
-
-
                     if (existingNCR.NCR_Status) //If yes the NCR is being kept open
                     {
                         if (!qualityInspectionFinal.ReInspected) //if this is false (no) then redirect to Create
@@ -610,7 +611,8 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                //NCRs/Edit
+                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             //Populate viewbag for list of suppliers
@@ -812,7 +814,8 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                //QualityRepEditFirst
+                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
@@ -961,12 +964,14 @@ namespace Haver_Niagara.Controllers
                     //hard code ur own email to test it
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                     await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account and create an employee with procurement as ur own.
-                    TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Section 2/ Engineering for NCR #{nCR.FormattedID} has been successfully completed and passed on to section 3/ Operations. Email Notification has been sent to next department. Click here to view the report.</a>";
+
+                    //EngineeringEdit Mark as Completed
+                    TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been passed on to Operations. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
                     return RedirectToAction("List", "Home");
 
                 }
-
-                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                //EngineeringEdit Save
+                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             return View(nCR);
@@ -1149,10 +1154,12 @@ namespace Haver_Niagara.Controllers
                     //hard code ur own email to test
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                     await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account. //and use your own (create through maintain employee and give urself procurement role)
-                    TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Section 3/ Operations for NCR #{nCR.FormattedID} has been successfully completed and passed on to section 4/ Procurement. Email Notification has been sent to next department. Click here to view the report.</a>";
+
+                    //OperationEdit
+                    TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been passed on to Procurement. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
                     return RedirectToAction("List", "Home");
                 }
-                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
                 return RedirectToAction("List", "Home");
             }
             return View(nCR);
@@ -1288,8 +1295,8 @@ namespace Haver_Niagara.Controllers
                     EmailMessage emailMessage = new EmailMessage
                     {
                         Subject = $"NCR #{nCR.FormattedID} is ready to be finished!",
-                        Content = $"<p>Hey there!</p>" +
-                                  $"<p>Non-Conformance Report (NCR) has come back around for your signing.</p>" +
+                        Content = $"<p>Hello Quality Inspector,</p>" +
+                                  $"<p>Non-Conformance Report # {nCR.FormattedID} has been sent back to your department for final assessment.</p>" + 
                                   $"<p>Please review and fill as soon as possible.</p>" +
                                   $"<p>Thank you!</p>"
                     };
@@ -1302,10 +1309,12 @@ namespace Haver_Niagara.Controllers
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
                     await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email quality rep so disable their account.
                                                                        //and use your own (create through maintain employee and give urself quality rep role)
-                    TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Section 4/ Procurement for NCR #{nCR.FormattedID} has been successfully completed and passed on to section 5/ Quality Rep Final. Email Notification has been sent to next department. Click here to view the report.</a>";
+
+                    //ProcurementEdit
+                    TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been passed on to Quality Inspection. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
                     return RedirectToAction("List", "Home");
                 }
-                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             return View(nCR);
@@ -1499,7 +1508,9 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-                TempData["EditSuccessMsg"] = $"<a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click Here to View: {nCR.FormattedID}</a>";
+
+                //QualityRepresentativeEdit
+                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
@@ -1816,7 +1827,10 @@ namespace Haver_Niagara.Controllers
             _context.NCRs.Update(nCR);
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("List", "Home");
+
+            TempData["VoidSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been voided. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+
+            return RedirectToAction("ListVoided", "Home");
 
         }
 
@@ -1837,7 +1851,10 @@ namespace Haver_Niagara.Controllers
             _context.NCRs.Update(nCR);
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("ListVoided", "Home");
+
+            TempData["UnvoidSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been un-voided. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+
+            return RedirectToAction("List", "Home");
         }
 
         //https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
