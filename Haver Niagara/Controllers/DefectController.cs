@@ -162,12 +162,27 @@ namespace Haver_Niagara.Controllers
             }
 
             var defect = await _context.Defects
-                .FirstOrDefaultAsync(m => m.ID == id);
+        .FirstOrDefaultAsync(m => m.ID == id);
             if (defect == null)
             {
                 return NotFound();
             }
+            // Check if the defect is associated with any DefectList
+            var defectList = await _context.DefectLists
+                .FirstOrDefaultAsync(dl => dl.DefectID == id);
+            if (defectList != null)
+            {
+                // If there's a DefectList associated with the defect, check if it's used in any NCRs
+                var associatedNCR = await _context.NCRs
+                    .FirstOrDefaultAsync(ncr => ncr.Part.DefectLists.Any(d => d.DefectID == id));
 
+                if (associatedNCR != null)
+                {
+                    var defectName = defect.Name;
+                    TempData["ErrorMessage"] = $"{defectName} cannot be deleted because it is associated with an NCR.";
+                    return RedirectToAction(nameof(Index));
+                }
+            }
             return View(defect);
         }
 

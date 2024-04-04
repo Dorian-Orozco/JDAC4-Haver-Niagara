@@ -366,6 +366,8 @@ namespace Haver_Niagara.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
+            if(id == 1)
+                return Content("Nice try! You cannot delete the admin ;)");
             try
             {
                 if (_context.Employees == null)
