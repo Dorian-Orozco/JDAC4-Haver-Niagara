@@ -168,6 +168,19 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
+            //looking to see if it has any ncrs associated
+            var associatedNCR = await _context.NCRs.FirstOrDefaultAsync(c => c.NCRSupplierID == id);
+            ////getting a list of the suppliers to display it dynamically in the error message
+            //var suppliers = await _context.Suppliers.FindAsync(id);
+
+
+            if (associatedNCR != null)
+            {
+                var SupplierName = supplier.Name;                
+                TempData["ErrorMessage"] = $"{SupplierName} cannot be deleted because it is associated with an NCR.";
+                return RedirectToAction(nameof(Index));
+            }
+
             return View(supplier);
         }
 
@@ -176,18 +189,25 @@ namespace Haver_Niagara.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Suppliers == null)
+            try
             {
-                return Problem("Entity set 'HaverNiagaraDbContext.Suppliers'  is null.");
+                if (_context.Suppliers == null)
+                {
+                    return Problem("Entity set 'HaverNiagaraDbContext.Suppliers'  is null.");
+                }
+                var supplier = await _context.Suppliers.FindAsync(id);
+                if (supplier != null)
+                {
+                    _context.Suppliers.Remove(supplier);
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            var supplier = await _context.Suppliers.FindAsync(id);
-            if (supplier != null)
+            catch(Exception ex)
             {
-                _context.Suppliers.Remove(supplier);
+                return RedirectToAction(nameof(Index));
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool SupplierExists(int id)

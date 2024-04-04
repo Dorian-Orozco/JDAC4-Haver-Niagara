@@ -28,27 +28,33 @@ namespace Haver_Niagara.Data
                     },
                     new Employee
                     {
-                        FirstName = "Alex",
-                        LastName = "Baxter",
+                        FirstName = "Quality",
+                        LastName = "User",
                         Email = "qualityrepresentative@outlook.com"
                     },
                     new Employee
                     {
-                        FirstName = "Adi",
-                        LastName = "Sinha",
+                        FirstName = "Engineer",
+                        LastName = "User",
                         Email = "engineer@outlook.com"
                     },
                     new Employee
                     {
-                        FirstName = "John",
-                        LastName = "Opper",
+                        FirstName = "Operations",
+                        LastName = "User",
                         Email = "operations@outlook.com"
                     },
                     new Employee
                     {
-                        FirstName = "Purs",
-                        LastName = "Chaser",
+                        FirstName = "Procurement",
+                        LastName = "User",
                         Email = "procurement@outlook.com"
+                    },
+                    new Employee
+                    {
+                        FirstName = "Finance",
+                        LastName = "User",
+                        Email = "finance@outlook.com"
                     });
                 context.SaveChanges();
             }

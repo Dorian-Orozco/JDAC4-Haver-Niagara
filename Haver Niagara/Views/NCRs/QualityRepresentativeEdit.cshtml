@@ -272,7 +272,7 @@
                                     Quality Representative's Name
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    <input asp-for="QualityInspection.Name" required class="form-control" />
+                                    <input asp-for="QualityInspection.Name" value="@ViewBag.FullName" required class="form-control" />
                                 </dd>
                                 <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
                             </dl>
@@ -433,7 +433,7 @@
                                         Inspector's Name<span class="text-danger"> *</span>
                                     </dt>
                                     <dd class="col-sm ms-2">
-                                        <input asp-for="QualityInspectionFinal.InspectorName" class="form-control" />
+                                        <input asp-for="QualityInspectionFinal.InspectorName" value="@ViewBag.FullName" class="form-control" />
                                         <span asp-validation-for="QualityInspectionFinal.InspectorName" class="text-danger"></span>
                                     </dd>
                                 </dl>

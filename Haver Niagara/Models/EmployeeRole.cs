@@ -13,8 +13,8 @@ namespace Haver_Niagara.Models
         [Display(Name = "Operations")]
         Operations,
         [Display(Name = "Procurement")]
-        Procurement
-
-
+        Procurement,
+        [Display(Name = "Finance")]
+        Finance
     }
 }

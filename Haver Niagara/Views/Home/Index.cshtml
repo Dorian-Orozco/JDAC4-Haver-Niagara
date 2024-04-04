@@ -197,8 +197,9 @@
     <div class="d-flex justify-content-between">
         <div class="d-flex mt-4 mb-4">
             <h1 class="">NCR Dashboard</h1>
-            @* <!--If Admin, show drop down for selecting stage of NCR Report--> *@
-            @if (User.IsInRole("Admin"))
+
+            <!--If Admin, show drop down for selecting stage of NCR Report-->
+            @if (User.IsInRole("Admin") || (User.IsInRole("Finance")))
             {
                 <div class="">
                     <select name="stage" id="stage" class="form-select mt-2 ms-3">
@@ -289,8 +290,7 @@
     <div class="dashboard-row card-row">
 
         @{
-            //if not admin the link is disabled (cannot navigate to all reports)
-            if (!User.IsInRole("Admin"))
+            if (!User.IsInRole("Admin") || (!User.IsInRole("Finance"))) //if not admin the link is disabled (cannot navigate to all reports)
             {
                 <div class="card activeCard">
                     <div class="card-content">
@@ -418,6 +418,12 @@
                                         if (User.IsInRole("Quality Representative"))
                                         {
                                             <a href="@Url.Action("QualityRepDetailsFinal", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
+                                                <ion-icon name="eye"></ion-icon>
+                                            </a>
+                                        }
+                                        else if (User.IsInRole("Finance"))
+                                        {
+                                            <a href="@Url.Action("Details", "NCRs", new { id = item.ID })" class="view-btn" title="View NCR report">
                                                 <ion-icon name="eye"></ion-icon>
                                             </a>
                                         }

@@ -102,7 +102,6 @@ namespace Haver_Niagara.Controllers
                 ncrs = ncrs.Where(n => n.NCR_Stage == (NCRStage)4 || n.NCR_Stage == (NCRStage)5); //quality stage
             }
 
-
             // Apply filters
             if (!String.IsNullOrEmpty(selectedSupplier) && selectedSupplier != "Select Supplier")
             {
@@ -634,6 +633,17 @@ namespace Haver_Niagara.Controllers
                 //.Take(5)
                 .ToListAsync();
 
+            //Finance NCR
+            var financeNCRs = await _context.NCRs
+                .Include(n => n.Supplier)
+                .Include(n => n.Part)
+                    .ThenInclude(p => p.Supplier)
+                .Where(n => n.NCR_Status == false)
+                .OrderBy(n => n.NCR_Date)
+                //.Take(5)
+                .ToListAsync();
+
+
             //depending on stage, filter list
             if (User.IsInRole("Engineer"))
             {
@@ -650,10 +660,23 @@ namespace Haver_Niagara.Controllers
             else if (User.IsInRole("Quality Representative"))
             {
                 ncrs = new List<NCR>(ncrs.Where(n => n.NCR_Stage == (NCRStage)4)); //quality
-            } else
+            }
+            //else if (User.IsInRole("Finance"))
+            //{
+            //    financeNCRs = financeNCRs.Where(n => n.NCR_Stage == (NCRStage)5)
+            //                               .OrderByDescending(n => n.NCR_Date)
+            //                               .Take(5)
+            //                               .ToList();
+            //    return View(financeNCRs);
+            //}
+            else
             {
                 ncrs = new List<NCR>(ncrs.Take(5));
             }
+
+
+            //returns 5 to the view after gathering all the records. 
+            ncrs = ncrs.Take(5).ToList();
 
             return View(ncrs);
         }
@@ -693,6 +716,7 @@ namespace Haver_Niagara.Controllers
             var qualityStage = await _context.NCRs.CountAsync(n => n.NCR_Status && n.NCR_Date.Year == DateTime.Now.Year && n.NCR_Stage == NCRStage.QualityRepresentative_Final);
             return Json(new { count = qualityStage });
         }
+
 
         #endregion
 
