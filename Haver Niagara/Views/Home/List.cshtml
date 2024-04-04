@@ -65,14 +65,6 @@
                     </a>
                 </div>
             }
-            else
-            {
-
-            }
-            @*             <a asp-controller="NCRs" asp-action="Create" class="btn btn-primary p-2">
-            <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
-            <span class="me-1">Create Report</span>
-            </a> *@
         </div>
     </div>
 </div>
@@ -82,6 +74,7 @@
     var editsuccessMsg = TempData["EditSuccessMsg"] as string;
     var editErr = TempData["ErrorMessage"] as string;
 }
+@* Toasts  *@
 @if (!string.IsNullOrEmpty(createsuccessMsg))
 {
 
@@ -413,6 +406,7 @@
                                 </span>
 
                                 <span>
+                                <!-- Void Report button appears if user is admin -->
                                     @if (User.IsInRole("Admin") && item.NCR_Status)
                                     {
                                         <a href="@Url.Action("Void", "NCRs", new { id = item.ID })" class="view-btn ms-2" title="Void NCR report">
@@ -429,17 +423,18 @@
     </div>
 
     <div class="d-flex justify-content-end">
+    <!--show voided list button for admin-->
       @if (User.IsInRole("Admin"))
         {
             <a asp-controller="Home" asp-action="ListVoided" class="btn me-3 btn-secondary">Voided <ion-icon name="ban-outline" class="archive-btn-icon ms-1"></ion-icon></a>
         }
+        <!--show archived list button for all users-->
         <a asp-controller="Home" asp-action="ListArchive" class="btn archive-btn">Archived <ion-icon name="archive" class="archive-btn-icon ms-1"></ion-icon></a>
     </div>
 
-
     <br />
 
-    @* PAGING NAV BAR *@
+    <!--paging nav bar-->
     @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled='disabled'" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled='disabled'" : "";
@@ -504,48 +499,40 @@
             $("#ddlSupplier").selectpicker({ width: "100%" });
         });
     </script>
-    @* FUNCTION FOR STATUS BAR IN STAGE COLUMN *@
+    <!--status bar in stage column-->
     <script>
         $(document).ready(function () {
-            // Select all elements with the class "stage"
+
+            //select all elements with the class "stage"
             $('.stage').each(function () {
-                // Get the text content of the element
+
+                //hold the text value of each "stage" element in a variable
                 var stage = $(this).text().trim();
 
-                // Remove existing classes
-                $(this).removeClass('stage-eng2 stage-pur3 stage-qual4 stage-complete');
-
-                // Depending on the stage, change the color
+                //depenging on the text, add different css class
                 switch (stage) {
                     case "Engineering":
                         $(this).addClass('stage-eng2');
-                        // $(this).css('color', 'red');
                         break;
                     case "Operations":
                         $(this).addClass('stage-oper3');
-                        // $(this).css('color', 'blue');
                         break;
                     case "Procurement":
                         $(this).addClass('stage-procure4');
-                        // $(this).css('color', 'green');
                         break;
                     case "Quality Rep":
                         $(this).addClass('stage-qual5');
-                        // $(this).css('color', 'green');
                         break;
-                    // Add more cases as needed for other stages
                     case "Complete":
                         $(this).addClass('stage-complete');
                         break;
-                    default:
-                        // Default class if stage not matched
+                    default: //default to just the stage class
                         $(this).addClass('stage');
-                    // Default color if stage not matched
-                    // $(this).css('color', 'black');
                 }
             });
         });
     </script>
+    <!--initialize toast messages (hide or display)-->
     <script>
         $(document).ready(function () {
             $('.toastCreate').toast('show');

@@ -16,17 +16,17 @@
     }
 
     .form-nav-item {
-        width: 100%; /* Ensure form takes full width of its parent */
+        width: 100%; 
     }
 
         .form-nav-item button {
-            display: block; /* Make the button display as block */
-            width: 100%; /* Stretch button to fill the form */
-            padding: 0.5rem 1rem; /* Adjust padding as needed */
+            display: block; 
+            width: 100%; 
+            padding: 0.5rem 1rem; 
         }
 
     .dropdown-menu {
-        min-width: 220px; /* Adjust this value as needed to fit content */
+        min-width: 220px; 
         text-align: left;
     }
         .dropdown-menu li {
@@ -34,8 +34,8 @@
         }
 
         .dropdown-menu .nav-link {
-            white-space: nowrap; /* Prevent wrapping */
-            overflow: visible; /* Allow text to be fully visible */
+            white-space: nowrap; 
+            overflow: visible; 
         }
 
 </style>
@@ -80,20 +80,20 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Select the logout button by ID
+        //select the logout button by ID
         var logoutButton = document.getElementById('logout-button');
 
-        // Add click event listener to the logout button
+        //add click event listener to the logout button
         logoutButton.addEventListener('click', function (event) {
-            // Prevent the form from submitting
+            //prevent the form from submitting
             event.preventDefault();
 
-            // Display confirmation dialog
+            //display confirmation dialog
             var userConfirmed = confirm('Are you sure you want to log out?');
 
-            // If the user confirms, submit the form
+            //if the user confirms, submit the form
             if (userConfirmed) {
-                // Find the form that contains the logout button and submit it
+                //find the form that contains the logout button and submit it
                 logoutButton.form.submit();
             }
         });

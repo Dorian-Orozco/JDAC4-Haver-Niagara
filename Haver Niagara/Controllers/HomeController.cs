@@ -40,50 +40,6 @@ namespace Haver_Niagara.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        // NCR LIST PDF USING RAZOR VIEW NCRs.cshtml in Home Controller
-        public async Task<IActionResult> LogPdf(int? page)
-        {
-            var ncrs = _context.NCRs
-             .Where(p => p.IsArchived == false && p.NCR_Status == true) //active ncrs that have not been archived
-             .Include(p => p.Part)
-             .ThenInclude(s => s.Supplier)
-             .Include(p => p.Part.DefectLists)
-             .ThenInclude(d => d.Defect)
-             .AsQueryable();
-
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-
-            // Convert the query to a paged list
-            var pagedNCRs = await ncrs.ToPagedListAsync(pageNumber, pageSize);
-
-            if (_httpContextAccessor.HttpContext.Request.Method == HttpMethod.Post.Method)
-            {
-                ChromePdfRenderer renderer = new ChromePdfRenderer();
-
-                renderer.RenderingOptions.MarginTop = 10;
-                renderer.RenderingOptions.MarginLeft = 10;
-                renderer.RenderingOptions.MarginRight = 10;
-                renderer.RenderingOptions.MarginBottom = 10;
-
-                // Choose screen or print CSS media
-                renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
-
-                // Render View to PDF document
-                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/Home/LogPdf.cshtml", pagedNCRs);
-                Response.Headers.Add("Content-Disposition", "inline");
-                // Output PDF document
-                return File(pdf.BinaryData, "application/pdf", "NCR Log.pdf");
-            }
-            return View(pagedNCRs);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         // MAIN NCR LOG //
         public IActionResult List(string sortOrder, string searchString, string selectedSupplier, string selectedDate, bool? selectedStatus, int? page, string currentFilter, NCRStage? ncrStage)
         {
@@ -718,8 +674,10 @@ namespace Haver_Niagara.Controllers
                 ncrs = new List<NCR>(ncrs.Take(5));
             }
 
+
             //returns 5 to the view after gathering all the records. 
             ncrs = ncrs.Take(5).ToList();
+
             return View(ncrs);
         }
 
@@ -763,10 +721,49 @@ namespace Haver_Niagara.Controllers
         #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        // GENERATE PDF USING RAZOR VIEW LogPdf.cshtml in Home Controller
+        public async Task<IActionResult> LogPdf(int? page)
+        {
+            var ncrs = _context.NCRs
+             .Where(p => p.IsArchived == false && p.NCR_Status == true) //active ncrs that have not been archived
+             .Include(p => p.Part)
+             .ThenInclude(s => s.Supplier)
+             .Include(p => p.Part.DefectLists)
+             .ThenInclude(d => d.Defect)
+             .AsQueryable();
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            // Convert the query to a paged list
+            var pagedNCRs = await ncrs.ToPagedListAsync(pageNumber, pageSize);
+
+            if (_httpContextAccessor.HttpContext.Request.Method == HttpMethod.Post.Method)
+            {
+                ChromePdfRenderer renderer = new ChromePdfRenderer();
+
+                renderer.RenderingOptions.MarginTop = 10;
+                renderer.RenderingOptions.MarginLeft = 10;
+                renderer.RenderingOptions.MarginRight = 10;
+                renderer.RenderingOptions.MarginBottom = 10;
+
+                // Choose screen or print CSS media
+                renderer.RenderingOptions.CssMediaType = PdfCssMediaType.Print;
+
+                // Render View to PDF document
+                PdfDocument pdf = renderer.RenderRazorViewToPdf(_viewRenderService, "Views/Home/LogPdf.cshtml", pagedNCRs);
+                Response.Headers.Add("Content-Disposition", "inline");
+                // Output PDF document
+                return File(pdf.BinaryData, "application/pdf", "NCR Log.pdf");
+            }
+            return View(pagedNCRs);
+        }
+
         private string GetDisplayName(Enum enumValue)
         {
             return enumValue.GetType()
