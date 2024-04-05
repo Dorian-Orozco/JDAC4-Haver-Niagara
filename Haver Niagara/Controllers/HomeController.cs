@@ -73,7 +73,7 @@ namespace Haver_Niagara.Controllers
                 .Include(p => p.Part.DefectLists)
                 .ThenInclude(d => d.Defect)
                 .ToList();
-            
+
             //Since 
 
             var ncrs = _context.NCRs
@@ -109,7 +109,7 @@ namespace Haver_Niagara.Controllers
                     .Where(s => s.Name == selectedSupplier)
                     .Select(s => s.ID)
                     .FirstOrDefault();
-                                         //Use NCRSupplierID instead of Part.Name
+                //Use NCRSupplierID instead of Part.Name
                 ncrs = ncrs.Where(x => x.NCRSupplierID == selectedSupplierID);
             }
 
@@ -125,7 +125,7 @@ namespace Haver_Niagara.Controllers
 
             // Apply NCRStage filter if selected
             if (ncrStage.HasValue)
-            { 
+            {
                 ncrs = ncrs.Where(x => x.NCR_Stage == ncrStage.Value);
             }
 
@@ -223,6 +223,7 @@ namespace Haver_Niagara.Controllers
                 .Where(x => x.Part != null && x.Part.Supplier != null)
                 .Select(x => x.Part.Supplier.Name)
                 .Distinct()
+                .OrderBy(name => name) 
                 .ToList();
 
             // Update the ViewBag.SupplierList with the dropdown options
@@ -233,6 +234,7 @@ namespace Haver_Niagara.Controllers
                 .Where(x => x.Part != null && x.Part.Supplier != null && x.Part.Supplier.Name != null)
                 .Select(x => x.Part.Supplier.Name)
                 .Distinct()
+                .OrderBy(name => name)
                 .ToList();
 
             ViewBag.SupplierList = new SelectList(allSuppliers, selectedSupplier);
@@ -486,11 +488,11 @@ namespace Haver_Niagara.Controllers
                 ncrs = ncrs.Where(x => x.NCRSupplierID == selectedSupplierID);
             }
 
-             if (!selectedStatus.HasValue)
+            if (!selectedStatus.HasValue)
             {
                 ncrs = ncrs.Where(x => x.IsVoid == true); //void list shows voided NCRs
             }
-            
+
             // Apply NCRStage filter if selected
             if (ncrStage.HasValue)
             {

@@ -168,10 +168,12 @@ namespace Haver_Niagara.Controllers
                 ViewBag.FullName = fullName;
             }
 
-            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
+            ViewBag.DefectList = new SelectList(_context.Defects
+                .OrderBy(s => s.Name), "ID", "Name");
 
             // Populate supplier dropdown list
-            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name");
+            ViewBag.SupplierID = new SelectList(_context.Suppliers
+                .OrderBy(s => s.Name), "ID", "Name");
 
             //Passes in the OLD NCRID
             ViewBag.OldNCRID = oldNCRID;
@@ -653,9 +655,11 @@ namespace Haver_Niagara.Controllers
             if (nCR == null)
                 return NotFound();
 
-            ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
-            ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
-            ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name");
+            ViewBag.DefectList = new SelectList(_context.Defects
+                .OrderBy(s => s.Name), "ID", "Name");
+            //ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
+            ViewBag.SupplierID = new SelectList(_context.Suppliers
+                .OrderBy(s => s.Name), "ID", "Name");
             return View(nCR);
         }
 
