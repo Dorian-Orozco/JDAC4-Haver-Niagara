@@ -55,6 +55,7 @@ namespace Haver_Niagara.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -82,6 +83,7 @@ namespace Haver_Niagara.Data
             modelBuilder.Entity<Defect>()
                 .Property(n=>n.ID) 
                 .ValueGeneratedOnAdd();
+
 
             //Unique Constraint for Email Addresses
             modelBuilder.Entity<Employee>()
