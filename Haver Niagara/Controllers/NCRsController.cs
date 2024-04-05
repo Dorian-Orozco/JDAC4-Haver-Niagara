@@ -1311,7 +1311,10 @@ namespace Haver_Niagara.Controllers
                     foreach (var user in usersInQualityRep)
                     {
                         if (user.Email == "qualityrepresentative@outlook.com")
-                            emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                        {
+                            continue;
+                        }
+                        emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                     }
                     //hardcode ur own email to test
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
