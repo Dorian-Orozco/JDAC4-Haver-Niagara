@@ -290,7 +290,7 @@
     <div class="dashboard-row card-row">
 
         @{
-            if (!User.IsInRole("Admin") || (!User.IsInRole("Finance"))) //if not admin the link is disabled (cannot navigate to all reports)
+            if (!User.IsInRole("Admin") && (!User.IsInRole("Finance"))) //if not admin the link is disabled (cannot navigate to all reports)
             {
                 <div class="card activeCard">
                     <div class="card-content">
