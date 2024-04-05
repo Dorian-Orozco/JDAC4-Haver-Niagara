@@ -2,7 +2,7 @@
 @model Haver_Niagara.Models.NCR
 
 @{
-    ViewData["Title"] = "Report";
+    ViewData["Title"] = $"{@Model.FormattedID} - Engineering Edit";
 }
 @* h1 *@
 <div>
@@ -25,35 +25,57 @@
             @Html.DisplayFor(model => model.FormattedID)
         </dd>
     </dl>
-    <dl class="d-flex">
-        <dt>
-            <label asp-for="NCR_Date" class="control-label"></label>
-        </dt>
-        <dd class="ms-2">
-            <input asp-for="NCR_Date" class="form-control" type="date" disabled />
-            <span asp-validation-for="NCR_Date" class="text-danger"></span>
-        </dd>
-    </dl>
-</div>
-<div class="d-flex justify-content-between text-muted mb-3">
-    <!--previous section = quality rep-->
-    <a asp-action="QualityRepDetails" asp-route-id="@Model?.ID" class="btn-forward" title="previous section">
-        <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
-    </a>
-    <div>
-        @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
+    <div class="d-flex">
+
+        <dl class="d-flex">
+            <dt>
+                <label asp-for="NCR_Date" class="control-label"></label>
+            </dt>
+            <dd class="ms-2">
+                <input asp-for="NCR_Date" class="form-control" type="date" disabled />
+                <span asp-validation-for="NCR_Date" class="text-danger"></span>
+            </dd>
+        </dl>
+
+        @if (User.IsInRole("Admin"))
         {
-            <div class="form-check form-check-inline">
-                <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
-                <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+            <!--back to admin edit-->
+            <div class="d-flex justify-content-end">
+                <a href="@Url.Action("Edit", "NCRs", new { id = @Model.ID })" class="btn btn-close ms-3" title="Cancel" id="cancel-button"></a>
             </div>
         }
+
     </div>
-    <!--hidden button, not functional - just for styling-->
-    <button class="btn-forward pe-none">
-        <ion-icon name="arrow-forward-circle-outline" class="btn-forward-icon bg-white "></ion-icon>
-    </button>
 </div>
+@if (!User.IsInRole("Admin"))
+{
+    <div class="d-flex justify-content-between text-muted mb-3">
+        <!--previous section = quality rep-->
+        <a asp-action="QualityRepDetails" asp-route-id="@Model?.ID" class="btn-forward" title="previous section">
+            <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
+        </a>
+        @if (Model.NCR_Stage == NCRStage.Engineering)
+        {
+            <div>
+                @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
+                        <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+                    </div>
+                }
+            </div>
+        }
+        <!--back to engineer details-->
+        <a href="@Url.Action("EngineerDetails", "NCRs", new { id = @Model.ID })" class="btn-forward" title="Cancel" id="cancel-button">
+            <ion-icon name="close-circle-outline" class="btn-forward-icon"></ion-icon>
+        </a>
+    </div>
+}
+<!--hidden button, not functional - just for styling-->
+@*     <button class="btn-forward pe-none">
+    <ion-icon name="arrow-forward-circle-outline" class="btn-forward-icon bg-white "></ion-icon>
+    </button> *@
 
 <form class="" asp-action="EngineeringEdit" id="myForm" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -104,7 +126,7 @@
 
                                     @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, @class = "me-2" })
                                     <label>No</label>
-                                <span class="ms-3 text-danger" asp-validation-for="Engineering.CustomerNotify"></span>
+                                    <span class="ms-3 text-danger" asp-validation-for="Engineering.CustomerNotify"></span>
                                 </div>
                             </dd>
                         </dl>
@@ -224,20 +246,64 @@
     </div>
 
     <!--action buttons-->
-    <div class="d-flex justify-content-between mt-3">
-        <div class="mt-2">
-            <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
-        </div>
-        <div class="justify-content-end">
+    @if (Model.NCR_Stage != NCRStage.Engineering)
+    {
+        <div class="d-flex justify-content-end mt-3">
+            @if (!User.IsInRole("Admin"))
+            {
+                <!--cancel goes back to details view-->
+                <div class="mt-2 me-3">
+                    <a id="cancel-button" asp-route-id="@Model?.ID" asp-action="EngineerDetails" class="btn btn-outline-danger">Cancel</a>
+                </div>
+            }
+            else
+            {
+                <!--back to admin edit-->
+                <div class="mt-2 me-3">
+                    <a id="cancel-button" asp-route-id="@Model?.ID" asp-action="Edit" class="btn btn-outline-danger">Cancel</a>
+                </div>
+            }
+            <!--save report-->
             <span class="mt-2">
-                <input type="submit" value="Save Report" class="btn btn-outline-primary" />
-            </span>
-            <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
-            <span class="mt-2 ms-2">
-                <input type="submit" value="Mark as Completed" class="btn btn-primary" />
+                <input type="submit" value="Save Report" class="btn btn-primary" />
             </span>
         </div>
-    </div>
+    }
+    <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
+    @if (Model.NCR_Stage == NCRStage.Engineering)
+    {
+        <div class="d-flex justify-content-between mt-3">
+
+            <div class="d-flex">
+                @if (!User.IsInRole("Admin"))
+                {
+                    <!--back to details view-->
+                    <div class="mt-2 me-3">
+                        <a id="cancel-button" asp-route-id="@Model?.ID" asp-action="EngineerDetails" class="btn btn-outline-danger">Cancel</a>
+                    </div>
+                }
+                else
+                {
+                    <!--back to admin edit-->
+                    <div class="mt-2 me-3">
+                        <a id="cancel-button" asp-route-id="@Model?.ID" asp-action="Edit" class="btn btn-outline-danger">Cancel</a>
+                    </div>
+                }
+                <!--save report-->
+                <span class="mt-2">
+                    <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+                </span>
+            </div>
+
+            <!--Mark as completed-->
+            <div>
+                <span class="mt-2 ms-2">
+                    <input type="submit" value="Mark as Completed" class="btn btn-primary" />
+                </span>
+            </div>
+
+        </div>
+    }
 
 </form>
 
