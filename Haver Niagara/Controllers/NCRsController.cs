@@ -1311,7 +1311,10 @@ namespace Haver_Niagara.Controllers
                     foreach (var user in usersInQualityRep)
                     {
                         if (user.Email == "qualityrepresentative@outlook.com")
-                            emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                        {
+                            continue;
+                        }
+                        emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
                     }
                     //hardcode ur own email to test
                     emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
@@ -1752,72 +1755,70 @@ namespace Haver_Niagara.Controllers
 
         //RemindUsers
         //Email button on the details page uses this 
-        public async Task RemindUsers(int id)
-        {
-            var nCR = await _context.NCRs.FindAsync(id);
-            var ncrStage = nCR.NCR_Stage;
+        //public async Task RemindUsers(int id)
+        //{
+        //    var nCR = await _context.NCRs.FindAsync(id);
+        //    var ncrStage = nCR.NCR_Stage;
 
-            EmailMessage emailMessage = new EmailMessage   //Default template for ALL stages (if you want to change them, put them inside the if statements (one for each))
-            {
-                Subject = $"Reminder: #{nCR.FormattedID} has reached your stage!",
-                Content = $"<p>If you need any assistance please contact management.</p>" +
-                          $"<p>Please review and fill as soon as possible.</p>" +
-                          $"<p>Thank you! REMIND USERS METHOD</p>"
-            };
-
-
-            if (ncrStage == NCRStage.Engineering) //then email engineering to remind them
-            {   //return engineering employees
-                var usersInOperation = await _userManager.GetUsersInRoleAsync("Engineer");
-                foreach (var user in usersInOperation)
-                {
-                    if (user.Email == "engineer@outlook.com")
-                        continue;
-                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
-                }
-                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                await _emailSender.SendToManyAsync(emailMessage);
-            }///////////////////////////////////////////////////////////////////////////////////////////////////////
-            else if (ncrStage == NCRStage.Operations)
-            {
-                var usersInEngineer = await _userManager.GetUsersInRoleAsync("Operations");
-                foreach (var user in usersInEngineer)
-                {
-                    if (user.Email == "operations@outlook.com")
-                        continue;
-                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
-                }
-                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                await _emailSender.SendToManyAsync(emailMessage);
-            }//////////////////////////////////////////////////////////////////////////////////////////////////////////
-            else if (ncrStage == NCRStage.Procurement)
-            {
-                var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
-                foreach (var user in usersInProcurement)
-                {
-                    if (user.Email == "procurement@outlook.com")
-                        continue;
-                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
-                }
-                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                await _emailSender.SendToManyAsync(emailMessage);
-            }/////////////////////////////////////////////////////////////////////////////////////////////////////////
-            else if (ncrStage == NCRStage.QualityRepresentative_Final)
-            {//return procurement quality rep employees
-                var usersInQualityRepFinal = await _userManager.GetUsersInRoleAsync("Quality Representative");
-                foreach (var user in usersInQualityRepFinal)
-                {
-                    if (user.Email == "qualityrepresentative@outlook.com")
-                        continue;
-                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
-                }
-                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                await _emailSender.SendToManyAsync(emailMessage);
-            }
+        //    EmailMessage emailMessage = new EmailMessage   //Default template for ALL stages (if you want to change them, put them inside the if statements (one for each))
+        //    {
+        //        Subject = $"Reminder: #{nCR.FormattedID} has reached your stage!",
+        //        Content = $"<p>If you need any assistance please contact management.</p>" +
+        //                  $"<p>Please review and fill as soon as possible.</p>" +
+        //                  $"<p>Thank you! REMIND USERS METHOD</p>"
+        //    };
 
 
+        //    if (ncrStage == NCRStage.Engineering) //then email engineering to remind them
+        //    {   //return engineering employees
+        //        var usersInOperation = await _userManager.GetUsersInRoleAsync("Engineer");
+        //        foreach (var user in usersInOperation)
+        //        {
+        //            if (user.Email == "engineer@outlook.com")
+        //                continue;
+        //            emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+        //        }
+        //        emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
+        //        await _emailSender.SendToManyAsync(emailMessage);
+        //    }///////////////////////////////////////////////////////////////////////////////////////////////////////
+        //    else if (ncrStage == NCRStage.Operations)
+        //    {
+        //        var usersInEngineer = await _userManager.GetUsersInRoleAsync("Operations");
+        //        foreach (var user in usersInEngineer)
+        //        {
+        //            if (user.Email == "operations@outlook.com")
+        //                continue;
+        //            emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+        //        }
+        //        emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
+        //        await _emailSender.SendToManyAsync(emailMessage);
+        //    }//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //    else if (ncrStage == NCRStage.Procurement)
+        //    {
+        //        var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
+        //        foreach (var user in usersInProcurement)
+        //        {
+        //            if (user.Email == "procurement@outlook.com")
+        //                continue;
+        //            emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+        //        }
+        //        emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
+        //        await _emailSender.SendToManyAsync(emailMessage);
+        //    }/////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //    else if (ncrStage == NCRStage.QualityRepresentative_Final)
+        //    {//return procurement quality rep employees
+        //        var usersInQualityRepFinal = await _userManager.GetUsersInRoleAsync("Quality Representative");
+        //        foreach (var user in usersInQualityRepFinal)
+        //        {
+        //            if (user.Email == "qualityrepresentative@outlook.com")
+        //                continue;
+        //            emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+        //        }
+        //        emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
+        //        await _emailSender.SendToManyAsync(emailMessage);
+        //    }
 
-        }
+        //}
 
         //Void
         //For Admin
