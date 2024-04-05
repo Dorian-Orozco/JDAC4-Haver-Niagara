@@ -58,8 +58,6 @@ namespace Haver_Niagara.Data
                     });
                 context.SaveChanges();
             }
-
-
             if (!context.Defects.Any())
             {
                 var defects = new List<Defect>

@@ -154,7 +154,6 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
 
             return View(nCR);
         }
@@ -200,6 +199,8 @@ namespace Haver_Niagara.Controllers
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
+                ViewBag.FullName = HttpContext.Request.Form["QualityInspection.Name"];
+
                 return View(nCR);
             }
             if (ModelState.IsValid)
@@ -686,6 +687,7 @@ namespace Haver_Niagara.Controllers
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
+                ViewBag.FullName = HttpContext.Request.Form["QualityInspection.Name"];  //comment out if doesnt work
                 return View(nCR);
             }
 
@@ -883,6 +885,7 @@ namespace Haver_Niagara.Controllers
 
             if (!ModelState.IsValid)
             {
+                ViewBag.FullName = HttpContext.Request.Form["Engineering.Name"]; //gets the name to persist when the submission fails (that way we dont have to pull back user from db)
                 //Ensuring the NCR Stage persistent if the form submission goes bad
                 nCR.NCR_Stage = ncrStageCheck.NCR_Stage;
                 return View(nCR);
@@ -1025,6 +1028,7 @@ namespace Haver_Niagara.Controllers
 
             if (!ModelState.IsValid)
             {
+                ViewBag.FullName = HttpContext.Request.Form["Operation.Name"]; 
                 //Ensuring the NCR Stage persistent if the form submission goes bad
                 nCR.NCR_Stage = ncrStageCheck.NCR_Stage;
                 return View(nCR);
@@ -1380,6 +1384,7 @@ namespace Haver_Niagara.Controllers
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
+                ViewBag.FullName = HttpContext.Request.Form["QualityInspectionFinal.InspectorName"];
                 return View(nCR);
             }
 
