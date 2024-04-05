@@ -154,7 +154,6 @@ namespace Haver_Niagara.Controllers
             {
                 return NotFound();
             }
-            //await RemindUsers(id.Value); //this kept sending emails so instead i need to hook it up to the mark completed button so it can send emails.
 
             return View(nCR);
         }
