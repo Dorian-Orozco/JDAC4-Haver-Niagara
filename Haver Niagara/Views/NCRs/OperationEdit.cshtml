@@ -2,8 +2,9 @@
 @model Haver_Niagara.Models.NCR
 
 @{
-    ViewData["Title"] = "Report";
+    ViewData["Title"] = $"{@Model.FormattedID} - Operations Edit";
 }
+
 
 @* h1 *@
 <dl>
@@ -26,35 +27,59 @@
             @Html.DisplayFor(model => model.FormattedID)
         </dd>
     </dl>
-    <dl class="d-flex">
-        <dt>
-            <label asp-for="NCR_Date" class="control-label"></label>
-        </dt>
-        <dd class="ms-2">
-            <input asp-for="NCR_Date" class="form-control" type="date" disabled />
-            <span asp-validation-for="NCR_Date" class="text-danger"></span>
-        </dd>
-    </dl>
-</div>
-<div class="d-flex justify-content-between text-muted mb-3">
-    <!--Previous Section = EngineerDetails-->
-    <a asp-action="EngineerDetails" asp-route-id="@Model?.ID" class="btn-forward">
-        <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
-    </a>
-    <div>
-        @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
+    <div class="d-flex">
+
+        <dl class="d-flex">
+            <dt>
+                <label asp-for="NCR_Date" class="control-label"></label>
+            </dt>
+            <dd class="ms-2">
+                <input asp-for="NCR_Date" class="form-control" type="date" disabled />
+                <span asp-validation-for="NCR_Date" class="text-danger"></span>
+            </dd>
+        </dl>
+
+        @if (User.IsInRole("Admin"))
         {
-            <div class="form-check form-check-inline">
-                <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
-                <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+            <!--back to admin edit-->
+            <div class="d-flex justify-content-end">
+                <a href="@Url.Action("Edit", "NCRs", new { id = @Model.ID })" class="btn btn-close ms-3" title="Cancel" id="cancel-button"></a>
             </div>
         }
+
     </div>
-    <!--hidden button, not functional - just for styling-->
-    <button class="btn-forward pe-none">
-        <ion-icon name="arrow-forward-circle-outline" class="btn-forward-icon bg-white "></ion-icon>
-    </button>
 </div>
+@if (!User.IsInRole("Admin"))
+{
+    <div class="d-flex justify-content-between text-muted mb-3">
+        <!--Previous Section = EngineerDetails-->
+        <a asp-action="EngineerDetails" asp-route-id="@Model?.ID" class="btn-forward">
+            <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
+        </a>
+        @if (Model.NCR_Stage == NCRStage.Operations)
+        {
+            <div>
+                @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
+                        <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+                    </div>
+                }
+            </div>
+        }
+        <!--back to operations details-->
+        <a href="@Url.Action("OperationsDetails", "NCRs", new { id = @Model.ID })" class="btn-forward" title="Cancel" id="cancel-button">
+            <ion-icon name="close-circle-outline" class="btn-forward-icon"></ion-icon>
+        </a>
+    </div>
+}
+
+<!--hidden button, not functional - just for styling-->
+@*     <button class="btn-forward pe-none">
+    <ion-icon name="arrow-forward-circle-outline" class="btn-forward-icon bg-white "></ion-icon>
+    </button> *@
+
 
 <form class="" asp-action="OperationEdit" id="myForm" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -64,7 +89,7 @@
         {
             @* Operations Section *@
             <div class="section section-oper">
-                <div class="row border m-1 p-2 ps-3 fs-6 section-header">3/ Operations</div>
+                <div class="row border m-1 p-2 ps-3 fs-6 section-header">3. Operations</div>
 
                 @* row 11 *@
                 <div class="row m-1 border">
@@ -77,7 +102,7 @@
                                 @foreach (var oppDecision in Enum.GetValues(typeof(OperationDecision)))
                                 {
                                     <div class="form-check">
-                                        <input type="radio" asp-for="Operation.OperationDecision" class="form-check-input" value="@oppDecision" id="@($"oppDecision{oppDecision}")"/>
+                                        <input type="radio" asp-for="Operation.OperationDecision" class="form-check-input" value="@oppDecision" id="@($"oppDecision{oppDecision}")" />
                                         <label for="@($"oppDecision{oppDecision}")">@((typeof(OperationDecision).GetMember(oppDecision.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label><br />
                                     </div>
                                 }
@@ -126,17 +151,17 @@
                             </dl>
                         </div>
                         <div class="row ms-1 mb-0">
-                                <div class="form-group">
-                                    <label asp-for="Operation.CAR.CARNumber" class="control-label"></label>
-                                    <input asp-for="Operation.CAR.CARNumber" id="CARNumber" class="form-control" />
-                                    <span asp-validation-for="Operation.CAR.CARNumber" class="text-danger"></span>
-                                </div>
+                            <div class="form-group">
+                                <label asp-for="Operation.CAR.CARNumber" class="control-label"></label>
+                                <input asp-for="Operation.CAR.CARNumber" id="CARNumber" class="form-control" />
+                                <span asp-validation-for="Operation.CAR.CARNumber" class="text-danger"></span>
+                            </div>
 
-                                <div class="form-group">
-                                    <label asp-for="Operation.CAR.Date" class="control-label"></label>
-                                    <input asp-for="Operation.CAR.Date" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="CARDate" class="form-control" />
-                                    <span asp-validation-for="Operation.CAR.Date" class="text-danger"></span>
-                                </div>
+                            <div class="form-group">
+                                <label asp-for="Operation.CAR.Date" class="control-label"></label>
+                                <input asp-for="Operation.CAR.Date" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="CARDate" class="form-control" />
+                                <span asp-validation-for="Operation.CAR.Date" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-4 pt-3 border ">
@@ -164,18 +189,18 @@
                         </div>
                         @* Purchasing Follow Up Required *@
                         <div class="row ms-1 mb-2">
-                                <div class="form-group">
-                                    <label asp-for="Operation.FollowUp.FollowUpType" class="control-label"></label>
-                                    <input asp-for="Operation.FollowUp.FollowUpType" id="FollowUpType" class="form-control" />
-                                    <span asp-validation-for="Operation.FollowUp.FollowUpType" class="text-danger"></span>
-                                </div>
+                            <div class="form-group">
+                                <label asp-for="Operation.FollowUp.FollowUpType" class="control-label"></label>
+                                <input asp-for="Operation.FollowUp.FollowUpType" id="FollowUpType" class="form-control" />
+                                <span asp-validation-for="Operation.FollowUp.FollowUpType" class="text-danger"></span>
+                            </div>
                         </div>
                         <div class="row ms-1 mb-2">
-                                <div class="form-group">
-                                    <label asp-for="Operation.FollowUp.FollowUpDate" class="control-label"></label>
-                                    <input asp-for="Operation.FollowUp.FollowUpDate" id="FollowUpDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" type="date" class="form-control" />
-                                    <span asp-validation-for="Operation.FollowUp.FollowUpDate" class="text-danger"></span>
-                                </div>
+                            <div class="form-group">
+                                <label asp-for="Operation.FollowUp.FollowUpDate" class="control-label"></label>
+                                <input asp-for="Operation.FollowUp.FollowUpDate" id="FollowUpDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" type="date" class="form-control" />
+                                <span asp-validation-for="Operation.FollowUp.FollowUpDate" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-4 border pt-3 ps-3">
@@ -185,7 +210,7 @@
                                     Operations Manager<span class="text-danger"> *</span>
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    <input asp-for="Operation.Name" value="@ViewBag.FullName" class="form-control"  required/>
+                                    <input asp-for="Operation.Name" value="@ViewBag.FullName" class="form-control" required />
                                     <span asp-validation-for="Operation.Name" class="text-danger"></span>
                                 </dd>
                             </dl>
@@ -196,7 +221,7 @@
                                     Date
                                 </dt>
                                 <dd class="col-sm ms-2">
-                                    <input asp-for="Operation.OperationDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" required/>
+                                    <input asp-for="Operation.OperationDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" required />
                                     <span asp-validation-for="Operation.OperationDate" class="text-danger"></span>
                                 </dd>
                             </dl>
@@ -208,20 +233,65 @@
     </div>
 
     <!--action buttons-->
-    <div class="d-flex justify-content-between mt-3">
-        <div class="mt-2">
-            <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-outline-danger">Cancel</a>
-        </div>
-        <div class="justify-content-end">
+    @if (Model.NCR_Stage != NCRStage.Operations)
+    {
+        <div class="d-flex justify-content-end mt-3">
+            @if (!User.IsInRole("Admin"))
+            {
+                <!--cancel goes back to details view-->
+                <div class="mt-2 me-3">
+                    <a id="cancel-button" asp-route-id="@Model?.ID" asp-action="OperationsDetails" class="btn btn-outline-danger">Cancel</a>
+                </div>
+            }
+            else
+            {
+                <!--back to admin edit-->
+                <div class="mt-2 me-3">
+                    <a id="cancel-button" asp-route-id="@Model?.ID" asp-action="Edit" class="btn btn-outline-danger">Cancel</a>
+                </div>
+            }
+            <!--save report-->
             <span class="mt-2">
-                <input type="submit" value="Save Report" class="btn btn-outline-primary" />
-            </span>
-            <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
-            <span class="mt-2 ms-2">
-                <input type="submit"  id="complete-button" value="Mark as Completed" class="btn btn-primary" />
+                <input type="submit" value="Save Report" class="btn btn-primary" />
             </span>
         </div>
-    </div>
+    }
+
+    <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
+    @if (Model.NCR_Stage == NCRStage.Operations)
+    {
+        <div class="d-flex justify-content-between mt-3">
+
+            <div class="d-flex">
+                @if (!User.IsInRole("Admin"))
+                {
+                    <!--back to details view-->
+                    <div class="mt-2 me-3">
+                        <a id="cancel-button" asp-route-id="@Model?.ID" asp-action="OperationsDetails" class="btn btn-outline-danger">Cancel</a>
+                    </div>
+                }
+                else
+                {
+                    <!--back to admin edit-->
+                    <div class="mt-2 me-3">
+                        <a id="cancel-button" asp-route-id="@Model?.ID" asp-action="Edit" class="btn btn-outline-danger">Cancel</a>
+                    </div>
+                }
+                <!--save report-->
+                <span class="mt-2">
+                    <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+                </span>
+            </div>
+
+            <!--Mark as completed-->
+            <div>
+                <span class="mt-2 ms-2">
+                    <input type="submit" value="Mark as Completed" class="btn btn-primary" />
+                </span>
+            </div>
+
+        </div>
+    }
 </form>
 
 
@@ -250,11 +320,6 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     <script>
-        document.getElementById("cancel-button").addEventListener("click", function (event) {
-            if (!confirm("Are you sure you want to cancel?")) {
-                event.preventDefault();
-            }
-        });
         $(document).ready(function () {
             // Handler for the change event of the OperationFollowUp radio button
             $('input[name="Operation.OperationFollowUp"]').change(function () {
