@@ -135,6 +135,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.QualityInspectionFinal)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Supplier)
+                .Include(n => n.Part).ThenInclude(n => n.PartName)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Medias)
                 .Include(n => n.Part)
@@ -175,6 +176,10 @@ namespace Haver_Niagara.Controllers
 
             // Populate supplier dropdown list
             ViewBag.SupplierID = new SelectList(_context.Suppliers
+                .OrderBy(s => s.Name), "ID", "Name");
+
+            // Populate part name dropdown list
+            ViewBag.PartNameID = new SelectList(_context.PartNames
                 .OrderBy(s => s.Name), "ID", "Name");
 
             //Passes in the OLD NCRID
@@ -379,7 +384,7 @@ namespace Haver_Niagara.Controllers
                         {
                             existingNCR.Part = new Part();
                         }
-                        existingNCR.Part.Name = part.Name;
+                        //existingNCR.Part.Name = part.Name;
                         existingNCR.Part.PartNumber = part.PartNumber;
                         existingNCR.Part.SAPNumber = part.SAPNumber;
                         existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
@@ -723,7 +728,7 @@ namespace Haver_Niagara.Controllers
                         {
                             existingNCR.Part = new Part();
                         }
-                        existingNCR.Part.Name = part.Name;
+                        //existingNCR.Part.Name = part.Name;
                         existingNCR.Part.PartNumber = part.PartNumber;
                         existingNCR.Part.SAPNumber = part.SAPNumber;
                         existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
@@ -1426,7 +1431,7 @@ namespace Haver_Niagara.Controllers
                         {
                             existingNCR.Part = new Part();
                         }
-                        existingNCR.Part.Name = part.Name;
+                        //existingNCR.Part.Name = part.Name;
                         existingNCR.Part.PartNumber = part.PartNumber;
                         existingNCR.Part.SAPNumber = part.SAPNumber;
                         existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
