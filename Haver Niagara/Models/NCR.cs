@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Haver_Niagara.Models
 {
-    public class NCR 
+    public class NCR
     {
         private readonly HaverNiagaraDbContext _context;
 
@@ -23,12 +23,23 @@ namespace Haver_Niagara.Models
         public string FormattedID
         {
             get
-            {
-                var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == NCR_Date.Year).OrderBy(a => a.ID).ToList();
-                //gets the index position of the list returned and then adds 1 bc lists start at 0.
-                int index = ncrsForYear.FindIndex(a => a.ID == this.ID) + 1;
-                return $"{NCR_Date.Year}-{index.ToString().PadLeft(3, '0')}";
+            { //if year of the ncr when it was created is not equal to the current year, 
+                if (NCR_Date.Year != DateTime.Now.Year)
+                {
+                    //gets the ncrs the year is the same and orders them by id and then turns them into a list
+                    var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == NCR_Date.Year).OrderBy(a => a.ID).ToList();
+                    //gets the index position of the list returned and then adds 1 bc lists start at 0.
+                    int index = ncrsForYear.FindIndex(a => a.ID == this.ID) + 1;
+                    return $"{NCR_Date.Year}-{index.ToString().PadLeft(3, '0')}";
+                }
+                return $"{NCR_Date.Year}-{ID.ToString().PadLeft(3, '0')}";
             }
+            //{
+            //    var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == NCR_Date.Year).OrderBy(a => a.ID).ToList();
+            //    //gets the index position of the list returned and then adds 1 bc lists start at 0.
+            //    int index = ncrsForYear.FindIndex(a => a.ID == this.ID) + 1;
+            //    return $"{NCR_Date.Year}-{index.ToString().PadLeft(3, '0')}";
+            //}
         }
 
 
@@ -46,7 +57,7 @@ namespace Haver_Niagara.Models
         [Display(Name = "New NCR Number")]
         public int? NewNCRID { get; set; }
 
-        [Display(Name ="Old NCR Number")]
+        [Display(Name = "Old NCR Number")]
         public int? OldNCRID { get; set; }
 
         public bool? IsArchived
@@ -80,7 +91,7 @@ namespace Haver_Niagara.Models
         [Required(ErrorMessage = "Please select a supplier")]
         //[Range(0, Int32.MaxValue, ErrorMessage = "Please select a Value")]
         public int NCRSupplierID { get; set; }
-        public Supplier? Supplier { get; set; }
+        public Supplier Supplier { get; set; }
 
         // PART ENTITY //
         [ForeignKey("Part")]
