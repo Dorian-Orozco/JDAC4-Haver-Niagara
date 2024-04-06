@@ -96,7 +96,9 @@ namespace Haver_Niagara.Controllers
                 using var pdfDocument = renderer.RenderHtmlAsPdf(html);
 
                 //use the FormattedID property to generate the file name
-                string fileName = $"NCR_{nCR.FormattedID}.pdf";
+                //Added this for new ncr ids, if this breaks then remove the line of code
+                var FormattedID = GetFormattedNCRid(nCR);
+                string fileName = $"NCR_{FormattedID}.pdf";
 
                 //output pdf
                 return File(pdfDocument.BinaryData, "application/pdf", fileName);
@@ -243,19 +245,15 @@ namespace Haver_Niagara.Controllers
                 {
                     await OnPostUploadAsync(files, nCR.ID, links);
                 }
-                TempData["CreateSuccessMsg"] = $"NCR # {nCR.FormattedID} has been successfully created and passed on to Engineering. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
-
-                //Section 1 / Quality Rep for NCR #{nCR.FormattedID} has been successfully created and passed on to section 2/ Engineer. Email Notification has been sent to next department. Click here to view the report.</a>";
-
-                //NCR #{nCR.FormattedID} has been successfully created and passed on to Engineering. Click here to view the report.</a>";
-
+                var formattedID = GetFormattedNCRid(nCR);
+                TempData["CreateSuccessMsg"] = $"NCR # {formattedID} has been successfully created and passed on to Engineering. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
 
                 //So since the Create proccess only occurs once we can send a email here 
                 //Find all employees in the engineering role, then send them emails. 
                 var usersInEngineering = await _userManager.GetUsersInRoleAsync("Engineer");
                 EmailMessage emailMessage = new EmailMessage
                 {
-                    Subject = $"New NCR Has Been Created #{nCR.FormattedID}!",
+                    Subject = $"New NCR Has Been Created #{formattedID}!",
                     Content = $"<p>Dear Engineers,</p>" +
                               $"<p>A new Non-Conformance Report (NCR) has been created.</p>" +
                               $"<p>Please review and fill out your part of the form.</p>" +
@@ -277,6 +275,7 @@ namespace Haver_Niagara.Controllers
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             return View(nCR);
         }
+
 
         //GET: NCRs/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -615,7 +614,8 @@ namespace Haver_Niagara.Controllers
                     }
                 }
                 //NCRs/Edit
-                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                var FormattedID = GetFormattedNCRid(nCR);
+                TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             //Populate viewbag for list of suppliers
@@ -820,8 +820,9 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
+                var FormattedID = GetFormattedNCRid(nCR);
                 //QualityRepEditFirst
-                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
@@ -949,12 +950,13 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
+                var FormattedID = GetFormattedNCRid(nCR);
                 if (emailYesOrNo)
                 {
                     var usersInOperation = await _userManager.GetUsersInRoleAsync("Operations");
                     EmailMessage emailMessage = new EmailMessage
                     {
-                        Subject = $"NCR #{nCR.FormattedID} is ready to be filled!",
+                        Subject = $"NCR #{FormattedID} is ready to be filled!",
                         Content = $"<p>Hey! </p>" +
                                   $"<p>A new Non-Conformance Report (NCR) has entered your stage.</p>" +
                                   $"<p>Please review and fill as soon as possible.</p>" +
@@ -973,12 +975,12 @@ namespace Haver_Niagara.Controllers
                     await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account and create an employee with procurement as ur own.
 
                     //EngineeringEdit Mark as Completed
-                    TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been passed on to Operations. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
+                    TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been passed on to Operations. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
                     return RedirectToAction("List", "Home");
 
                 }
                 //EngineeringEdit Save
-                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             return View(nCR);
@@ -1139,13 +1141,13 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-
+                var FormattedID = GetFormattedNCRid(nCR);
                 if (sendEmailYesNo)
                 {
                     var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
                     EmailMessage emailMessage = new EmailMessage
                     {
-                        Subject = $"NCR #{nCR.FormattedID} is ready to be filled!",
+                        Subject = $"NCR #{FormattedID} is ready to be filled!",
                         Content = $"<p>Hey there!</p>" +
                                   $"<p>A new Non-Conformance Report (NCR) has entered your stage.</p>" +
                                   $"<p>Please review and fill as soon as possible.</p>" +
@@ -1164,10 +1166,10 @@ namespace Haver_Niagara.Controllers
                     await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email procurement so disable their account. //and use your own (create through maintain employee and give urself procurement role)
 
                     //OperationEdit
-                    TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been passed on to Procurement. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
+                    TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been passed on to Procurement. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
                     return RedirectToAction("List", "Home");
                 }
-                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
+                TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
                 return RedirectToAction("List", "Home");
             }
             return View(nCR);
@@ -1297,14 +1299,15 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
+                var FormattedID = GetFormattedNCRid(nCR);
                 if (sendEmailYesNo)
                 {
                     var usersInQualityRep = await _userManager.GetUsersInRoleAsync("Quality Representative");
                     EmailMessage emailMessage = new EmailMessage
                     {
-                        Subject = $"NCR #{nCR.FormattedID} is ready to be finished!",
+                        Subject = $"NCR #{FormattedID} is ready to be finished!",
                         Content = $"<p>Hello Quality Inspector,</p>" +
-                                  $"<p>Non-Conformance Report # {nCR.FormattedID} has been sent back to your department for final assessment.</p>" + 
+                                  $"<p>Non-Conformance Report # {FormattedID} has been sent back to your department for final assessment.</p>" + 
                                   $"<p>Please review and fill as soon as possible.</p>" +
                                   $"<p>Thank you!</p>"
                     };
@@ -1322,10 +1325,10 @@ namespace Haver_Niagara.Controllers
                                                                        //and use your own (create through maintain employee and give urself quality rep role)
 
                     //ProcurementEdit
-                    TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been passed on to Quality Inspection. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
+                    TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been passed on to Quality Inspection. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
                     return RedirectToAction("List", "Home");
                 }
-                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             return View(nCR);
@@ -1520,9 +1523,9 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-
+                var FormattedID = GetFormattedNCRid(nCR);
                 //QualityRepresentativeEdit
-                TempData["EditSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
@@ -1752,76 +1755,6 @@ namespace Haver_Niagara.Controllers
 
         #endregion
 
-
-        //RemindUsers
-        //Email button on the details page uses this 
-        public async Task RemindUsers(int id)
-        {
-            var nCR = await _context.NCRs.FindAsync(id);
-            var ncrStage = nCR.NCR_Stage;
-
-            EmailMessage emailMessage = new EmailMessage   //Default template for ALL stages (if you want to change them, put them inside the if statements (one for each))
-            {
-                Subject = $"Reminder: #{nCR.FormattedID} has reached your stage!",
-                Content = $"<p>If you need any assistance please contact management.</p>" +
-                          $"<p>Please review and fill as soon as possible.</p>" +
-                          $"<p>Thank you! REMIND USERS METHOD</p>"
-            };
-
-
-            if (ncrStage == NCRStage.Engineering) //then email engineering to remind them
-            {   //return engineering employees
-                var usersInOperation = await _userManager.GetUsersInRoleAsync("Engineer");
-                foreach (var user in usersInOperation)
-                {
-                    if (user.Email == "engineer@outlook.com")
-                        continue;
-                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
-                }
-                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                await _emailSender.SendToManyAsync(emailMessage);
-            }///////////////////////////////////////////////////////////////////////////////////////////////////////
-            else if (ncrStage == NCRStage.Operations)
-            {
-                var usersInEngineer = await _userManager.GetUsersInRoleAsync("Operations");
-                foreach (var user in usersInEngineer)
-                {
-                    if (user.Email == "operations@outlook.com")
-                        continue;
-                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
-                }
-                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                await _emailSender.SendToManyAsync(emailMessage);
-            }//////////////////////////////////////////////////////////////////////////////////////////////////////////
-            else if (ncrStage == NCRStage.Procurement)
-            {
-                var usersInProcurement = await _userManager.GetUsersInRoleAsync("Procurement");
-                foreach (var user in usersInProcurement)
-                {
-                    if (user.Email == "procurement@outlook.com")
-                        continue;
-                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
-                }
-                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                await _emailSender.SendToManyAsync(emailMessage);
-            }/////////////////////////////////////////////////////////////////////////////////////////////////////////
-            else if (ncrStage == NCRStage.QualityRepresentative_Final)
-            {//return procurement quality rep employees
-                var usersInQualityRepFinal = await _userManager.GetUsersInRoleAsync("Quality Representative");
-                foreach (var user in usersInQualityRepFinal)
-                {
-                    if (user.Email == "qualityrepresentative@outlook.com")
-                        continue;
-                    emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
-                }
-                emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
-                await _emailSender.SendToManyAsync(emailMessage);
-            }
-
-
-
-        }
-
         //Void
         //For Admin
         public async Task<IActionResult> Void(int id)
@@ -1839,8 +1772,8 @@ namespace Haver_Niagara.Controllers
             _context.NCRs.Update(nCR);
 
             await _context.SaveChangesAsync();
-
-            TempData["VoidSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been voided. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+            var FormattedID = GetFormattedNCRid(nCR);
+            TempData["VoidSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been voided. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
 
             return RedirectToAction("ListVoided", "Home");
 
@@ -1863,8 +1796,8 @@ namespace Haver_Niagara.Controllers
             _context.NCRs.Update(nCR);
 
             await _context.SaveChangesAsync();
-
-            TempData["UnvoidSuccessMsg"] = $"NCR # <b>{nCR.FormattedID}</b> has been un-voided. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+            var FormattedID = GetFormattedNCRid(nCR);
+            TempData["UnvoidSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been un-voided. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
 
             return RedirectToAction("List", "Home");
         }
@@ -2052,6 +1985,21 @@ namespace Haver_Niagara.Controllers
             return _context.NCRs.Any(e => e.ID == id);
         }
 
+        #region Gets the Formatted NCR Id
+        private string GetFormattedNCRid(NCR nCR)
+        {
+            if (_context != null)
+            {
+                var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == nCR.NCR_Date.Year).OrderBy(a => a.ID).ToList();
+                int index = ncrsForYear.FindIndex(a => a.ID == nCR.ID) + 1;
+                var ncrInfo = $"{nCR.NCR_Date.Year}-{index.ToString().PadLeft(3, '0')}";
+                return ncrInfo;
+            }
+            return "Failed to Get ID";
+
+        }
+
+        #endregion
         #region Not Used
 
         // GET: NCRs/Delete/5
