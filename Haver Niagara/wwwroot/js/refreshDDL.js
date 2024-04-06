@@ -16,7 +16,7 @@ function refreshDDL(ddl_ID, URI, showNoDataMsg, noDataMsg, addDefault, defaultTe
                 theDDL.empty();
                 if (addDefault) {
                     if (defaultText == null || jQuery.isEmptyObject(defaultText)) {
-                        defaultText = 'Select Supplier'
+                        defaultText = 'Select an option'
                     };
                     theDDL.append($('<option/>', {
                         value: "",
@@ -30,6 +30,7 @@ function refreshDDL(ddl_ID, URI, showNoDataMsg, noDataMsg, addDefault, defaultTe
                         selected: item.selected 
                     }));
                 });
+                theDDL.selectpicker('refresh');
                 theDDL.trigger("chosen:updated");
             } else {
                 if (showNoDataMsg) {
@@ -41,6 +42,7 @@ function refreshDDL(ddl_ID, URI, showNoDataMsg, noDataMsg, addDefault, defaultTe
                         value: null,
                         text: noDataMsg
                     }));
+                    theDDL.selectpicker('refresh');
                     theDDL.trigger("chosen:updated");
                 }
             }
