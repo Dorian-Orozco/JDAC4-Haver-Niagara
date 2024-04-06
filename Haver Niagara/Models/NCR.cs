@@ -24,15 +24,27 @@ namespace Haver_Niagara.Models
         {
             get
             { //if year of the ncr when it was created is not equal to the current year, 
-                if (NCR_Date.Year != DateTime.Now.Year)
-                {
+                //if (NCR_Date.Year != DateTime.Now.Year)
+                //{
+                    ////gets the ncrs the year is the same and orders them by id and then turns them into a list
+                    //var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == NCR_Date.Year).OrderBy(a => a.ID).ToList();
+                    ////gets the index position of the list returned and then adds 1 bc lists start at 0.
+                    //int index = ncrsForYear.FindIndex(a => a.ID == this.ID) + 1;
+                    //return $"{NCR_Date.Year}-{index.ToString().PadLeft(3, '0')}";
                     //gets the ncrs the year is the same and orders them by id and then turns them into a list
+                    if(_context != null){
                     var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == NCR_Date.Year).OrderBy(a => a.ID).ToList();
                     //gets the index position of the list returned and then adds 1 bc lists start at 0.
                     int index = ncrsForYear.FindIndex(a => a.ID == this.ID) + 1;
                     return $"{NCR_Date.Year}-{index.ToString().PadLeft(3, '0')}";
                 }
-                return $"{NCR_Date.Year}-{ID.ToString().PadLeft(3, '0')}";
+                else
+                {
+                    return "Issue Occured, Contact Admin";
+                }
+
+                //}
+                //return $"{NCR_Date.Year}-{ID.ToString().PadLeft(3, '0')}";
             }
             //{
             //    var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == NCR_Date.Year).OrderBy(a => a.ID).ToList();
