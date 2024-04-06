@@ -10,9 +10,19 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Display(Name = "Part Name")]
-        [Required(ErrorMessage = "Please enter a part name")]
-        public string Name { get; set; }
+        //name needs to be a select list 
+
+        // PART NAME //
+        [ForeignKey("PartName")]
+        [Display(Name = "Select Supplier")]
+        [Required(ErrorMessage = "Please select a supplier")]
+        public int PartNameID { get; set; }
+        public PartName? PartName { get; set; }
+
+        //[Display(Name = "Part Name")]
+        //[Required(ErrorMessage = "Please enter a part name")]
+        //public string Name { get; set; }
+
 
         [Display(Name = "Part Number")]
         //[Required(ErrorMessage = "Please enter a part number")]

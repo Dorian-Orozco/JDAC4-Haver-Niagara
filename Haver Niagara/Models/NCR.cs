@@ -22,13 +22,15 @@ namespace Haver_Niagara.Models
         [Display(Name = "NCR No.")]
         public string FormattedID
         {
-            get
-            {
-                var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == NCR_Date.Year).OrderBy(a => a.ID).ToList();
+            get;
+            //{
+                //var ncrsForYear = _context.NCRs.Where(a => a.NCR_Date.Year == NCR_Date.Year).OrderBy(a => a.ID).ToList();
+
                 //gets the index position of the list returned and then adds 1 bc lists start at 0.
-                int index = ncrsForYear.FindIndex(a => a.ID == this.ID) + 1;
-                return $"{NCR_Date.Year}-{index.ToString().PadLeft(3, '0')}";
-            }
+
+                //int index = ncrsForYear.FindIndex(a => a.ID == this.ID) + 1;
+                //return $"{NCR_Date.Year}-{index.ToString().PadLeft(3, '0')}";
+            //}
         }
 
 
@@ -67,6 +69,13 @@ namespace Haver_Niagara.Models
 
             set { }
         }
+
+        // PART ENTITY //
+        [ForeignKey("PartName")]
+        [Display(Name = "Select Part")]
+        [Required(ErrorMessage = "Please select a part")]
+        public int NCRPartNameID { get; set; }
+        public PartName? PartName { get; set; }
 
         public bool? IsVoid { get; set; }
 

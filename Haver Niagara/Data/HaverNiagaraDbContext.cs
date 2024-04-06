@@ -55,6 +55,9 @@ namespace Haver_Niagara.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
 
+        //Part Name List
+        public DbSet<PartName> PartNames { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

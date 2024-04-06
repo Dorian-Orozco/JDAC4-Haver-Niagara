@@ -134,6 +134,8 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.QualityInspection)
                 .Include(n => n.QualityInspectionFinal)
                 .Include(n => n.Part)
+                    .ThenInclude(n => n.PartName)
+                .Include(n => n.Part)
                     .ThenInclude(n => n.Supplier)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Medias)
@@ -177,6 +179,10 @@ namespace Haver_Niagara.Controllers
             ViewBag.SupplierID = new SelectList(_context.Suppliers
                 .OrderBy(s => s.Name), "ID", "Name");
 
+            // Populate part name dropdown list
+            ViewBag.PartNameID = new SelectList(_context.PartNames
+                .OrderBy(s => s.Name), "ID", "Name");
+
             //Passes in the OLD NCRID
             ViewBag.OldNCRID = oldNCRID;
 
@@ -197,10 +203,13 @@ namespace Haver_Niagara.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Populate supplier dropdown list
+                // Populate dropdown list
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
+
+                ViewBag.PartNameID = new SelectList(_context.PartNames, "ID", "Name", nCR.NCRPartNameID);
+
                 ViewBag.FullName = HttpContext.Request.Form["QualityInspection.Name"];
 
                 return View(nCR);
@@ -285,6 +294,8 @@ namespace Haver_Niagara.Controllers
             //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
                 .Include(n => n.Supplier)
+                .Include(n => n.Part) //added part name list
+                    .ThenInclude(n => n.PartName)
                 .Include(n => n.Part).ThenInclude(n => n.Medias)
                 .Include(n => n.Part).ThenInclude(n => n.Supplier)
                 .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
@@ -302,6 +313,8 @@ namespace Haver_Niagara.Controllers
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "Name");
+            ViewData["PartNameID"] = new SelectList(_context.PartNames, "ID", "Name");
+
             return View(nCR);
         }
 
@@ -323,13 +336,16 @@ namespace Haver_Niagara.Controllers
             var ncrRetrieveStage = _context.NCRs
                 .FirstOrDefaultAsync(n => n.ID == id);
 
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
-               // nCR.NCR_Stage = ncrStageCheck.NCR_Stage; //If they are editing quality rep final, it will keep that stage if posts back. If the ncr is in engineering it will persist
+                // nCR.NCR_Stage = ncrStageCheck.NCR_Stage; //If they are editing quality rep final, it will keep that stage if posts back. If the ncr is in engineering it will persist
                 // Populate supplier dropdown list              //The ncr stage will get changed in every edit after this. so in engineering, if model state is valid, then at the end change the stage and continue.
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
+
+                ViewBag.PartNameID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRPartNameID); //added
+
                 return View(nCR);
             }
 
@@ -340,6 +356,8 @@ namespace Haver_Niagara.Controllers
                     var existingNCR = await _context.NCRs
                         .Include(n => n.Part)
                             .ThenInclude(n => n.Medias)
+                        .Include(n => n.Part)
+                             .ThenInclude(n => n.PartName) //add part name list
                         .Include(n => n.Part)
                             .ThenInclude(n => n.Supplier)
                         .Include(n => n.Part)
@@ -379,7 +397,7 @@ namespace Haver_Niagara.Controllers
                         {
                             existingNCR.Part = new Part();
                         }
-                        existingNCR.Part.Name = part.Name;
+                        existingNCR.Part.PartNameID = (int)existingNCR.NCRPartNameID;
                         existingNCR.Part.PartNumber = part.PartNumber;
                         existingNCR.Part.SAPNumber = part.SAPNumber;
                         existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
@@ -625,10 +643,13 @@ namespace Haver_Niagara.Controllers
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID", nCR.OperationID);
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID", nCR.PartID);
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID", nCR.QualityInspectionID);
+
+            ViewBag.PartNameID = new SelectList(_context.PartNames, "ID", "Name", nCR.NCRPartNameID); //added
+
             return View(nCR);
         }
 
-//Stage system, retrieve the part of the ncr that is being edited, use the ncr id and see if there is data filled out after their section NOT BEFORe
+        //Stage system, retrieve the part of the ncr that is being edited, use the ncr id and see if there is data filled out after their section NOT BEFORe
         //because if you create an NCR thats automatically the quality rep stage but once you submit the form it turns into Engineering.
         //So what if someone goes back to change that NCR quality rep info if engineering data already exists? It will overwrite the stage and mess things up
         //So Retrieve the NCR, look for associated objects (engineering table, procurement, etc) if engineering exists, stage = procurement, if procurement exists, stage = qual rep final 
@@ -648,6 +669,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.QualityInspection)
                 .Include(n => n.QualityInspectionFinal)
                 .Include(n => n.Part).ThenInclude(n => n.Supplier)
+                .Include(n => n.Part).ThenInclude(n => n.PartName)
                 .Include(n => n.Part).ThenInclude(n => n.Medias)
                 .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
                 .FirstOrDefaultAsync(m => m.ID == id);
@@ -660,13 +682,17 @@ namespace Haver_Niagara.Controllers
             //ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             ViewBag.SupplierID = new SelectList(_context.Suppliers
                 .OrderBy(s => s.Name), "ID", "Name");
+
+            ViewBag.PartNameID = new SelectList(_context.PartNames //added
+               .OrderBy(s => s.Name), "ID", "Name");
+
             return View(nCR);
         }
 
         // POST: NCRs/QualityRepEditFirst 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> QualityRepEditFirst(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")]
+        public async Task<IActionResult> QualityRepEditFirst(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID, NCRPartNameID")]
                           NCR nCR, Part part, QualityInspection qualityInspection, QualityInspectionFinal qualityInspectionFinal,
                           List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
@@ -688,6 +714,9 @@ namespace Haver_Niagara.Controllers
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
                 ViewBag.FullName = HttpContext.Request.Form["QualityInspection.Name"];  //comment out if doesnt work
+
+                ViewBag.PartNameID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRPartNameID); //added
+
                 return View(nCR);
             }
 
@@ -697,6 +726,7 @@ namespace Haver_Niagara.Controllers
                 {
                     var existingNCR = await _context.NCRs
                         .Include(n => n.Part).ThenInclude(n => n.Medias)
+                        .Include(n => n.Part).ThenInclude(n => n.PartName)
                         .Include(n => n.Part).ThenInclude(n => n.Supplier)
                         .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
                         .Include(n => n.QualityInspection)
@@ -710,6 +740,7 @@ namespace Haver_Niagara.Controllers
                     existingNCR.NCR_Date = nCR.NCR_Date;
                     existingNCR.NCR_Status = nCR.NCR_Status;
                     existingNCR.NCRSupplierID = nCR.NCRSupplierID;
+                    existingNCR.NCRPartNameID = nCR.NCRPartNameID;
 
                     if (existingNCR.OldNCRID != null)
                         existingNCR.OldNCRID = nCR.ID;
@@ -723,7 +754,7 @@ namespace Haver_Niagara.Controllers
                         {
                             existingNCR.Part = new Part();
                         }
-                        existingNCR.Part.Name = part.Name;
+                        existingNCR.Part.PartNameID = (int)existingNCR.NCRPartNameID;
                         existingNCR.Part.PartNumber = part.PartNumber;
                         existingNCR.Part.SAPNumber = part.SAPNumber;
                         existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
@@ -839,6 +870,7 @@ namespace Haver_Niagara.Controllers
             //Get all the NCR data from the database that is going to be edited.
             var nCR = await _context.NCRs
                 .Include(n => n.Supplier)
+                .Include(n => n.Part).ThenInclude(n => n.PartName)
                 .Include(n => n.Part).ThenInclude(n => n.Medias)
                 .Include(n => n.Part).ThenInclude(n => n.Supplier)
                 .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
@@ -864,6 +896,9 @@ namespace Haver_Niagara.Controllers
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
             ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             ViewData["SupplierID"] = new SelectList(_context.Suppliers, "ID", "Name");
+
+            ViewData["PartNameID"] = new SelectList(_context.PartNames, "ID", "Name"); //added
+
             return View(nCR);
         }
 
@@ -902,7 +937,7 @@ namespace Haver_Niagara.Controllers
                     if (existingNCR == null)
                         return NotFound();
 
-                    if(MarkAsCompleted == "true") //if they want to complete the form and pass it to the next stage
+                    if (MarkAsCompleted == "true") //if they want to complete the form and pass it to the next stage
                     {
                         if (ncrStageCheck.NCR_Stage == NCRStage.Engineering) //check to see if it's in engineering, and if it is, then update it to operations
                         {
@@ -1030,7 +1065,7 @@ namespace Haver_Niagara.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.FullName = HttpContext.Request.Form["Operation.Name"]; 
+                ViewBag.FullName = HttpContext.Request.Form["Operation.Name"];
                 //Ensuring the NCR Stage persistent if the form submission goes bad
                 nCR.NCR_Stage = ncrStageCheck.NCR_Stage;
                 return View(nCR);
@@ -1047,7 +1082,7 @@ namespace Haver_Niagara.Controllers
                     if (existingNCR == null)
                         return NotFound();
 
-                    if(MarkAsCompleted == "true")
+                    if (MarkAsCompleted == "true")
                     {
                         //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
                         if (ncrStageCheck.NCR_Stage == NCRStage.Operations) //this would mean that the NCR stage should be sent to the next enum (procurement)
@@ -1236,7 +1271,7 @@ namespace Haver_Niagara.Controllers
                     if (existingNCR == null)
                         return NotFound();
 
-                    if(MarkAsCompleted == "true")
+                    if (MarkAsCompleted == "true")
                     {
                         //Check for NCR Stage, since in model state meaning engineering is going to be updated and all fields are REQUIRED
                         if (ncrStageCheck.NCR_Stage == NCRStage.Procurement)//this would mean that the NCR stage should be sent to the next enum (quality final)
@@ -1248,8 +1283,8 @@ namespace Haver_Niagara.Controllers
 
 
                     if (ncrStageCheck.NCR_Stage != NCRStage.Procurement) //if the ncr stage is not equal to procurement meaning its from a later stage ( , final..)
-                            existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
-                    
+                        existingNCR.NCR_Stage = ncrStageCheck.NCR_Stage;    //so keep it as that value
+
 
                     if (existingNCR.OldNCRID != null)
                         existingNCR.OldNCRID = nCR.ID;
@@ -1307,7 +1342,7 @@ namespace Haver_Niagara.Controllers
                     {
                         Subject = $"NCR #{FormattedID} is ready to be finished!",
                         Content = $"<p>Hello Quality Inspector,</p>" +
-                                  $"<p>Non-Conformance Report # {FormattedID} has been sent back to your department for final assessment.</p>" + 
+                                  $"<p>Non-Conformance Report # {FormattedID} has been sent back to your department for final assessment.</p>" +
                                   $"<p>Please review and fill as soon as possible.</p>" +
                                   $"<p>Thank you!</p>"
                     };
@@ -1426,7 +1461,7 @@ namespace Haver_Niagara.Controllers
                         {
                             existingNCR.Part = new Part();
                         }
-                        existingNCR.Part.Name = part.Name;
+                        existingNCR.Part.PartNameID = (int)existingNCR.NCRPartNameID;
                         existingNCR.Part.PartNumber = part.PartNumber;
                         existingNCR.Part.SAPNumber = part.SAPNumber;
                         existingNCR.Part.PurchaseNumber = part.PurchaseNumber;
@@ -1552,6 +1587,8 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Engineering)
                 .Include(n => n.QualityInspection)
                 .Include(n => n.QualityInspectionFinal)
+                .Include(n => n.Part)
+                    .ThenInclude(n => n.PartName)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Supplier)
                 .Include(n => n.Part)
