@@ -246,7 +246,7 @@ namespace Haver_Niagara.Controllers
                     await OnPostUploadAsync(files, nCR.ID, links);
                 }
                 var formattedID = GetFormattedNCRid(nCR);
-                TempData["CreateSuccessMsg"] = $"NCR # {formattedID} has been successfully created and passed on to Engineering. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
+                TempData["CreateSuccessMsg"] = $"NCR # <b>{formattedID}</b> has been successfully created and passed on to Engineering. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
 
                 //So since the Create proccess only occurs once we can send a email here 
                 //Find all employees in the engineering role, then send them emails. 
