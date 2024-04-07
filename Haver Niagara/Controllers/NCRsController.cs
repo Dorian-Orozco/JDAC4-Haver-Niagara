@@ -22,6 +22,7 @@ using Haver_Niagara.ViewModels;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Security.Claims;
+using System.Net.Mail;
 
 namespace Haver_Niagara.Controllers
 {
@@ -192,9 +193,9 @@ namespace Haver_Niagara.Controllers
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID");
 
             // Approximate the FormattedID
-            var currentYear = DateTime.Now.Year;
-            var ncrCountForYear = _context.NCRs.Count(a => a.NCR_Date.Year == currentYear);
-            int provisionalIndex = ncrCountForYear + 1; // Assuming no other records are created at the same moment
+            var currentYear = DateTime.Now.Year;  //gets the current year
+            var ncrCountForYear = _context.NCRs.Count(a => a.NCR_Date.Year == currentYear); //counts the ncrs in this year
+            int provisionalIndex = ncrCountForYear + 1; // Assuming no other records are created at the same moment 
             string provisionalFormattedId = $"{currentYear}-{provisionalIndex.ToString().PadLeft(3, '0')}";
 
             ViewBag.ProvisionalFormattedId = provisionalFormattedId;
@@ -1032,7 +1033,7 @@ namespace Haver_Niagara.Controllers
         // POST: NCRs/OperationEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OperationEdit(int id, [Bind("OldNCRID")] NCR nCR, Operation operation, string MarkAsCompleted) //didnt use followup/car objects because they can be null so just did it in code 
+        public async Task<IActionResult> OperationEdit(int id, [Bind("OldNCRID")] NCR nCR, Operation operation, string MarkAsCompleted)
         {
             nCR.ID = id;
             if (id != nCR.ID)
@@ -1549,13 +1550,14 @@ namespace Haver_Niagara.Controllers
             return View(nCR);
         }
 
-        #endregion
+#endregion
 
-        #region individual details views
 
-        // GET: NCRs/QualityRepDetails/5
-        //When Engineer presses edit, they can go back to view previous section which would be this view
-        public async Task<IActionResult> QualityRepDetails(int? id)
+#region individual details views
+
+// GET: NCRs/QualityRepDetails/5
+//When Engineer presses edit, they can go back to view previous section which would be this view
+public async Task<IActionResult> QualityRepDetails(int? id)
         {
             if (id == null || _context.NCRs == null)
             {
