@@ -6,6 +6,8 @@ namespace Haver_Niagara.Models
 {
     public class Supplier
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "You cannot leave the name of the supplier blank")]

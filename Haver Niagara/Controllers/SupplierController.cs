@@ -51,14 +51,14 @@ namespace Haver_Niagara.Controllers
                 //Make a copy of the defects being inserted so we dont convert them all to lower case
                 var lowerSupplierNames = supplierNames.Select(name => name.ToLower());
 
-                var allSuppliers = _context.Defects.Select(n => n.Name.ToLower());
+                var allSuppliers = _context.Suppliers.Select(n => n.Name.ToLower());
 
                 var duplicates = lowerSupplierNames.Intersect(allSuppliers).ToList();
 
                 if (duplicates.Any())
                 {
                     ModelState.AddModelError("Name", "Unable to save changes. "
-                         + "You cannot have duplicate Defect Names");
+                         + "You cannot have duplicate Supplier Names");
                     return View("Create");
                 }
 
@@ -74,7 +74,7 @@ namespace Haver_Niagara.Controllers
                 if (dex.GetBaseException().Message.Contains("UNIQUE constraint failed"))
                 {
                     ModelState.AddModelError("Name", "Unable to save changes. "
-                        + "You cannot have duplicate Defect Names");
+                        + "You cannot have duplicate Supplier Names");
                 }
                 else
                 {
