@@ -339,9 +339,8 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PartNameID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PartNumber")
                         .HasColumnType("INTEGER");
@@ -369,9 +368,26 @@ namespace Haver_Niagara.Data.HNMigrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("PartNameID");
+
                     b.HasIndex("SupplierID");
 
                     b.ToTable("Parts");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.PartName", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PartNames");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Procurement", b =>
@@ -640,11 +656,19 @@ namespace Haver_Niagara.Data.HNMigrations
 
             modelBuilder.Entity("Haver_Niagara.Models.Part", b =>
                 {
+                    b.HasOne("Haver_Niagara.Models.PartName", "PartName")
+                        .WithMany("Parts")
+                        .HasForeignKey("PartNameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
                         .WithMany("Parts")
                         .HasForeignKey("SupplierID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("PartName");
 
                     b.Navigation("Supplier");
                 });
@@ -691,6 +715,11 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Navigation("Medias");
 
                     b.Navigation("NCR");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.PartName", b =>
+                {
+                    b.Navigation("Parts");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Procurement", b =>

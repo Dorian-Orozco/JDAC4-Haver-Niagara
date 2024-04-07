@@ -200,21 +200,28 @@ namespace Haver_Niagara.Controllers
         public async Task<IActionResult> Create(int? oldNCRID, [Bind("ID,NCR_Date,NCR_Status,NCR_Stage,OldNCRID,NCRSupplierID")]
                 NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
+            part.PartName = await _context.PartNames.FindAsync(part.PartNameID); //since the code for the drop down retrieves the id
+                                                                                //before it checks the form, i just retrieved the part name based on the id
+                                                                                //and set it (since its required in the PartName model)
             if (!ModelState.IsValid)
             {
                 // Populate supplier dropdown list
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
+                ViewBag.PartNameID = new SelectList(_context.PartNames, "ID", "Name", part.PartNameID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
+         
                 ViewBag.FullName = HttpContext.Request.Form["QualityInspection.Name"];
 
                 return View(nCR);
             }
             if (ModelState.IsValid)
             {
+                part.PartName = await _context.PartNames.FindAsync(part.PartNameID);
                 _context.Add(part);
                 _context.Add(qualityInspection);
                 part.SupplierID = (int)nCR.NCRSupplierID;
+
 
                 await _context.SaveChangesAsync();
 
@@ -223,7 +230,6 @@ namespace Haver_Niagara.Controllers
                 //Assign the generated IDs to this NCR. this allows the NCR to have part and quality
                 nCR.PartID = part.ID;
                 nCR.QualityInspectionID = qualityInspection.ID;
-
                 //Retrieves the old ncr from the GET create. 
                 nCR.OldNCRID = oldNCRID ?? null;
                 var defectList = new DefectList
@@ -655,6 +661,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Part).ThenInclude(n => n.Supplier)
                 .Include(n => n.Part).ThenInclude(n => n.Medias)
                 .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
+                .Include(n=>n.Part).ThenInclude(n=>n.PartName) //added
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (nCR == null)
@@ -665,6 +672,10 @@ namespace Haver_Niagara.Controllers
             //ViewBag.listOfSuppliers = new SelectList(_context.Suppliers, "ID", "Name");
             ViewBag.SupplierID = new SelectList(_context.Suppliers
                 .OrderBy(s => s.Name), "ID", "Name");
+
+            ViewBag.PartNameID = new SelectList(_context.PartNames //added 
+                .OrderBy(s=>s.Name), "ID", "Name");
+
             return View(nCR);
         }
 
