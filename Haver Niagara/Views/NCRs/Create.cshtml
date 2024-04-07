@@ -2,12 +2,12 @@
 @model Haver_Niagara.Models.NCR
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = $"Create NCR No. {ViewBag.ProvisionalFormattedId}";
 }
 
 <style>
-    .defectError {
-        color: red;
+    .report-container{
+        padding: 10px;
     }
 </style>
 
@@ -15,18 +15,22 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
 @* h1 *@
-<div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
-    <dl class="d-flex">
-        <dt class="text-muted">
-            @* Create NCR Report *@
-            @{
-                var OldNCRNumber_id = ViewBag.OldNCRID != null ? $"Previous NCR No. {DateTime.UtcNow.Year}-{ViewBag.OldNCRID.ToString().PadLeft(3, '0')}" : "Create NCR Report";
-            }
-            <span class="m2-2">
-                @OldNCRNumber_id
-            </span>
-        </dt>
-    </dl>
+
+<dl class="d-flex">
+    <dt class="text-muted">
+        @* Create NCR Report *@
+        @{
+            var OldNCRNumber_id = ViewBag.OldNCRID != null ? $"Previous NCR No. {DateTime.UtcNow.Year}-{ViewBag.OldNCRID.ToString().PadLeft(3, '0')}" : "";
+        }
+    </dt>
+    <dd>
+        @OldNCRNumber_id
+    </dd>
+</dl>
+<div class="ps-3 pe-3 fs-5 d-flex justify-content-between">
+    <div class="d-flex">
+        <b>NCR No. </b><span class="ms-2">@ViewBag.ProvisionalFormattedId</span>
+    </div>
     <dl class="d-flex">
         <dt>
             <label asp-for="NCR_Date" class="control-label"></label>
@@ -37,6 +41,15 @@
         </dd>
     </dl>
 </div>
+<div class="d-flex justify-content-center text-muted mb-3">
+    @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
+    {
+        <div class="form-check form-check-inline">
+            <input type="radio" asp-for="NCR_Stage" disabled class="form-check-input" value="@ncrStage" id="@($"ncrStage{ncrStage}")" />
+            <label for="@($"ncrStage{ncrStage}")">@((typeof(NCRStage).GetMember(ncrStage.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0] as DisplayAttribute).Name)</label>
+        </div>
+    }
+</div>
 
 <partial name="_addDefectModal" />
 <partial name="_addSupplierModal" />
@@ -46,10 +59,16 @@
     <input type="hidden" name="oldNCRID" value="@ViewBag.OldNCRID" />
     <div>
         @* Quality Inspector Section *@
-        <div class="row border m-1 p-2 ps-3 fs-6 section-header">1/ Quality Representative</div>
+
+        <div class="m-1 p-2 ps-3 fs-6 section-header d-flex justify-content-between">
+            <span class="">1. Quality Representative</span>
+            <button class="border border-secondary rounded p-2 btn" id="btnFillCreate"></button>
+        </div>
+        
+        @* <div class="row border m-1 p-2 ps-3 fs-6 section-header">1/ Quality Representative</div> *@
         @* row 1 *@
         <div class="row m-1">
-            <div class="col-sm-4 border pt-3 ps-3">
+            <div class="col-sm-3 border pt-3 ps-3">
                 <dl>
                     <dt>
                         Identify Process Applicable <span class="text-danger">*</span>
@@ -69,7 +88,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="col-sm-4 border pt-3 ps-3">
+            <div class="col-sm-5 border pt-3 ps-3">
                 <dl>
                     <dt>Supplier <span class="text-danger">*</span></dt>
                     <dd>
@@ -105,24 +124,24 @@
                 </div> *@
                 <div class="row">
                     <dl class="d-flex m-0">
-                        <dt class="col-sm-5 ">
+                        <dt class="col-sm">
                             @* PO or Prod No. *@
                             <label asp-for="Part.ProductNumber" class="control-label"></label>
                             <span class="text-danger">*</span>
                         </dt>
-                        <dd class="col-sm-7 ">
-                            <input asp-for="Part.ProductNumber" class="form-control" placeholder="E.g. 4500730930" />
+                        <dd class="col-sm-7">
+                            <input asp-for="Part.ProductNumber" id="partNum" class="form-control" placeholder="E.g. 4500730930" />
                             <span asp-validation-for="Part.ProductNumber" class="text-danger"></span>
                         </dd>
                     </dl>
                 </div>
                 <div class="row">
                     <dl class="d-flex mb-1">
-                        <dt class="col-sm-5 ">
+                        <dt class="col-sm ">
                             Sales Order No.
                         </dt>
                         <dd class="col-sm-7">
-                            <input asp-for="Part.SalesOrder" class="form-control" placeholder="E.g. Stock" />
+                            <input asp-for="Part.SalesOrder" id="salesOrder" class="form-control" placeholder="E.g. Stock" />
                             <span asp-validation-for="Part.SalesOrder" class="text-danger"></span>
                         </dd>
                     </dl>
@@ -141,12 +160,12 @@
                     <dd class="mt-1">
                         <div class="form-group">
                             <label asp-for="Part.SAPNumber" class="control-label"></label><span class="text-danger"> *</span>
-                            <input asp-for="Part.SAPNumber" class="form-control" placeholder="E.g. 208670449" />
+                            <input asp-for="Part.SAPNumber" id="sapNum" class="form-control" placeholder="E.g. 208670449" />
                             <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Part.Name" class="control-label"></label><span class="text-danger"> *</span>
-                            <input asp-for="Part.Name" class="form-control" placeholder="E.g. Mounting plate" />
+                            <input asp-for="Part.Name" id="partName" class="form-control" placeholder="E.g. Mounting plate" />
                             <span asp-validation-for="Part.Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -163,8 +182,8 @@
                         <dt class="col-sm">
                             <label asp-for="Part.QuantityRecieved" class="control-label"></label><span class="text-danger"> *</span>
                         </dt>
-                        <dd class="col-sm">
-                            <input asp-for="Part.QuantityRecieved" class="form-control" placeholder="E.g. 22" />
+                        <dd class="col-sm-5">
+                            <input asp-for="Part.QuantityRecieved" id="receivedNum" class="form-control" placeholder="E.g. 22" />
                             <span asp-validation-for="Part.QuantityRecieved" class="text-danger"></span>
                         </dd>
                     </dl>
@@ -174,8 +193,8 @@
                         <dt class="col-sm">
                             <label asp-for="Part.QuantityDefect" class="control-label"></label><span class="text-danger"> *</span>
                         </dt>
-                        <dd class="col-sm">
-                            <input asp-for="Part.QuantityDefect" class="form-control" placeholder="E.g. 20" />
+                        <dd class="col-sm-5">
+                            <input asp-for="Part.QuantityDefect" id="defectiveNum" class="form-control" placeholder="E.g. 20" />
                             <span asp-validation-for="Part.QuantityDefect" class="text-danger"></span>
                         </dd>
                     </dl>
@@ -262,7 +281,7 @@
                 <div class="form-group ps-3 mb-3">
                     <div class="col-md-6">
                         <label for="links">Enter links (one per line):</label>
-                        <textarea name="links" class="form-control" placeholder="E.g. https://haverniagara.com/"></textarea>
+                        <textarea name="links" id="links" class="form-control" placeholder="E.g. https://haverniagara.com/"></textarea>
                         <span class="text-danger"></span>
                     </div>
                 </div>
@@ -277,7 +296,7 @@
                     </dt>
                     <dd class="col-sm">
                         <div class="form-group">
-                            <input asp-for="QualityInspection.Name" value="@ViewBag.FullName" class="form-control" placeholder="E.g. Todd Smith" />
+                            <input asp-for="QualityInspection.Name" id="name" value="@ViewBag.FullName" class="form-control" placeholder="E.g. Todd Smith" />
                             <span asp-validation-for="QualityInspection.Name" class="text-danger"></span>
                         </div>
                     </dd>
@@ -335,6 +354,31 @@
     <script>
         $('#cancel-button').click(function (event) {
             confirm('Are you sure you want to cancel? All progress will be lost.')
+        });
+    </script>
+
+    <!-- PRE-FILL DATA WHEN BUTTON CLICKED -->
+    <script>
+        document.getElementById('btnFillCreate').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('NCRSupplierID').value = "37"; //supplier
+
+            document.querySelector(`input[name="QualityInspection.QualityIdentify"][value="Supplier_Or_Rec_Inspection"]`).checked = true; //quality identify
+
+            document.getElementById('partNum').value = "4008765320"; //part number
+            document.getElementById('salesOrder').value = "Stock"; //sales order number
+            document.getElementById('sapNum').value = "203974002"; //SAP number
+            document.getElementById('partName').value = "Mounting Plate"; //SAP number
+            document.getElementById('receivedNum').value = "33"; //received number
+            document.getElementById('defectiveNum').value = "30"; //defective number
+            document.getElementById('defectID').value = "2"; //defect
+            document.getElementById('itemMarkedYes').checked = true; //item marked
+            document.getElementById('links').value = "https://haverniagara2024.azurewebsites.net/\nhttps://haverniagara.com/"; //links
+            document.getElementById('name').value = "Jackie Robinson"; //defect
+
+            $('.selectpicker').selectpicker('refresh');
+
         });
     </script>
 
