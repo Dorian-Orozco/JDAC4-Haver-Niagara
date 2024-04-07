@@ -157,7 +157,7 @@
                     @*         <label asp-for="Part.Name" class="control-label"></label><span class="text-danger"> *</span>
                             <input asp-for="Part.Name" class="form-control" placeholder="E.g. Mounting plate" />
                             <span asp-validation-for="Part.Name" class="text-danger"></span> *@
-                            <label asp-for="Part.PartName.Name" class="control-label"></label><span class="text-danger"> *</span>
+                            <label asp-for="Part.PartName.Name" id="partName" class="control-label"></label><span class="text-danger"> *</span>
                             <select asp-for="Part.PartNameID" asp-items="ViewBag.PartNameID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
                                 <option value="">Select Part</option>
                             </select>
@@ -357,14 +357,12 @@
         document.getElementById('btnFillCreate').addEventListener('click', function (event) {
             event.preventDefault();
 
-            document.getElementById('NCRSupplierID').value = "37"; //supplier
-
             document.querySelector(`input[name="QualityInspection.QualityIdentify"][value="Supplier_Or_Rec_Inspection"]`).checked = true; //quality identify
-
+            document.getElementById('NCRSupplierID').value = "37"; //supplier
             document.getElementById('partNum').value = "4008765320"; //part number
             document.getElementById('salesOrder').value = "Stock"; //sales order number
             document.getElementById('sapNum').value = "203974002"; //SAP number
-            document.getElementById('partName').value = "Mounting Plate"; //SAP number
+            document.getElementById('partName').value = "3"; //part name
             document.getElementById('receivedNum').value = "33"; //received number
             document.getElementById('defectiveNum').value = "30"; //defective number
             document.getElementById('defectID').value = "2"; //defect

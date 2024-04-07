@@ -12,7 +12,7 @@ namespace Haver_Niagara.Models
 
         //navigation property for part name
         [Display(Name = "Part Name")]
-        [Required(ErrorMessage = "Please enter a part")]
+        [Required(ErrorMessage = "Please select a part")]
         public int PartNameID { get; set; }
         public PartName PartName { get; set; }
 
