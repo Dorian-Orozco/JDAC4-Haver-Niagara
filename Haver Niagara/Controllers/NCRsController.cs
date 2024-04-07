@@ -170,6 +170,12 @@ namespace Haver_Niagara.Controllers
                 ViewBag.FullName = fullName;
             }
 
+            // indicate stage in the create form
+            var nCR = new NCR
+            {
+                NCR_Stage = NCRStage.QualityRepresentative // Setting the default stage
+            };
+
             ViewBag.DefectList = new SelectList(_context.Defects
                 .OrderBy(s => s.Name), "ID", "Name");
 
@@ -184,7 +190,16 @@ namespace Haver_Niagara.Controllers
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID");
             ViewData["PartID"] = new SelectList(_context.Parts, "ID", "ID");
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID");
-            return View();
+
+            // Approximate the FormattedID
+            var currentYear = DateTime.Now.Year;
+            var ncrCountForYear = _context.NCRs.Count(a => a.NCR_Date.Year == currentYear);
+            int provisionalIndex = ncrCountForYear + 1; // Assuming no other records are created at the same moment
+            string provisionalFormattedId = $"{currentYear}-{provisionalIndex.ToString().PadLeft(3, '0')}";
+
+            ViewBag.ProvisionalFormattedId = provisionalFormattedId;
+
+            return View(nCR);
         }
 
         // POST: NCRs/Create
