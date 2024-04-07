@@ -161,6 +161,7 @@
                             <select asp-for="Part.PartNameID" asp-items="ViewBag.PartNameID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
                                 <option value="">Select Part</option>
                             </select>
+                            <span asp-validation-for="Part.PartNameID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Part.Description" class="control-label"></label>

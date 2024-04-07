@@ -220,7 +220,7 @@ namespace Haver_Niagara.Controllers
                                                                                 //and set it (since its required in the PartName model)
             if (!ModelState.IsValid)
             {
-                // Populate supplier dropdown list
+                // Populate dropdown lists
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.PartNameID = new SelectList(_context.PartNames, "ID", "Name", part.PartNameID);
