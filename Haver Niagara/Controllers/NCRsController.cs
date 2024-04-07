@@ -193,9 +193,9 @@ namespace Haver_Niagara.Controllers
             ViewData["QualityInspectionID"] = new SelectList(_context.QualityInspections, "ID", "ID");
 
             // Approximate the FormattedID
-            var currentYear = DateTime.Now.Year;
-            var ncrCountForYear = _context.NCRs.Count(a => a.NCR_Date.Year == currentYear);
-            int provisionalIndex = ncrCountForYear + 1; // Assuming no other records are created at the same moment
+            var currentYear = DateTime.Now.Year;  //gets the current year
+            var ncrCountForYear = _context.NCRs.Count(a => a.NCR_Date.Year == currentYear); //counts the ncrs in this year
+            int provisionalIndex = ncrCountForYear + 1; // Assuming no other records are created at the same moment 
             string provisionalFormattedId = $"{currentYear}-{provisionalIndex.ToString().PadLeft(3, '0')}";
 
             ViewBag.ProvisionalFormattedId = provisionalFormattedId;
