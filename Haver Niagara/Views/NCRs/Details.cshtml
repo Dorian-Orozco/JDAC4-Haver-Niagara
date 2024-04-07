@@ -203,7 +203,7 @@
                             @* @Html.DisplayNameFor(model => model.QualSignature) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.QualityInspection.Name) @* Where do we get quality reps name without going through new ncr? *@
+                            @Html.DisplayFor(model => model.QualityInspection.Name) 
                         </dd>
                     </dl>
                 </div>
@@ -214,7 +214,7 @@
                             @* @Html.DisplayNameFor(model => model.QualDate) *@
                         </dt>
                         <dd class="col-sm ms-2">
-                            @Html.DisplayFor(model => model.NCR_Date)           @* FIX THIS PART TOO *@
+                            @Html.DisplayFor(model => model.NCR_Date)       
                         </dd>
                     </dl>
                 </div>
@@ -271,6 +271,12 @@
                             {
                                 <dd class="mt-1 ps-3">
                                     <a href="@media.Links">@media.Links</a>
+                                </dd>
+                            }
+                            else
+                            {
+                                <dd class="mt-1 ps-3">
+                                    No Links Associated
                                 </dd>
                             }
                         }

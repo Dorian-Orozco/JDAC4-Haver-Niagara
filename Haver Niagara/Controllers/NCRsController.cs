@@ -261,6 +261,10 @@ namespace Haver_Niagara.Controllers
                 {
                     await OnPostUploadAsync(files, nCR.ID, links);
                 }
+                else if(links != null)
+                {
+                    await OnPostUploadAsync(null, nCR.ID, links);
+                }
                 var formattedID = GetFormattedNCRid(nCR);
                 TempData["CreateSuccessMsg"] = $"NCR # <b>{formattedID}</b> has been successfully created and passed on to Engineering. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.</a>";
 
@@ -683,7 +687,7 @@ namespace Haver_Niagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> QualityRepEditFirst(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")]
-                          NCR nCR, Part part, QualityInspection qualityInspection, QualityInspectionFinal qualityInspectionFinal,
+                          NCR nCR, Part part, QualityInspection qualityInspection, /*QualityInspectionFinal qualityInspectionFinal,*/
                           List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
             nCR.ID = id;
@@ -796,33 +800,45 @@ namespace Haver_Niagara.Controllers
                         existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
                     }
 
-                    //So if the NCR being edited is on the Quality Representative stage, allow it to be updated with information
-                    if (existingNCR.NCR_Stage == NCRStage.QualityRepresentative_Final)
-                        if (qualityInspectionFinal != null)
-                        {
-                            if (existingNCR.QualityInspectionFinal == null)
-                            {
-                                existingNCR.QualityInspectionFinal = new QualityInspectionFinal();
-                            }
-                            existingNCR.QualityInspectionFinal.Department = qualityInspectionFinal.Department;
-                            existingNCR.QualityInspectionFinal.DepartmentDate = qualityInspectionFinal.DepartmentDate;
-                            existingNCR.QualityInspectionFinal.InspectorName = qualityInspectionFinal.InspectorName;
-                            existingNCR.QualityInspectionFinal.InspectorDate = qualityInspectionFinal.InspectorDate;
-                            existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
-                        }
-                    //If the NCR is being kept open 
-                    if (existingNCR.NCR_Status)
-                        if (!qualityInspectionFinal.ReInspected)   //And re-inspect was not acceptable then redirect and create an NCR with an Old ID attached to it
-                            return RedirectToAction("Create", new { oldNCRID = id });
+                    //Dont need this because if this is included then it will expect the final stage of quality which is not the purpose of this edit. I think I added it here on accident idk why
+                    ////So if the NCR being edited is on the Quality Representative stage, allow it to be updated with information
+                    //if (existingNCR.NCR_Stage == NCRStage.QualityRepresentative_Final)
+                    //    if (qualityInspectionFinal != null)
+                    //    {
+                    //        if (existingNCR.QualityInspectionFinal == null)
+                    //        {
+                    //            existingNCR.QualityInspectionFinal = new QualityInspectionFinal();
+                    //        }
+                    //        existingNCR.QualityInspectionFinal.Department = qualityInspectionFinal.Department;
+                    //        existingNCR.QualityInspectionFinal.DepartmentDate = qualityInspectionFinal.DepartmentDate;
+                    //        existingNCR.QualityInspectionFinal.InspectorName = qualityInspectionFinal.InspectorName;
+                    //        existingNCR.QualityInspectionFinal.InspectorDate = qualityInspectionFinal.InspectorDate;
+                    //        existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
+                    //    }
+                    ////If the NCR is being kept open 
+                    //if (existingNCR.NCR_Status)
+                    //    if (!qualityInspectionFinal.ReInspected)   //And re-inspect was not acceptable then redirect and create an NCR with an Old ID attached to it
+                    //        return RedirectToAction("Create", new { oldNCRID = id });
 
-                    if (!existingNCR.NCR_Status) //if no, dont keep ncr open
+                    //if (!existingNCR.NCR_Status) //if no, dont keep ncr open
+                    //{
+                    //    existingNCR.NCR_Stage = NCRStage.Closed_NCR; //set stage to complete
+                    //    _context.Update(existingNCR);
+                    //    if (!qualityInspectionFinal.ReInspected)
+                    //        return RedirectToAction("Create", new { oldNCRID = id });
+                    //}
+                    if(files != null && links != null)
                     {
-                        existingNCR.NCR_Stage = NCRStage.Closed_NCR; //set stage to complete
-                        _context.Update(existingNCR);
-                        if (!qualityInspectionFinal.ReInspected)
-                            return RedirectToAction("Create", new { oldNCRID = id });
+                        await OnPostUploadAsync(files, nCR.ID, links);
                     }
-                    await OnPostUploadAsync(files, nCR.ID, links);
+                    else if (files != null && links == null)
+                    {
+                        await OnPostUploadAsync(files, nCR.ID, links);
+                    }
+                    else if (files == null && links != null)
+                    {
+                        await OnPostUploadAsync(files, nCR.ID, links);
+                    }
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -1367,6 +1383,8 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
+
+
             if (nCR == null)
                 return NotFound();
             var user = await _userManager.GetUserAsync(User);
@@ -1881,7 +1899,7 @@ public async Task<IActionResult> QualityRepDetails(int? id)
         //OnPostUploadAsync
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files, int ncrID, List<string> links) //Accepting multiple Iformfiles, and an NCR ID to relate data
+        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile>? files, int ncrID, List<string>? links) //Accepting multiple Iformfiles, and an NCR ID to relate data
         {                                                                   //added ability to take in multiple links as well.
             var ncr = await _context.NCRs
                 .Include(n => n.Part)
@@ -1893,29 +1911,33 @@ public async Task<IActionResult> QualityRepDetails(int? id)
                 return NotFound();
             }
 
-            long size = files.Sum(f => f.Length);
-
-            foreach (var formFile in files)
+            if(files != null)
             {
-                if (formFile.Length > 0)
+                //long size = files.Sum(f => f.Length);
+
+                foreach (var formFile in files)
                 {
-                    var filePath = Path.GetTempFileName();
-
-                    using (var stream = new MemoryStream())
+                    if (formFile.Length > 0)
                     {
-                        await formFile.CopyToAsync(stream);
+                        var filePath = Path.GetTempFileName();
 
-                        var media = new Media
+                        using (var stream = new MemoryStream())
                         {
-                            Content = stream.ToArray(),
-                            MimeType = formFile.ContentType,
-                            Description = formFile.FileName
-                        };
+                            await formFile.CopyToAsync(stream);
 
-                        ncr.Part.Medias.Add(media);
+                            var media = new Media
+                            {
+                                Content = stream.ToArray(),
+                                MimeType = formFile.ContentType,
+                                Description = formFile.FileName
+                            };
+
+                            ncr.Part.Medias.Add(media);
+                        }
                     }
                 }
             }
+           
 
             //dorian !
             //ai prompt - how can i get the links and split them so theyre put into arrays and saved
@@ -1944,8 +1966,11 @@ public async Task<IActionResult> QualityRepDetails(int? id)
 
             // Process uploaded files
             // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { count = files.Count, size });
+            if(files != null)
+            {
+                return Ok(new { count = files.Count });
+            }
+            return Ok();
         }
 
         //RemoveImage

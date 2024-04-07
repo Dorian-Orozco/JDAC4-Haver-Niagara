@@ -79,7 +79,7 @@
     <ion-icon name="close-circle-outline" class="btn-forward-icon"></ion-icon>
     </button> *@
 
-<form class="" id="myForm" asp-action="QualityRepresentativeEdit" method="post" enctype="multipart/form-data">
+<form class="" id="myForm" asp-action="QualityRepEditFirst" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ID" />
     <div>
@@ -407,7 +407,7 @@
             </span>
         </div>
     }
-    <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
+    <!--mark as completed button (should submit form if all required fields are filled and email next department)--> 
     @if (Model.NCR_Stage == NCRStage.QualityRepresentative)
     {
         <div class="d-flex justify-content-between mt-3">
@@ -611,7 +611,69 @@
                 ul.removeChild(ul.firstChild);
             }
         }
-
-
     </script>
+<script>
+    $(document).ready(function () {
+        // Attach click event handler to elements with class "delete"
+        $(".delete").click(function (event) {
+            // Prevent the default action of the link
+            event.preventDefault();
+
+            // Get the ncrID and imageID of the clicked link
+            var ncrID = $(this).data("ncrid");
+            var imageID = $(this).data("imageid");
+
+            //Storing most recently clicked button
+            var imageContainer = $(this).closest('.image-container');
+
+            // Show confirmation dialog
+            if (confirm('Are you sure you want to remove this image?')) {
+                // Make AJAX call to remove the image
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RemoveImage", "NCRs")',
+                    data: { ncrID: ncrID, imageID: imageID },
+                    success: function (response) {
+                        // Remove the image element from the DOM if removal is successful
+                        alert('Image Successfully Deleted!')
+                        imageContainer.remove();
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Delete Failed, Try Again Later.')
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+
+    //LISTS USING AJAX /JQUEWRY
+
+    $(document).ready(function () {
+        $(".delete-link").click(function (event) {
+            event.preventDefault();
+
+            var ncrID = $(this).data("ncrid");
+            var linkID = $(this).data("linkid");
+
+            var linkContainer = $(this).closest('.link-container'); //gets "this" (data) of the button pressed so it can be used to delete
+
+            if (confirm('Are you sure you want to remove this link?')) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RemoveLink", "NCRs")',
+                    data: { ncrID: ncrID, linkID: linkID },
+                    success: function (response) {
+                        alert('Link Successfully Deleted');
+                        linkContainer.remove();
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Delete Failed, Try Again Later.')
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+</script>
 }
