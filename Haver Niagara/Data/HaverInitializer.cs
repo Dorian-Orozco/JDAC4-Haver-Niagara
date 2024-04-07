@@ -152,6 +152,28 @@ namespace Haver_Niagara.Data
                 context.SaveChanges();
             }
 
+            // PART NAME
+
+            if (!context.PartNames.Any())
+            {
+                context.PartNames.AddRange(
+                new PartName { ID = 1, Name = "Wheels" },
+                new PartName { ID = 2, Name = "Mounting Plate" },
+                new PartName { ID = 3, Name = "Wires" },
+                new PartName { ID = 4, Name = "Steel Panels" },
+                new PartName { ID = 5, Name = "Nuts" },
+                new PartName { ID = 6, Name = "Bolts" },
+                new PartName { ID = 7, Name = "Screws" },
+                new PartName { ID = 8, Name = "Rivets" },
+                new PartName { ID = 9, Name = "Washers" },
+                new PartName { ID = 10, Name = "Anchors" },
+                new PartName { ID = 11, Name = "Nails" },
+                new PartName { ID = 12, Name = "Clips" }
+
+                );
+                context.SaveChanges();
+            }
+
             // PARTS: ONE FOR EA. NCR
 
             if (!context.Parts.Any())
@@ -160,7 +182,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 1,
-                    Name = "Wheels",
+                    //Name = "Wheels",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 1),
                     ProductNumber = 4500730930,
                     QuantityRecieved = 20,
                     QuantityDefect = 20,
@@ -177,7 +200,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 2,
-                    Name = "Wires",
+                    //Name = "Wires",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 2),
                     ProductNumber = 206547333,
                     QuantityRecieved = 10,
                     QuantityDefect = 10,
@@ -194,7 +218,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 3,
-                    Name = "Steel Panels",
+                    //Name = "Steel Panels",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 3),
                     ProductNumber = 207843292,
                     QuantityRecieved = 8,
                     QuantityDefect = 2,
@@ -211,7 +236,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 4,
-                    Name = "Bolts",
+                    //Name ="Bolts",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 4),
                     ProductNumber = 205231782,
                     QuantityRecieved = 100,
                     QuantityDefect = 100,
@@ -228,7 +254,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 5,
-                    Name = "Nuts",
+                    //Name ="Nuts",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 5),
                     ProductNumber = 209031293,
                     QuantityRecieved = 200,
                     QuantityDefect = 100,
@@ -245,7 +272,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 6,
-                    Name = "Screws",
+                    //Name = "Screws",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 6),
                     ProductNumber = 209031296,
                     QuantityRecieved = 200,
                     QuantityDefect = 10,
@@ -262,7 +290,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 7,
-                    Name = "Rivets",
+                    //Name = "Rivets",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 7),
                     ProductNumber = 209031299,
                     QuantityRecieved = 100,
                     QuantityDefect = 40,
@@ -279,7 +308,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 8,
-                    Name = "Washers",
+                    //Name = "Washers",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 8),
                     ProductNumber = 244110399,
                     PartNumber = 11843399,
                     QuantityRecieved = 50,
@@ -297,7 +327,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 9,
-                    Name = "Anchors",
+                    //Name = "Anchors",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 9),
                     ProductNumber = 204231293,
                     QuantityRecieved = 10,
                     QuantityDefect = 1,
@@ -314,7 +345,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 10,
-                    Name = "Nails",
+                    //Name = "Nails",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 10),
                     ProductNumber = 212031293,
                     QuantityRecieved = 200,
                     QuantityDefect = 54,
@@ -331,7 +363,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 11,
-                    Name = "Clips",
+                    //Name = "Clips",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 11),
                     ProductNumber = 219031293,
                     QuantityRecieved = 200,
                     QuantityDefect = 29,
@@ -348,7 +381,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 12,
-                    Name = "Wheels",
+                    //Name = "Wheels",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 12),
                     ProductNumber = 208475893,
                     QuantityRecieved = 20,
                     QuantityDefect = 20,
@@ -365,7 +399,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 13,
-                    Name = "Wires",
+                    //Name = "Wires",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 1),
                     ProductNumber = 206547333,
                     QuantityRecieved = 10,
                     QuantityDefect = 10,
@@ -382,7 +417,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 14,
-                    Name = "Steel Panels",
+                    //Name = "Steel Panels",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 2),
                     ProductNumber = 207843292,
                     QuantityRecieved = 8,
                     QuantityDefect = 2,
@@ -399,7 +435,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 15,
-                    Name = "Bolts",
+                    //Name = "Bolts",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 3),
                     ProductNumber = 205231782,
                     QuantityRecieved = 100,
                     QuantityDefect = 100,
@@ -416,7 +453,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 16,
-                    Name = "Nuts",
+                    //Name = "Nuts",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 4),
                     ProductNumber = 209031293,
                     QuantityRecieved = 200,
                     QuantityDefect = 100,
@@ -433,7 +471,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 17,
-                    Name = "Screws",
+                    //Name = "Screws",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 5),
                     ProductNumber = 209031296,
                     QuantityRecieved = 200,
                     QuantityDefect = 10,
@@ -450,7 +489,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 18,
-                    Name = "Rivets",
+                    //Name = "Rivets",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 6),
                     ProductNumber = 209031299,
                     QuantityRecieved = 100,
                     QuantityDefect = 40,
@@ -467,7 +507,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 19,
-                    Name = "Washers",
+                    //Name = "Washers",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 7),
                     ProductNumber = 244110399,
                     QuantityRecieved = 50,
                     QuantityDefect = 1,
@@ -484,7 +525,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 20,
-                    Name = "Anchors",
+                    //Name = "Anchors",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 8),
                     ProductNumber = 204231293,
                     QuantityRecieved = 10,
                     QuantityDefect = 1,
@@ -501,7 +543,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 21,
-                    Name = "Nails",
+                    //Name = "Nails",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 9),
                     ProductNumber = 212031293,
                     QuantityRecieved = 200,
                     QuantityDefect = 54,
@@ -518,7 +561,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 22,
-                    Name = "Clips",
+                    //Name = "Clips",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 10),
                     ProductNumber = 219031293,
                     QuantityRecieved = 200,
                     QuantityDefect = 29,
@@ -535,7 +579,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 23,
-                    Name = "Anchors",
+                    //Name = "Anchors",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 11),
                     ProductNumber = 204231293,
                     QuantityRecieved = 10,
                     QuantityDefect = 1,
@@ -552,7 +597,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 24,
-                    Name = "Screws",
+                    //Name = "Screws",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 12),
                     PartNumber = 23873292,
                     ProductNumber = 209031296,
                     QuantityRecieved = 200,
@@ -571,7 +617,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 25,
-                    Name = "Wires",
+                    //Name = "Wires",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 1),
                     PartNumber = 22843321,
                     ProductNumber = 206547333,
                     QuantityRecieved = 10,
@@ -589,7 +636,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 26,
-                    Name = "Nuts",
+                    //Name = "Nuts",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 2),
                     PartNumber = 29111323,
                     ProductNumber = 209031293,
                     QuantityRecieved = 200,
@@ -607,7 +655,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 27,
-                    Name = "Screws",
+                    //Name = "Screws",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 3),
                     PartNumber = 26833212,
                     ProductNumber = 209031296,
                     QuantityRecieved = 200,
@@ -625,7 +674,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 28,
-                    Name = "Rivets",
+                    //Name = "Rivets",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 4),
                     PartNumber = 12873211,
                     ProductNumber = 209031299,
                     QuantityRecieved = 100,
@@ -643,7 +693,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 29,
-                    Name = "Washers",
+                    //Name = "Washers",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 5),
                     PartNumber = 13853231,
                     ProductNumber = 244110399,
                     QuantityRecieved = 50,
@@ -661,7 +712,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 30,
-                    Name = "Anchors",
+                    //Name = "Anchors",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 6),
                     PartNumber = 35873222,
                     ProductNumber = 204231293,
                     QuantityRecieved = 10,
@@ -679,7 +731,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 31,
-                    Name = "Nails",
+                    //Name = "Nails",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 7),
                     PartNumber = 67422111,
                     ProductNumber = 212031293,
                     QuantityRecieved = 200,
@@ -697,9 +750,9 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 32,
-                    Name = "Clips",
+                    //Name = "Clips",
                     PartNumber = 33263892,
-
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 8),
                     ProductNumber = 219031293,
                     QuantityRecieved = 200,
                     QuantityDefect = 29,
@@ -716,7 +769,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 33,
-                    Name = "Anchors",
+                    //Name = "Anchors",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 9),
                     ProductNumber = 204231293,
                     QuantityRecieved = 10,
                     QuantityDefect = 1,
@@ -733,7 +787,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 34,
-                    Name = "Screws",
+                    //Name = "Screws",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 10),
                     ProductNumber = 209031296,
                     QuantityRecieved = 200,
                     QuantityDefect = 10,
@@ -750,7 +805,8 @@ namespace Haver_Niagara.Data
                 new Part
                 {
                     ID = 35,
-                    Name = "Wires",
+                    //Name = "Wires",
+                    PartName = context.PartNames.FirstOrDefault(c => c.ID == 11),
                     ProductNumber = 206547333,
                     QuantityRecieved = 10,
                     QuantityDefect = 10,

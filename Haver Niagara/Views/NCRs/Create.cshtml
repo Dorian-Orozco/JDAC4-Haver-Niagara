@@ -111,17 +111,7 @@
                     <dl class="d-flex mb-2">
                     </dl>
                 </div>
-                @*       <div class="row">
-                <dl class="d-flex m-0">
-                <dt class="col-sm-5 ">
-                PO No. <span class="text-danger">*</span>
-                </dt>
-                <dd class="col-sm-7 ">
-                <input asp-for="Part.PurchaseNumber" class="form-control" />
-                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
-                </dd>
-                </dl>
-                </div> *@
+
                 <div class="row">
                     <dl class="d-flex m-0">
                         <dt class="col-sm">
@@ -164,9 +154,14 @@
                             <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Part.Name" class="control-label"></label><span class="text-danger"> *</span>
-                            <input asp-for="Part.Name" id="partName" class="form-control" placeholder="E.g. Mounting plate" />
-                            <span asp-validation-for="Part.Name" class="text-danger"></span>
+                    @*         <label asp-for="Part.Name" class="control-label"></label><span class="text-danger"> *</span>
+                            <input asp-for="Part.Name" class="form-control" placeholder="E.g. Mounting plate" />
+                            <span asp-validation-for="Part.Name" class="text-danger"></span> *@
+                            <label asp-for="Part.PartName.Name" class="control-label"></label><span class="text-danger"> *</span>
+                            <select asp-for="Part.PartNameID" asp-items="ViewBag.PartNameID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
+                                <option value="">Select Part</option>
+                            </select>
+                            <span asp-validation-for="Part.PartNameID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Part.Description" class="control-label"></label>

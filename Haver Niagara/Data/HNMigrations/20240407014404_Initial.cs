@@ -84,6 +84,19 @@ namespace Haver_Niagara.Data.HNMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PartNames",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PartNames", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Procurements",
                 columns: table => new
                 {
@@ -233,7 +246,7 @@ namespace Haver_Niagara.Data.HNMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    PartNameID = table.Column<int>(type: "INTEGER", nullable: false),
                     PartNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     SAPNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     PurchaseNumber = table.Column<long>(type: "INTEGER", nullable: false),
@@ -247,6 +260,12 @@ namespace Haver_Niagara.Data.HNMigrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Parts", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Parts_PartNames_PartNameID",
+                        column: x => x.PartNameID,
+                        principalTable: "PartNames",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Parts_Suppliers_SupplierID",
                         column: x => x.SupplierID,
@@ -466,6 +485,11 @@ namespace Haver_Niagara.Data.HNMigrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Parts_PartNameID",
+                table: "Parts",
+                column: "PartNameID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Parts_SupplierID",
                 table: "Parts",
                 column: "SupplierID");
@@ -532,6 +556,9 @@ namespace Haver_Niagara.Data.HNMigrations
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "PartNames");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

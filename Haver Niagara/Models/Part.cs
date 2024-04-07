@@ -10,9 +10,15 @@ namespace Haver_Niagara.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        //navigation property for part name
         [Display(Name = "Part Name")]
-        [Required(ErrorMessage = "Please enter a part name")]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Please enter a part")]
+        public int PartNameID { get; set; }
+        public PartName PartName { get; set; }
+
+        //[Display(Name = "Part Name")]
+        //[Required(ErrorMessage = "Please enter a part name")]
+        //public string Name { get; set; }
 
         [Display(Name = "Part Number")]
         //[Required(ErrorMessage = "Please enter a part number")]
