@@ -429,7 +429,7 @@
                                             {
                                                 //if the old ncr id has an old ncr id value then we know it must be a preivous ncr number, else it must be new
                                                 string ncrLabel = Model.OldNCRID != null ? "Previous NCR Number" : "New NCR Number";
-                                                @ncrLabel
+                                                    @ncrLabel
                                             }
                                         }
                                     </dt>
@@ -439,9 +439,9 @@
                                             //again if has value, show old value formatted, else show new value formatted.
                                             string formattedNCRID = Model.OldNCRID != null ? $"{DateTime.UtcNow.Year}-{Model.OldNCRID.ToString().PadLeft(3, '0')}"
                                             : $"{DateTime.UtcNow.Year}-{Model.NewNCRID.ToString().PadLeft(3, '0')}";
-                                            <dd class="m2-2">
-                                                @formattedNCRID
-                                            </dd>
+                                                <dd class="m2-2">
+                                                    @formattedNCRID
+                                                </dd>
                                         }
                                     }
                                 </dl>
@@ -532,13 +532,13 @@
             //If it tries to post to the server and its denied, instead of losing defect store it when page (reloads)
             if (!ViewData.ModelState.IsValid)
             {
-                <script>
-                    // JavaScript code to set the selected value of the dropdown list
-                    document.addEventListener("DOMContentLoaded", function () {
-                        var selectedDefectID = @Html.Raw(Json.Serialize(ViewBag.SelectedDefectID));
-                        document.getElementById("defectID").value = selectedDefectID;
-                    });
-                </script>
+                    <script>
+                        // JavaScript code to set the selected value of the dropdown list
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var selectedDefectID = @Html.Raw(Json.Serialize(ViewBag.SelectedDefectID));
+                            document.getElementById("defectID").value = selectedDefectID;
+                        });
+                    </script>
             }
         }
 
@@ -595,7 +595,7 @@
             <!--Mark as completed-->
             <div>
                 <span class="mt-2 ms-2">
-                    <input type="submit" value="Mark as Completed" class="btn btn-primary" />
+                    <input type="submit" id="markCompletedBtn" value="Mark as Completed" class="btn btn-primary" />
                 </span>
             </div>
 
@@ -610,19 +610,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!--alert for cancel button-->
-    <script>
-        $('#cancel-button').click(function (event) {
-            // Show the confirmation dialog and store the user's response
-            var userConfirmed = confirm('Are you sure you want to cancel? All progress will be lost.');
-
-            // If the user clicks 'Cancel', prevent the default button action
-            if (!userConfirmed) {
-                event.preventDefault();
-            }
-        });
-    </script>
-
-    <!--removed scripts for defect and supplier ddl because it was conflicting with validation for current page-->
 }

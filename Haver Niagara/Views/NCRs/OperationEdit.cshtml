@@ -329,10 +329,12 @@
                     $('#FollowUpType').val('');
                     $('#FollowUpType').attr('required', false);
                     $('#FollowUpType').attr('required', false);
+                    $('input[name="Operation.FollowUp.FollowUpType"]').prop('disabled', true);
                 }
                 if ($(this).val() === "True") {
                     $('#FollowUpType').attr('required', true);
                     $('#FollowUpType').attr('required', true);
+                    $('input[name="Operation.FollowUp.FollowUpType"]').prop('disabled', false);
                 }
             });
 
@@ -343,10 +345,12 @@
                     $('#CARNumber').val('');
                     $('#CARNumber').attr('required', false);
                     $('#CARDate').attr('required', false);
-                } // <-- Move this closing bracket here
+                    $('input[name="Operation.CAR.CARNumber"]').prop('disabled', true);
+                } 
                 if ($(this).val() === "True") {
                     $('#CARNumber').attr('required', true);
                     $('#CARDate').attr('required', true);
+                    $('input[name="Operation.CAR.CARNumber"]').prop('disabled', false);
                 }
             });
         });

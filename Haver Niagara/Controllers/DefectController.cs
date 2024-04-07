@@ -9,6 +9,9 @@ using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Haver_Niagara.CustomController;
+using NuGet.Packaging;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Web.Razor.Parser.SyntaxTree;
 
 namespace Haver_Niagara.Controllers
 {
@@ -26,6 +29,76 @@ namespace Haver_Niagara.Controllers
         {
             return Redirect(ViewData["returnURL"].ToString());
         }
+
+
+
+
+        [HttpPost]                 
+        [ValidateAntiForgeryToken]
+        //To recreate, create a seperate Create(supplier/part) to not mess up the ones in the ddl
+        //In the Create.cshtml, insert Create(supplier/part) in the form action  then 
+        //    <label asp-for="Name" class="control-label"></label>
+        //    <textarea class="form-control" id="defects" name="defects" rows="3" required></textarea>
+        //    <span asp-validation-for="Name" class="text-danger"></span>
+        public async Task<IActionResult> CreateDefects(string defects)
+        {
+            try
+            {
+                //Splits the names by line breaks and commans and removes empty entries
+                string[] defectNames = defects.Split(new[] { '\n', ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                defectNames = defectNames.Select(name => name.Trim()).ToArray();
+
+                //Make a copy of the defects being inserted so we dont convert them all to lower case
+                var lowerDefectNames = defectNames.Select(name => name.ToLower());
+
+                var allDefects = _context.Defects.Select(n => n.Name.ToLower());
+
+                var duplicates = lowerDefectNames.Intersect(allDefects).ToList();
+
+                if (duplicates.Any())
+                {
+                    ModelState.AddModelError("Name", "Unable to save changes. "
+                         + "You cannot have duplicate Defect Names");
+                    return View("Create");
+                }
+             
+                //If it gets here then all good
+                var newDefects = defectNames.Select(name => new Defect { Name = name });
+
+                _context.Defects.AddRange(newDefects);
+                await _context.SaveChangesAsync();
+                return Redirect(ViewData["returnURL"].ToString());
+            }
+            catch (DbUpdateException dex)
+            {
+                if (dex.GetBaseException().Message.Contains("UNIQUE constraint failed"))
+                {
+                    ModelState.AddModelError("Name", "Unable to save changes. "
+                        + "You cannot have duplicate Defect Names");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Unable to save changes. Try again, " +
+                        "If the problem persists contact your administrator.");
+                }
+            }
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                return BadRequest(errorMessage);
+            }
+            return Redirect(ViewData["returnURL"].ToString());
+        }
+
+
 
         // GET: Defects/Create
         public IActionResult Create()
