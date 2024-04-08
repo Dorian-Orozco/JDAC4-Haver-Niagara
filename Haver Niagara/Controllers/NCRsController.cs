@@ -1531,6 +1531,7 @@ namespace Haver_Niagara.Controllers
                             existingNCR.QualityInspectionFinal.InspectorDate = qualityInspectionFinal.InspectorDate;
                             existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
                         }
+                    await _context.SaveChangesAsync();
                     //If the NCR is being kept open 
                     if (existingNCR.NCR_Status)
                         if (!qualityInspectionFinal.ReInspected)   //And re-inspect was not acceptable then redirect and create an NCR with an Old ID attached to it
@@ -1540,8 +1541,15 @@ namespace Haver_Niagara.Controllers
                     {
                         existingNCR.NCR_Stage = NCRStage.Closed_NCR; //set stage to complete
                         _context.Update(existingNCR);
-                        if (!qualityInspectionFinal.ReInspected)
+                        await _context.SaveChangesAsync();
+                        if (!qualityInspectionFinal.ReInspected) //if not acceptable
                             return RedirectToAction("Create", new { oldNCRID = id });
+                        
+                        //NCR Closed Message
+                        var FormattedID = GetFormattedNCRid(nCR);
+                        //QualityRepresentativeEdit
+                        TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been saved and closed. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                        return RedirectToAction("List", "Home");
                     }
                     await OnPostUploadAsync(files, nCR.ID, links);
                     await _context.SaveChangesAsync();
@@ -1557,9 +1565,9 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-                var FormattedID = GetFormattedNCRid(nCR);
+                var FormattedIDs = GetFormattedNCRid(nCR);
                 //QualityRepresentativeEdit
-                TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedIDs}</b> has been edited and saved. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                 return RedirectToAction("List", "Home");
             }
             ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name");
