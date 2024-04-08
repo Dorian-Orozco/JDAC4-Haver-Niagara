@@ -920,7 +920,40 @@ namespace Haver_Niagara.Data
                         Links = "https://example.com/9poorTubeFinish_video",
                         Part = context.Parts.FirstOrDefault(p => p.ID == 7)
                     },
-                    new Media
+					new Media
+					{
+						ID = 10,
+						Content = tube,
+						Description = "Poor Finish",
+						MimeType = "image/jpg",
+						Links = "C:\\Users\\Alex\\Dropbox\\ncr_2017-001-1.mp4",
+						Part = context.Parts.FirstOrDefault(p => p.ID == 24)
+					},
+					new Media
+					{
+						ID = 11,
+						Links = "C:\\Users\\Alex\\Dropbox\\ncr_2017-001-2.mp4",
+						Part = context.Parts.FirstOrDefault(p => p.ID == 24)
+					},
+					new Media
+					{
+						ID = 12,
+						Content = badPaint1,
+						Description = "Bad Paint Finish",
+						MimeType = "image/jpg",
+						Links = "C:\\Users\\Jacob\\Dropbox\\ncr_2011-002-1.mp4",
+						Part = context.Parts.FirstOrDefault(p => p.ID == 25)
+					},
+					new Media
+					{
+						ID = 13,
+						Content = badPaint2,
+						Description = "Bad Paint Finish",
+						MimeType = "image/jpg",
+						Links = "C:\\Users\\Jacob\\Dropbox\\ncr_2011-002-2.mp4",
+						Part = context.Parts.FirstOrDefault(p => p.ID == 25)
+					},
+					new Media
                     {
                         ID = 14,
                         Content = tube,
@@ -937,42 +970,7 @@ namespace Haver_Niagara.Data
                         MimeType = "image/jpg",
                         Links = "https://example.com/9poorTubeFinish_video",
                         Part = context.Parts.FirstOrDefault(p => p.ID == 10)
-                    },
-
-                    new Media
-                    {
-                        ID = 10,
-                        Content = tube,
-                        Description = "Poor Finish",
-                        MimeType = "image/jpg",
-                        Links = "C:\\Users\\Alex\\Dropbox\\ncr_2017-001-1.mp4",
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 24)
-                    },
-                    new Media
-                    {
-                        ID = 11,
-                        Links = "C:\\Users\\Alex\\Dropbox\\ncr_2017-001-2.mp4",
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 24)
-                    },
-                    new Media
-                    {
-                        ID = 12,
-                        Content = badPaint1,
-                        Description = "Bad Paint Finish",
-                        MimeType = "image/jpg",
-                        Links = "C:\\Users\\Jacob\\Dropbox\\ncr_2011-002-1.mp4",
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 25)
-                    },
-                    new Media
-                    {
-                        ID = 13,
-                        Content = badPaint2,
-                        Description = "Bad Paint Finish",
-                        MimeType = "image/jpg",
-                        Links = "C:\\Users\\Jacob\\Dropbox\\ncr_2011-002-2.mp4",
-                        Part = context.Parts.FirstOrDefault(p => p.ID == 25)
-                    }
-                    );
+                    });
                 context.SaveChanges();
             }
 

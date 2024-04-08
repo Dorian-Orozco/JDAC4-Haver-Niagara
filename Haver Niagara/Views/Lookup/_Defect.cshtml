@@ -10,12 +10,12 @@
         <a asp-controller="Defect" asp-action="Delete" class="linkClick">Delete</a>
     </div>
 </div>
+
 @{
     var editErr = TempData["ErrorMessage"] as string;
 }
 @if (!string.IsNullOrEmpty(editErr))
 {
-
     <div class="toastCreate align-items-center justify-content-center" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
         <div class="toastCreate-header">
             <strong class="me-auto">Error! Defect has NCR assigned</strong>
