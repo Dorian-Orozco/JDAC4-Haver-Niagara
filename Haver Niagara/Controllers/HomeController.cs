@@ -137,24 +137,38 @@ namespace Haver_Niagara.Controllers
             // Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
-                searchString = searchString.ToLower();
-
                 // Split the searchString to potentially match the "YYYY-NNN" format
+                searchString = searchString.ToLower();
                 var parts = searchString.Split('-');
-                int yearPart, idPart;
+                int idPart;
 
-                ncrs = ncrs.Where(x =>
-                    x.NCR_Date.ToString().ToLower().Contains(searchString) ||
-                    x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
-                    x.ID.ToString().ToLower().Contains(searchString) ||
-                    x.Part.Supplier.Name.ToLower().Contains(searchString) ||
-                    (parts.Length == 2 &&
-                     int.TryParse(parts[0], out yearPart) &&
-                     int.TryParse(parts[1], out idPart) &&
-                     x.NCR_Date.Year == yearPart &&
-                     x.ID == idPart) // New condition for matching year and ID separately
 
-                );
+                //If the length is exactly 0000-000 format
+                if (searchString.Length == 8)                   
+                {      //if it was successfuly split 
+                    if (parts.Length == 2 && int.TryParse(parts[1], out idPart))
+                    {
+                        //Search by that ID + 20 (since we already have 20 existing seeded NCRs).
+                        ncrs = ncrs.Where(x => x.ID == idPart + 20);
+                    }
+                }
+                else if (searchString.Length == 3 || (searchString.Length == 4 && searchString.Contains("-")))
+                {
+                    //replace the hyphen is user searches like -010  //didnt do anything but i guess have it just in case idk
+                    searchString = searchString.Replace("-", "");
+                    //remove the leading 0 from the nnn  if it exists, add 20 and searchhhh
+                    int.TryParse(searchString, out idPart);
+                    searchString = (idPart + 20).ToString();
+                }
+                else 
+                {
+                    ncrs = ncrs.Where(x =>
+                        x.NCR_Date.ToString().ToLower().Contains(searchString) ||
+                        x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
+                        x.ID.ToString().ToLower().Contains(searchString) ||
+                        x.Part.Supplier.Name.ToLower().Contains(searchString));
+                }
+
             }
 
             // Filter by Date
