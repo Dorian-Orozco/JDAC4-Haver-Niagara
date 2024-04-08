@@ -185,7 +185,7 @@ namespace Haver_Niagara.Controllers
                 .OrderBy(s => s.Name), "ID", "Name");
 
             //Passes in the OLD NCRID
-            ViewBag.OldNCRID = oldNCRID;
+            ViewBag.OldNCRID = oldNCRID-20;
 
             ViewData["EngineeringID"] = new SelectList(_context.Engineerings, "ID", "ID");
             ViewData["OperationID"] = new SelectList(_context.Operations, "ID", "ID");
@@ -799,34 +799,6 @@ namespace Haver_Niagara.Controllers
                         existingNCR.QualityInspection.QualityIdentify = qualityInspection.QualityIdentify;
                         existingNCR.QualityInspection.ItemMarked = qualityInspection.ItemMarked;
                     }
-
-                    //Dont need this because if this is included then it will expect the final stage of quality which is not the purpose of this edit. I think I added it here on accident idk why
-                    ////So if the NCR being edited is on the Quality Representative stage, allow it to be updated with information
-                    //if (existingNCR.NCR_Stage == NCRStage.QualityRepresentative_Final)
-                    //    if (qualityInspectionFinal != null)
-                    //    {
-                    //        if (existingNCR.QualityInspectionFinal == null)
-                    //        {
-                    //            existingNCR.QualityInspectionFinal = new QualityInspectionFinal();
-                    //        }
-                    //        existingNCR.QualityInspectionFinal.Department = qualityInspectionFinal.Department;
-                    //        existingNCR.QualityInspectionFinal.DepartmentDate = qualityInspectionFinal.DepartmentDate;
-                    //        existingNCR.QualityInspectionFinal.InspectorName = qualityInspectionFinal.InspectorName;
-                    //        existingNCR.QualityInspectionFinal.InspectorDate = qualityInspectionFinal.InspectorDate;
-                    //        existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
-                    //    }
-                    ////If the NCR is being kept open 
-                    //if (existingNCR.NCR_Status)
-                    //    if (!qualityInspectionFinal.ReInspected)   //And re-inspect was not acceptable then redirect and create an NCR with an Old ID attached to it
-                    //        return RedirectToAction("Create", new { oldNCRID = id });
-
-                    //if (!existingNCR.NCR_Status) //if no, dont keep ncr open
-                    //{
-                    //    existingNCR.NCR_Stage = NCRStage.Closed_NCR; //set stage to complete
-                    //    _context.Update(existingNCR);
-                    //    if (!qualityInspectionFinal.ReInspected)
-                    //        return RedirectToAction("Create", new { oldNCRID = id });
-                    //}
                     if(files != null && links != null)
                     {
                         await OnPostUploadAsync(files, nCR.ID, links);
@@ -1405,7 +1377,7 @@ namespace Haver_Niagara.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> QualityRepresentativeEdit(int id, [Bind("NCR_Date,NCR_Status,OldNCRID, NCRSupplierID")]
                           NCR nCR, Part part, QualityInspection qualityInspection, QualityInspectionFinal qualityInspectionFinal,
-                          List<IFormFile> files, List<string> links, int SelectedDefectID)
+                          List<IFormFile> files, List<string> links, int SelectedDefectID, string MarkAsCompleted)
         {
             nCR.ID = id;
 
@@ -1532,6 +1504,31 @@ namespace Haver_Niagara.Controllers
                             existingNCR.QualityInspectionFinal.ReInspected = qualityInspectionFinal.ReInspected;
                         }
                     await _context.SaveChangesAsync();
+                    if(MarkAsCompleted == "true")
+                    {
+                        var FormattedID = GetFormattedNCRid(nCR);
+                        var usersInAdmin = await _userManager.GetUsersInRoleAsync("Admin");
+                        EmailMessage emailMessage = new EmailMessage
+                        {
+                            Subject = $"NCR #{FormattedID} is has been completed and closed!",
+                            Content = $"<p>Hello Admin,</p>" +
+                                      $"<p>Non-Conformance Report # {FormattedID} has been completed and closed!</p>" +
+                                      $"<p>Please review and fill as soon as possible.</p>" +
+                                      $"<p>Thank you!</p>"
+                        };
+                        foreach (var user in usersInAdmin)
+                        {
+                            if (user.Email == "admin@outlook.com")
+                            {
+                                continue;
+                            }
+                            emailMessage.ToAddresses.Add(new EmailAddress { Name = user.UserName, Address = user.Email });
+                        }
+                        //hardcode ur own email to test
+                        emailMessage.ToAddresses.Add(new EmailAddress { Name = "Dorian", Address = "dorianCodeDemo@outlook.com" });
+                        await _emailSender.SendToManyAsync(emailMessage);  //uncomment for email to work, MAKE SURE you dont email quality rep so disable their account.
+                                                                           //and use your own (create through maintain employee and give urself quality rep role)
+                    }
                     //If the NCR is being kept open 
                     if (existingNCR.NCR_Status)
                         if (!qualityInspectionFinal.ReInspected)   //And re-inspect was not acceptable then redirect and create an NCR with an Old ID attached to it
@@ -1548,7 +1545,15 @@ namespace Haver_Niagara.Controllers
                         //NCR Closed Message
                         var FormattedID = GetFormattedNCRid(nCR);
                         //QualityRepresentativeEdit
-                        TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been saved and closed. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                        if(MarkAsCompleted == "true")
+                        {
+                            TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been saved and emailed to the Admin. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                        }
+                        else
+                        {
+                            TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been saved and closed. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                        }
+                        
                         return RedirectToAction("List", "Home");
                     }
                     await OnPostUploadAsync(files, nCR.ID, links);
