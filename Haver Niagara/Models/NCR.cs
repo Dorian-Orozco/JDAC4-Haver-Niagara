@@ -21,6 +21,7 @@ namespace Haver_Niagara.Models
         }
 
         [Display(Name = "NCR No.")]
+
         public string FormattedID
         {
             get

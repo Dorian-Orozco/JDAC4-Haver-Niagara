@@ -32,6 +32,71 @@ namespace Haver_Niagara.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //To recreate, create a seperate Create(supplier/part) to not mess up the ones in the ddl
+        //In the Create.cshtml, insert Create(supplier/part) in the form action  then 
+        //    <label asp-for="Name" class="control-label"></label>
+        //    <textarea class="form-control" id="defects" name="defects" rows="3" required></textarea>
+        //    <span asp-validation-for="Name" class="text-danger"></span>
+        public async Task<IActionResult> CreateSuppliers(string suppliers)
+        {
+            try
+            {
+                //Splits the names by line breaks and commans and removes empty entries
+                string[] supplierNames = suppliers.Split(new[] { '\n', ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                supplierNames = supplierNames.Select(name => name.Trim()).ToArray();
+
+                //Make a copy of the defects being inserted so we dont convert them all to lower case
+                var lowerSupplierNames = supplierNames.Select(name => name.ToLower());
+
+                var allSuppliers = _context.Suppliers.Select(n => n.Name.ToLower());
+
+                var duplicates = lowerSupplierNames.Intersect(allSuppliers).ToList();
+
+                if (duplicates.Any())
+                {
+                    ModelState.AddModelError("Name", "Unable to save changes. "
+                         + "You cannot have duplicate Supplier Names");
+                    return View("Create");
+                }
+
+                //If it gets here then all good
+                var newSuppliers = supplierNames.Select(name => new Supplier { Name = name });
+
+                _context.Suppliers.AddRange(newSuppliers);
+                await _context.SaveChangesAsync();
+                return Redirect(ViewData["returnURL"].ToString());
+            }
+            catch (DbUpdateException dex)
+            {
+                if (dex.GetBaseException().Message.Contains("UNIQUE constraint failed"))
+                {
+                    ModelState.AddModelError("Name", "Unable to save changes. "
+                        + "You cannot have duplicate Supplier Names");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Unable to save changes. Try again, " +
+                        "If the problem persists contact your administrator.");
+                }
+            }
+            if (!ModelState.IsValid && Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                string errorMessage = "";
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "|";
+                    }
+                }
+                return BadRequest(errorMessage);
+            }
+            return Redirect(ViewData["returnURL"].ToString());
+        }
+
 
         // POST: Supplier/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
