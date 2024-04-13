@@ -1,3 +1,4 @@
+@using Microsoft.CodeAnalysis.Differencing
 @model IEnumerable<Haver_Niagara.Models.NCR>
 
 @{
@@ -6,194 +7,16 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<style>
-    h1 {
-        font-size: 38px;
-        font-weight: 600;
-        color: #1C335E;
-    }
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/homepage.css")" />
 
-    h2 {
-        font-size: 18px;
-        font-weight: 600;
-    }
-
-    h3 {
-        font-size: 100px;
-        font-weight: 600;
-    }
-
-    a, a:hover {
-        color: inherit;
-    }
-
-    .activeCard {
-        border-color: #0073e6;
-        /* color: #0073e6; */
-        color: rgb(0, 115, 230);
-        transition: 0.1s ease-in-out all;
-    }
-
-        .activeCard:hover {
-            color: rgb(0, 91, 184);
-            border-color: rgb(0, 91, 184);
-        }
-
-    .body {
-        color: #0C2340;
-        font-family: Montserrat, sans-serif;
-    }
-
-    .button-container {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 1rem;
-    }
-
-    .button {
-        background-color: #0d6efd;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        font-weight: 700;
-        height: 45px;
-        margin-left: 1rem;
-        padding: 10px;
-        text-align: center;
-        width: 138px;
-    }
-
-    .card-row {
-        padding: 0 20px;
-    }
-
-    .card {
-        /* background-color: #E7E7E7; */
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        flex-basis: 32%;
-        padding: 1rem;
-    }
-
-    .card-content {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        justify-content: center;
-    }
-
-    .closedCard {
-        border-color: #b51963;
-        color: #b51963;
-        transition: 0.1s ease-in-out all;
-    }
-
-        .closedCard:hover {
-            border-color: #90134f;
-            color: #90134f;
-        }
-
-    .dashboard-bg {
-        background-color: #E7E7E7;
-    }
-
-    .dashboard-container {
-        background-color: #E7E7E7;
-        border-radius: 20px;
-        margin: 0 auto;
-        max-width: 1000px;
-        padding: 2rem;
-        width: 100%;
-    }
-
-    .dashboard-row {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-
-    .disclaimer-txt {
-        font-size: 12px;
-        text-align: right;
-        margin-left: 23rem;
-    }
-
-    .filter-container {
-        display: flex;
-        flex-basis: 28%;
-        flex-direction: column;
-        margin-right: 1rem;
-    }
-
-    .page-title {
-        flex-basis: 50%;
-        text-align: left;
-    }
-
-    .search-button {
-        align-self: flex-end;
-        background-color: #0d6efd;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        flex-basis: 20%;
-        font-weight: 700;
-        height: 45px;
-        width: 138px;
-    }
-
-    .stageCard {
-        border-color: rgb(0, 191, 178);
-        color: rgb(0, 191, 178);
-        transition: 0.1s ease-in-out all;
-    }
-
-        .stageCard:hover {
-            border-color: rgb(0, 143, 134);
-            color: rgb(0, 143, 134);
-        }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        border: 1px solid #dddddd;
-        font-size: 12px;
-        padding: 12px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #0d6efd;
-        color: white;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2
-    }
-
-    .wide-card {
-        align-items: flex-start;
-        background-color: white;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,p,0,0.1);
-        display: flex;
-        flex-basis: 100%;
-        flex-direction: column;
-        padding: 1rem;
-    }
-</style>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
 <div>
-
     <div class="d-flex justify-content-between">
         <div class="d-flex mt-4 mb-4">
             <h1 class="">NCR Dashboard</h1>
