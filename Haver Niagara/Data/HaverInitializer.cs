@@ -970,6 +970,59 @@ namespace Haver_Niagara.Data
                         MimeType = "image/jpg",
                         Links = "https://example.com/9poorTubeFinish_video",
                         Part = context.Parts.FirstOrDefault(p => p.ID == 10)
+                    },
+                    new Media
+					{
+						ID = 16,
+						Content = badPaint2,
+						Description = "Bad Paint Finish",
+						MimeType = "image/jpg",
+						Links = "C:\\Users\\Jacob\\Dropbox\\ncr_2011-002-2.mp4",
+						Part = context.Parts.FirstOrDefault(p => p.ID == 12)
+					},
+					new Media
+                    {
+                        ID = 17,
+                        Content = tube,
+                        Description = "Poor tube finish",
+                        MimeType = "image/jpg",
+                        Links = "https://example.com/9poorTubeFinish_video",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 13)
+                    },
+                    new Media
+                    {
+                        ID = 18,
+                        Content = bluePrint1,
+                        Description = "blue print",
+                        MimeType = "image/jpg",
+                        Links = "https://example.com/9poorTubeFinish_video",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 14)
+                    },
+                    new Media
+                    {
+                        ID = 19,
+                        Content = faultybolt,
+                        Description = "faulty bolt",
+                        MimeType = "image/jpg",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 15)
+                    },
+                    new Media
+                    {
+                        ID = 20,
+                        Content = faultyrope,
+                        Description = "faulty rope",
+                        MimeType = "image/jpg",
+                        Links = "https://example.com/7faultyRope_video",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 16)
+                    },
+                    new Media
+                    {
+                        ID = 21,
+                        Content = faultyPrint,
+                        Description = "faulty print",
+                        MimeType = "image/jpg",
+                        Links = "https://example.com/8faultPrint_video",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 17)
                     });
                 context.SaveChanges();
             }
