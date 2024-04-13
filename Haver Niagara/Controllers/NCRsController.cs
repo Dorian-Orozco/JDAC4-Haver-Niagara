@@ -137,6 +137,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Supplier)
                 .Include(n => n.Part).ThenInclude(n => n.PartName)
+                .Include(n => n.Part).ThenInclude(n => n.SAPNumber)
                 .Include(n => n.Part)
                     .ThenInclude(n => n.Medias)
                 .Include(n => n.Part)
@@ -189,6 +190,10 @@ namespace Haver_Niagara.Controllers
             ViewBag.PartNameID = new SelectList(_context.PartNames
                 .OrderBy(s => s.Name), "ID", "Name");
 
+            // Populate sap number dropdown list
+            ViewBag.SAPNumberID = new SelectList(_context.SAPNumbers
+                .OrderBy(s => s.Number), "ID", "Number");
+
             //Passes in the OLD NCRID
             ViewBag.OldNCRID = oldNCRID-20;
 
@@ -217,14 +222,16 @@ namespace Haver_Niagara.Controllers
                 NCR nCR, Part part, QualityInspection qualityInspection, List<IFormFile> files, List<string> links, int SelectedDefectID)
         {
             part.PartName = await _context.PartNames.FindAsync(part.PartNameID); //since the code for the drop down retrieves the id
-                                                                                //before it checks the form, i just retrieved the part name based on the id
-                                                                                //and set it (since its required in the PartName model)
+                                                                                 //before it checks the form, i just retrieved the part name based on the id
+            part.SAPNumber = await _context.SAPNumbers.FindAsync(part.SAPNumberID); //and set it (since its required in the PartName model)
+
             if (!ModelState.IsValid)
             {
                 // Populate dropdown lists
                 ViewBag.DefectList = new SelectList(_context.Defects, "ID", "Name", SelectedDefectID);
                 ViewBag.SupplierID = new SelectList(_context.Suppliers, "ID", "Name", nCR.NCRSupplierID);
                 ViewBag.PartNameID = new SelectList(_context.PartNames, "ID", "Name", part.PartNameID);
+                ViewBag.SAPNumberID = new SelectList(_context.SAPNumbers, "ID", "Number", part.SAPNumberID);
                 ViewBag.SelectedDefectID = SelectedDefectID;
          
                 ViewBag.FullName = HttpContext.Request.Form["QualityInspection.Name"];
@@ -234,6 +241,7 @@ namespace Haver_Niagara.Controllers
             if (ModelState.IsValid)
             {
                 part.PartName = await _context.PartNames.FindAsync(part.PartNameID);
+                part.SAPNumber = await _context.SAPNumbers.FindAsync(part.SAPNumberID);
                 _context.Add(part);
                 _context.Add(qualityInspection);
                 part.SupplierID = (int)nCR.NCRSupplierID;
@@ -682,6 +690,7 @@ namespace Haver_Niagara.Controllers
                 .Include(n => n.Part).ThenInclude(n => n.Medias)
                 .Include(n => n.Part).ThenInclude(n => n.DefectLists).ThenInclude(n => n.Defect)
                 .Include(n=>n.Part).ThenInclude(n=>n.PartName) //added
+                .Include(n => n.Part).ThenInclude(n => n.SAPNumber)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (nCR == null)
@@ -695,6 +704,9 @@ namespace Haver_Niagara.Controllers
 
             ViewBag.PartNameID = new SelectList(_context.PartNames //added 
                 .OrderBy(s=>s.Name), "ID", "Name");
+
+            ViewBag.SAPNumberID = new SelectList(_context.SAPNumbers //added 
+                .OrderBy(s => s.Number), "ID", "Number");
 
             return View(nCR);
         }
@@ -1887,6 +1899,14 @@ public async Task<IActionResult> QualityRepDetails(int? id)
                 .OrderBy(s => s.Name), "ID", "Name", selectedDefectID);
         }
 
+        //SAPNumberSelectList
+        //List of SAPNumbers
+        private SelectList SAPNumberSelectList(int? selectedId)
+        {
+            return new SelectList(_context.SAPNumbers
+                .OrderBy(s => s.Number), "ID", "Number", selectedId); //order by sapnumber ID - retrieves sap numbers and displays number
+        }
+
         //PopulateDropDownLists
         //fill lists 
         private void PopulateDropDownLists(NCR ncr = null)
@@ -1923,6 +1943,14 @@ public async Task<IActionResult> QualityRepDetails(int? id)
         public JsonResult GetDefects(int? id)
         {
             return Json(DefectSelectList(id));
+        }
+
+        //GetSAPNumbers
+        //add JsonResult GetSAPNumbers to return a new copy of the SelectList for SAPNumberID
+        [HttpGet]
+        public JsonResult GetSAPNumbers(int? id)
+        {
+            return Json(SAPNumberSelectList(id));
         }
 
         //OnPostUploadAsync
