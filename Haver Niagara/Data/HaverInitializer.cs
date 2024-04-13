@@ -1023,6 +1023,32 @@ namespace Haver_Niagara.Data
                         MimeType = "image/jpg",
                         Links = "https://example.com/8faultPrint_video",
                         Part = context.Parts.FirstOrDefault(p => p.ID == 17)
+                    },
+                    new Media
+                    {
+                        ID = 22,
+                        Content = faultybolt,
+                        Description = "faulty bolt",
+                        MimeType = "image/jpg",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 21)
+                    },
+                    new Media
+                    {
+                        ID = 23,
+                        Content = faultyrope,
+                        Description = "faulty rope",
+                        MimeType = "image/jpg",
+                        Links = "https://example.com/7faultyRope_video",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 22)
+                    },
+                    new Media
+                    {
+                        ID = 24,
+                        Content = faultyPrint,
+                        Description = "faulty print",
+                        MimeType = "image/jpg",
+                        Links = "https://example.com/8faultPrint_video",
+                        Part = context.Parts.FirstOrDefault(p => p.ID == 23)
                     });
                 context.SaveChanges();
             }
