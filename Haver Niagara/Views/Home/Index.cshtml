@@ -212,7 +212,7 @@
 						@{
 							int year = DateTime.Now.Year;
 						}
-						<td class="text-center">@item.FormattedID</td>
+						<td class="text-center for-small-screen">@item.FormattedID</td>
 						<td class="text-center">@item.NCR_Date.ToString("MMM dd, yyyy")</td>
 						<td class="text-center">@(item.Part != null ? item.Part.ProductNumber.ToString() : "Product number not found.")</td>
 						<td>@(item.Part != null && item.Supplier != null ? item.Supplier.Name : "Supplier name not found.")</td>
