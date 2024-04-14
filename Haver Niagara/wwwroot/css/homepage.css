@@ -603,7 +603,7 @@ tr:nth-child(even) {
 @media (min-width: 769px) and (max-width: 1025px) {
 
     h1 {
-        font-size: 32px;
+        font-size: 36px;
     }
 
     .stage-dd {
@@ -612,7 +612,7 @@ tr:nth-child(even) {
     }
 
     .view-all-btn {
-        padding-left: 10%;
+        padding-left: 11%;
         padding-right: 15px;
     }
 }
