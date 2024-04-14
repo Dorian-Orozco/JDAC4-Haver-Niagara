@@ -64,7 +64,7 @@
 
         <div class="m-1 p-2 ps-3 fs-6 section-header d-flex justify-content-between">
             <span class="">1. Quality Representative</span>
-            <button class="border border-secondary rounded p-2 btn" id="btnFillCreate"></button>
+            <button class="border border-secondary rounded p-2 btn" id="btnFillCreate" title="Fill Form"></button>
         </div>
         
         @* <div class="row border m-1 p-2 ps-3 fs-6 section-header">1/ Quality Representative</div> *@
@@ -271,9 +271,10 @@
                         <input type="file" name="files" id="files" class="form-control-file" multiple />
                     </div>
                 </dt>
-                <dd class="col-sm pt-3 ps-3 d-flex">
-                    @* display image uploaded  fix*@
+                <dd class="col-sm pt-3 ps-3 d-flex" id="imagePreview">
+                    <!-- Images will be displayed here -->
                 </dd>
+
             </dl>
         </div>
         @* row 6 *@
@@ -362,7 +363,13 @@
     <!--alert for cancel button-->
     <script>
         $('#cancel-button').click(function (event) {
-            confirm('Are you sure you want to cancel? All progress will be lost.')
+            // Show the confirmation dialog and store the user's response
+            var userConfirmed = confirm('Are you sure you want to cancel? All progress will be lost.');
+
+            // If the user clicks 'Cancel', prevent the default button action
+            if (!userConfirmed) {
+                event.preventDefault();
+            }
         });
     </script>
 
@@ -387,6 +394,33 @@
             $('.selectpicker').selectpicker('refresh');
 
         });
+
+        document.getElementById('files').addEventListener('change', function (event) {
+            const imageContainer = document.getElementById('imagePreview');
+            imageContainer.innerHTML = ''; // Clear existing images
+
+            const files = event.target.files;
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) { // Make sure it's an image file
+                    const img = document.createElement('img');
+                    img.classList.add('img-fluid', 'm-2'); // Responsive images with some margin
+                    img.style.maxWidth = '50%'; // Limit image size for display
+                    img.style.height = 'auto';
+
+                    const reader = new FileReader();
+                    reader.onload = (function (aImg) {
+                        return function (e) {
+                            aImg.src = e.target.result;
+                        };
+                    })(img);
+                    reader.readAsDataURL(file);
+
+                    imageContainer.appendChild(img); // Add the image to the container
+                }
+            });
+        });
+
+
     </script>
 
     <!-- jQuery for quickly add ddl -->
