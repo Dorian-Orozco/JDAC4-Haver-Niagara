@@ -152,6 +152,10 @@ tr:nth-child(even) {
     padding-right: 15px;
 }
 
+.view-diff-style {
+    float: right;
+}
+
 /* media queries */
 
 @media (max-width: 320px) {
@@ -614,5 +618,9 @@ tr:nth-child(even) {
     .view-all-btn {
         padding-left: 11%;
         padding-right: 15px;
+    }
+
+    .view-diff-style {
+        float: right;
     }
 }

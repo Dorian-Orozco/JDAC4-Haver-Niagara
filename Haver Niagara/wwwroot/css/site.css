@@ -257,6 +257,9 @@ a {
     .text-under-heading {
         margin-left: 0px;
     }
+
+    .stage-rad-btns {
+    }
 }
 
 @media (min-width: 426px) and (max-width: 769px) {
