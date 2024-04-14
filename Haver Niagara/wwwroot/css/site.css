@@ -218,9 +218,14 @@ a {
     top: -3px;
 }
 
-@media (max-width: 769px) {
+@media (max-width: 426px) {
+
     h1 {
         font-size: 28px;
+    }
+
+    .btn-back-icon {
+        font-size: 35px;
     }
 
     .button-container {
@@ -235,6 +240,49 @@ a {
 
     .create-btn {
         padding-left: 0px;
-        padding-bottom: 10px;
+        padding-bottom: 5px;
+    }
+
+    .text-under-heading {
+        margin-left: 0px;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 769px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .btn-back-icon {
+        font-size: 35px;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        padding-top: 0px;
+    }
+
+        .button-container > * {
+            margin-bottom: 10px;
+        }
+
+    .create-btn {
+        padding-left: 0px;
+        padding-bottom: 5px;
+    }
+
+    .text-under-heading {
+        margin-left: 60px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1025px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .create-btn {
+        padding-left: 15rem;
     }
 }
