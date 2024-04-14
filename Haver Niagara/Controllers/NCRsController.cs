@@ -1899,6 +1899,14 @@ public async Task<IActionResult> QualityRepDetails(int? id)
                 .OrderBy(s => s.Name), "ID", "Name", selectedDefectID);
         }
 
+        //PartNameSelectList
+        //List of part names
+        private SelectList PartNameSelectList(int? selectedPartNameID)
+        {
+            return new SelectList(_context.PartNames
+                .OrderBy(s => s.Name), "ID", "Name", selectedPartNameID);
+        }
+
         //SAPNumberSelectList
         //List of SAPNumbers
         private SelectList SAPNumberSelectList(int? selectedId)
@@ -1943,6 +1951,14 @@ public async Task<IActionResult> QualityRepDetails(int? id)
         public JsonResult GetDefects(int? id)
         {
             return Json(DefectSelectList(id));
+        }
+
+        //GetDefects
+        //JsonResult
+        [HttpGet]
+        public JsonResult GetPartNames(int? id)
+        {
+            return Json(PartNameSelectList(id));
         }
 
         //GetSAPNumbers

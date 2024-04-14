@@ -156,7 +156,7 @@
                                 <span class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" id="nowAddSAPNumber" data-bs-toggle="modal" data-bs-target="#addSAPNumberModal" type="button">&#x2795;</button>
                                 </span>
-                            <select asp-for="Part.SAPNumberID" asp-items="ViewBag.SAPNumberID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
+                                <select id="NCRSAPNumberID" asp-for="Part.SAPNumberID" asp-items="ViewBag.SAPNumberID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
                                 <option value="">Select SAP#</option>
                             </select>
                             <span asp-validation-for="Part.SAPNumberID" class="text-danger"></span>
@@ -171,7 +171,7 @@
                                 <span class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" id="nowAddPartName" data-bs-toggle="modal" data-bs-target="#addPartNameModal" type="button">&#x2795;</button>
                                 </span>
-                            <select asp-for="Part.PartNameID" asp-items="ViewBag.PartNameID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
+                                <select id="NCRPartNameID" asp-for="Part.PartNameID" asp-items="ViewBag.PartNameID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
                                 <option value="">Select Part</option>
                             </select>
                             <span asp-validation-for="Part.PartNameID" class="text-danger"></span>
