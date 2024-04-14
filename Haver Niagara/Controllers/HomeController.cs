@@ -136,31 +136,30 @@ namespace Haver_Niagara.Controllers
             // Search Box
             if (!String.IsNullOrEmpty(searchString))
             {
-                // Split the searchString to potentially match the "YYYY-NNN" format
                 searchString = searchString.ToLower();
                 var parts = searchString.Split('-');
-                int idPart;
 
-
-                //If the length is exactly 0000-000 format
-                if (searchString.Length == 8)                   
-                {      //if it was successfuly split 
-                    if (parts.Length == 2 && int.TryParse(parts[1], out idPart))
+                if (parts.Length == 2)
+                {
+                    if (int.TryParse(parts[0], out int yearPart) && int.TryParse(parts[1], out int indexPart))
                     {
-                        //Search by that ID + 20 (since we already have 20 existing seeded NCRs).
-                        ncrs = ncrs.Where(x => x.ID == idPart + 20);
+                        // This gets all NCRs from the specified year, orders them by ID, and then picks the one matching the index
+                        var filteredNcrs = _context.NCRs
+                            .Where(x => x.NCR_Date.Year == yearPart)
+                            .OrderBy(x => x.ID)
+                            .ToList(); // ToList to execute and use indexing
+
+                        if (indexPart <= filteredNcrs.Count)
+                        {
+                            // Adjust index to zero-based by subtracting 1
+                            var targetNcr = filteredNcrs.ElementAt(indexPart - 1);
+                            ncrs = ncrs.Where(x => x.ID == targetNcr.ID);
+                        }
                     }
                 }
-                else if (searchString.Length == 3 || (searchString.Length == 4 && searchString.Contains("-")))
+                else
                 {
-                    //replace the hyphen is user searches like -010  //didnt do anything but i guess have it just in case idk
-                    searchString = searchString.Replace("-", "");
-                    //remove the leading 0 from the nnn  if it exists, add 20 and searchhhh
-                    int.TryParse(searchString, out idPart);
-                    searchString = (idPart + 20).ToString();
-                }
-                else 
-                {
+                    // Generic search for other fields if not in "YYYY-NNN" format
                     ncrs = ncrs.Where(x =>
                         x.NCR_Date.ToString().ToLower().Contains(searchString) ||
                         x.Part.ProductNumber.ToString().ToLower().Contains(searchString) ||
