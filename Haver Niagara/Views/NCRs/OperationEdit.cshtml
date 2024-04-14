@@ -2,7 +2,7 @@
 @model Haver_Niagara.Models.NCR
 
 @{
-    ViewData["Title"] = $"{@Model.FormattedID} - Operations Edit";
+    ViewData["Title"] = $"Editing {@Model.FormattedID} - Operations";
 }
 
 
@@ -69,7 +69,7 @@
             </div>
         }
         <!--back to operations details-->
-        <a href="@Url.Action("OperationsDetails", "NCRs", new { id = @Model.ID })" class="btn-forward" title="Cancel" id="cancel-button">
+        <a href="@Url.Action("OperationsDetails", "NCRs", new { id = @Model.ID })" class="btn-forward" title="Close" id="cancel-button">
             <ion-icon name="close-circle-outline" class="btn-forward-icon"></ion-icon>
         </a>
     </div>
@@ -89,7 +89,11 @@
         {
             @* Operations Section *@
             <div class="section section-oper">
-                <div class="row border m-1 p-2 ps-3 fs-6 section-header">3. Operations</div>
+                <div class="m-1 p-2 ps-3 fs-6 section-header d-flex justify-content-between">
+                    <span>3. Operations</span>
+                    <button class="border border-secondary rounded p-2 btn" id="btnFillCreate" title="Fill Form"></button>
+                </div>
+                @*  <div class="row border m-1 p-2 ps-3 fs-6 section-header">3. Operations</div> *@
 
                 @* row 11 *@
                 <div class="row m-1 border">
@@ -121,7 +125,7 @@
                         <div class="row">
                             <dl>
                                 <dd class="col-sm">
-                                    <textarea asp-for="Operation.OperationNotes" class="form-control" rows="3" cols="30"></textarea>
+                                    <textarea asp-for="Operation.OperationNotes" id="operationNotes" class="form-control" rows="3" cols="30"></textarea>
                                     <span asp-validation-for="Operation.OperationNotes" class="text-danger"></span>
                                 </dd>
                             </dl>
@@ -143,7 +147,7 @@
                                         @Html.RadioButtonFor(model => model.Operation.OperationCar, true, new { @checked = Model.Operation != null && Model.Operation.OperationCar, @class = "me-2" })
                                         <label class="me-4">Yes</label>
 
-                                        @Html.RadioButtonFor(model => model.Operation.OperationCar, false, new { @checked = Model.Operation != null && !Model.Operation.OperationCar, @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Operation.OperationCar, false, new { @checked = Model.Operation != null && !Model.Operation.OperationCar, id="noCarRaised", @class = "me-2" })
                                         <label>No</label>
                                         <span asp-validation-for="Operation.OperationCar" class="text-danger ms-3"></span>
                                     </div>
@@ -177,7 +181,7 @@
                                                 @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, true, new { @checked = Model.Operation != null && Model.Operation.OperationFollowUp, @class = "me-2" })
                                                 <label class="me-4" for="operationFollowUpYes">Yes</label>
 
-                                                @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, false, new { @checked = Model.Operation != null && !Model.Operation.OperationFollowUp, @class = "me-2" })
+                                                @Html.RadioButtonFor(model => model.Operation.OperationFollowUp, false, new { @checked = Model.Operation != null && !Model.Operation.OperationFollowUp, id="noFollowup", @class = "me-2" })
                                                 <label for="operationFollowUpYes">No</label>
                                                 <span id="operationFollowUpError" class="text-danger"></span>
                                                 <span asp-validation-for="Operation.OperationFollowUp" class="text-danger ms-3"></span>
@@ -205,11 +209,11 @@
                     </div>
                     <div class="col-sm-4 border pt-3 ps-3">
                         <div class="row">
-                            <dl class="d-flex m-0">
+                            <dl class="d-flex">
                                 <dt class="col-sm">
-                                    Operations Manager<span class="text-danger"> *</span>
+                                    Name<span class="text-danger"> *</span>
                                 </dt>
-                                <dd class="col-sm ms-2">
+                                <dd class="col-sm-8">
                                     <input asp-for="Operation.Name" value="@ViewBag.FullName" class="form-control" required />
                                     <span asp-validation-for="Operation.Name" class="text-danger"></span>
                                 </dd>
@@ -220,7 +224,7 @@
                                 <dt class="col-sm">
                                     Date
                                 </dt>
-                                <dd class="col-sm ms-2">
+                                <dd class="col-sm-8 ms-2">
                                     <input asp-for="Operation.OperationDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" required />
                                     <span asp-validation-for="Operation.OperationDate" class="text-danger"></span>
                                 </dd>
@@ -252,7 +256,7 @@
             }
             <!--save report-->
             <span class="mt-2">
-                <input type="submit" value="Save Report" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
             </span>
         </div>
     }
@@ -279,14 +283,14 @@
                 }
                 <!--save report-->
                 <span class="mt-2">
-                    <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+                    <input type="submit" value="Save Changes" class="btn btn-outline-primary" />
                 </span>
             </div>
 
             <!--Mark as completed-->
             <div>
                 <span class="mt-2 ms-2">
-                    <input type="submit" value="Mark as Completed" class="btn btn-primary" />
+                    <input type="submit" value="Complete Section" title="Mark this section as completed" class="btn btn-primary" />
                 </span>
             </div>
 
@@ -312,6 +316,19 @@
             if (!userConfirmed) {
                 event.preventDefault();
             }
+        });
+    </script>
+    <!-- PRE-FILL DATA WHEN BUTTON CLICKED -->
+    <script>
+        document.getElementById('btnFillCreate').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.querySelector(`input[name="Operation.OperationDecision"][value="ReturnToSupplier"]`).checked = true; //review by HBC Engineering
+            document.getElementById('operationNotes').value = "Rework per engineering disposition"; //sequence of work steps required
+
+            document.getElementById('noCarRaised').checked = true; //does customer require notification
+
+            document.getElementById('noFollowup').checked = true;
         });
     </script>
 
@@ -346,7 +363,7 @@
                     $('#CARNumber').attr('required', false);
                     $('#CARDate').attr('required', false);
                     $('input[name="Operation.CAR.CARNumber"]').prop('disabled', true);
-                } 
+                }
                 if ($(this).val() === "True") {
                     $('#CARNumber').attr('required', true);
                     $('#CARDate').attr('required', true);

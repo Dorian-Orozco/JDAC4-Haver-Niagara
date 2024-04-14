@@ -2,7 +2,7 @@
 @model Haver_Niagara.Models.NCR
 
 @{
-    ViewData["Title"] = $"{@Model.FormattedID} - Procurement Edit";
+    ViewData["Title"] = $"Editing {@Model.FormattedID} - Procurement";
 }
 
 <dl>
@@ -67,7 +67,7 @@
             </div>
         }
         <!--back to procurement details-->
-        <a href="@Url.Action("ProcurementDetails", "NCRs", new { id = @Model.ID })" class="btn-forward" title="Cancel" id="cancel-button">
+        <a href="@Url.Action("ProcurementDetails", "NCRs", new { id = @Model.ID })" class="btn-forward" title="Close" id="cancel-button">
             <ion-icon name="close-circle-outline" class="btn-forward-icon"></ion-icon>
         </a>
     </div>
@@ -86,7 +86,12 @@
         {
             @* Procurement Section *@
             <div class="section section-procure">
-                <div class="row border m-1 p-2 ps-3 fs-6 section-header">4. Procurement (buyer)</div>
+                <div class="m-1 p-2 ps-3 fs-6 section-header d-flex justify-content-between">
+                    <span class="">4. Procurement (buyer)</span>
+                    <button class="border border-secondary rounded p-2 btn" id="btnFillCreate" title="Fill Form"></button>
+                </div>
+
+                @* <div class="row border m-1 p-2 ps-3 fs-6 section-header">4. Procurement (buyer)</div> *@
 
                 @* row 13 *@
                 <div class="row m-1 border">
@@ -101,7 +106,7 @@
                                         @Html.RadioButtonFor(model => model.Procurement.ReturnRejected, true, new { @checked = Model.Procurement != null && Model.Procurement.ReturnRejected, @class = "me-2" })
                                         <label class="me-4">Yes</label>
 
-                                        @Html.RadioButtonFor(model => model.Procurement.ReturnRejected, false, new { @checked = Model.Procurement != null && !Model.Procurement.ReturnRejected, @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Procurement.ReturnRejected, false, new { @checked = Model.Procurement != null && !Model.Procurement.ReturnRejected, id="noReturn", @class = "me-2" })
                                         <label>No</label>
                                         <span asp-validation-for="Procurement.ReturnRejected" class="text-danger ms-3"></span>
                                     </div>
@@ -113,7 +118,7 @@
                         <div class="d-flex justify-content-center">
                             <dl class="d-flex">
                                 <dt class="col-sm">
-                                    @Html.DisplayNameFor(model => model.Procurement.ToReceiveDate)<span class="text-danger"> *</span>
+                                    @Html.DisplayNameFor(model => model.Procurement.ToReceiveDate)
                                 </dt>
                                 <dd class="col-sm ms-2">
                                     <input asp-for="Procurement.ToReceiveDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
@@ -166,7 +171,7 @@
                                         @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, true, new { @checked = Model.Procurement != null && Model.Procurement.DisposeOnSite == true, @class = "me-2" })
                                         <label class="me-4">Yes</label>
 
-                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, false, new { @checked = Model.Procurement != null && !Model.Procurement.DisposeOnSite == false, @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Procurement.DisposeOnSite, false, new { @checked = Model.Procurement != null && !Model.Procurement.DisposeOnSite == false, id="noDispose", @class = "me-2" })
                                         <label>No</label>
                                         <span asp-validation-for="Procurement.DisposeOnSite" class="text-danger"></span>
                                     </div>
@@ -178,7 +183,9 @@
                     <div class="col-sm-6 pt-3 border">
                         <div class="d-flex ms-1 mb-2">
                             <span class="ms-3">
-                                @Html.CheckBoxFor(model => model.Procurement.SuppReturnCompletedSAP)
+                                @Html.CheckBoxFor(model => model.Procurement.SuppReturnCompletedSAP, new
+                                    {
+                                        id = "returnCompletedSAP"})
                             </span>
                             <span class="ms-3">@Html.DisplayNameFor(model => model.Procurement.SuppReturnCompletedSAP)</span>
                         </div>
@@ -222,7 +229,7 @@
                 </div>
             }
             <span class="mt-2">
-                <input type="submit" value="Save Report" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
             </span>
         </div>
     }
@@ -246,13 +253,13 @@
                     </div>
                 }
                 <span class="mt-2">
-                    <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+                    <input type="submit" value="Save Changes" class="btn btn-outline-primary" />
                 </span>
             </div>
 
             <div>
                 <span class="mt-2 ms-2">
-                    <input type="submit" value="Mark as Completed" class="btn btn-primary" />
+                    <input type="submit" value="Complete Section" title="Mark section as completed" class="btn btn-primary" />
                 </span>
             </div>
 
@@ -260,9 +267,6 @@
 
     }
 </form>
-
-
-
 
 @section Scripts {
     @{
@@ -279,6 +283,17 @@
             if (!userConfirmed) {
                 event.preventDefault();
             }
+        });
+    </script>
+    <!-- PRE-FILL DATA WHEN BUTTON CLICKED -->
+    <script>
+        document.getElementById('btnFillCreate').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('noReturn').checked = true; //return rejected items = no
+            document.getElementById('noDispose').checked = true; //dispose on site = no
+
+            document.getElementById('returnCompletedSAP').checked = true; //supplier return completed in SAP
         });
     </script>
 
