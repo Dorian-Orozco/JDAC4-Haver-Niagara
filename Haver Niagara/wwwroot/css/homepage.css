@@ -25,20 +25,14 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-    .activeCard:hover {
-        color: rgb(0, 91, 184);
-        border-color: rgb(0, 91, 184);
-    }
+.activeCard:hover {
+    color: rgb(0, 91, 184);
+    border-color: rgb(0, 91, 184);
+}
 
 .body {
     color: #0C2340;
     font-family: Montserrat, sans-serif;
-}
-
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
 }
 
 .button {
@@ -80,10 +74,10 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-    .closedCard:hover {
-        border-color: #90134f;
-        color: #90134f;
-    }
+.closedCard:hover {
+    border-color: #90134f;
+    color: #90134f;
+}
 
 .dashboard-bg {
     background-color: #E7E7E7;
@@ -105,34 +99,9 @@ a, a:hover {
     margin-bottom: 1rem;
 }
 
-.disclaimer-txt {
-    font-size: 12px;
-    text-align: right;
-    margin-left: 23rem;
-}
-
-.filter-container {
-    display: flex;
-    flex-basis: 28%;
-    flex-direction: column;
-    margin-right: 1rem;
-}
-
-.page-title {
-    flex-basis: 50%;
-    text-align: left;
-}
-
-.search-button {
-    align-self: flex-end;
-    background-color: #0d6efd;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    flex-basis: 20%;
-    font-weight: 700;
-    height: 45px;
-    width: 138px;
+.stage-dd {
+    width: 15%;
+    padding-left: 15px;
 }
 
 .stageCard {
@@ -141,10 +110,10 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-    .stageCard:hover {
-        border-color: rgb(0, 143, 134);
-        color: rgb(0, 143, 134);
-    }
+.stageCard:hover {
+    border-color: rgb(0, 143, 134);
+    color: rgb(0, 143, 134);
+}
 
 table {
     border-collapse: collapse;
@@ -178,9 +147,13 @@ tr:nth-child(even) {
     padding: 1rem;
 }
 
+.view-all-btn {
+    padding-left: 70px;
+}
+
 /* media queries */
 
-@media (max-width: 320px) {
+@media (max-width: 426px) {
     h1 {
         font-size: 20px;
     }
@@ -192,11 +165,6 @@ tr:nth-child(even) {
 
     h3 {
         font-size: 50px;
-    }
-
-    .button-container {
-        flex-direction: column;
-        align-items: center;
     }
 
     .button {
@@ -214,17 +182,8 @@ tr:nth-child(even) {
         width: 100%;
     }
 
-    .filter-container {
-        width: 100%;
-    }
-
-    .page-title {
-        text-align: center;
-    }
-
-    .search-button {
-        margin-top: 0.5rem;
-        width: 100%;
+    .stage-dd {
+        width: 40%;
     }
 
     table {
@@ -236,19 +195,6 @@ tr:nth-child(even) {
     th, td {
         font-size: 10px;
         border: none;
-    }
-
-    .dashboard-row .d-flex {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .dashboard-row .d-flex .d-flex {
-        margin-top: 1rem;
-    }
-
-    .dashboard-row .d-flex .d-flex a {
-        width: 100%;
     }
 
     table,
@@ -284,6 +230,20 @@ tr:nth-child(even) {
     /* Hide part number column */
     tr td:nth-child(4),
     tr th:nth-child(4) {
+        display: none;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container > * {
+        margin-bottom: 10px;
+    }
+
+    .view-all-btn {
         display: none;
     }
 }
