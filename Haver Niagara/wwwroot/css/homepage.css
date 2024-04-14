@@ -476,9 +476,9 @@ tr:nth-child(even) {
         align-items: center;
     }
 
-    .button-container > * {
-        margin-bottom: 10px;
-    }
+        .button-container > * {
+            margin-bottom: 10px;
+        }
 
     .view-all-btn {
         display: none;
@@ -582,9 +582,9 @@ tr:nth-child(even) {
         align-items: center;
     }
 
-    .button-container > * {
-        margin-bottom: 10px;
-    }
+        .button-container > * {
+            margin-bottom: 10px;
+        }
 
     .view-all-btn {
         display: none;
@@ -600,7 +600,11 @@ tr:nth-child(even) {
     }
 }
 
-@media (min-width: 769px) and (max-width: 1025) {
+@media (min-width: 769px) and (max-width: 1025px) {
+
+    h1 {
+        font-size: 32px;
+    }
 
     .stage-dd {
         width: 20%;
@@ -608,7 +612,7 @@ tr:nth-child(even) {
     }
 
     .view-all-btn {
-        padding-left: 14%;
+        padding-left: 10%;
         padding-right: 15px;
     }
 }
