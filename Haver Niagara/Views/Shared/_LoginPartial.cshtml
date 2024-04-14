@@ -61,9 +61,9 @@
                 <li class="nav-item border-top border-secondary pt-1 pb-1">
                     <a class="nav-link text-white" asp-area="" asp-controller="EmployeeAccount" asp-action="Details">Manage Account</a>
                 </li>
-                <form class="form-inline form-nav-item border-top border-secondary pt-1 pe-2" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" id="logout-button" class="nav-link btn btn-link text-white"><ion-icon class="text-white logout-icon" name="exit-outline"></ion-icon> Logout </button>
-                </form>                                                      
+                <form class="form-inline form-nav-item border-top border-secondary pt-1 pe-2" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" id="logoutForm">
+                    <button type="submit" class="nav-link btn btn-link text-white" id="logoutButton"><ion-icon class="text-white logout-icon" name="exit-outline"></ion-icon> Logout </button>
+                </form>
             </ul>
         </li>
     }
@@ -78,24 +78,58 @@
     }
 </ul>
 
+<!--Log out modal  https://www.codeply.com/go/eeBNzYEjCe/bootstrap-log-out-modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="logoutModalLabel">Logout <i class="fa fa-lock"></i></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <i class="fa fa-question-circle"></i> Are you sure you want to log out?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="nav-link btn btn-link text-white" data-bs-toggle="modal" data-bs-target="#logoutModal"><ion-icon class="text-white logout-icon" name="exit-outline"></ion-icon> Logout </button>
+            </div>
+        </div>
+    </div>
+</div>  //work on model 
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        //select the logout button by ID
-        var logoutButton = document.getElementById('logout-button');
+    $(document).ready(function () {
+        // Handle click event for logout button
+        $('#logoutButton').click(function () {
+            // Show the logout modal
+            $('#logoutModal').modal('show');
+        });
 
-        //add click event listener to the logout button
-        logoutButton.addEventListener('click', function (event) {
-            //prevent the form from submitting
-            event.preventDefault();
+        // Handle form submission for logout
+        $('#logoutForm').submit(function (e) {
+            e.preventDefault(); // Prevent form submission
 
-            //display confirmation dialog
-            var userConfirmed = confirm('Are you sure you want to log out?');
-
-            //if the user confirms, submit the form
-            if (userConfirmed) {
-                //find the form that contains the logout button and submit it
-                logoutButton.form.submit();
-            }
+            // Submit the form (perform logout)
+            $(this).submit();
         });
     });
+
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     //select the logout button by ID
+    //     var logoutButton = document.getElementById('logout-button');
+
+    //     //add click event listener to the logout button
+    //     logoutButton.addEventListener('click', function (event) {
+    //         //prevent the form from submitting
+    //         event.preventDefault();
+
+    //         //display confirmation dialog
+    //         var userConfirmed = confirm('Are you sure you want to log out?');
+
+    //         //if the user confirms, submit the form
+    //         if (userConfirmed) {
+    //             //find the form that contains the logout button and submit it
+    //             logoutButton.form.submit();
+    //         }
+    //     });
+    // });
 </script>
