@@ -2,7 +2,7 @@
 @model Haver_Niagara.Models.NCR
 
 @{
-    ViewData["Title"] = $"{@Model.FormattedID} - Engineering Edit";
+    ViewData["Title"] = $"Editing {@Model.FormattedID} - Engineering";
 }
 @* h1 *@
 <div>
@@ -67,7 +67,7 @@
             </div>
         }
         <!--back to engineer details-->
-        <a href="@Url.Action("EngineerDetails", "NCRs", new { id = @Model.ID })" class="btn-forward" title="Cancel" id="cancel-button">
+        <a href="@Url.Action("EngineerDetails", "NCRs", new { id = @Model.ID })" class="btn-forward" title="Close" id="cancel-button">
             <ion-icon name="close-circle-outline" class="btn-forward-icon"></ion-icon>
         </a>
     </div>
@@ -85,7 +85,10 @@
         {
             @* Engineering Section *@
             <div class="section section-eng">
-                <div class="row border m-1 p-2 ps-3 fs-6 section-header">2. Engineering</div>
+                <div class="m-1 p-2 ps-3 fs-6 section-header d-flex justify-content-between">
+                    <span class="">2. Engineering</span>
+                    <button class="border border-secondary rounded p-2 btn" id="btnFillCreate" title="Fill Form"></button>
+                </div>
 
                 @* row 7 *@
                 <div class="row m-1 border">
@@ -124,7 +127,7 @@
                                     @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, true, new { @checked = Model.Engineering != null && Model.Engineering.CustomerNotify, @class = "me-2" })
                                     <label class="me-4">Yes</label>
 
-                                    @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, @class = "me-2" })
+                                    @Html.RadioButtonFor(model => model.Engineering.CustomerNotify, false, new { @checked = Model.Engineering != null && !Model.Engineering.CustomerNotify, id = "noNotify", @class = "me-2" })
                                     <label>No</label>
                                     <span class="ms-3 text-danger" asp-validation-for="Engineering.CustomerNotify"></span>
                                 </div>
@@ -141,7 +144,7 @@
                             </dt>
                             <dd class="mt-1">
                                 <div class="d-flex">
-                                    <textarea asp-for="Engineering.DispositionNotes" class="form-control" rows="3" cols="30"></textarea>
+                                    <textarea asp-for="Engineering.DispositionNotes" id="dispositionNotes" class="form-control" rows="3" cols="30"></textarea>
                                     <span asp-validation-for="Engineering.DispositionNotes" class="text-danger"></span>
                                 </div>
                             </dd>
@@ -161,7 +164,7 @@
                                         @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, true, new { @checked = Model.Engineering != null && Model.Engineering.DrawUpdate, @class = "me-2" })
                                         <label class="me-4">Yes</label>
 
-                                        @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, false, new { @checked = Model.Engineering != null && !Model.Engineering.DrawUpdate, @class = "me-2" })
+                                        @Html.RadioButtonFor(model => model.Engineering.DrawUpdate, false, new { @checked = Model.Engineering != null && !Model.Engineering.DrawUpdate, id="noDrawUpdate", @class = "me-2" })
                                         <label>No</label>
                                         <span class="ms-3 text-danger" asp-validation-for="Engineering.DrawUpdate"></span>
                                     </div>
@@ -204,14 +207,6 @@
                             </span>
                             <span class="col-sm">
                             </span>
-                        </div>
-                        <div class="row ms-1 mb-0">
-                            <div class="col-sm">
-                                <dl>
-                                </dl>
-                            </div>
-                            <div class="col-sm">
-                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6 border pt-3 ps-3">
@@ -265,7 +260,7 @@
             }
             <!--save report-->
             <span class="mt-2">
-                <input type="submit" value="Save Report" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
             </span>
         </div>
     }
@@ -291,14 +286,14 @@
                 }
                 <!--save report-->
                 <span class="mt-2">
-                    <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+                    <input type="submit" value="Save Changes" class="btn btn-outline-primary" />
                 </span>
             </div>
 
             <!--Mark as completed-->
             <div>
                 <span class="mt-2 ms-2">
-                    <input type="submit" value="Mark as Completed" class="btn btn-primary" />
+                    <input type="submit" value="Complete Section" title="Mark this section as completed" class="btn btn-primary" />
                 </span>
             </div>
 
@@ -321,6 +316,17 @@
                 if (!userConfirmed) {
                     event.preventDefault();
                 }
+            });
+        </script>
+        <!-- PRE-FILL DATA WHEN BUTTON CLICKED -->
+        <script>
+            document.getElementById('btnFillCreate').addEventListener('click', function (event) {
+                event.preventDefault();
+
+                document.querySelector(`input[name="Engineering.EngineeringDisposition"][value="Rework"]`).checked = true; //review by HBC Engineering
+                document.getElementById('noNotify').checked = true; //does customer require notification
+                document.getElementById('dispositionNotes').value = "fill with JB weld and sand flat"; //sequence of work steps required
+                document.getElementById('noDrawUpdate').checked = true;
             });
         </script>
         <script>

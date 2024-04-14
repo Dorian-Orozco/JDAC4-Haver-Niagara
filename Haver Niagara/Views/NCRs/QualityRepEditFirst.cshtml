@@ -2,11 +2,17 @@
 @model Haver_Niagara.Models.NCR
 
 @{
-    ViewData["Title"] = $"{@Model.FormattedID} - Quality Edit";
+    ViewData["Title"] = $"Editing {@Model.FormattedID} - Quality Inspection";
 }
 
-<partial name="_addSupplierModal" />
-<partial name="_addDefectModal" />
+<style>
+    .report-container {
+        padding: 10px;
+    }
+</style>
+
+<!-- Bootstrap-select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
 <dl>
     <dt class="text-muted">
@@ -79,6 +85,9 @@
     <ion-icon name="close-circle-outline" class="btn-forward-icon"></ion-icon>
     </button> *@
 
+
+<partial name="_addSupplierModal" />
+<partial name="_addDefectModal" />
 <form class="" id="myForm" asp-action="QualityRepEditFirst" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ID" />
@@ -89,7 +98,7 @@
             <div class="row border m-1 p-2 ps-3 fs-6 section-header">1. Quality Representative</div>
             @* row 1 *@
             <div class="row m-1">
-                <div class="col-sm-4 border pt-3 ps-3">
+                <div class="col-sm-3 border pt-3 ps-3">
                     <dl>
                         <dt>
                             Identify Process Applicable:
@@ -106,7 +115,7 @@
                         </dd>
                     </dl>
                 </div>
-                <div class="col-sm-4 border pt-3 ps-3">
+                <div class="col-sm-5 border pt-3 ps-3">
                     <dl>
                         <dt class="">
                             Supplier:
@@ -117,7 +126,7 @@
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-secondary" id="nowAddSupplier" data-bs-toggle="modal" data-bs-target="#addSupplierModal" type="button">&#x2795;</button>
                                     </div>
-                                    <select asp-for="NCRSupplierID" class="form-control" asp-items="ViewBag.SupplierID">
+                                    <select asp-for="NCRSupplierID" name="NCRSupplierID" asp-items="ViewBag.SupplierID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
                                         <option value="">Select Supplier</option>
                                     </select>
                                 </div>
@@ -136,7 +145,7 @@
                             <span asp-validation-for="FormattedID" class="text-danger"></span>
                         </dl>
                     </div>
-                    <div class="row">
+                  @*   <div class="row">
                         <dl class="d-flex m-0">
                             <dt class="col-sm-5 ">
                                 <label asp-for="Part.PurchaseNumber" class="control-label"></label>
@@ -146,7 +155,7 @@
                                 <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
                             </dd>
                         </dl>
-                    </div>
+                    </div> *@
                     <div class="row">
                         <dl class="d-flex m-0">
                             <dt class="col-sm-5 ">
@@ -189,6 +198,11 @@
                               @*   <label asp-for="Part.Name" class="control-label"></label>
                                 <input asp-for="Part.Name" class="form-control" />
                                 <span asp-validation-for="Part.Name" class="text-danger"></span> *@
+                                <label asp-for="Part.PartName.Name" id="partName" class="control-label"></label><span class="text-danger"> *</span>
+                                <select asp-for="Part.PartNameID" asp-items="ViewBag.PartNameID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
+                                    <option value="">Select Part</option>
+                                </select>
+                                <span asp-validation-for="Part.PartNameID" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Part.Description" class="control-label"></label>
@@ -237,7 +251,7 @@
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-secondary" id="nowAddDefect" data-bs-toggle="modal" data-bs-target="#addDefectModal" type="button">&#x2795;</button>
                                     </div>
-                                    <select id="defectID" name="SelectedDefectID" class="form-control" required>
+                                    <select id="defectID" name="SelectedDefectID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false" required>
                                         <option value="">Select Defect</option>
                                         @foreach (var defect in ViewBag.DefectList)
                                         {
@@ -317,7 +331,7 @@
                             <input type="file" name="files" id="files" class="form-control-file" multiple />
                         </span>
                     </dt>
-                    <dd class="col-sm pt-3 ps-3 d-flex">
+                    <dd class="col-sm pt-3 ps-3 d-flex" id="imagePreview">
                         @if (Model.Part != null && Model.Part.Medias != null && Model.Part.Medias.Any())
                         {
                             foreach (var image in Model.Part.Medias)
@@ -403,7 +417,7 @@
             }
             <!--save report-->
             <span class="mt-2">
-                <input type="submit" value="Save Report" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
             </span>
         </div>
     }
@@ -429,14 +443,14 @@
                 }
                 <!--save report-->
                 <span class="mt-2">
-                    <input type="submit" value="Save Report" class="btn btn-outline-primary" />
+                    <input type="submit" value="Save Changes" class="btn btn-outline-primary" />
                 </span>
             </div>
 
             <!--Mark as completed-->
             <div>
                 <span class="mt-2 ms-2">
-                    <input type="submit" value="Mark as Completed" class="btn btn-primary" />
+                    <input type="submit" value="Complete Section" title="Mark this section as completed" class="btn btn-primary" />
                 </span>
             </div>
 
@@ -444,11 +458,13 @@
     }
 </form>
 
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <!-- refresh ddl script -->
+    <script src="~/js/refreshDDL.js"></script>
 
     <!--alert for cancel button-->
     <script>
@@ -463,36 +479,64 @@
         });
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <!-- Images preview when choosing file ? -->
     <script>
-        //https://stackoverflow.com/questions/63913825/jquery-validator-not-working-properly-on-a-select-dropdown
-        $(document).ready(function () {
-            $('#myForm').validate({
-                errorClass: "defectError",
-                rules: {
-                    SelectedDefectID: 'required'
-                },
-                messages: {
-                    SelectedDefectID: "Please select a defect"
-                },
-                highlight: function (element, errorClass) {
-                    $(element).removeClass(errorClass); //prevent class to be added to selects
-                },
-                submitHandler: function (form) {
-                    //do something
-                    form.submit();
+
+        document.getElementById('files').addEventListener('change', function (event) {
+            const imageContainer = document.getElementById('imagePreview');
+            imageContainer.innerHTML = ''; // Clear existing images
+
+            const files = event.target.files;
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) { // Make sure it's an image file
+                    const img = document.createElement('img');
+                    img.classList.add('img-fluid', 'm-2'); // Responsive images with some margin
+                    img.style.maxWidth = '50%'; // Limit image size for display
+                    img.style.height = 'auto';
+
+                    const reader = new FileReader();
+                    reader.onload = (function (aImg) {
+                        return function (e) {
+                            aImg.src = e.target.result;
+                        };
+                    })(img);
+                    reader.readAsDataURL(file);
+
+                    imageContainer.appendChild(img); // Add the image to the container
                 }
             });
         });
+
+
     </script>
-    <style>
-        .defectError {
-            color: red;
-        }
-    </style>
-    @* QUICKLY ADD OPTION TO SUPPLIER SELECT DROP DOWN LIST *@
-    <script src="~/js/refreshDDL.js"></script>
+
+    <!-- jQuery for quickly add ddl -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- jQuery for validate -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+    <!-- Bootstrap for searchable ddl -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Bootstrap-Select's JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <!-- Updated jQuery for selectpicker (conflicts with current one) -->
+    @* <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  *@
+
+    <!--searchable drop down list-->
+    <script type="text/javascript">
+        $(function () {
+            $("#NCRSupplierID").selectpicker({ width: "auto" });
+        });
+        //defectID
+        $(function () {
+            $("#defectID").selectpicker({ width: "auto" });
+        });
+    </script>
+
+    <!--quickly add ddl supplier-->
     <script type="text/javascript">
         $('#submitSupplierCreate').click(function (event) {
             event.preventDefault();
@@ -538,12 +582,14 @@
             }
             return false;
         });
+
         $('#addSupplierModal').on('hide.bs.modal', function () {
             document.getElementById("createSupplierForm").reset();//to clear the data in the popup form
             ClearErrors();
             var selectedOption = $('#NCRSupplierID').val();//Return to the current selected value
             refreshDDL('NCRSupplierID', '/NCRs/GetSuppliers/' + selectedOption, false, null, true, null, true);
         });
+
         function ClearErrors() {
             //Empty out the list of validation errors if there are any
             var ul = document.getElementById("ErrorList");
@@ -552,7 +598,8 @@
             }
         }
     </script>
-    @* Defect Modal / Form Javascript/////////// *@
+
+    <!--quickly add ddl defect-->
     <script type="text/javascript">
         $('#submitDefectCreate').click(function (event) {
             event.preventDefault();
@@ -612,68 +659,68 @@
             }
         }
     </script>
-<script>
-    $(document).ready(function () {
-        // Attach click event handler to elements with class "delete"
-        $(".delete").click(function (event) {
-            // Prevent the default action of the link
-            event.preventDefault();
+    <script>
+        $(document).ready(function () {
+            // Attach click event handler to elements with class "delete"
+            $(".delete").click(function (event) {
+                // Prevent the default action of the link
+                event.preventDefault();
 
-            // Get the ncrID and imageID of the clicked link
-            var ncrID = $(this).data("ncrid");
-            var imageID = $(this).data("imageid");
+                // Get the ncrID and imageID of the clicked link
+                var ncrID = $(this).data("ncrid");
+                var imageID = $(this).data("imageid");
 
-            //Storing most recently clicked button
-            var imageContainer = $(this).closest('.image-container');
+                //Storing most recently clicked button
+                var imageContainer = $(this).closest('.image-container');
 
-            // Show confirmation dialog
-            if (confirm('Are you sure you want to remove this image?')) {
-                // Make AJAX call to remove the image
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("RemoveImage", "NCRs")',
-                    data: { ncrID: ncrID, imageID: imageID },
-                    success: function (response) {
-                        // Remove the image element from the DOM if removal is successful
-                        alert('Image Successfully Deleted!')
-                        imageContainer.remove();
-                    },
-                    error: function (xhr, status, error) {
-                        alert('Delete Failed, Try Again Later.')
-                        console.error(xhr.responseText);
-                    }
-                });
-            }
+                // Show confirmation dialog
+                if (confirm('Are you sure you want to remove this image?')) {
+                    // Make AJAX call to remove the image
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("RemoveImage", "NCRs")',
+                        data: { ncrID: ncrID, imageID: imageID },
+                        success: function (response) {
+                            // Remove the image element from the DOM if removal is successful
+                            alert('Image Successfully Deleted!')
+                            imageContainer.remove();
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Delete Failed, Try Again Later.')
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
         });
-    });
 
-    //LISTS USING AJAX /JQUEWRY
+        //LISTS USING AJAX /JQUEWRY
 
-    $(document).ready(function () {
-        $(".delete-link").click(function (event) {
-            event.preventDefault();
+        $(document).ready(function () {
+            $(".delete-link").click(function (event) {
+                event.preventDefault();
 
-            var ncrID = $(this).data("ncrid");
-            var linkID = $(this).data("linkid");
+                var ncrID = $(this).data("ncrid");
+                var linkID = $(this).data("linkid");
 
-            var linkContainer = $(this).closest('.link-container'); //gets "this" (data) of the button pressed so it can be used to delete
+                var linkContainer = $(this).closest('.link-container'); //gets "this" (data) of the button pressed so it can be used to delete
 
-            if (confirm('Are you sure you want to remove this link?')) {
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("RemoveLink", "NCRs")',
-                    data: { ncrID: ncrID, linkID: linkID },
-                    success: function (response) {
-                        alert('Link Successfully Deleted');
-                        linkContainer.remove();
-                    },
-                    error: function (xhr, status, error) {
-                        alert('Delete Failed, Try Again Later.')
-                        console.error(xhr.responseText);
-                    }
-                });
-            }
+                if (confirm('Are you sure you want to remove this link?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("RemoveLink", "NCRs")',
+                        data: { ncrID: ncrID, linkID: linkID },
+                        success: function (response) {
+                            alert('Link Successfully Deleted');
+                            linkContainer.remove();
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Delete Failed, Try Again Later.')
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 }
