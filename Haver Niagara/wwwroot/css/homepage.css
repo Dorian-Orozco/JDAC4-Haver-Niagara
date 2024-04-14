@@ -25,10 +25,10 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-.activeCard:hover {
-    color: rgb(0, 91, 184);
-    border-color: rgb(0, 91, 184);
-}
+    .activeCard:hover {
+        color: rgb(0, 91, 184);
+        border-color: rgb(0, 91, 184);
+    }
 
 .body {
     color: #0C2340;
@@ -74,10 +74,10 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-.closedCard:hover {
-    border-color: #90134f;
-    color: #90134f;
-}
+    .closedCard:hover {
+        border-color: #90134f;
+        color: #90134f;
+    }
 
 .dashboard-bg {
     background-color: #E7E7E7;
@@ -110,10 +110,10 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-.stageCard:hover {
-    border-color: rgb(0, 143, 134);
-    color: rgb(0, 143, 134);
-}
+    .stageCard:hover {
+        border-color: rgb(0, 143, 134);
+        color: rgb(0, 143, 134);
+    }
 
 table {
     border-collapse: collapse;
@@ -154,7 +154,118 @@ tr:nth-child(even) {
 
 /* media queries */
 
-@media (max-width: 376px) {
+@media (max-width: 320px) {
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 50px;
+    }
+
+    .button {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
+
+    .card-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
+
+    .for-small-screen {
+        font-weight: 600;
+    }
+
+    .stage {
+        width: 75%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .stage-dd {
+        width: 68%;
+        padding-left: 0px;
+    }
+
+    table {
+        width: 100%;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+    }
+
+    .text-center {
+        font-size: 10px;
+    }
+
+    th, td {
+        font-size: 10px;
+        border: none;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+        thead th {
+            display: none;
+        }
+
+    th,
+    td {
+        width: 100% !important;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .view-btn {
+        font-size: 20px;
+    }
+
+    /* Hide status column */
+    tr td:nth-child(1),
+    tr th:nth-child(1) {
+        display: none;
+    }
+
+    /* Hide part number column */
+    tr td:nth-child(4),
+    tr th:nth-child(4) {
+        display: none;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .button-container > * {
+            margin-bottom: 10px;
+        }
+
+    .view-all-btn {
+        display: none;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 376px) {
     h1 {
         font-size: 20px;
     }
@@ -222,117 +333,6 @@ tr:nth-child(even) {
         display: block;
     }
 
-    thead th {
-        display: none;
-    }
-
-    th,
-    td {
-        width: 100% !important;
-        text-align: center;
-        padding: 5px;
-    }
-
-    .view-btn {
-        font-size: 20px;
-    }
-
-    /* Hide status column */
-    tr td:nth-child(1),
-    tr th:nth-child(1) {
-        display: none;
-    }
-
-    /* Hide part number column */
-    tr td:nth-child(4),
-    tr th:nth-child(4) {
-        display: none;
-    }
-
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .button-container > * {
-        margin-bottom: 10px;
-    }
-
-    .view-all-btn {
-        display: none;
-    }
-}
-
-
-@media (min-width: 377px) and (max-width: 426px) {
-    h1 {
-        font-size: 20px;
-    }
-
-    h2 {
-        font-size: 16px;
-        text-align: center;
-    }
-
-    h3 {
-        font-size: 50px;
-    }
-
-    .button {
-        margin: 0.5rem 0;
-        width: 100%;
-    }
-
-    .card-row {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .card {
-        margin: 0.5rem 0;
-        width: 100%;
-    }
-
-    .for-small-screen {
-        font-weight: 600;
-    }
-
-    .stage {
-        width: 75%;
-        display: block;
-        margin: 0 auto;
-    }
-
-    .stage-dd {
-        width: 65%;
-        padding-left: 0px;
-    }
-
-    table {
-        width: 100%;
-        border: 1px solid #dddddd;
-        border-radius: 10px;
-    }
-
-    .text-center {
-        font-size: 12px;
-    }
-
-    th, td {
-        font-size: 10px;
-        border: none;
-    }
-
-    table,
-    thead,
-    tbody,
-    th,
-    td,
-    tr {
-        display: block;
-    }
-
         thead th {
             display: none;
         }
@@ -375,4 +375,240 @@ tr:nth-child(even) {
     }
 }
 
+@media (min-width: 376px) and (max-width: 426px) {
+    h1 {
+        font-size: 20px;
+    }
 
+    h2 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 50px;
+    }
+
+    .button {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
+
+    .card-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
+
+    .for-small-screen {
+        font-weight: 600;
+    }
+
+    .stage {
+        width: 75%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .stage-dd {
+        width: 47%;
+        padding-left: 0px;
+    }
+
+    table {
+        width: 100%;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+    }
+
+    .text-center {
+        font-size: 12px;
+    }
+
+    th, td {
+        font-size: 10px;
+        border: none;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+        thead th {
+            display: none;
+        }
+
+    th,
+    td {
+        width: 100% !important;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .view-btn {
+        font-size: 25px;
+    }
+
+    /* Hide status column */
+    tr td:nth-child(1),
+    tr th:nth-child(1) {
+        display: none;
+    }
+
+    /* Hide part number column */
+    tr td:nth-child(4),
+    tr th:nth-child(4) {
+        display: none;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container > * {
+        margin-bottom: 10px;
+    }
+
+    .view-all-btn {
+        display: none;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 769px) {
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 50px;
+    }
+
+    .button {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
+
+    .card-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
+
+    .for-small-screen {
+        font-weight: 600;
+    }
+
+    .stage {
+        width: 55%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    table {
+        width: 100%;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+    }
+
+    .text-center {
+        font-size: 12px;
+    }
+
+    th, td {
+        font-size: 10px;
+        border: none;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+        thead th {
+            display: none;
+        }
+
+    th,
+    td {
+        width: 100% !important;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .view-btn {
+        font-size: 25px;
+    }
+
+    /* Hide status column */
+    tr td:nth-child(1),
+    tr th:nth-child(1) {
+        display: none;
+    }
+
+    /* Hide part number column */
+    tr td:nth-child(4),
+    tr th:nth-child(4) {
+        display: none;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container > * {
+        margin-bottom: 10px;
+    }
+
+    .view-all-btn {
+        display: none;
+    }
+
+    .stage-dd {
+        width: 28%;
+        padding-left: 0px;
+    }
+
+    .dashboard-row {
+        padding: 0 4rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1025) {
+
+    .stage-dd {
+        width: 20%;
+        padding-left: 15px;
+    }
+
+    .view-all-btn {
+        padding-left: 14%;
+        padding-right: 15px;
+    }
+}
