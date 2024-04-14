@@ -88,6 +88,8 @@
 
 <partial name="_addSupplierModal" />
 <partial name="_addDefectModal" />
+<partial name="_addSAPNumberModal" />
+<partial name="_addPartNameModal" />
 <form class="" id="myForm" asp-action="QualityRepEditFirst" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ID" />
@@ -145,17 +147,17 @@
                             <span asp-validation-for="FormattedID" class="text-danger"></span>
                         </dl>
                     </div>
-                  @*   <div class="row">
-                        <dl class="d-flex m-0">
-                            <dt class="col-sm-5 ">
-                                <label asp-for="Part.PurchaseNumber" class="control-label"></label>
-                            </dt>
-                            <dd class="col-sm-7 ">
-                                <input asp-for="Part.PurchaseNumber" class="form-control" />
-                                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
-                            </dd>
-                        </dl>
-                    </div> *@
+                    @*   <div class="row">
+                <dl class="d-flex m-0">
+                <dt class="col-sm-5 ">
+                <label asp-for="Part.PurchaseNumber" class="control-label"></label>
+                </dt>
+                <dd class="col-sm-7 ">
+                <input asp-for="Part.PurchaseNumber" class="form-control" />
+                <span asp-validation-for="Part.PurchaseNumber" class="text-danger"></span>
+                </dd>
+                </dl>
+                </div> *@
                     <div class="row">
                         <dl class="d-flex m-0">
                             <dt class="col-sm-5 ">
@@ -190,19 +192,28 @@
                         </dt>
                         <dd class="mt-1">
                             <div class="form-group">
-                                <label asp-for="Part.SAPNumber" class="control-label"></label>
-                                <input asp-for="Part.SAPNumber" class="form-control" />
-                                <span asp-validation-for="Part.SAPNumber" class="text-danger"></span>
+                                <label asp-for="Part.SAPNumber.Number" class="control-label"></label><span class="text-danger"> *</span>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" id="nowAddSAPNumber" data-bs-toggle="modal" data-bs-target="#addSAPNumberModal" type="button">&#x2795;</button>
+                                    </span>
+                                    <select id="NCRSAPNumberID" asp-for="Part.SAPNumberID" asp-items="ViewBag.SAPNumberID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
+                                        <option value="">Select SAP#</option>
+                                    </select>
+                                    <span asp-validation-for="Part.SAPNumberID" class="text-danger"></span>
+                                </div>
                             </div>
                             <div class="form-group">
-                              @*   <label asp-for="Part.Name" class="control-label"></label>
-                                <input asp-for="Part.Name" class="form-control" />
-                                <span asp-validation-for="Part.Name" class="text-danger"></span> *@
                                 <label asp-for="Part.PartName.Name" id="partName" class="control-label"></label><span class="text-danger"> *</span>
-                                <select asp-for="Part.PartNameID" asp-items="ViewBag.PartNameID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
-                                    <option value="">Select Part</option>
-                                </select>
-                                <span asp-validation-for="Part.PartNameID" class="text-danger"></span>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" id="nowAddPartName" data-bs-toggle="modal" data-bs-target="#addPartNameModal" type="button">&#x2795;</button>
+                                    </span>
+                                    <select id="NCRPartNameID" asp-for="Part.PartNameID" asp-items="ViewBag.PartNameID" class="form-control selectpicker border" data-live-search="true" data-style="btn" data-dropup-auto="false">
+                                        <option value="">Select Part</option>
+                                    </select>
+                                    <span asp-validation-for="Part.PartNameID" class="text-danger"></span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Part.Description" class="control-label"></label>
@@ -421,7 +432,7 @@
             </span>
         </div>
     }
-    <!--mark as completed button (should submit form if all required fields are filled and email next department)--> 
+    <!--mark as completed button (should submit form if all required fields are filled and email next department)-->
     @if (Model.NCR_Stage == NCRStage.QualityRepresentative)
     {
         <div class="d-flex justify-content-between mt-3">
@@ -659,6 +670,133 @@
             }
         }
     </script>
+
+    <!--quickly add ddl sapnumber-->
+    <script type="text/javascript">
+        $('#submitSAPNumberCreate').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createSAPNumberForm');
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#addSAPNumberModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = [];
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                            errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidaitonSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                            var errorMessage = errorMessages[i];
+                            var li = document.createElement("li");
+                            li.innerHTML = errorMessage;
+                            ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+
+        $('#addSAPNumberModal').on('hide.bs.modal', function () {
+            document.getElementById("createSAPNumberForm").reset();//to clear the data in the popup form
+            ClearErrors();
+            var selectedOption = $('#NCRSAPNumberID').val();//Return to the current selected value
+            refreshDDL('NCRSAPNumberID', '/NCRs/GetSAPNumbers/' + selectedOption, false, null, true, null, true);
+        });
+
+        function ClearErrors() {
+            //Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
+    </script>
+
+    <!--quickly add ddl partname-->
+    <script type="text/javascript">
+        $('#submitPartNameCreate').click(function (event) {
+            event.preventDefault();
+            ClearErrors();
+            var form = $('#createPartNameForm');
+            if (form.valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function () {
+                        $('#addPartNameModal').modal('hide');
+                    },
+                    error: function (xhr) { //Note: xhr is the XMLHttpRequest
+                        var errorMessages = [];
+                        switch (xhr.status) {
+                            case 401:
+                                errorMessages.push("You must be logged in first.");
+                                break;
+                            case 403:
+                                errorMessages.push("You are not authorized for this action.");
+                                break;
+                            default:
+                                //Messages coming from the Model State Errors
+                                //We split on the | delimeter and the .slice removes the last one
+                                errorMessages = xhr.responseText.split("|").slice(0, -1);
+                        }
+                        //This checks if there are any elements with some content
+                        //and if not then it provides a default feedback message.
+                        if (!errorMessages.some((str) => str !== "")) {
+                            errorMessages.push("Error: Unable to complete operation");
+                        }
+                        //Put the messages in the ErrorList ul contained in the 'ValidaitonSummary' div.
+                        var ul = document.getElementById("ErrorList");
+                        for (var i = 0; i < errorMessages.length; i++) {
+                            var errorMessage = errorMessages[i];
+                            var li = document.createElement("li");
+                            li.innerHTML = errorMessage;
+                            ul.appendChild(li);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+
+        $('#addPartNameModal').on('hide.bs.modal', function () {
+            document.getElementById("createPartNameForm").reset();//to clear the data in the popup form
+            ClearErrors();
+            var selectedOption = $('#NCRPartNameID').val();//Return to the current selected value
+            refreshDDL('NCRPartNameID', '/NCRs/GetPartNames/' + selectedOption, false, null, true, null, true);
+        });
+
+        function ClearErrors() {
+            //Empty out the list of validation errors if there are any
+            var ul = document.getElementById("ErrorList");
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+        }
+    </script>
+
     <script>
         $(document).ready(function () {
             // Attach click event handler to elements with class "delete"
