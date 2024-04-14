@@ -357,7 +357,7 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.Property<int>("QuantityRecieved")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SAPNumber")
+                    b.Property<int>("SAPNumberID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SalesOrder")
@@ -369,6 +369,8 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.HasIndex("PartNameID");
+
+                    b.HasIndex("SAPNumberID");
 
                     b.HasIndex("SupplierID");
 
@@ -481,6 +483,20 @@ namespace Haver_Niagara.Data.HNMigrations
                     b.HasKey("ID");
 
                     b.ToTable("QualityInspectionFinals");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.SAPNumber", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("SAPNumbers");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Subscription", b =>
@@ -662,6 +678,12 @@ namespace Haver_Niagara.Data.HNMigrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Haver_Niagara.Models.SAPNumber", "SAPNumber")
+                        .WithMany("Parts")
+                        .HasForeignKey("SAPNumberID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Haver_Niagara.Models.Supplier", "Supplier")
                         .WithMany("Parts")
                         .HasForeignKey("SupplierID")
@@ -669,6 +691,8 @@ namespace Haver_Niagara.Data.HNMigrations
                         .IsRequired();
 
                     b.Navigation("PartName");
+
+                    b.Navigation("SAPNumber");
 
                     b.Navigation("Supplier");
                 });
@@ -735,6 +759,11 @@ namespace Haver_Niagara.Data.HNMigrations
             modelBuilder.Entity("Haver_Niagara.Models.QualityInspectionFinal", b =>
                 {
                     b.Navigation("NCR");
+                });
+
+            modelBuilder.Entity("Haver_Niagara.Models.SAPNumber", b =>
+                {
+                    b.Navigation("Parts");
                 });
 
             modelBuilder.Entity("Haver_Niagara.Models.Supplier", b =>

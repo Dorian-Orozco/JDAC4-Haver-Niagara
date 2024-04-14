@@ -44,6 +44,8 @@ namespace Haver_Niagara.Data
         public DbSet<NCR> NCRs { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<PartName> PartNames { get; set; } //added
+
+        public DbSet<SAPNumber> SAPNumbers { get; set; } //added
         public DbSet<Operation> Operations { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<DefectList> DefectLists { get; set; } //Defect Lists junfction table

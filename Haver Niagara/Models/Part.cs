@@ -26,7 +26,8 @@ namespace Haver_Niagara.Models
 
         [Display(Name = "SAP")] //SAME AS PART NUMBER?
         [Required(ErrorMessage = "Please enter a number")]
-        public int SAPNumber { get; set; }
+        public int SAPNumberID { get; set; }
+        public SAPNumber SAPNumber { get; set; }
 
         [Display(Name = "PO")]
        // [Required(ErrorMessage = "Please enter a PO number")]
