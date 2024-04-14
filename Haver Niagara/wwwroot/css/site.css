@@ -218,6 +218,13 @@ a {
     top: -3px;
 }
 
+@media (min-width: 769px) {
+    .col-md-4 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+
 @media (max-width: 426px) {
 
     h1 {
@@ -237,6 +244,10 @@ a {
         .button-container > * {
             margin-bottom: 10px;
         }
+
+    .lookup-container {
+        width: 90%;
+    }
 
     .create-btn {
         padding-left: 0px;
