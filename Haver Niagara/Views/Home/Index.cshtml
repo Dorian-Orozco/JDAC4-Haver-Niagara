@@ -85,12 +85,12 @@
         {
             <div class="d-flex">
                 <div>
-                    <a asp-controller="Home" asp-action="List" title="view all reports" class="btn btn-outline-primary p-2 me-3">
+                    <a asp-controller="Home" asp-action="List" title="view all reports" class="btn btn-outline-primary p-2 me-3 hide-btns">
                         <span class="me-1">View All</span>
                     </a>
                 </div>
                 <div>
-                    <a asp-controller="NCRs" asp-action="Create" title="create new report" class="btn btn-primary ps-3 pe-3 pt-1 pb-2">
+                    <a asp-controller="NCRs" asp-action="Create" title="create new report" class="btn btn-primary ps-3 pe-3 pt-1 pb-2 hide-btns">
                         <span class="me-1">Create Report</span>
                         <ion-icon name="add-circle-outline" class="create-btn-icon"></ion-icon>
                     </a>
@@ -101,7 +101,7 @@
         else
         {
             <div>
-                <a asp-controller="Home" asp-action="List" title="view all reports" class="btn btn-primary p-2">
+                <a asp-controller="Home" asp-action="List" title="view all reports" class="btn btn-primary p-2 hide-btns">
                     <span class="me-1">View All</span>
                 </a>
             </div>
