@@ -126,16 +126,12 @@ namespace Haver_Niagara.Areas.Identity.Pages.Account
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
-                {
-                    var emp = _context.Employees.Where(e => e.Email == Input.Email).FirstOrDefault();
-                    CookieHelper.CookieSet(HttpContext, "userName", emp.FullName, 3200);
-                    //if (String.IsNullOrEmpty(emp.Phone))
-                    //{
-                    //    //Emergency Contact? Address? CAn add more things and tell them to finish something (nagging)
-                    //    //Nag to complete the profile?
-                    //    TempData["message"] = "Please enter the phone number.";
-                    //    returnUrl = "~/EmployeeAccount/Edit";
-                    //}
+                {   //the emails have to match and are case sensitive, so when creating user tolower all emails
+                    var emp = _context.Employees.FirstOrDefault(e => e.Email.ToLower() == Input.Email.ToLower());
+                    if (emp != null)
+                    {
+                        CookieHelper.CookieSet(HttpContext, "userName", emp.FullName, 3200);
+                    }
 
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
@@ -151,7 +147,9 @@ namespace Haver_Niagara.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    var emp = _context.Employees.Where(e => e.Email == Input.Email).FirstOrDefault();
+                    var emp = _context.Employees.FirstOrDefault(e => e.Email.ToLower() == Input.Email.ToLower());
+
+                    //var emp = _context.Employees.Where(e => e.Email == Input.Email).FirstOrDefault();
                     if (emp == null) //check if they are in the system
                     {
                         string msg = "Error: Account for " + Input.Email + " has not been created by the Admin.";

@@ -1575,7 +1575,7 @@ namespace Haver_Niagara.Controllers
                         //QualityRepresentativeEdit
                         if(MarkAsCompleted == "true")
                         {
-                            TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been saved and emailed to the Admin. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                            TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been completed and emailed to the Admin. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                         }
                         else
                         {
@@ -1899,6 +1899,14 @@ public async Task<IActionResult> QualityRepDetails(int? id)
                 .OrderBy(s => s.Name), "ID", "Name", selectedDefectID);
         }
 
+        //PartNameSelectList
+        //List of part names
+        private SelectList PartNameSelectList(int? selectedPartNameID)
+        {
+            return new SelectList(_context.PartNames
+                .OrderBy(s => s.Name), "ID", "Name", selectedPartNameID);
+        }
+
         //SAPNumberSelectList
         //List of SAPNumbers
         private SelectList SAPNumberSelectList(int? selectedId)
@@ -1943,6 +1951,14 @@ public async Task<IActionResult> QualityRepDetails(int? id)
         public JsonResult GetDefects(int? id)
         {
             return Json(DefectSelectList(id));
+        }
+
+        //GetDefects
+        //JsonResult
+        [HttpGet]
+        public JsonResult GetPartNames(int? id)
+        {
+            return Json(PartNameSelectList(id));
         }
 
         //GetSAPNumbers

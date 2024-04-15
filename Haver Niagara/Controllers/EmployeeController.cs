@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Models;
 using Haver_Niagara.Utilities;
 using NuGet.Versioning;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
+using System.Text.Encodings.Web;
 namespace Haver_Niagara.Controllers
 {
     [Authorize(Roles = "Admin")]  //Commented out authorization, so dont have to log in everytime app launches
@@ -81,7 +84,7 @@ namespace Haver_Niagara.Controllers
 
                     InsertIdentityUser(employee.Email, selectedRoles, employee.FirstName, employee.LastName);
 
-                    //Send Email to new Employee - commented out till email configured
+                    //Send Email to new Employee
                     await InviteUserToResetPassword(employee, null);
 
                     return RedirectToAction(nameof(Index));
@@ -194,6 +197,7 @@ namespace Haver_Niagara.Controllers
                         //You reactivating the user, create them and
                         //give them the selected roles
                         InsertIdentityUser(employeeToUpdate.Email, selectedRoles, employeeToUpdate.FirstName, employeeToUpdate.LastName);
+                        await InviteUserToResetPassword(employeeToUpdate, null); //When user is re activated this should send them an email
                     }
                     else if (employeeToUpdate.Active == true && ActiveStatus == true)
                     {
@@ -406,10 +410,20 @@ namespace Haver_Niagara.Controllers
 
         private async Task InviteUserToResetPassword(Employee employee, string message)
         {
+            var user = await _userManager.FindByEmailAsync(employee.Email);
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+            var callbackUrl = Url.Page(
+                   "/Account/ResetPassword",
+                   pageHandler: null,
+                   values: new { area = "Identity", code, email = employee.Email }, //passing in the destination, password token and email
+                   protocol: Request.Scheme);
+
             message ??= "Hello " + employee.FirstName + "<br /><p>Please navigate to:<br />" +
-                        "<a href='https://haverniagara2024.azurewebsites.net/Identity/Account/Login?ReturnUrl=%2F' title='https://haverniagara2024.azurewebsites.net/Identity/Account/Login?ReturnUrl=%2F' target='_blank' rel='noopener'>" +
-                        "https://haverniagara2024.azurewebsites.net/Identity/Account/Login?ReturnUrl=%2F</a><br />" +
-                        " and create a new password for " + employee.Email + " using Forgot Password.</p>";
+                        $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}' title='https://haverniagara2024.azurewebsites.net/Identity/Account/ForgotPassword' target='_blank' rel='noopener'>" +
+                        "https://haverniagara2024.azurewebsites.net/Identity/Account/ForgotPassword</a><br />" +
+                        " and create a new password for " + employee.Email + ".</p>";
             try
             {
                 await _emailSender.SendOneAsync(employee.FullName, employee.Email,
@@ -420,8 +434,6 @@ namespace Haver_Niagara.Controllers
             {
                 TempData["message"] = "Could not send Invitation email to " + employee.FullName + " at " + employee.Email;
             }
-
-
         }
 
 
