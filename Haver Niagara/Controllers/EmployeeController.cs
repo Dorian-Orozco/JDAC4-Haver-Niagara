@@ -84,7 +84,7 @@ namespace Haver_Niagara.Controllers
 
                     InsertIdentityUser(employee.Email, selectedRoles, employee.FirstName, employee.LastName);
 
-                    //Send Email to new Employee - commented out till email configured
+                    //Send Email to new Employee
                     await InviteUserToResetPassword(employee, null);
 
                     return RedirectToAction(nameof(Index));
