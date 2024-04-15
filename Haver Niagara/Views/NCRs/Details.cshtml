@@ -7,6 +7,7 @@
     ViewData["Title"] = $"NCR # {Model.FormattedID} - View";
 }
 
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/ncrForm.css")" />
 
 @* h1 *@
 @* @using (Html.BeginForm("NCRs", "DetailsPrint", FormMethod.Post))
@@ -35,7 +36,7 @@
         </dd>
     </dl>
 </div>
-<div class="d-flex justify-content-center text-muted mb-3">
+<div class="d-flex justify-content-center text-muted mb-3 stage-rad-btns">
     @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage))) //working!
     {
         <div class="form-check form-check-inline">

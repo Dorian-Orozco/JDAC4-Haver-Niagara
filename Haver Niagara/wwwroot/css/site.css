@@ -218,6 +218,13 @@ a {
     top: -3px;
 }
 
+@media (min-width: 769px) {
+    .col-md-4 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+
 @media (max-width: 426px) {
 
     h1 {
@@ -238,6 +245,10 @@ a {
             margin-bottom: 10px;
         }
 
+    .lookup-container {
+        width: 90%;
+    }
+
     .create-btn {
         padding-left: 0px;
         padding-bottom: 5px;
@@ -245,6 +256,9 @@ a {
 
     .text-under-heading {
         margin-left: 0px;
+    }
+
+    .stage-rad-btns {
     }
 }
 
