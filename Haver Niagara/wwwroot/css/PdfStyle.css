@@ -21,6 +21,7 @@ h2 {
 .title {
     font-weight: 600;
     font-size: 16px;
+    padding-bottom: 5px;
 }
 
 .value {
@@ -112,6 +113,9 @@ h2 {
     grid-area: 3 / 2 / 4 / 5;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Value: Identify Process Applic. */
@@ -126,6 +130,9 @@ h2 {
     grid-area: 3 / 5 / 4 / 8;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Value: Supplier Name */
@@ -140,6 +147,9 @@ h2 {
     grid-area: 3 / 8 / 4 / 12;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Value: NCR # */
@@ -147,6 +157,9 @@ h2 {
     grid-area: 3 / 12 / 4 / 13;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Title: PO # */
@@ -154,6 +167,9 @@ h2 {
     grid-area: 4 / 8 / 5 / 12;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Value: PO # */
@@ -161,6 +177,9 @@ h2 {
     grid-area: 4 / 12 / 5 / 13;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Title: Sales Order # */
@@ -168,6 +187,9 @@ h2 {
     grid-area: 5 / 8 / 6 / 12;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Value: Sales Order */
@@ -175,6 +197,9 @@ h2 {
     grid-area: 5 / 12 / 6 / 13;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Title/Value: Description of Item */
@@ -182,6 +207,7 @@ h2 {
     grid-area: 6 / 2 / 8 / 8;
     border: 1px solid black;
     padding: 10px;
+
 }
 
 /* Title/Value: Quantity Received */
@@ -189,6 +215,9 @@ h2 {
     grid-area: 6 / 8 / 7 / 13;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Title/Value: Quantity Defective */
@@ -196,6 +225,9 @@ h2 {
     grid-area: 7 / 8 / 8 / 13;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Title/Value: Description of Defect */

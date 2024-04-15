@@ -27,9 +27,26 @@
 		<img src="@Url.Content("wwwroot/images/report-logo.png")" alt="Logo" class="logo" />
 	</div>
 
-	<div class="div4"><small>Document No.:</small><br><h2></h2></div>
-	<div class="div5"><small>Document Title:</small><br><h2>Non-Conforming Report</h2></div>
-	<div class="div6"><small>Page:</small><br><h2>1 of 2</h2></div>
+	<div class="div4">
+		<small>Document No.:</small><br>
+	</div>
+	<div class="div4 flex justify-center">
+		<h2></h2>
+	</div>
+
+	<div class="div5">
+		<small>Document Title:</small><br>
+	</div>
+	<div class="div5 flex justify-center">
+		<h2>Non-Conforming Report</h2>
+	</div>
+
+	<div class="div6">
+		<small>Page:</small><br>
+	</div>
+	<div class="div6 flex justify-center">
+		<h2>1 of 2</h2>
+	</div>
 
 	<div class="div7">1/ Quality Representative</div>
 
@@ -55,7 +72,7 @@
 		@Html.DisplayFor(model => model.FormattedID)
 	</div>
 
-	<div class="div14"><h2>PO or Prod No.:</h2></div>
+	<div class="div14"><span class="title">PO or Prod No.:</span></div>
 	<div class="div15">
 		@Html.DisplayFor(model => model.Part.ProductNumber)
 	</div>
@@ -71,12 +88,12 @@
 	</div>
 
 	<div class="div19">
-		<span class="title">Quantity Received:</span>
+		<span class="title">Quantity Received: </span>
 		<span class="value">@Html.DisplayFor(model => model.Part.QuantityRecieved)</span>
 	</div>
 
 	<div class="div20">
-		<span class="title">Quantity Defective:</span>
+		<span class="title">Quantity Defective: </span>
 		<span class="value">@Html.DisplayFor(model => model.Part.QuantityDefect)</span>
 	</div>
 
