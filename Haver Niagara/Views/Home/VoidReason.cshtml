@@ -1,0 +1,16 @@
+﻿@model Haver_Niagara.Models.NCR
+<form asp-controller="NCRs" asp-action="Void" id="createMedicalTrialForm">
+    <div class="text-danger validation-summary-errors"><ul id="ErrorList"></ul></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="VoidReason" class="control-label"></label>
+                <textarea asp-for="VoidReason" class="form-control"></textarea>
+                <span asp-validation-for="VoidReason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" id="submitVoidNCR" value="Void" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>

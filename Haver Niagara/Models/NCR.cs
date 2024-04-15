@@ -56,6 +56,8 @@ namespace Haver_Niagara.Models
 
         public bool? IsVoid { get; set; }
 
+        public string? VoidReason { get; set; }
+
         //NCR Enumeration To Determine the Stage
         [Display(Name = "Stage")]
         public NCRStage NCR_Stage { get; set; }
