@@ -293,7 +293,7 @@
             <!--Mark as completed-->
             <div>
                 <span class="mt-2 ms-2">
-                    <input type="submit" value="Complete Section" title="Mark this section as completed" class="btn btn-primary" />
+                    <input type="submit" value="Section Completed" title="Mark this section as completed" class="btn btn-primary" />
                 </span>
             </div>
 
@@ -335,7 +335,7 @@
                 var clickedButtonValue = event.submitter.value;
 
                 // If the clicked button is "Mark as Completed"
-                if (clickedButtonValue === 'Mark as Completed') {
+                if (clickedButtonValue === 'Section Completed') {
                     // Set a hidden field value to indicate mark as completed
                     var hiddenField = document.createElement('input');
                     hiddenField.type = 'hidden';
