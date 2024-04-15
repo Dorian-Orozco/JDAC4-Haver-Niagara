@@ -13,6 +13,7 @@
 
 <!-- Bootstrap-select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/ncrForm.css")" />
 
 @* h1 *@
 
@@ -27,11 +28,11 @@
         @OldNCRNumber_id
     </dd>
 </dl>
-<div class="ps-3 pe-3 fs-5 d-flex justify-content-between">
-    <div class="d-flex">
+<div class="ps-3 pe-3 fs-5 d-flex justify-content-between form-labels">
+    <div class="d-flex justify-content-between">
         <b>NCR No. </b><span class="ms-2">@ViewBag.ProvisionalFormattedId</span>
     </div>
-    <dl class="d-flex">
+    <dl class="d-flex justify-content-between">
         <dt>
             <label asp-for="NCR_Date" class="control-label"></label>
         </dt>
@@ -41,7 +42,8 @@
         </dd>
     </dl>
 </div>
-<div class="d-flex justify-content-center text-muted mb-3">
+
+<div class="d-flex justify-content-center text-muted mb-3 small-stage-labels">
     @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage)))
     {
         <div class="form-check form-check-inline">
