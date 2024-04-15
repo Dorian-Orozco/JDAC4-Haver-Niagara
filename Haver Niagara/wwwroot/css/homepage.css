@@ -176,7 +176,9 @@ tr:nth-child(even) {
 @media (max-width: 320px) {
 
     h1 {
-        font-size: 24px;
+        font-size: 28px;
+        text-align: left;
+        margin-left: 14px;
     }
 
     h2 {
@@ -291,7 +293,9 @@ tr:nth-child(even) {
 
 @media (min-width: 321px) and (max-width: 376px) {
     h1 {
-        font-size: 20px;
+        font-size: 26px;
+        text-align: left;
+        margin-left: 10px;
     }
 
     h2 {
@@ -411,7 +415,9 @@ tr:nth-child(even) {
 
 @media (min-width: 376px) and (max-width: 426px) {
     h1 {
-        font-size: 20px;
+        font-size: 28px;
+        text-align: left;
+        margin-left: 10px;
     }
 
     h2 {
@@ -643,6 +649,19 @@ tr:nth-child(even) {
 
     .dashboard-row {
         padding: 0 4rem;
+    }
+
+    select {
+        visibility: hidden;
+    }
+
+    .hide-btns {
+        visibility: hidden;
+    }
+
+    .mb-4 {
+        margin-bottom: 0.5rem !important;
+        margin-left: 60px;
     }
 }
 
