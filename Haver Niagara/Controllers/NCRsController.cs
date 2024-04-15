@@ -1575,7 +1575,7 @@ namespace Haver_Niagara.Controllers
                         //QualityRepresentativeEdit
                         if(MarkAsCompleted == "true")
                         {
-                            TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been saved and emailed to the Admin. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
+                            TempData["EditSuccessMsg"] = $"NCR # <b>{FormattedID}</b> has been completed and emailed to the Admin. <a href='{Url.Action("Details", "NCRs", new { id = nCR.ID })}'>Click here to view the report.";
                         }
                         else
                         {
