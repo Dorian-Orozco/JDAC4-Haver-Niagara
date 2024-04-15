@@ -7,14 +7,12 @@
     ViewData["Title"] = $"{@Model.FormattedID} - Quality View";
 }
 
-<div class="d-flex justify-content-end">
-    <a id="cancel-button" asp-controller="Home" asp-action="List" class="btn btn-close"></a>
-</div>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/ncrForm.css")" />
 
 <!--Header-->
 <div>
-    <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
-        <dl class="d-flex ">
+    <div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between form-labels">
+        <dl class="d-flex justify-content-between">
             <dt>
                 @Html.DisplayNameFor(model => model.FormattedID)
             </dt>
@@ -25,7 +23,7 @@
                 }
             </dd>
         </dl>
-        <dl class="d-flex">
+        <dl class="d-flex justify-content-between">
             <dt>
                 Date Created:
                 @* @Html.DisplayNameFor(model => model.NCR_Date) *@
@@ -35,7 +33,7 @@
             </dd>
         </dl>
     </div>
-    <div class="d-flex justify-content-between text-muted mb-3">
+    <div class="d-flex justify-content-between text-muted mb-3 small-stage-labels">
         <!--Previous Section = ProcurementDetails-->
         <a asp-action="ProcurementDetails" asp-route-id="@Model?.ID" class="btn-forward">
             <ion-icon name="arrow-back-circle-outline" class="btn-forward-icon"></ion-icon>
