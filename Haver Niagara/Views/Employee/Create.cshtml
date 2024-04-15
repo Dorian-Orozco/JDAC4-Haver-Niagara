@@ -60,9 +60,9 @@
                     List<Haver_Niagara.ViewModels.RoleVM> roles = ViewBag.Roles;
                     foreach (var role in roles)
                     {
-                        bool isAdmin = role.RoleName == "Admin";
-                        if (isAdmin)
-                            continue;
+                        // bool isAdmin = role.RoleName == "Admin";
+                        // if (isAdmin)
+                        //     continue;
                         if (cnt++ % 1 == 0)
                         {
                             @:</tr><tr>

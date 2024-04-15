@@ -308,22 +308,30 @@
                 // Check if "Yes" is selected
                 if ($(this).val() === "True") {
                     $('#RMANumber').prop('required', true);
+                    $('#RMANumber').prop('disabled', false);
                     $('#CarrierName').prop('required', true);
+                    $('#CarrierName').prop('disabled', false);
                     $('#CarrierPhone').prop('required', true);
+                    $('#CarrierPhone').prop('disabled', false);
                     $('#AccountNumber').prop('required', true);
+                    $('#AccountNumber').prop('disabled', false);
+                    $('input[name="Procurement.DisposeOnSite"]').prop('checked', false);
                     $('input[name="Procurement.DisposeOnSite"]').removeAttr('required');
                     $('input[name="Procurement.DisposeOnSite"]').prop('disabled', true);
-                    $('input[name="Procurement.DisposeOnSite"]').val('');
                 }
                 if ($(this).val() === "False") {
                     $('#RMANumber').val('');
                     $('#RMANumber').prop('required', false);
+                    $('#RMANumber').prop('disabled', true);
                     $('#CarrierName').val('');
                     $('#CarrierName').prop('required', false);
+                    $('#CarrierName').prop('disabled', true);
                     $('#CarrierPhone').val('');
                     $('#CarrierPhone').prop('required', false);
+                    $('#CarrierPhone').prop('disabled', true);
                     $('#AccountNumber').val('');
                     $('#AccountNumber').prop('required', false);
+                    $('#AccountNumber').prop('disabled', true);
                     $('input[name="Procurement.DisposeOnSite"]').prop('disabled', false);
                     $('input[name="Procurement.DisposeOnSite"]').prop('required', true);
                 }

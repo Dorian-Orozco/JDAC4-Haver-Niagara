@@ -61,41 +61,17 @@
                 <li class="nav-item border-top border-secondary pt-1 pb-1">
                     <a class="nav-link text-white" asp-area="" asp-controller="EmployeeAccount" asp-action="Details">Manage Account</a>
                 </li>
-                <form class="form-inline form-nav-item border-top border-secondary pt-1 pe-2" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" id="logout-button" class="nav-link btn btn-link text-white"><ion-icon class="text-white logout-icon" name="exit-outline"></ion-icon> Logout </button>
-                </form>                                                      
+                <form class="form-inline form-nav-item border-top border-secondary pt-1 pe-2" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" id="logoutForm">
+                    <button type="submit" class="nav-link btn btn-link text-white" id="logoutButton"><ion-icon class="text-white logout-icon" name="exit-outline"></ion-icon> Logout </button>
+                </form>
             </ul>
         </li>
     }
     else
     {
-        @*       <li class="nav-item">
-    <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li> *@  @* Accounts will be made by admin and any user who just goes on teh website cannot register to be part of the company *@
         <li class="nav-item">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
 </ul>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        //select the logout button by ID
-        var logoutButton = document.getElementById('logout-button');
-
-        //add click event listener to the logout button
-        logoutButton.addEventListener('click', function (event) {
-            //prevent the form from submitting
-            event.preventDefault();
-
-            //display confirmation dialog
-            var userConfirmed = confirm('Are you sure you want to log out?');
-
-            //if the user confirms, submit the form
-            if (userConfirmed) {
-                //find the form that contains the logout button and submit it
-                logoutButton.form.submit();
-            }
-        });
-    });
-</script>
