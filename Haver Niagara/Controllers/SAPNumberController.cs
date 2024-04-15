@@ -198,6 +198,19 @@ namespace Haver_Niagara.Controllers
                 return NotFound();
             }
 
+            // Check if there are any parts associated with this sap number
+            var associatedParts = await _context.Parts
+                .FirstOrDefaultAsync(p => p.PartNameID == id);
+
+            // If there are associated parts, check if any of them have associated NCRs
+            if (associatedParts != null)
+            {
+                var SAPNumber = sAPNumber.Number;
+                TempData["ErrorMessage"] = $"{SAPNumber} cannot be deleted because it is associated with an NCR.";
+                return RedirectToAction(nameof(Index));
+            }
+
+
             return View(sAPNumber);
         }
 
