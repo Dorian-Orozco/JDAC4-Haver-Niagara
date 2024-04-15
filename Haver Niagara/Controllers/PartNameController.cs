@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Haver_Niagara.CustomController;
 
 namespace Haver_Niagara.Controllers
 {
-    public class PartNameController : Controller
+    public class PartNameController : LookupsController
     {
         private readonly HaverNiagaraDbContext _context;
 
@@ -21,10 +22,10 @@ namespace Haver_Niagara.Controllers
         }
 
         // GET: PartName
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-              return View(await _context.PartNames.ToListAsync());
-        }
+			return Redirect(ViewData["returnURL"].ToString());
+		}
 
         // GET: PartName/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -125,7 +126,7 @@ namespace Haver_Niagara.Controllers
             {
                 _context.Add(partName);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Redirect(ViewData["returnURL"].ToString());
             }
             return View(partName);
         }
@@ -176,7 +177,7 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Redirect(ViewData["returnURL"].ToString());
             }
             return View(partName);
         }
@@ -215,7 +216,7 @@ namespace Haver_Niagara.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Redirect(ViewData["returnURL"].ToString());
         }
 
         private bool PartNameExists(int id)

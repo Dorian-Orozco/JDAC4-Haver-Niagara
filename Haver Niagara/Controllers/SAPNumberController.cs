@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Haver_Niagara.Data;
 using Haver_Niagara.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Haver_Niagara.CustomController;
 
 namespace Haver_Niagara.Controllers
 {
-    public class SAPNumberController : Controller
+    public class SAPNumberController : LookupsController
     {
         private readonly HaverNiagaraDbContext _context;
 
@@ -21,10 +22,10 @@ namespace Haver_Niagara.Controllers
         }
 
         // GET: SAPNumber
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-              return View(await _context.SAPNumbers.ToListAsync());
-        }
+			return Redirect(ViewData["returnURL"].ToString());
+		}
 
         // GET: SAPNumber/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -126,7 +127,7 @@ namespace Haver_Niagara.Controllers
             {
                 _context.Add(sAPNumber);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Redirect(ViewData["returnURL"].ToString());
             }
             return View(sAPNumber);
         }
@@ -177,7 +178,7 @@ namespace Haver_Niagara.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Redirect(ViewData["returnURL"].ToString());
             }
             return View(sAPNumber);
         }
@@ -216,7 +217,7 @@ namespace Haver_Niagara.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Redirect(ViewData["returnURL"].ToString());
         }
 
         private bool SAPNumberExists(int id)
