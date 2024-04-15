@@ -34,5 +34,21 @@ namespace Haver_Niagara.Controllers
                 .OrderBy(d => d.Name), "ID", "Name");
             return PartialView("_Defect");
         }
+
+        public PartialViewResult SAPNumber()
+        {
+            ViewData["SAPNumberID"] = new
+                SelectList(_context.SAPNumbers
+                .OrderBy(d => d.Number), "ID", "Number");
+            return PartialView("_SAPNumber");
+        }
+
+        public PartialViewResult PartName()
+        {
+            ViewData["PartNameID"] = new
+                SelectList(_context.PartNames
+                .OrderBy(d => d.Name), "ID", "Name");
+            return PartialView("_PartName");
+        }
     }
 }

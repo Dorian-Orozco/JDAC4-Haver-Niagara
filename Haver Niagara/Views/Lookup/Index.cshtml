@@ -5,11 +5,15 @@
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
 			<button class="nav-link active" id="Supplier-Tab" data-bs-toggle="tab" data-bs-target="#SupplierPanel" type="button" role="tab" aria-controls="SupplierPanel" aria-selected="true">Supplier</button>
 			<button class="nav-link" id="Defect-Tab" data-bs-toggle="tab" data-bs-target="#DefectPanel" type="button" role="tab" aria-controls="DefectPanel" aria-selected="true">Defect</button>
+			<button class="nav-link" id="SAPNumber-Tab" data-bs-toggle="tab" data-bs-target="#SAPNumberPanel" type="button" role="tab" aria-controls="SAPNumberPanel" aria-selected="true">SAP Number</button>
+			<button class="nav-link" id="PartName-Tab" data-bs-toggle="tab" data-bs-target="#PartNamePanel" type="button" role="tab" aria-controls="PartNamePanel" aria-selected="true">Part Name</button>
 		</div>
 	</nav>
 	<div class="tab-content" id="nav-tabContent">
 		<div class="tab-pane fade show active" id="SupplierPanel" role="tabpanel" aria-labelledby="Supplier-Tab"><br /></div>
 		<div class="tab-pane fade" id="DefectPanel" role="tabpanel" aria-labelledby="Defect-Tab"><br /></div>
+		<div class="tab-pane fade" id="SAPNumberPanel" role="tabpanel" aria-labelledby="SAPNumber-Tab"><br /></div>
+		<div class="tab-pane fade" id="PartNamePanel" role="tabpanel" aria-labelledby="PartName-Tab"><br /></div>
 	</div>
 </div>
 <hr />
@@ -21,6 +25,10 @@
 				case 'Supplier-Tab': $('#SupplierPanel').load('/Lookup/Supplier');
 					break;
 				case 'Defect-Tab': $('#DefectPanel').load('/Lookup/Defect');
+					break;
+				case 'SAPNumber-Tab': $('#SAPNumberPanel').load('/Lookup/SAPNumber');
+					break;
+				case 'PartName-Tab': $('#PartNamePanel').load('/Lookup/PartName');
 					break;
 				default: break;
 			};
