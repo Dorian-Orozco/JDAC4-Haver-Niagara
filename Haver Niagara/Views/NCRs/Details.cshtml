@@ -14,8 +14,8 @@
 {
     <input type="submit" value="Print Log" />
 } *@
-<div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between">
-    <dl class="d-flex ">
+<div class="pt-2 pb-0 ps-1 fs-5 d-flex justify-content-between form-labels">
+    <dl class="d-flex justify-content-between">
         <dt>
             @Html.DisplayNameFor(model => model.FormattedID)
         </dt>
@@ -26,7 +26,7 @@
             }
         </dd>
     </dl>
-    <dl class="d-flex">
+    <dl class="d-flex justify-content-between">
         <dt>
             Date Created:
             @* @Html.DisplayNameFor(model => model.NCR_Date) *@
@@ -36,7 +36,7 @@
         </dd>
     </dl>
 </div>
-<div class="d-flex justify-content-center text-muted mb-3 stage-rad-btns">
+<div class="d-flex justify-content-center text-muted mb-3 stage-rad-btns small-stage-labels">
     @foreach (var ncrStage in Enum.GetValues(typeof(NCRStage))) //working!
     {
         <div class="form-check form-check-inline">
