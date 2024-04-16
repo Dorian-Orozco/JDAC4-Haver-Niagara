@@ -289,6 +289,9 @@ tr:nth-child(even) {
         visibility: hidden;
     }
 
+    img {
+        width: 100%;
+    }
 }
 
 @media (min-width: 321px) and (max-width: 376px) {
@@ -404,6 +407,10 @@ tr:nth-child(even) {
 
     .hide-btns {
         visibility: hidden;
+    }
+
+    .img {
+        width: 100%;
     }
 }
 

@@ -1,4 +1,10 @@
-﻿@media (max-width: 426px) {
+﻿@media (max-width: 376px) {
+    .report-container {
+        padding: 30px 15px;
+    }
+}
+
+@media (max-width: 426px) {
     .report-container {
         width: 100%;
     }
