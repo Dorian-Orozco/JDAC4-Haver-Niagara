@@ -25,10 +25,10 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-    .activeCard:hover {
-        color: rgb(0, 91, 184);
-        border-color: rgb(0, 91, 184);
-    }
+.activeCard:hover {
+    color: rgb(0, 91, 184);
+    border-color: rgb(0, 91, 184);
+}
 
 .body {
     color: #0C2340;
@@ -80,10 +80,10 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-    .closedCard:hover {
-        border-color: #90134f;
-        color: #90134f;
-    }
+.closedCard:hover {
+    border-color: #90134f;
+    color: #90134f;
+}
 
 .dashboard-bg {
     background-color: #E7E7E7;
@@ -129,10 +129,10 @@ a, a:hover {
     transition: 0.1s ease-in-out all;
 }
 
-    .stageCard:hover {
-        border-color: rgb(0, 143, 134);
-        color: rgb(0, 143, 134);
-    }
+.stageCard:hover {
+    border-color: rgb(0, 143, 134);
+    color: rgb(0, 143, 134);
+}
 
 table {
     border-collapse: collapse;
@@ -166,11 +166,6 @@ tr:nth-child(even) {
     padding: 1rem;
 }
 
-.stage-dd {
-    width: 15%;
-    padding-left: 15px;
-}
-
 /* media queries */
 
 @media (max-width: 320px) {
@@ -195,6 +190,16 @@ tr:nth-child(even) {
         width: 100%;
     }
 
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container > * {
+        margin-bottom: 10px;
+    }
+
     .card-row {
         flex-direction: column;
         align-items: center;
@@ -209,15 +214,18 @@ tr:nth-child(even) {
         font-weight: 600;
     }
 
+    .hide-btns {
+        visibility: hidden;
+    }
+
     .stage {
         width: 75%;
         display: block;
         margin: 0 auto;
     }
 
-    .stage-dd {
-        width: 68%;
-        padding-left: 0px;
+    select {
+        visibility: hidden;
     }
 
     table {
@@ -244,19 +252,15 @@ tr:nth-child(even) {
         display: block;
     }
 
-        thead th {
-            display: none;
-        }
+    thead th {
+        display: none;
+    }
 
     th,
     td {
         width: 100% !important;
         text-align: center;
         padding: 5px;
-    }
-
-    .view-btn {
-        font-size: 20px;
     }
 
     /* Hide status column */
@@ -271,26 +275,8 @@ tr:nth-child(even) {
         display: none;
     }
 
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-        .button-container > * {
-            margin-bottom: 10px;
-        }
-
-    select {
-        visibility: hidden;
-    }
-
-    .hide-btns {
-        visibility: hidden;
-    }
-
-    img {
-        width: 100%;
+    .view-btn {
+        font-size: 20px;
     }
 }
 
@@ -315,6 +301,16 @@ tr:nth-child(even) {
         width: 100%;
     }
 
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container > * {
+        margin-bottom: 10px;
+    }
+
     .card-row {
         flex-direction: column;
         align-items: center;
@@ -329,15 +325,18 @@ tr:nth-child(even) {
         font-weight: 600;
     }
 
+    .hide-btns {
+        visibility: hidden;
+    }
+
+    select {
+        visibility: hidden;
+    }
+
     .stage {
         width: 75%;
         display: block;
         margin: 0 auto;
-    }
-
-    .stage-dd {
-        width: 55%;
-        padding-left: 0px;
     }
 
     table {
@@ -364,19 +363,15 @@ tr:nth-child(even) {
         display: block;
     }
 
-        thead th {
-            display: none;
-        }
+    thead th {
+        display: none;
+    }
 
     th,
     td {
         width: 100% !important;
         text-align: center;
         padding: 5px;
-    }
-
-    .view-btn {
-        font-size: 20px;
     }
 
     /* Hide status column */
@@ -391,26 +386,8 @@ tr:nth-child(even) {
         display: none;
     }
 
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-        .button-container > * {
-            margin-bottom: 10px;
-        }
-
-    select {
-        visibility: hidden;
-    }
-
-    .hide-btns {
-        visibility: hidden;
-    }
-
-    .img {
-        width: 100%;
+    .view-btn {
+        font-size: 20px;
     }
 }
 
@@ -441,6 +418,16 @@ tr:nth-child(even) {
         width: 100%;
     }
 
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container > * {
+        margin-bottom: 10px;
+    }
+
     .card-row {
         flex-direction: column;
         align-items: center;
@@ -455,15 +442,18 @@ tr:nth-child(even) {
         font-weight: 600;
     }
 
+    .hide-btns {
+        visibility: hidden;
+    }
+
+    select {
+        visibility: hidden;
+    }
+
     .stage {
         width: 75%;
         display: block;
         margin: 0 auto;
-    }
-
-    .stage-dd {
-        width: 47%;
-        padding-left: 0px;
     }
 
     table {
@@ -490,19 +480,15 @@ tr:nth-child(even) {
         display: block;
     }
 
-        thead th {
-            display: none;
-        }
+    thead th {
+        display: none;
+    }
 
     th,
     td {
         width: 100% !important;
         text-align: center;
         padding: 5px;
-    }
-
-    .view-btn {
-        font-size: 25px;
     }
 
     /* Hide status column */
@@ -517,30 +503,11 @@ tr:nth-child(even) {
         display: none;
     }
 
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-        .button-container > * {
-            margin-bottom: 10px;
-        }
-
     .view-all-btn {
         display: none;
     }
-
-    .stage-dd {
-        width: 54%;
-    }
-
-    select {
-        visibility: hidden;
-    }
-
-    .hide-btns {
-        visibility: hidden;
+    .view-btn {
+        font-size: 25px;
     }
 }
 
@@ -564,6 +531,16 @@ tr:nth-child(even) {
         width: 100%;
     }
 
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-container > * {
+        margin-bottom: 10px;
+    }
+
     .card-row {
         flex-direction: column;
         align-items: center;
@@ -574,8 +551,25 @@ tr:nth-child(even) {
         width: 100%;
     }
 
+    .dashboard-row {
+        padding: 0 4rem;
+    }
+
     .for-small-screen {
         font-weight: 600;
+    }
+
+    .hide-btns {
+        visibility: hidden;
+    }
+
+    .mb-4 {
+        margin-bottom: 0.5rem !important;
+        margin-left: 60px;
+    }
+
+    select {
+        visibility: hidden;
     }
 
     .stage {
@@ -608,19 +602,15 @@ tr:nth-child(even) {
         display: block;
     }
 
-        thead th {
-            display: none;
-        }
+    thead th {
+        display: none;
+    }
 
     th,
     td {
         width: 100% !important;
         text-align: center;
         padding: 5px;
-    }
-
-    .view-btn {
-        font-size: 25px;
     }
 
     /* Hide status column */
@@ -635,40 +625,12 @@ tr:nth-child(even) {
         display: none;
     }
 
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-        .button-container > * {
-            margin-bottom: 10px;
-        }
-
     .view-all-btn {
         display: none;
     }
 
-    .stage-dd {
-        width: 28%;
-        padding-left: 0px;
-    }
-
-    .dashboard-row {
-        padding: 0 4rem;
-    }
-
-    select {
-        visibility: hidden;
-    }
-
-    .hide-btns {
-        visibility: hidden;
-    }
-
-    .mb-4 {
-        margin-bottom: 0.5rem !important;
-        margin-left: 60px;
+    .view-btn {
+        font-size: 25px;
     }
 }
 
@@ -676,10 +638,5 @@ tr:nth-child(even) {
 
     h1 {
         font-size: 36px;
-    }
-
-    .stage-dd {
-        width: 20%;
-        padding-left: 15px;
     }
 }
