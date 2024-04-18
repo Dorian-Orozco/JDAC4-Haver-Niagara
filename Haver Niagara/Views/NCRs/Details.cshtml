@@ -235,7 +235,7 @@
                         {
                             if (image.Content != null)
                             {
-                                <img src="data:@image.MimeType;base64,@Convert.ToBase64String(image.Content)" alt="@image.Description" width="300" height="300" />
+                                <img src="data:@image.MimeType;base64,@Convert.ToBase64String(image.Content)" alt="@image.Description" class="img-responsive" width="300" height="300" />
 
                             }
                             else
@@ -270,7 +270,7 @@
                         {
                             if (!string.IsNullOrEmpty(media.Links))
                             {
-                                <dd class="mt-1 ps-3">
+                                <dd class="mt-1 ps-3 links-container">
                                     <a href="@media.Links">@media.Links</a>
                                 </dd>
                             }
